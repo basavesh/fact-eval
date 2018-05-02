@@ -1,13 +1,8 @@
-all: s3_cbc.o
+all:
 
-.PRECIOUS: s3_cbc.h
-
-s3cbc:
-	../../fact.byte -generate-header -opt O2 -llvm-out stdlib.fact s3_cbc.fact
-
-s3_cbc.o: stdlib.fact s3_cbc.fact Makefile ../../fact.byte
-	../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O2 stdlib.fact s3_cbc.fact
-
-
-clean:
-	rm -f *.s *.o *.bc s3_cbc.h *.pseudo.fact *.ll *.bin *.res *.ml
+generate:
+	$(FACTC) -llvm-out -smack-out -generate-header stdlib.fact s3_cbc.fact
+	$(FACTC) -llvm-out -smack-out -generate-header -opt O2 stdlib.fact s3_cbc.fact -o s3_cbc.O2.fact
+	mv *.o *.s *.h obj/
+	mv *.smack.ll smack-ll/
+	mv *.bc *.ll ll/
