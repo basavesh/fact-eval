@@ -2525,7 +2525,7 @@ entry:
   ret i1 %_secret_trunc
 }
 
-define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %_secret_arrarg1, %EVP_AES_HMAC_SHA1* %key, i8* %_secret_arrarg3, i32 %_public____out_len4, i8* %_secret_arrarg6, i32 %_public____in_len7, i64 %_public_plen8) {
+define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %_secret_arrarg1, %EVP_AES_HMAC_SHA1* %key, i8* %_secret_arrarg3, i32 %_public____out_len4, i8* %_secret_arrarg6, i32 %_public____in_len7, i64 %_public_plen8, i16 %_public_tls_ver9) {
 entry:
   %_secret_arrarg = alloca i8*
   store i8* %_secret_arrarg1, i8** %_secret_arrarg
@@ -2539,6 +2539,8 @@ entry:
   store i32 %_public____in_len7, i32* %_public____in_len
   %_public_plen = alloca i64
   store i64 %_public_plen8, i64* %_public_plen
+  %_public_tls_ver = alloca i16
+  store i16 %_public_tls_ver9, i16* %_public_tls_ver
   %_secret___rval = alloca i32
   %_secret___rnset = alloca i1
   %_public___v60_NO_PAYLOAD_LENGTH = alloca i64
@@ -2551,26 +2553,25 @@ entry:
   %_public___v67_inp = alloca i32
   %_public___v68_outp = alloca i32
   %_public___v69__len = alloca i32
-  %_secret___v70_tls_ver = alloca i16
-  %_public___v72___v71_len = alloca i32
-  %_public___v74___v73_len = alloca i32
-  %_secret___v75_pad = alloca i32
-  %_public___v76_tmppad = alloca i32
-  %_public___v77_maxpad = alloca i32
+  %_public___v71___v70_len = alloca i32
+  %_public___v73___v72_len = alloca i32
+  %_secret___v74_pad = alloca i32
+  %_public___v75_tmppad = alloca i32
+  %_public___v76_maxpad = alloca i32
   %_secret___m16 = alloca i1
-  %_secret___v78_inp_len = alloca i32
-  %_secret___v79_ctx_num = alloca i32
-  %_public___v82___v81_len = alloca i32
-  %_public___v83_minlen = alloca i32
-  %_public___v85___v84_len = alloca i32
-  %_public___v87___v86_len = alloca i32
-  %_public___v88_pub_start = alloca i32
+  %_secret___v77_inp_len = alloca i32
+  %_secret___v78_ctx_num = alloca i32
+  %_public___v81___v80_len = alloca i32
+  %_public___v82_minlen = alloca i32
+  %_public___v84___v83_len = alloca i32
+  %_public___v86___v85_len = alloca i32
+  %_public___v87_pub_start = alloca i32
   %_secret___m17 = alloca i1
-  %_public___v89_i = alloca i32
+  %_public___v88_i = alloca i32
   %_secret___m18 = alloca i1
   %_secret___m19 = alloca i1
   %_secret___m20 = alloca i1
-  %_secret___v90_j = alloca i32
+  %_secret___v89_j = alloca i32
   %_secret___m21 = alloca i1
   store i32 0, i32* %_secret___rval
   store i1 true, i1* %_secret___rnset
@@ -2583,16 +2584,16 @@ entry:
   %_public_multmp = mul i32 %_public_lval, 4
   store i32 %_public_multmp, i32* %_public___v65_SHA_CBLOCK
   store i32 1, i32* %_secret___v66_ret
-  %_public_lval9 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
-  %_public_icast = zext i32 %_public_lval9 to i64
+  %_public_lval10 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
+  %_public_icast = zext i32 %_public_lval10 to i64
   %_public_neqtmp = icmp ne i64 %_public_icast, 0
   %_public_zexttmp = zext i1 %_public_neqtmp to i32
   call void @__VERIFIER_assert(i32 %_public_zexttmp)
-  %_public_lval10 = load i32, i32* %_public____in_len
-  %_public_lval11 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
-  %_public_uremtmp = urem i32 %_public_lval10, %_public_lval11
-  %_public_neqtmp12 = icmp ne i32 %_public_uremtmp, 0
-  %_public_branchcompare = icmp eq i1 %_public_neqtmp12, true
+  %_public_lval11 = load i32, i32* %_public____in_len
+  %_public_lval12 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
+  %_public_uremtmp = urem i32 %_public_lval11, %_public_lval12
+  %_public_neqtmp13 = icmp ne i32 %_public_uremtmp, 0
+  %_public_branchcompare = icmp eq i1 %_public_neqtmp13, true
   br i1 %_public_branchcompare, label %thenbranch, label %elsebranch
 
 thenbranch:                                       ; preds = %entry
@@ -2606,1037 +2607,958 @@ elsebranch:                                       ; preds = %entry
 branchmerge:                                      ; preds = %elsebranch
   store i32 0, i32* %_public___v67_inp
   store i32 0, i32* %_public___v68_outp
-  %_public_lval13 = load i32, i32* %_public____out_len
-  store i32 %_public_lval13, i32* %_public___v69__len
-  %_public_lval14 = load i64, i64* %_public_plen
-  %_public_subtmp = sub i64 %_public_lval14, 4
-  %_public_addtmp = add i64 %_public_subtmp, 2
-  %_public_lval15 = load i64, i64* %_public_plen
-  %_public_subtmp16 = sub i64 %_public_lval15, 4
-  %_public_ugttmp = icmp ugt i64 %_public_addtmp, %_public_subtmp16
-  %_public_zexttmp17 = zext i1 %_public_ugttmp to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp17)
-  %_public_lval18 = load i64, i64* %_public_plen
-  %_public_subtmp19 = sub i64 %_public_lval18, 4
-  %_public_ugtetmp = icmp uge i64 %_public_subtmp19, 0
-  %_public_zexttmp20 = zext i1 %_public_ugtetmp to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp20)
-  %_public_lval21 = load i64, i64* %_public_plen
-  %_public_subtmp22 = sub i64 %_public_lval21, 4
-  %_public_ulttmp = icmp ult i64 %_public_subtmp22, 16
-  %_public_zexttmp23 = zext i1 %_public_ulttmp to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp23)
-  %_public_lval24 = load i64, i64* %_public_plen
-  %_public_subtmp25 = sub i64 %_public_lval24, 4
-  %_public_addtmp26 = add i64 %_public_subtmp25, 2
-  %_public_subtmp27 = sub i64 %_public_addtmp26, 1
-  %_public_ugtetmp28 = icmp uge i64 %_public_subtmp27, 0
-  %_public_zexttmp29 = zext i1 %_public_ugtetmp28 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp29)
-  %_public_lval30 = load i64, i64* %_public_plen
-  %_public_subtmp31 = sub i64 %_public_lval30, 4
-  %_public_addtmp32 = add i64 %_public_subtmp31, 2
-  %_public_subtmp33 = sub i64 %_public_addtmp32, 1
-  %_public_ulttmp34 = icmp ult i64 %_public_subtmp33, 16
-  %_public_zexttmp35 = zext i1 %_public_ulttmp34 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp35)
-  %_public_lval36 = load i64, i64* %_public_plen
-  %_public_subtmp37 = sub i64 %_public_lval36, 4
-  %_secret_structgep = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
-  %_secret_arrview = alloca i8*
-  %_secret_source_gep = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep, i64 0, i64 %_public_subtmp37
-  store i8* %_secret_source_gep, i8** %_secret_arrview
-  %_public_lval38 = load i64, i64* %_public_plen
-  %_public_subtmp39 = sub i64 %_public_lval38, 4
-  %_public_addtmp40 = add i64 %_public_subtmp39, 2
-  %_public_lval41 = load i64, i64* %_public_plen
-  %_public_subtmp42 = sub i64 %_public_lval41, 4
-  %_public_ugttmp43 = icmp ugt i64 %_public_addtmp40, %_public_subtmp42
-  %_public_zexttmp44 = zext i1 %_public_ugttmp43 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp44)
-  %_public_lval45 = load i64, i64* %_public_plen
-  %_public_subtmp46 = sub i64 %_public_lval45, 4
-  %_public_ugtetmp47 = icmp uge i64 %_public_subtmp46, 0
-  %_public_zexttmp48 = zext i1 %_public_ugtetmp47 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp48)
-  %_public_lval49 = load i64, i64* %_public_plen
-  %_public_subtmp50 = sub i64 %_public_lval49, 4
-  %_public_ulttmp51 = icmp ult i64 %_public_subtmp50, 16
-  %_public_zexttmp52 = zext i1 %_public_ulttmp51 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp52)
-  %_public_lval53 = load i64, i64* %_public_plen
-  %_public_subtmp54 = sub i64 %_public_lval53, 4
-  %_public_addtmp55 = add i64 %_public_subtmp54, 2
-  %_public_subtmp56 = sub i64 %_public_addtmp55, 1
-  %_public_ugtetmp57 = icmp uge i64 %_public_subtmp56, 0
-  %_public_zexttmp58 = zext i1 %_public_ugtetmp57 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp58)
-  %_public_lval59 = load i64, i64* %_public_plen
-  %_public_subtmp60 = sub i64 %_public_lval59, 4
-  %_public_addtmp61 = add i64 %_public_subtmp60, 2
-  %_public_subtmp62 = sub i64 %_public_addtmp61, 1
-  %_public_ulttmp63 = icmp ult i64 %_public_subtmp62, 16
-  %_public_zexttmp64 = zext i1 %_public_ulttmp63 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp64)
-  %_public_lval65 = load i64, i64* %_public_plen
-  %_public_subtmp66 = sub i64 %_public_lval65, 4
-  %_secret_structgep67 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
-  %_secret_arrview68 = alloca i8*
-  %_secret_source_gep69 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep67, i64 0, i64 %_public_subtmp66
-  store i8* %_secret_source_gep69, i8** %_secret_arrview68
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrview68
-  %_secret_calltmp = call i16 @load16_be(i8* %_secret_dynarrarg)
-  store i16 %_secret_calltmp, i16* %_secret___v70_tls_ver
-  %_secret_lval70 = load i16, i16* %_secret___v70_tls_ver
-  %_public_lval71 = load i32, i32* %_public___v63_TLS1_1_VERSION
-  %_secret_lhssext = zext i16 %_secret_lval70 to i32
-  %_declassified__secret_ugtetmp = icmp uge i32 %_secret_lhssext, %_public_lval71
-  %_public_branchcompare72 = icmp eq i1 %_declassified__secret_ugtetmp, true
-  br i1 %_public_branchcompare72, label %thenbranch73, label %elsebranch97
+  %_public_lval14 = load i32, i32* %_public____out_len
+  store i32 %_public_lval14, i32* %_public___v69__len
+  %_public_lval15 = load i16, i16* %_public_tls_ver
+  %_public_lval16 = load i32, i32* %_public___v63_TLS1_1_VERSION
+  %_public_lhssext = zext i16 %_public_lval15 to i32
+  %_public_ugtetmp = icmp uge i32 %_public_lhssext, %_public_lval16
+  %_public_branchcompare17 = icmp eq i1 %_public_ugtetmp, true
+  br i1 %_public_branchcompare17, label %thenbranch18, label %elsebranch38
 
-thenbranch73:                                     ; preds = %branchmerge
-  %_public_lval74 = load i32, i32* %_public___v69__len
-  %_public_lval75 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
-  %_public_lval76 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp77 = add i32 %_public_lval75, %_public_lval76
-  %_public_addtmp78 = add i32 %_public_addtmp77, 1
-  %_public_ulttmp79 = icmp ult i32 %_public_lval74, %_public_addtmp78
-  %_public_branchcompare80 = icmp eq i1 %_public_ulttmp79, true
-  br i1 %_public_branchcompare80, label %thenbranch81, label %elsebranch83
+thenbranch18:                                     ; preds = %branchmerge
+  %_public_lval19 = load i32, i32* %_public___v69__len
+  %_public_lval20 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
+  %_public_lval21 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp = add i32 %_public_lval20, %_public_lval21
+  %_public_addtmp22 = add i32 %_public_addtmp, 1
+  %_public_ulttmp = icmp ult i32 %_public_lval19, %_public_addtmp22
+  %_public_branchcompare23 = icmp eq i1 %_public_ulttmp, true
+  br i1 %_public_branchcompare23, label %thenbranch24, label %elsebranch26
 
-thenbranch81:                                     ; preds = %thenbranch73
+thenbranch24:                                     ; preds = %thenbranch18
   store i32 0, i32* %_secret___rval
-  %_secret_lval82 = load i32, i32* %_secret___rval
-  ret i32 %_secret_lval82
+  %_secret_lval25 = load i32, i32* %_secret___rval
+  ret i32 %_secret_lval25
 
-elsebranch83:                                     ; preds = %thenbranch73
-  br label %branchmerge84
+elsebranch26:                                     ; preds = %thenbranch18
+  br label %branchmerge27
 
-branchmerge84:                                    ; preds = %elsebranch83
-  %_secret_dynarrarg85 = load i8*, i8** %_secret_arrarg
-  %_secret_dynarrarg86 = load i8*, i8** %_secret_arrarg5
-  %_public_lval87 = load i32, i32* %_public____in_len
-  call void @_arrcopy(i8* %_secret_dynarrarg85, i32 16, i8* %_secret_dynarrarg86, i32 %_public_lval87)
-  %_public_lval88 = load i32, i32* %_public___v67_inp
-  %_public_lval89 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
-  %_public_addtmp90 = add i32 %_public_lval88, %_public_lval89
-  store i32 %_public_addtmp90, i32* %_public___v67_inp
-  %_public_lval91 = load i32, i32* %_public___v68_outp
-  %_public_lval92 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
-  %_public_addtmp93 = add i32 %_public_lval91, %_public_lval92
-  store i32 %_public_addtmp93, i32* %_public___v68_outp
-  %_public_lval94 = load i32, i32* %_public___v69__len
-  %_public_lval95 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
-  %_public_subtmp96 = sub i32 %_public_lval94, %_public_lval95
-  store i32 %_public_subtmp96, i32* %_public___v69__len
-  br label %branchmerge107
+branchmerge27:                                    ; preds = %elsebranch26
+  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg
+  %_secret_dynarrarg28 = load i8*, i8** %_secret_arrarg5
+  %_public_lval29 = load i32, i32* %_public____in_len
+  call void @_arrcopy(i8* %_secret_dynarrarg, i32 16, i8* %_secret_dynarrarg28, i32 %_public_lval29)
+  %_public_lval30 = load i32, i32* %_public___v67_inp
+  %_public_lval31 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
+  %_public_addtmp32 = add i32 %_public_lval30, %_public_lval31
+  store i32 %_public_addtmp32, i32* %_public___v67_inp
+  %_public_lval33 = load i32, i32* %_public___v68_outp
+  %_public_lval34 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
+  %_public_addtmp35 = add i32 %_public_lval33, %_public_lval34
+  store i32 %_public_addtmp35, i32* %_public___v68_outp
+  %_public_lval36 = load i32, i32* %_public___v69__len
+  %_public_lval37 = load i32, i32* %_public___v61_AES_BLOCK_SIZE
+  %_public_subtmp = sub i32 %_public_lval36, %_public_lval37
+  store i32 %_public_subtmp, i32* %_public___v69__len
+  br label %branchmerge48
 
-elsebranch97:                                     ; preds = %branchmerge
-  %_public_lval98 = load i32, i32* %_public___v69__len
-  %_public_lval99 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp100 = add i32 %_public_lval99, 1
-  %_public_ulttmp101 = icmp ult i32 %_public_lval98, %_public_addtmp100
-  %_public_branchcompare102 = icmp eq i1 %_public_ulttmp101, true
-  br i1 %_public_branchcompare102, label %thenbranch103, label %elsebranch105
+elsebranch38:                                     ; preds = %branchmerge
+  %_public_lval39 = load i32, i32* %_public___v69__len
+  %_public_lval40 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp41 = add i32 %_public_lval40, 1
+  %_public_ulttmp42 = icmp ult i32 %_public_lval39, %_public_addtmp41
+  %_public_branchcompare43 = icmp eq i1 %_public_ulttmp42, true
+  br i1 %_public_branchcompare43, label %thenbranch44, label %elsebranch46
 
-thenbranch103:                                    ; preds = %elsebranch97
+thenbranch44:                                     ; preds = %elsebranch38
   store i32 0, i32* %_secret___rval
-  %_secret_lval104 = load i32, i32* %_secret___rval
-  ret i32 %_secret_lval104
+  %_secret_lval45 = load i32, i32* %_secret___rval
+  ret i32 %_secret_lval45
 
-elsebranch105:                                    ; preds = %elsebranch97
-  br label %branchmerge106
+elsebranch46:                                     ; preds = %elsebranch38
+  br label %branchmerge47
 
-branchmerge106:                                   ; preds = %elsebranch105
-  br label %branchmerge107
+branchmerge47:                                    ; preds = %elsebranch46
+  br label %branchmerge48
 
-branchmerge107:                                   ; preds = %branchmerge106, %branchmerge84
-  %_public_lval108 = load i32, i32* %_public___v69__len
-  store i32 %_public_lval108, i32* %_public___v72___v71_len
-  %_public_lval109 = load i32, i32* %_public___v69__len
-  store i32 %_public_lval109, i32* %_public___v74___v73_len
+branchmerge48:                                    ; preds = %branchmerge47, %branchmerge27
+  %_public_lval49 = load i32, i32* %_public___v69__len
+  store i32 %_public_lval49, i32* %_public___v71___v70_len
+  %_public_lval50 = load i32, i32* %_public___v69__len
+  store i32 %_public_lval50, i32* %_public___v73___v72_len
+  %_public_lval51 = load i32, i32* %_public___v67_inp
+  %_public_lval52 = load i32, i32* %_public___v71___v70_len
+  %_public_icast53 = zext i32 %_public_lval52 to i64
+  %_public_lhssext54 = zext i32 %_public_lval51 to i64
+  %_public_addtmp55 = add i64 %_public_lhssext54, %_public_icast53
+  %_public_truncbinop = trunc i64 %_public_addtmp55 to i32
+  %_public_lval56 = load i32, i32* %_public___v67_inp
+  %_public_ugttmp = icmp ugt i32 %_public_truncbinop, %_public_lval56
+  %_public_zexttmp57 = zext i1 %_public_ugttmp to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp57)
+  %_public_lval58 = load i32, i32* %_public___v67_inp
+  %_public_lhssext59 = zext i32 %_public_lval58 to i64
+  %_public_ugtetmp60 = icmp uge i64 %_public_lhssext59, 0
+  %_public_zexttmp61 = zext i1 %_public_ugtetmp60 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp61)
+  %_public_lval62 = load i32, i32* %_public___v67_inp
+  %_public_lval63 = load i32, i32* %_public____in_len
+  %_public_icast64 = zext i32 %_public_lval63 to i64
+  %_public_lhssext65 = zext i32 %_public_lval62 to i64
+  %_public_ulttmp66 = icmp ult i64 %_public_lhssext65, %_public_icast64
+  %_public_zexttmp67 = zext i1 %_public_ulttmp66 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp67)
+  %_public_lval68 = load i32, i32* %_public___v67_inp
+  %_public_lval69 = load i32, i32* %_public___v71___v70_len
+  %_public_icast70 = zext i32 %_public_lval69 to i64
+  %_public_lhssext71 = zext i32 %_public_lval68 to i64
+  %_public_addtmp72 = add i64 %_public_lhssext71, %_public_icast70
+  %_public_truncbinop73 = trunc i64 %_public_addtmp72 to i32
+  %_public_subtmp74 = sub i32 %_public_truncbinop73, 1
+  %_public_lhssext75 = zext i32 %_public_subtmp74 to i64
+  %_public_ugtetmp76 = icmp uge i64 %_public_lhssext75, 0
+  %_public_zexttmp77 = zext i1 %_public_ugtetmp76 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp77)
+  %_public_lval78 = load i32, i32* %_public___v67_inp
+  %_public_lval79 = load i32, i32* %_public___v71___v70_len
+  %_public_icast80 = zext i32 %_public_lval79 to i64
+  %_public_lhssext81 = zext i32 %_public_lval78 to i64
+  %_public_addtmp82 = add i64 %_public_lhssext81, %_public_icast80
+  %_public_truncbinop83 = trunc i64 %_public_addtmp82 to i32
+  %_public_subtmp84 = sub i32 %_public_truncbinop83, 1
+  %_public_lval85 = load i32, i32* %_public____in_len
+  %_public_icast86 = zext i32 %_public_lval85 to i64
+  %_public_lhssext87 = zext i32 %_public_subtmp84 to i64
+  %_public_ulttmp88 = icmp ult i64 %_public_lhssext87, %_public_icast86
+  %_public_zexttmp89 = zext i1 %_public_ulttmp88 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp89)
+  %_public_lval90 = load i32, i32* %_public___v67_inp
+  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg5
+  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i32 %_public_lval90
+  %_secret_arrviewdyn = alloca i8*
+  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
+  %_public_lval91 = load i32, i32* %_public___v67_inp
+  %_public_lval92 = load i32, i32* %_public___v71___v70_len
+  %_public_icast93 = zext i32 %_public_lval92 to i64
+  %_public_lhssext94 = zext i32 %_public_lval91 to i64
+  %_public_addtmp95 = add i64 %_public_lhssext94, %_public_icast93
+  %_public_truncbinop96 = trunc i64 %_public_addtmp95 to i32
+  %_public_lval97 = load i32, i32* %_public___v67_inp
+  %_public_ugttmp98 = icmp ugt i32 %_public_truncbinop96, %_public_lval97
+  %_public_zexttmp99 = zext i1 %_public_ugttmp98 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp99)
+  %_public_lval100 = load i32, i32* %_public___v67_inp
+  %_public_lhssext101 = zext i32 %_public_lval100 to i64
+  %_public_ugtetmp102 = icmp uge i64 %_public_lhssext101, 0
+  %_public_zexttmp103 = zext i1 %_public_ugtetmp102 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp103)
+  %_public_lval104 = load i32, i32* %_public___v67_inp
+  %_public_lval105 = load i32, i32* %_public____in_len
+  %_public_icast106 = zext i32 %_public_lval105 to i64
+  %_public_lhssext107 = zext i32 %_public_lval104 to i64
+  %_public_ulttmp108 = icmp ult i64 %_public_lhssext107, %_public_icast106
+  %_public_zexttmp109 = zext i1 %_public_ulttmp108 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp109)
   %_public_lval110 = load i32, i32* %_public___v67_inp
-  %_public_lval111 = load i32, i32* %_public___v72___v71_len
+  %_public_lval111 = load i32, i32* %_public___v71___v70_len
   %_public_icast112 = zext i32 %_public_lval111 to i64
-  %_public_lhssext = zext i32 %_public_lval110 to i64
-  %_public_addtmp113 = add i64 %_public_lhssext, %_public_icast112
-  %_public_truncbinop = trunc i64 %_public_addtmp113 to i32
-  %_public_lval114 = load i32, i32* %_public___v67_inp
-  %_public_ugttmp115 = icmp ugt i32 %_public_truncbinop, %_public_lval114
-  %_public_zexttmp116 = zext i1 %_public_ugttmp115 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp116)
-  %_public_lval117 = load i32, i32* %_public___v67_inp
-  %_public_lhssext118 = zext i32 %_public_lval117 to i64
-  %_public_ugtetmp119 = icmp uge i64 %_public_lhssext118, 0
-  %_public_zexttmp120 = zext i1 %_public_ugtetmp119 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp120)
-  %_public_lval121 = load i32, i32* %_public___v67_inp
-  %_public_lval122 = load i32, i32* %_public____in_len
-  %_public_icast123 = zext i32 %_public_lval122 to i64
-  %_public_lhssext124 = zext i32 %_public_lval121 to i64
-  %_public_ulttmp125 = icmp ult i64 %_public_lhssext124, %_public_icast123
-  %_public_zexttmp126 = zext i1 %_public_ulttmp125 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp126)
-  %_public_lval127 = load i32, i32* %_public___v67_inp
-  %_public_lval128 = load i32, i32* %_public___v72___v71_len
-  %_public_icast129 = zext i32 %_public_lval128 to i64
-  %_public_lhssext130 = zext i32 %_public_lval127 to i64
-  %_public_addtmp131 = add i64 %_public_lhssext130, %_public_icast129
-  %_public_truncbinop132 = trunc i64 %_public_addtmp131 to i32
-  %_public_subtmp133 = sub i32 %_public_truncbinop132, 1
-  %_public_lhssext134 = zext i32 %_public_subtmp133 to i64
-  %_public_ugtetmp135 = icmp uge i64 %_public_lhssext134, 0
-  %_public_zexttmp136 = zext i1 %_public_ugtetmp135 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp136)
-  %_public_lval137 = load i32, i32* %_public___v67_inp
-  %_public_lval138 = load i32, i32* %_public___v72___v71_len
+  %_public_lhssext113 = zext i32 %_public_lval110 to i64
+  %_public_addtmp114 = add i64 %_public_lhssext113, %_public_icast112
+  %_public_truncbinop115 = trunc i64 %_public_addtmp114 to i32
+  %_public_subtmp116 = sub i32 %_public_truncbinop115, 1
+  %_public_lhssext117 = zext i32 %_public_subtmp116 to i64
+  %_public_ugtetmp118 = icmp uge i64 %_public_lhssext117, 0
+  %_public_zexttmp119 = zext i1 %_public_ugtetmp118 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp119)
+  %_public_lval120 = load i32, i32* %_public___v67_inp
+  %_public_lval121 = load i32, i32* %_public___v71___v70_len
+  %_public_icast122 = zext i32 %_public_lval121 to i64
+  %_public_lhssext123 = zext i32 %_public_lval120 to i64
+  %_public_addtmp124 = add i64 %_public_lhssext123, %_public_icast122
+  %_public_truncbinop125 = trunc i64 %_public_addtmp124 to i32
+  %_public_subtmp126 = sub i32 %_public_truncbinop125, 1
+  %_public_lval127 = load i32, i32* %_public____in_len
+  %_public_icast128 = zext i32 %_public_lval127 to i64
+  %_public_lhssext129 = zext i32 %_public_subtmp126 to i64
+  %_public_ulttmp130 = icmp ult i64 %_public_lhssext129, %_public_icast128
+  %_public_zexttmp131 = zext i1 %_public_ulttmp130 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp131)
+  %_public_lval132 = load i32, i32* %_public___v67_inp
+  %_secret_ldedviewptr133 = load i8*, i8** %_secret_arrarg5
+  %_secret_source_gep134 = getelementptr inbounds i8, i8* %_secret_ldedviewptr133, i32 %_public_lval132
+  %_secret_arrviewdyn135 = alloca i8*
+  store i8* %_secret_source_gep134, i8** %_secret_arrviewdyn135
+  %_secret_dynarrarg136 = load i8*, i8** %_secret_arrviewdyn135
+  %_public_lval137 = load i32, i32* %_public___v68_outp
+  %_public_lval138 = load i32, i32* %_public___v73___v72_len
   %_public_icast139 = zext i32 %_public_lval138 to i64
   %_public_lhssext140 = zext i32 %_public_lval137 to i64
   %_public_addtmp141 = add i64 %_public_lhssext140, %_public_icast139
   %_public_truncbinop142 = trunc i64 %_public_addtmp141 to i32
-  %_public_subtmp143 = sub i32 %_public_truncbinop142, 1
-  %_public_lval144 = load i32, i32* %_public____in_len
-  %_public_icast145 = zext i32 %_public_lval144 to i64
-  %_public_lhssext146 = zext i32 %_public_subtmp143 to i64
-  %_public_ulttmp147 = icmp ult i64 %_public_lhssext146, %_public_icast145
-  %_public_zexttmp148 = zext i1 %_public_ulttmp147 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp148)
-  %_public_lval149 = load i32, i32* %_public___v67_inp
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg5
-  %_secret_source_gep150 = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i32 %_public_lval149
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep150, i8** %_secret_arrviewdyn
-  %_public_lval151 = load i32, i32* %_public___v67_inp
-  %_public_lval152 = load i32, i32* %_public___v72___v71_len
-  %_public_icast153 = zext i32 %_public_lval152 to i64
-  %_public_lhssext154 = zext i32 %_public_lval151 to i64
-  %_public_addtmp155 = add i64 %_public_lhssext154, %_public_icast153
-  %_public_truncbinop156 = trunc i64 %_public_addtmp155 to i32
-  %_public_lval157 = load i32, i32* %_public___v67_inp
-  %_public_ugttmp158 = icmp ugt i32 %_public_truncbinop156, %_public_lval157
-  %_public_zexttmp159 = zext i1 %_public_ugttmp158 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp159)
-  %_public_lval160 = load i32, i32* %_public___v67_inp
-  %_public_lhssext161 = zext i32 %_public_lval160 to i64
-  %_public_ugtetmp162 = icmp uge i64 %_public_lhssext161, 0
-  %_public_zexttmp163 = zext i1 %_public_ugtetmp162 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp163)
-  %_public_lval164 = load i32, i32* %_public___v67_inp
-  %_public_lval165 = load i32, i32* %_public____in_len
-  %_public_icast166 = zext i32 %_public_lval165 to i64
-  %_public_lhssext167 = zext i32 %_public_lval164 to i64
-  %_public_ulttmp168 = icmp ult i64 %_public_lhssext167, %_public_icast166
-  %_public_zexttmp169 = zext i1 %_public_ulttmp168 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp169)
-  %_public_lval170 = load i32, i32* %_public___v67_inp
-  %_public_lval171 = load i32, i32* %_public___v72___v71_len
-  %_public_icast172 = zext i32 %_public_lval171 to i64
-  %_public_lhssext173 = zext i32 %_public_lval170 to i64
-  %_public_addtmp174 = add i64 %_public_lhssext173, %_public_icast172
-  %_public_truncbinop175 = trunc i64 %_public_addtmp174 to i32
-  %_public_subtmp176 = sub i32 %_public_truncbinop175, 1
-  %_public_lhssext177 = zext i32 %_public_subtmp176 to i64
-  %_public_ugtetmp178 = icmp uge i64 %_public_lhssext177, 0
-  %_public_zexttmp179 = zext i1 %_public_ugtetmp178 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp179)
-  %_public_lval180 = load i32, i32* %_public___v67_inp
-  %_public_lval181 = load i32, i32* %_public___v72___v71_len
-  %_public_icast182 = zext i32 %_public_lval181 to i64
-  %_public_lhssext183 = zext i32 %_public_lval180 to i64
-  %_public_addtmp184 = add i64 %_public_lhssext183, %_public_icast182
-  %_public_truncbinop185 = trunc i64 %_public_addtmp184 to i32
-  %_public_subtmp186 = sub i32 %_public_truncbinop185, 1
-  %_public_lval187 = load i32, i32* %_public____in_len
-  %_public_icast188 = zext i32 %_public_lval187 to i64
-  %_public_lhssext189 = zext i32 %_public_subtmp186 to i64
-  %_public_ulttmp190 = icmp ult i64 %_public_lhssext189, %_public_icast188
-  %_public_zexttmp191 = zext i1 %_public_ulttmp190 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp191)
-  %_public_lval192 = load i32, i32* %_public___v67_inp
-  %_secret_ldedviewptr193 = load i8*, i8** %_secret_arrarg5
-  %_secret_source_gep194 = getelementptr inbounds i8, i8* %_secret_ldedviewptr193, i32 %_public_lval192
-  %_secret_arrviewdyn195 = alloca i8*
-  store i8* %_secret_source_gep194, i8** %_secret_arrviewdyn195
-  %_secret_dynarrarg196 = load i8*, i8** %_secret_arrviewdyn195
-  %_public_lval197 = load i32, i32* %_public___v68_outp
-  %_public_lval198 = load i32, i32* %_public___v74___v73_len
-  %_public_icast199 = zext i32 %_public_lval198 to i64
-  %_public_lhssext200 = zext i32 %_public_lval197 to i64
-  %_public_addtmp201 = add i64 %_public_lhssext200, %_public_icast199
-  %_public_truncbinop202 = trunc i64 %_public_addtmp201 to i32
-  %_public_lval203 = load i32, i32* %_public___v68_outp
-  %_public_ugttmp204 = icmp ugt i32 %_public_truncbinop202, %_public_lval203
-  %_public_zexttmp205 = zext i1 %_public_ugttmp204 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp205)
-  %_public_lval206 = load i32, i32* %_public___v68_outp
-  %_public_lhssext207 = zext i32 %_public_lval206 to i64
-  %_public_ugtetmp208 = icmp uge i64 %_public_lhssext207, 0
-  %_public_zexttmp209 = zext i1 %_public_ugtetmp208 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp209)
-  %_public_lval210 = load i32, i32* %_public___v68_outp
-  %_public_lval211 = load i32, i32* %_public____out_len
-  %_public_icast212 = zext i32 %_public_lval211 to i64
-  %_public_lhssext213 = zext i32 %_public_lval210 to i64
-  %_public_ulttmp214 = icmp ult i64 %_public_lhssext213, %_public_icast212
-  %_public_zexttmp215 = zext i1 %_public_ulttmp214 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp215)
-  %_public_lval216 = load i32, i32* %_public___v68_outp
-  %_public_lval217 = load i32, i32* %_public___v74___v73_len
-  %_public_icast218 = zext i32 %_public_lval217 to i64
-  %_public_lhssext219 = zext i32 %_public_lval216 to i64
-  %_public_addtmp220 = add i64 %_public_lhssext219, %_public_icast218
-  %_public_truncbinop221 = trunc i64 %_public_addtmp220 to i32
-  %_public_subtmp222 = sub i32 %_public_truncbinop221, 1
-  %_public_lhssext223 = zext i32 %_public_subtmp222 to i64
-  %_public_ugtetmp224 = icmp uge i64 %_public_lhssext223, 0
-  %_public_zexttmp225 = zext i1 %_public_ugtetmp224 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp225)
-  %_public_lval226 = load i32, i32* %_public___v68_outp
-  %_public_lval227 = load i32, i32* %_public___v74___v73_len
-  %_public_icast228 = zext i32 %_public_lval227 to i64
-  %_public_lhssext229 = zext i32 %_public_lval226 to i64
-  %_public_addtmp230 = add i64 %_public_lhssext229, %_public_icast228
-  %_public_truncbinop231 = trunc i64 %_public_addtmp230 to i32
-  %_public_subtmp232 = sub i32 %_public_truncbinop231, 1
-  %_public_lval233 = load i32, i32* %_public____out_len
-  %_public_icast234 = zext i32 %_public_lval233 to i64
-  %_public_lhssext235 = zext i32 %_public_subtmp232 to i64
-  %_public_ulttmp236 = icmp ult i64 %_public_lhssext235, %_public_icast234
-  %_public_zexttmp237 = zext i1 %_public_ulttmp236 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp237)
-  %_public_lval238 = load i32, i32* %_public___v68_outp
-  %_secret_ldedviewptr239 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep240 = getelementptr inbounds i8, i8* %_secret_ldedviewptr239, i32 %_public_lval238
-  %_secret_arrviewdyn241 = alloca i8*
-  store i8* %_secret_source_gep240, i8** %_secret_arrviewdyn241
-  %_public_lval242 = load i32, i32* %_public___v68_outp
-  %_public_lval243 = load i32, i32* %_public___v74___v73_len
-  %_public_icast244 = zext i32 %_public_lval243 to i64
-  %_public_lhssext245 = zext i32 %_public_lval242 to i64
-  %_public_addtmp246 = add i64 %_public_lhssext245, %_public_icast244
-  %_public_truncbinop247 = trunc i64 %_public_addtmp246 to i32
-  %_public_lval248 = load i32, i32* %_public___v68_outp
-  %_public_ugttmp249 = icmp ugt i32 %_public_truncbinop247, %_public_lval248
-  %_public_zexttmp250 = zext i1 %_public_ugttmp249 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp250)
-  %_public_lval251 = load i32, i32* %_public___v68_outp
-  %_public_lhssext252 = zext i32 %_public_lval251 to i64
-  %_public_ugtetmp253 = icmp uge i64 %_public_lhssext252, 0
-  %_public_zexttmp254 = zext i1 %_public_ugtetmp253 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp254)
-  %_public_lval255 = load i32, i32* %_public___v68_outp
-  %_public_lval256 = load i32, i32* %_public____out_len
-  %_public_icast257 = zext i32 %_public_lval256 to i64
-  %_public_lhssext258 = zext i32 %_public_lval255 to i64
-  %_public_ulttmp259 = icmp ult i64 %_public_lhssext258, %_public_icast257
-  %_public_zexttmp260 = zext i1 %_public_ulttmp259 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp260)
-  %_public_lval261 = load i32, i32* %_public___v68_outp
-  %_public_lval262 = load i32, i32* %_public___v74___v73_len
-  %_public_icast263 = zext i32 %_public_lval262 to i64
-  %_public_lhssext264 = zext i32 %_public_lval261 to i64
-  %_public_addtmp265 = add i64 %_public_lhssext264, %_public_icast263
-  %_public_truncbinop266 = trunc i64 %_public_addtmp265 to i32
-  %_public_subtmp267 = sub i32 %_public_truncbinop266, 1
-  %_public_lhssext268 = zext i32 %_public_subtmp267 to i64
-  %_public_ugtetmp269 = icmp uge i64 %_public_lhssext268, 0
-  %_public_zexttmp270 = zext i1 %_public_ugtetmp269 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp270)
-  %_public_lval271 = load i32, i32* %_public___v68_outp
-  %_public_lval272 = load i32, i32* %_public___v74___v73_len
-  %_public_icast273 = zext i32 %_public_lval272 to i64
-  %_public_lhssext274 = zext i32 %_public_lval271 to i64
-  %_public_addtmp275 = add i64 %_public_lhssext274, %_public_icast273
-  %_public_truncbinop276 = trunc i64 %_public_addtmp275 to i32
-  %_public_subtmp277 = sub i32 %_public_truncbinop276, 1
-  %_public_lval278 = load i32, i32* %_public____out_len
-  %_public_icast279 = zext i32 %_public_lval278 to i64
-  %_public_lhssext280 = zext i32 %_public_subtmp277 to i64
-  %_public_ulttmp281 = icmp ult i64 %_public_lhssext280, %_public_icast279
-  %_public_zexttmp282 = zext i1 %_public_ulttmp281 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp282)
-  %_public_lval283 = load i32, i32* %_public___v68_outp
-  %_secret_ldedviewptr284 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep285 = getelementptr inbounds i8, i8* %_secret_ldedviewptr284, i32 %_public_lval283
-  %_secret_arrviewdyn286 = alloca i8*
-  store i8* %_secret_source_gep285, i8** %_secret_arrviewdyn286
-  %_secret_dynarrarg287 = load i8*, i8** %_secret_arrviewdyn286
-  %_public_lval288 = load i32, i32* %_public___v69__len
-  %_public_zexttmp289 = zext i32 %_public_lval288 to i64
+  %_public_lval143 = load i32, i32* %_public___v68_outp
+  %_public_ugttmp144 = icmp ugt i32 %_public_truncbinop142, %_public_lval143
+  %_public_zexttmp145 = zext i1 %_public_ugttmp144 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp145)
+  %_public_lval146 = load i32, i32* %_public___v68_outp
+  %_public_lhssext147 = zext i32 %_public_lval146 to i64
+  %_public_ugtetmp148 = icmp uge i64 %_public_lhssext147, 0
+  %_public_zexttmp149 = zext i1 %_public_ugtetmp148 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp149)
+  %_public_lval150 = load i32, i32* %_public___v68_outp
+  %_public_lval151 = load i32, i32* %_public____out_len
+  %_public_icast152 = zext i32 %_public_lval151 to i64
+  %_public_lhssext153 = zext i32 %_public_lval150 to i64
+  %_public_ulttmp154 = icmp ult i64 %_public_lhssext153, %_public_icast152
+  %_public_zexttmp155 = zext i1 %_public_ulttmp154 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp155)
+  %_public_lval156 = load i32, i32* %_public___v68_outp
+  %_public_lval157 = load i32, i32* %_public___v73___v72_len
+  %_public_icast158 = zext i32 %_public_lval157 to i64
+  %_public_lhssext159 = zext i32 %_public_lval156 to i64
+  %_public_addtmp160 = add i64 %_public_lhssext159, %_public_icast158
+  %_public_truncbinop161 = trunc i64 %_public_addtmp160 to i32
+  %_public_subtmp162 = sub i32 %_public_truncbinop161, 1
+  %_public_lhssext163 = zext i32 %_public_subtmp162 to i64
+  %_public_ugtetmp164 = icmp uge i64 %_public_lhssext163, 0
+  %_public_zexttmp165 = zext i1 %_public_ugtetmp164 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp165)
+  %_public_lval166 = load i32, i32* %_public___v68_outp
+  %_public_lval167 = load i32, i32* %_public___v73___v72_len
+  %_public_icast168 = zext i32 %_public_lval167 to i64
+  %_public_lhssext169 = zext i32 %_public_lval166 to i64
+  %_public_addtmp170 = add i64 %_public_lhssext169, %_public_icast168
+  %_public_truncbinop171 = trunc i64 %_public_addtmp170 to i32
+  %_public_subtmp172 = sub i32 %_public_truncbinop171, 1
+  %_public_lval173 = load i32, i32* %_public____out_len
+  %_public_icast174 = zext i32 %_public_lval173 to i64
+  %_public_lhssext175 = zext i32 %_public_subtmp172 to i64
+  %_public_ulttmp176 = icmp ult i64 %_public_lhssext175, %_public_icast174
+  %_public_zexttmp177 = zext i1 %_public_ulttmp176 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp177)
+  %_public_lval178 = load i32, i32* %_public___v68_outp
+  %_secret_ldedviewptr179 = load i8*, i8** %_secret_arrarg2
+  %_secret_source_gep180 = getelementptr inbounds i8, i8* %_secret_ldedviewptr179, i32 %_public_lval178
+  %_secret_arrviewdyn181 = alloca i8*
+  store i8* %_secret_source_gep180, i8** %_secret_arrviewdyn181
+  %_public_lval182 = load i32, i32* %_public___v68_outp
+  %_public_lval183 = load i32, i32* %_public___v73___v72_len
+  %_public_icast184 = zext i32 %_public_lval183 to i64
+  %_public_lhssext185 = zext i32 %_public_lval182 to i64
+  %_public_addtmp186 = add i64 %_public_lhssext185, %_public_icast184
+  %_public_truncbinop187 = trunc i64 %_public_addtmp186 to i32
+  %_public_lval188 = load i32, i32* %_public___v68_outp
+  %_public_ugttmp189 = icmp ugt i32 %_public_truncbinop187, %_public_lval188
+  %_public_zexttmp190 = zext i1 %_public_ugttmp189 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp190)
+  %_public_lval191 = load i32, i32* %_public___v68_outp
+  %_public_lhssext192 = zext i32 %_public_lval191 to i64
+  %_public_ugtetmp193 = icmp uge i64 %_public_lhssext192, 0
+  %_public_zexttmp194 = zext i1 %_public_ugtetmp193 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp194)
+  %_public_lval195 = load i32, i32* %_public___v68_outp
+  %_public_lval196 = load i32, i32* %_public____out_len
+  %_public_icast197 = zext i32 %_public_lval196 to i64
+  %_public_lhssext198 = zext i32 %_public_lval195 to i64
+  %_public_ulttmp199 = icmp ult i64 %_public_lhssext198, %_public_icast197
+  %_public_zexttmp200 = zext i1 %_public_ulttmp199 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp200)
+  %_public_lval201 = load i32, i32* %_public___v68_outp
+  %_public_lval202 = load i32, i32* %_public___v73___v72_len
+  %_public_icast203 = zext i32 %_public_lval202 to i64
+  %_public_lhssext204 = zext i32 %_public_lval201 to i64
+  %_public_addtmp205 = add i64 %_public_lhssext204, %_public_icast203
+  %_public_truncbinop206 = trunc i64 %_public_addtmp205 to i32
+  %_public_subtmp207 = sub i32 %_public_truncbinop206, 1
+  %_public_lhssext208 = zext i32 %_public_subtmp207 to i64
+  %_public_ugtetmp209 = icmp uge i64 %_public_lhssext208, 0
+  %_public_zexttmp210 = zext i1 %_public_ugtetmp209 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp210)
+  %_public_lval211 = load i32, i32* %_public___v68_outp
+  %_public_lval212 = load i32, i32* %_public___v73___v72_len
+  %_public_icast213 = zext i32 %_public_lval212 to i64
+  %_public_lhssext214 = zext i32 %_public_lval211 to i64
+  %_public_addtmp215 = add i64 %_public_lhssext214, %_public_icast213
+  %_public_truncbinop216 = trunc i64 %_public_addtmp215 to i32
+  %_public_subtmp217 = sub i32 %_public_truncbinop216, 1
+  %_public_lval218 = load i32, i32* %_public____out_len
+  %_public_icast219 = zext i32 %_public_lval218 to i64
+  %_public_lhssext220 = zext i32 %_public_subtmp217 to i64
+  %_public_ulttmp221 = icmp ult i64 %_public_lhssext220, %_public_icast219
+  %_public_zexttmp222 = zext i1 %_public_ulttmp221 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp222)
+  %_public_lval223 = load i32, i32* %_public___v68_outp
+  %_secret_ldedviewptr224 = load i8*, i8** %_secret_arrarg2
+  %_secret_source_gep225 = getelementptr inbounds i8, i8* %_secret_ldedviewptr224, i32 %_public_lval223
+  %_secret_arrviewdyn226 = alloca i8*
+  store i8* %_secret_source_gep225, i8** %_secret_arrviewdyn226
+  %_secret_dynarrarg227 = load i8*, i8** %_secret_arrviewdyn226
+  %_public_lval228 = load i32, i32* %_public___v69__len
+  %_public_zexttmp229 = zext i32 %_public_lval228 to i64
   %_public_structgep = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 0
-  %_secret_dynarrarg290 = load i8*, i8** %_secret_arrarg
-  call void @aesni_cbc_encrypt(i8* %_secret_dynarrarg196, i8* %_secret_dynarrarg287, i64 %_public_zexttmp289, %AES_KEY* %_public_structgep, i8* %_secret_dynarrarg290, i32 0)
-  %_public_lval291 = load i32, i32* %_public____out_len
-  %_public_subtmp292 = sub i32 %_public_lval291, 1
-  %_public_lhssext293 = zext i32 %_public_subtmp292 to i64
-  %_public_ugtetmp294 = icmp uge i64 %_public_lhssext293, 0
-  %_public_zexttmp295 = zext i1 %_public_ugtetmp294 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp295)
-  %_public_lval296 = load i32, i32* %_public____out_len
-  %_public_subtmp297 = sub i32 %_public_lval296, 1
-  %_public_lval298 = load i32, i32* %_public____out_len
-  %_public_icast299 = zext i32 %_public_lval298 to i64
-  %_public_lhssext300 = zext i32 %_public_subtmp297 to i64
-  %_public_ulttmp301 = icmp ult i64 %_public_lhssext300, %_public_icast299
-  %_public_zexttmp302 = zext i1 %_public_ulttmp301 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp302)
-  %_public_lval303 = load i32, i32* %_public____out_len
-  %_public_subtmp304 = sub i32 %_public_lval303, 1
+  %_secret_dynarrarg230 = load i8*, i8** %_secret_arrarg
+  call void @aesni_cbc_encrypt(i8* %_secret_dynarrarg136, i8* %_secret_dynarrarg227, i64 %_public_zexttmp229, %AES_KEY* %_public_structgep, i8* %_secret_dynarrarg230, i32 0)
+  %_public_lval231 = load i32, i32* %_public____out_len
+  %_public_subtmp232 = sub i32 %_public_lval231, 1
+  %_public_lhssext233 = zext i32 %_public_subtmp232 to i64
+  %_public_ugtetmp234 = icmp uge i64 %_public_lhssext233, 0
+  %_public_zexttmp235 = zext i1 %_public_ugtetmp234 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp235)
+  %_public_lval236 = load i32, i32* %_public____out_len
+  %_public_subtmp237 = sub i32 %_public_lval236, 1
+  %_public_lval238 = load i32, i32* %_public____out_len
+  %_public_icast239 = zext i32 %_public_lval238 to i64
+  %_public_lhssext240 = zext i32 %_public_subtmp237 to i64
+  %_public_ulttmp241 = icmp ult i64 %_public_lhssext240, %_public_icast239
+  %_public_zexttmp242 = zext i1 %_public_ulttmp241 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp242)
+  %_public_lval243 = load i32, i32* %_public____out_len
+  %_public_subtmp244 = sub i32 %_public_lval243, 1
   %_secret_dyn = load i8*, i8** %_secret_arrarg2
-  %_secret_ptr = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_subtmp304
-  %_secret_lval305 = load i8, i8* %_secret_ptr
-  %_secret_zexttmp = zext i8 %_secret_lval305 to i32
-  store i32 %_secret_zexttmp, i32* %_secret___v75_pad
-  %_public_lval306 = load i32, i32* %_public___v69__len
-  %_public_lval307 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp308 = add i32 %_public_lval307, 1
-  %_public_subtmp309 = sub i32 %_public_lval306, %_public_addtmp308
-  store i32 %_public_subtmp309, i32* %_public___v76_tmppad
-  %_public_lval310 = load i32, i32* %_public___v76_tmppad
-  %_public_ugttmp311 = icmp ugt i32 %_public_lval310, 255
-  %_public_condtmp = icmp ne i1 %_public_ugttmp311, false
-  %_public_lval312 = load i32, i32* %_public___v76_tmppad
-  %_public_terntmp = select i1 %_public_condtmp, i32 255, i32 %_public_lval312
-  store i32 %_public_terntmp, i32* %_public___v77_maxpad
-  %_secret_lval313 = load i32, i32* %_secret___v75_pad
-  %_public_lval314 = load i32, i32* %_public___v77_maxpad
-  %_secret_ugttmp = icmp ugt i32 %_secret_lval313, %_public_lval314
+  %_secret_ptr = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_subtmp244
+  %_secret_lval245 = load i8, i8* %_secret_ptr
+  %_secret_zexttmp = zext i8 %_secret_lval245 to i32
+  store i32 %_secret_zexttmp, i32* %_secret___v74_pad
+  %_public_lval246 = load i32, i32* %_public___v69__len
+  %_public_lval247 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp248 = add i32 %_public_lval247, 1
+  %_public_subtmp249 = sub i32 %_public_lval246, %_public_addtmp248
+  store i32 %_public_subtmp249, i32* %_public___v75_tmppad
+  %_public_lval250 = load i32, i32* %_public___v75_tmppad
+  %_public_ugttmp251 = icmp ugt i32 %_public_lval250, 255
+  %_public_condtmp = icmp ne i1 %_public_ugttmp251, false
+  %_public_lval252 = load i32, i32* %_public___v75_tmppad
+  %_public_terntmp = select i1 %_public_condtmp, i32 255, i32 %_public_lval252
+  store i32 %_public_terntmp, i32* %_public___v76_maxpad
+  %_secret_lval253 = load i32, i32* %_secret___v74_pad
+  %_public_lval254 = load i32, i32* %_public___v76_maxpad
+  %_secret_ugttmp = icmp ugt i32 %_secret_lval253, %_public_lval254
   store i1 %_secret_ugttmp, i1* %_secret___m16
-  %_secret_lval315 = load i1, i1* %_secret___m16
-  %_secret_landtmp = and i1 true, %_secret_lval315
-  %_secret_lval316 = load i1, i1* %_secret___rnset
-  %_secret_landtmp317 = and i1 %_secret_landtmp, %_secret_lval316
-  %_secret_condtmp = icmp ne i1 %_secret_landtmp317, false
-  %_secret_lval318 = load i32, i32* %_secret___v66_ret
-  %_secret_selecttmp = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp, i32 0, i32 %_secret_lval318)
+  %_secret_lval255 = load i1, i1* %_secret___m16
+  %_secret_landtmp = and i1 true, %_secret_lval255
+  %_secret_lval256 = load i1, i1* %_secret___rnset
+  %_secret_landtmp257 = and i1 %_secret_landtmp, %_secret_lval256
+  %_secret_condtmp = icmp ne i1 %_secret_landtmp257, false
+  %_secret_lval258 = load i32, i32* %_secret___v66_ret
+  %_secret_selecttmp = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp, i32 0, i32 %_secret_lval258)
   store i32 %_secret_selecttmp, i32* %_secret___v66_ret
-  %_secret_lval319 = load i1, i1* %_secret___m16
-  %_secret_landtmp320 = and i1 true, %_secret_lval319
-  %_secret_lval321 = load i1, i1* %_secret___rnset
-  %_secret_landtmp322 = and i1 %_secret_landtmp320, %_secret_lval321
-  %_secret_condtmp323 = icmp ne i1 %_secret_landtmp322, false
-  %_public_lval324 = load i32, i32* %_public___v77_maxpad
-  %_secret_lval325 = load i32, i32* %_secret___v75_pad
-  %_secret_selecttmp326 = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp323, i32 %_public_lval324, i32 %_secret_lval325)
-  store i32 %_secret_selecttmp326, i32* %_secret___v75_pad
-  %_secret_lval327 = load i1, i1* %_secret___m16
-  %_secret_lnottmp = xor i1 %_secret_lval327, true
+  %_secret_lval259 = load i1, i1* %_secret___m16
+  %_secret_landtmp260 = and i1 true, %_secret_lval259
+  %_secret_lval261 = load i1, i1* %_secret___rnset
+  %_secret_landtmp262 = and i1 %_secret_landtmp260, %_secret_lval261
+  %_secret_condtmp263 = icmp ne i1 %_secret_landtmp262, false
+  %_public_lval264 = load i32, i32* %_public___v76_maxpad
+  %_secret_lval265 = load i32, i32* %_secret___v74_pad
+  %_secret_selecttmp266 = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp263, i32 %_public_lval264, i32 %_secret_lval265)
+  store i32 %_secret_selecttmp266, i32* %_secret___v74_pad
+  %_secret_lval267 = load i1, i1* %_secret___m16
+  %_secret_lnottmp = xor i1 %_secret_lval267, true
   store i1 %_secret_lnottmp, i1* %_secret___m16
-  %_public_lval328 = load i32, i32* %_public___v69__len
-  %_secret_lval329 = load i32, i32* %_secret___v75_pad
-  %_secret_addtmp = add i32 %_secret_lval329, 1
-  %_public_lval330 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_secret_addtmp331 = add i32 %_secret_addtmp, %_public_lval330
-  %_secret_subtmp = sub i32 %_public_lval328, %_secret_addtmp331
-  store i32 %_secret_subtmp, i32* %_secret___v78_inp_len
-  %_public_lval332 = load i64, i64* %_public_plen
-  %_public_subtmp333 = sub i64 %_public_lval332, 2
-  %_public_addtmp334 = add i64 %_public_subtmp333, 2
-  %_public_lval335 = load i64, i64* %_public_plen
-  %_public_subtmp336 = sub i64 %_public_lval335, 2
-  %_public_ugttmp337 = icmp ugt i64 %_public_addtmp334, %_public_subtmp336
-  %_public_zexttmp338 = zext i1 %_public_ugttmp337 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp338)
-  %_public_lval339 = load i64, i64* %_public_plen
-  %_public_subtmp340 = sub i64 %_public_lval339, 2
-  %_public_ugtetmp341 = icmp uge i64 %_public_subtmp340, 0
-  %_public_zexttmp342 = zext i1 %_public_ugtetmp341 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp342)
-  %_public_lval343 = load i64, i64* %_public_plen
-  %_public_subtmp344 = sub i64 %_public_lval343, 2
-  %_public_ulttmp345 = icmp ult i64 %_public_subtmp344, 16
-  %_public_zexttmp346 = zext i1 %_public_ulttmp345 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp346)
-  %_public_lval347 = load i64, i64* %_public_plen
-  %_public_subtmp348 = sub i64 %_public_lval347, 2
-  %_public_addtmp349 = add i64 %_public_subtmp348, 2
-  %_public_subtmp350 = sub i64 %_public_addtmp349, 1
-  %_public_ugtetmp351 = icmp uge i64 %_public_subtmp350, 0
-  %_public_zexttmp352 = zext i1 %_public_ugtetmp351 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp352)
-  %_public_lval353 = load i64, i64* %_public_plen
-  %_public_subtmp354 = sub i64 %_public_lval353, 2
-  %_public_addtmp355 = add i64 %_public_subtmp354, 2
-  %_public_subtmp356 = sub i64 %_public_addtmp355, 1
-  %_public_ulttmp357 = icmp ult i64 %_public_subtmp356, 16
-  %_public_zexttmp358 = zext i1 %_public_ulttmp357 to i32
+  %_public_lval268 = load i32, i32* %_public___v69__len
+  %_secret_lval269 = load i32, i32* %_secret___v74_pad
+  %_secret_addtmp = add i32 %_secret_lval269, 1
+  %_public_lval270 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_secret_addtmp271 = add i32 %_secret_addtmp, %_public_lval270
+  %_secret_subtmp = sub i32 %_public_lval268, %_secret_addtmp271
+  store i32 %_secret_subtmp, i32* %_secret___v77_inp_len
+  %_public_lval272 = load i64, i64* %_public_plen
+  %_public_subtmp273 = sub i64 %_public_lval272, 2
+  %_public_addtmp274 = add i64 %_public_subtmp273, 2
+  %_public_lval275 = load i64, i64* %_public_plen
+  %_public_subtmp276 = sub i64 %_public_lval275, 2
+  %_public_ugttmp277 = icmp ugt i64 %_public_addtmp274, %_public_subtmp276
+  %_public_zexttmp278 = zext i1 %_public_ugttmp277 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp278)
+  %_public_lval279 = load i64, i64* %_public_plen
+  %_public_subtmp280 = sub i64 %_public_lval279, 2
+  %_public_ugtetmp281 = icmp uge i64 %_public_subtmp280, 0
+  %_public_zexttmp282 = zext i1 %_public_ugtetmp281 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp282)
+  %_public_lval283 = load i64, i64* %_public_plen
+  %_public_subtmp284 = sub i64 %_public_lval283, 2
+  %_public_ulttmp285 = icmp ult i64 %_public_subtmp284, 16
+  %_public_zexttmp286 = zext i1 %_public_ulttmp285 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp286)
+  %_public_lval287 = load i64, i64* %_public_plen
+  %_public_subtmp288 = sub i64 %_public_lval287, 2
+  %_public_addtmp289 = add i64 %_public_subtmp288, 2
+  %_public_subtmp290 = sub i64 %_public_addtmp289, 1
+  %_public_ugtetmp291 = icmp uge i64 %_public_subtmp290, 0
+  %_public_zexttmp292 = zext i1 %_public_ugtetmp291 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp292)
+  %_public_lval293 = load i64, i64* %_public_plen
+  %_public_subtmp294 = sub i64 %_public_lval293, 2
+  %_public_addtmp295 = add i64 %_public_subtmp294, 2
+  %_public_subtmp296 = sub i64 %_public_addtmp295, 1
+  %_public_ulttmp297 = icmp ult i64 %_public_subtmp296, 16
+  %_public_zexttmp298 = zext i1 %_public_ulttmp297 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp298)
+  %_public_lval299 = load i64, i64* %_public_plen
+  %_public_subtmp300 = sub i64 %_public_lval299, 2
+  %_secret_structgep = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
+  %_secret_arrview = alloca i8*
+  %_secret_source_gep301 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep, i64 0, i64 %_public_subtmp300
+  store i8* %_secret_source_gep301, i8** %_secret_arrview
+  %_public_lval302 = load i64, i64* %_public_plen
+  %_public_subtmp303 = sub i64 %_public_lval302, 2
+  %_public_addtmp304 = add i64 %_public_subtmp303, 2
+  %_public_lval305 = load i64, i64* %_public_plen
+  %_public_subtmp306 = sub i64 %_public_lval305, 2
+  %_public_ugttmp307 = icmp ugt i64 %_public_addtmp304, %_public_subtmp306
+  %_public_zexttmp308 = zext i1 %_public_ugttmp307 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp308)
+  %_public_lval309 = load i64, i64* %_public_plen
+  %_public_subtmp310 = sub i64 %_public_lval309, 2
+  %_public_ugtetmp311 = icmp uge i64 %_public_subtmp310, 0
+  %_public_zexttmp312 = zext i1 %_public_ugtetmp311 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp312)
+  %_public_lval313 = load i64, i64* %_public_plen
+  %_public_subtmp314 = sub i64 %_public_lval313, 2
+  %_public_ulttmp315 = icmp ult i64 %_public_subtmp314, 16
+  %_public_zexttmp316 = zext i1 %_public_ulttmp315 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp316)
+  %_public_lval317 = load i64, i64* %_public_plen
+  %_public_subtmp318 = sub i64 %_public_lval317, 2
+  %_public_addtmp319 = add i64 %_public_subtmp318, 2
+  %_public_subtmp320 = sub i64 %_public_addtmp319, 1
+  %_public_ugtetmp321 = icmp uge i64 %_public_subtmp320, 0
+  %_public_zexttmp322 = zext i1 %_public_ugtetmp321 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp322)
+  %_public_lval323 = load i64, i64* %_public_plen
+  %_public_subtmp324 = sub i64 %_public_lval323, 2
+  %_public_addtmp325 = add i64 %_public_subtmp324, 2
+  %_public_subtmp326 = sub i64 %_public_addtmp325, 1
+  %_public_ulttmp327 = icmp ult i64 %_public_subtmp326, 16
+  %_public_zexttmp328 = zext i1 %_public_ulttmp327 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp328)
+  %_public_lval329 = load i64, i64* %_public_plen
+  %_public_subtmp330 = sub i64 %_public_lval329, 2
+  %_secret_structgep331 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
+  %_secret_arrview332 = alloca i8*
+  %_secret_source_gep333 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep331, i64 0, i64 %_public_subtmp330
+  store i8* %_secret_source_gep333, i8** %_secret_arrview332
+  %_secret_dynarrarg334 = load i8*, i8** %_secret_arrview332
+  %_secret_lval335 = load i32, i32* %_secret___v77_inp_len
+  %_secret_ucast = trunc i32 %_secret_lval335 to i16
+  call void @store16_be(i8* %_secret_dynarrarg334, i16 %_secret_ucast)
+  store i32 0, i32* %_secret___v78_ctx_num
+  %_secret___v79_pmac = alloca [20 x i8], align 32
+  %_public_structgep336 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_public_structgep337 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 1
+  call void @_structcopy_SHA_CTX(%SHA_CTX* %_public_structgep336, %SHA_CTX* %_public_structgep337)
+  %_public_lval338 = load i64, i64* %_public_plen
+  %_public_trunctmp = trunc i64 %_public_lval338 to i32
+  store i32 %_public_trunctmp, i32* %_public___v81___v80_len
+  %_public_structgep339 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_public_lval340 = load i32, i32* %_public___v81___v80_len
+  %_public_icast341 = zext i32 %_public_lval340 to i64
+  %_public_addtmp342 = add i64 0, %_public_icast341
+  %_public_truncbinop343 = trunc i64 %_public_addtmp342 to i8
+  %_public_sgttmp = icmp sgt i8 %_public_truncbinop343, 0
+  %_public_zexttmp344 = zext i1 %_public_sgttmp to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp344)
+  call void @__VERIFIER_assert(i32 1)
+  call void @__VERIFIER_assert(i32 1)
+  %_public_lval345 = load i32, i32* %_public___v81___v80_len
+  %_public_icast346 = zext i32 %_public_lval345 to i64
+  %_public_addtmp347 = add i64 0, %_public_icast346
+  %_public_truncbinop348 = trunc i64 %_public_addtmp347 to i8
+  %_public_subtmp349 = sub i8 %_public_truncbinop348, 1
+  %_public_lhssext350 = sext i8 %_public_subtmp349 to i64
+  %_public_sgtetmp = icmp sge i64 %_public_lhssext350, 0
+  %_public_zexttmp351 = zext i1 %_public_sgtetmp to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp351)
+  %_public_lval352 = load i32, i32* %_public___v81___v80_len
+  %_public_icast353 = zext i32 %_public_lval352 to i64
+  %_public_addtmp354 = add i64 0, %_public_icast353
+  %_public_truncbinop355 = trunc i64 %_public_addtmp354 to i8
+  %_public_subtmp356 = sub i8 %_public_truncbinop355, 1
+  %_public_lhssext357 = sext i8 %_public_subtmp356 to i64
+  %_public_slttmp = icmp slt i64 %_public_lhssext357, 16
+  %_public_zexttmp358 = zext i1 %_public_slttmp to i32
   call void @__VERIFIER_assert(i32 %_public_zexttmp358)
-  %_public_lval359 = load i64, i64* %_public_plen
-  %_public_subtmp360 = sub i64 %_public_lval359, 2
-  %_secret_structgep361 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
-  %_secret_arrview362 = alloca i8*
-  %_secret_source_gep363 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep361, i64 0, i64 %_public_subtmp360
-  store i8* %_secret_source_gep363, i8** %_secret_arrview362
-  %_public_lval364 = load i64, i64* %_public_plen
-  %_public_subtmp365 = sub i64 %_public_lval364, 2
-  %_public_addtmp366 = add i64 %_public_subtmp365, 2
-  %_public_lval367 = load i64, i64* %_public_plen
-  %_public_subtmp368 = sub i64 %_public_lval367, 2
-  %_public_ugttmp369 = icmp ugt i64 %_public_addtmp366, %_public_subtmp368
-  %_public_zexttmp370 = zext i1 %_public_ugttmp369 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp370)
-  %_public_lval371 = load i64, i64* %_public_plen
-  %_public_subtmp372 = sub i64 %_public_lval371, 2
-  %_public_ugtetmp373 = icmp uge i64 %_public_subtmp372, 0
-  %_public_zexttmp374 = zext i1 %_public_ugtetmp373 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp374)
-  %_public_lval375 = load i64, i64* %_public_plen
-  %_public_subtmp376 = sub i64 %_public_lval375, 2
-  %_public_ulttmp377 = icmp ult i64 %_public_subtmp376, 16
-  %_public_zexttmp378 = zext i1 %_public_ulttmp377 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp378)
-  %_public_lval379 = load i64, i64* %_public_plen
-  %_public_subtmp380 = sub i64 %_public_lval379, 2
-  %_public_addtmp381 = add i64 %_public_subtmp380, 2
-  %_public_subtmp382 = sub i64 %_public_addtmp381, 1
-  %_public_ugtetmp383 = icmp uge i64 %_public_subtmp382, 0
-  %_public_zexttmp384 = zext i1 %_public_ugtetmp383 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp384)
-  %_public_lval385 = load i64, i64* %_public_plen
-  %_public_subtmp386 = sub i64 %_public_lval385, 2
-  %_public_addtmp387 = add i64 %_public_subtmp386, 2
-  %_public_subtmp388 = sub i64 %_public_addtmp387, 1
-  %_public_ulttmp389 = icmp ult i64 %_public_subtmp388, 16
-  %_public_zexttmp390 = zext i1 %_public_ulttmp389 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp390)
-  %_public_lval391 = load i64, i64* %_public_plen
-  %_public_subtmp392 = sub i64 %_public_lval391, 2
-  %_secret_structgep393 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
-  %_secret_arrview394 = alloca i8*
-  %_secret_source_gep395 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep393, i64 0, i64 %_public_subtmp392
-  store i8* %_secret_source_gep395, i8** %_secret_arrview394
-  %_secret_dynarrarg396 = load i8*, i8** %_secret_arrview394
-  %_secret_lval397 = load i32, i32* %_secret___v78_inp_len
-  %_secret_ucast = trunc i32 %_secret_lval397 to i16
-  call void @store16_be(i8* %_secret_dynarrarg396, i16 %_secret_ucast)
-  store i32 0, i32* %_secret___v79_ctx_num
-  %_secret___v80_pmac = alloca [20 x i8], align 32
-  %_public_structgep398 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_public_structgep399 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 1
-  call void @_structcopy_SHA_CTX(%SHA_CTX* %_public_structgep398, %SHA_CTX* %_public_structgep399)
-  %_public_lval400 = load i64, i64* %_public_plen
-  %_public_trunctmp = trunc i64 %_public_lval400 to i32
-  store i32 %_public_trunctmp, i32* %_public___v82___v81_len
-  %_public_structgep401 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_public_lval402 = load i32, i32* %_public___v82___v81_len
-  %_public_icast403 = zext i32 %_public_lval402 to i64
-  %_public_addtmp404 = add i64 0, %_public_icast403
-  %_public_truncbinop405 = trunc i64 %_public_addtmp404 to i8
-  %_public_sgttmp = icmp sgt i8 %_public_truncbinop405, 0
-  %_public_zexttmp406 = zext i1 %_public_sgttmp to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp406)
+  %_secret_structgep359 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
+  %_secret_arrview360 = alloca i8*
+  %_secret_source_gep361 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep359, i8 0, i8 0
+  store i8* %_secret_source_gep361, i8** %_secret_arrview360
+  %_public_lval362 = load i32, i32* %_public___v81___v80_len
+  %_public_icast363 = zext i32 %_public_lval362 to i64
+  %_public_addtmp364 = add i64 0, %_public_icast363
+  %_public_truncbinop365 = trunc i64 %_public_addtmp364 to i8
+  %_public_sgttmp366 = icmp sgt i8 %_public_truncbinop365, 0
+  %_public_zexttmp367 = zext i1 %_public_sgttmp366 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp367)
   call void @__VERIFIER_assert(i32 1)
   call void @__VERIFIER_assert(i32 1)
-  %_public_lval407 = load i32, i32* %_public___v82___v81_len
-  %_public_icast408 = zext i32 %_public_lval407 to i64
-  %_public_addtmp409 = add i64 0, %_public_icast408
-  %_public_truncbinop410 = trunc i64 %_public_addtmp409 to i8
-  %_public_subtmp411 = sub i8 %_public_truncbinop410, 1
-  %_public_lhssext412 = sext i8 %_public_subtmp411 to i64
-  %_public_sgtetmp = icmp sge i64 %_public_lhssext412, 0
-  %_public_zexttmp413 = zext i1 %_public_sgtetmp to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp413)
-  %_public_lval414 = load i32, i32* %_public___v82___v81_len
-  %_public_icast415 = zext i32 %_public_lval414 to i64
-  %_public_addtmp416 = add i64 0, %_public_icast415
-  %_public_truncbinop417 = trunc i64 %_public_addtmp416 to i8
-  %_public_subtmp418 = sub i8 %_public_truncbinop417, 1
-  %_public_lhssext419 = sext i8 %_public_subtmp418 to i64
-  %_public_slttmp = icmp slt i64 %_public_lhssext419, 16
-  %_public_zexttmp420 = zext i1 %_public_slttmp to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp420)
-  %_secret_structgep421 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
-  %_secret_arrview422 = alloca i8*
-  %_secret_source_gep423 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep421, i8 0, i8 0
-  store i8* %_secret_source_gep423, i8** %_secret_arrview422
-  %_public_lval424 = load i32, i32* %_public___v82___v81_len
-  %_public_icast425 = zext i32 %_public_lval424 to i64
-  %_public_addtmp426 = add i64 0, %_public_icast425
-  %_public_truncbinop427 = trunc i64 %_public_addtmp426 to i8
-  %_public_sgttmp428 = icmp sgt i8 %_public_truncbinop427, 0
-  %_public_zexttmp429 = zext i1 %_public_sgttmp428 to i32
+  %_public_lval368 = load i32, i32* %_public___v81___v80_len
+  %_public_icast369 = zext i32 %_public_lval368 to i64
+  %_public_addtmp370 = add i64 0, %_public_icast369
+  %_public_truncbinop371 = trunc i64 %_public_addtmp370 to i8
+  %_public_subtmp372 = sub i8 %_public_truncbinop371, 1
+  %_public_lhssext373 = sext i8 %_public_subtmp372 to i64
+  %_public_sgtetmp374 = icmp sge i64 %_public_lhssext373, 0
+  %_public_zexttmp375 = zext i1 %_public_sgtetmp374 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp375)
+  %_public_lval376 = load i32, i32* %_public___v81___v80_len
+  %_public_icast377 = zext i32 %_public_lval376 to i64
+  %_public_addtmp378 = add i64 0, %_public_icast377
+  %_public_truncbinop379 = trunc i64 %_public_addtmp378 to i8
+  %_public_subtmp380 = sub i8 %_public_truncbinop379, 1
+  %_public_lhssext381 = sext i8 %_public_subtmp380 to i64
+  %_public_slttmp382 = icmp slt i64 %_public_lhssext381, 16
+  %_public_zexttmp383 = zext i1 %_public_slttmp382 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp383)
+  %_secret_structgep384 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
+  %_secret_arrview385 = alloca i8*
+  %_secret_source_gep386 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep384, i8 0, i8 0
+  store i8* %_secret_source_gep386, i8** %_secret_arrview385
+  %_secret_dynarrarg387 = load i8*, i8** %_secret_arrview385
+  %_public_lval388 = load i32, i32* %_public___v81___v80_len
+  call void @SHA1_Update_public(%SHA_CTX* %_public_structgep339, i8* %_secret_dynarrarg387, i32 %_public_lval388)
+  %_public_lval389 = load i32, i32* %_public___v69__len
+  %_public_lval390 = load i32, i32* %_public___v65_SHA_CBLOCK
+  %_public_addtmp391 = add i32 256, %_public_lval390
+  %_public_lval392 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp393 = add i32 %_public_addtmp391, %_public_lval392
+  %_public_ugtetmp394 = icmp uge i32 %_public_lval389, %_public_addtmp393
+  %_public_condtmp395 = icmp ne i1 %_public_ugtetmp394, false
+  %_public_lval396 = load i32, i32* %_public___v69__len
+  %_public_lval397 = load i32, i32* %_public___v65_SHA_CBLOCK
+  %_public_addtmp398 = add i32 256, %_public_lval397
+  %_public_lval399 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp400 = add i32 %_public_addtmp398, %_public_lval399
+  %_public_subtmp401 = sub i32 %_public_lval396, %_public_addtmp400
+  %_public_lval402 = load i32, i32* %_public___v65_SHA_CBLOCK
+  %_public_subtmp403 = sub i32 0, %_public_lval402
+  %_public_andtmp = and i32 %_public_subtmp401, %_public_subtmp403
+  %_public_lval404 = load i32, i32* %_public___v65_SHA_CBLOCK
+  %_public_structgep405 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_public_structgep406 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %_public_structgep405, i32 0, i32 4
+  %_public_lval407 = load i32, i32* %_public_structgep406
+  %_public_subtmp408 = sub i32 %_public_lval404, %_public_lval407
+  %_public_addtmp409 = add i32 %_public_andtmp, %_public_subtmp408
+  %_public_terntmp410 = select i1 %_public_condtmp395, i32 %_public_addtmp409, i32 0
+  store i32 %_public_terntmp410, i32* %_public___v82_minlen
+  %_public_lval411 = load i32, i32* %_public___v82_minlen
+  %_public_ugttmp412 = icmp ugt i32 %_public_lval411, 0
+  %_public_branchcompare413 = icmp eq i1 %_public_ugttmp412, true
+  br i1 %_public_branchcompare413, label %thenbranch414, label %elsebranch509
+
+thenbranch414:                                    ; preds = %branchmerge48
+  %_public_lval415 = load i32, i32* %_public___v82_minlen
+  store i32 %_public_lval415, i32* %_public___v84___v83_len
+  %_public_structgep416 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_public_lval417 = load i32, i32* %_public___v68_outp
+  %_public_lval418 = load i32, i32* %_public___v84___v83_len
+  %_public_icast419 = zext i32 %_public_lval418 to i64
+  %_public_lhssext420 = zext i32 %_public_lval417 to i64
+  %_public_addtmp421 = add i64 %_public_lhssext420, %_public_icast419
+  %_public_truncbinop422 = trunc i64 %_public_addtmp421 to i32
+  %_public_lval423 = load i32, i32* %_public___v68_outp
+  %_public_ugttmp424 = icmp ugt i32 %_public_truncbinop422, %_public_lval423
+  %_public_zexttmp425 = zext i1 %_public_ugttmp424 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp425)
+  %_public_lval426 = load i32, i32* %_public___v68_outp
+  %_public_lhssext427 = zext i32 %_public_lval426 to i64
+  %_public_ugtetmp428 = icmp uge i64 %_public_lhssext427, 0
+  %_public_zexttmp429 = zext i1 %_public_ugtetmp428 to i32
   call void @__VERIFIER_assert(i32 %_public_zexttmp429)
-  call void @__VERIFIER_assert(i32 1)
-  call void @__VERIFIER_assert(i32 1)
-  %_public_lval430 = load i32, i32* %_public___v82___v81_len
-  %_public_icast431 = zext i32 %_public_lval430 to i64
-  %_public_addtmp432 = add i64 0, %_public_icast431
-  %_public_truncbinop433 = trunc i64 %_public_addtmp432 to i8
-  %_public_subtmp434 = sub i8 %_public_truncbinop433, 1
-  %_public_lhssext435 = sext i8 %_public_subtmp434 to i64
-  %_public_sgtetmp436 = icmp sge i64 %_public_lhssext435, 0
-  %_public_zexttmp437 = zext i1 %_public_sgtetmp436 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp437)
-  %_public_lval438 = load i32, i32* %_public___v82___v81_len
-  %_public_icast439 = zext i32 %_public_lval438 to i64
-  %_public_addtmp440 = add i64 0, %_public_icast439
-  %_public_truncbinop441 = trunc i64 %_public_addtmp440 to i8
-  %_public_subtmp442 = sub i8 %_public_truncbinop441, 1
-  %_public_lhssext443 = sext i8 %_public_subtmp442 to i64
-  %_public_slttmp444 = icmp slt i64 %_public_lhssext443, 16
-  %_public_zexttmp445 = zext i1 %_public_slttmp444 to i32
+  %_public_lval430 = load i32, i32* %_public___v68_outp
+  %_public_lval431 = load i32, i32* %_public____out_len
+  %_public_icast432 = zext i32 %_public_lval431 to i64
+  %_public_lhssext433 = zext i32 %_public_lval430 to i64
+  %_public_ulttmp434 = icmp ult i64 %_public_lhssext433, %_public_icast432
+  %_public_zexttmp435 = zext i1 %_public_ulttmp434 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp435)
+  %_public_lval436 = load i32, i32* %_public___v68_outp
+  %_public_lval437 = load i32, i32* %_public___v84___v83_len
+  %_public_icast438 = zext i32 %_public_lval437 to i64
+  %_public_lhssext439 = zext i32 %_public_lval436 to i64
+  %_public_addtmp440 = add i64 %_public_lhssext439, %_public_icast438
+  %_public_truncbinop441 = trunc i64 %_public_addtmp440 to i32
+  %_public_subtmp442 = sub i32 %_public_truncbinop441, 1
+  %_public_lhssext443 = zext i32 %_public_subtmp442 to i64
+  %_public_ugtetmp444 = icmp uge i64 %_public_lhssext443, 0
+  %_public_zexttmp445 = zext i1 %_public_ugtetmp444 to i32
   call void @__VERIFIER_assert(i32 %_public_zexttmp445)
-  %_secret_structgep446 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 5
-  %_secret_arrview447 = alloca i8*
-  %_secret_source_gep448 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep446, i8 0, i8 0
-  store i8* %_secret_source_gep448, i8** %_secret_arrview447
-  %_secret_dynarrarg449 = load i8*, i8** %_secret_arrview447
-  %_public_lval450 = load i32, i32* %_public___v82___v81_len
-  call void @SHA1_Update_public(%SHA_CTX* %_public_structgep401, i8* %_secret_dynarrarg449, i32 %_public_lval450)
-  %_public_lval451 = load i32, i32* %_public___v69__len
-  %_public_lval452 = load i32, i32* %_public___v65_SHA_CBLOCK
-  %_public_addtmp453 = add i32 256, %_public_lval452
-  %_public_lval454 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp455 = add i32 %_public_addtmp453, %_public_lval454
-  %_public_ugtetmp456 = icmp uge i32 %_public_lval451, %_public_addtmp455
-  %_public_condtmp457 = icmp ne i1 %_public_ugtetmp456, false
-  %_public_lval458 = load i32, i32* %_public___v69__len
-  %_public_lval459 = load i32, i32* %_public___v65_SHA_CBLOCK
-  %_public_addtmp460 = add i32 256, %_public_lval459
-  %_public_lval461 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp462 = add i32 %_public_addtmp460, %_public_lval461
-  %_public_subtmp463 = sub i32 %_public_lval458, %_public_addtmp462
-  %_public_lval464 = load i32, i32* %_public___v65_SHA_CBLOCK
-  %_public_subtmp465 = sub i32 0, %_public_lval464
-  %_public_andtmp = and i32 %_public_subtmp463, %_public_subtmp465
-  %_public_lval466 = load i32, i32* %_public___v65_SHA_CBLOCK
-  %_public_structgep467 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_public_structgep468 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %_public_structgep467, i32 0, i32 4
-  %_public_lval469 = load i32, i32* %_public_structgep468
-  %_public_subtmp470 = sub i32 %_public_lval466, %_public_lval469
-  %_public_addtmp471 = add i32 %_public_andtmp, %_public_subtmp470
-  %_public_terntmp472 = select i1 %_public_condtmp457, i32 %_public_addtmp471, i32 0
-  store i32 %_public_terntmp472, i32* %_public___v83_minlen
-  %_public_lval473 = load i32, i32* %_public___v83_minlen
-  %_public_ugttmp474 = icmp ugt i32 %_public_lval473, 0
-  %_public_branchcompare475 = icmp eq i1 %_public_ugttmp474, true
-  br i1 %_public_branchcompare475, label %thenbranch476, label %elsebranch571
+  %_public_lval446 = load i32, i32* %_public___v68_outp
+  %_public_lval447 = load i32, i32* %_public___v84___v83_len
+  %_public_icast448 = zext i32 %_public_lval447 to i64
+  %_public_lhssext449 = zext i32 %_public_lval446 to i64
+  %_public_addtmp450 = add i64 %_public_lhssext449, %_public_icast448
+  %_public_truncbinop451 = trunc i64 %_public_addtmp450 to i32
+  %_public_subtmp452 = sub i32 %_public_truncbinop451, 1
+  %_public_lval453 = load i32, i32* %_public____out_len
+  %_public_icast454 = zext i32 %_public_lval453 to i64
+  %_public_lhssext455 = zext i32 %_public_subtmp452 to i64
+  %_public_ulttmp456 = icmp ult i64 %_public_lhssext455, %_public_icast454
+  %_public_zexttmp457 = zext i1 %_public_ulttmp456 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp457)
+  %_public_lval458 = load i32, i32* %_public___v68_outp
+  %_secret_ldedviewptr459 = load i8*, i8** %_secret_arrarg2
+  %_secret_source_gep460 = getelementptr inbounds i8, i8* %_secret_ldedviewptr459, i32 %_public_lval458
+  %_secret_arrviewdyn461 = alloca i8*
+  store i8* %_secret_source_gep460, i8** %_secret_arrviewdyn461
+  %_public_lval462 = load i32, i32* %_public___v68_outp
+  %_public_lval463 = load i32, i32* %_public___v84___v83_len
+  %_public_icast464 = zext i32 %_public_lval463 to i64
+  %_public_lhssext465 = zext i32 %_public_lval462 to i64
+  %_public_addtmp466 = add i64 %_public_lhssext465, %_public_icast464
+  %_public_truncbinop467 = trunc i64 %_public_addtmp466 to i32
+  %_public_lval468 = load i32, i32* %_public___v68_outp
+  %_public_ugttmp469 = icmp ugt i32 %_public_truncbinop467, %_public_lval468
+  %_public_zexttmp470 = zext i1 %_public_ugttmp469 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp470)
+  %_public_lval471 = load i32, i32* %_public___v68_outp
+  %_public_lhssext472 = zext i32 %_public_lval471 to i64
+  %_public_ugtetmp473 = icmp uge i64 %_public_lhssext472, 0
+  %_public_zexttmp474 = zext i1 %_public_ugtetmp473 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp474)
+  %_public_lval475 = load i32, i32* %_public___v68_outp
+  %_public_lval476 = load i32, i32* %_public____out_len
+  %_public_icast477 = zext i32 %_public_lval476 to i64
+  %_public_lhssext478 = zext i32 %_public_lval475 to i64
+  %_public_ulttmp479 = icmp ult i64 %_public_lhssext478, %_public_icast477
+  %_public_zexttmp480 = zext i1 %_public_ulttmp479 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp480)
+  %_public_lval481 = load i32, i32* %_public___v68_outp
+  %_public_lval482 = load i32, i32* %_public___v84___v83_len
+  %_public_icast483 = zext i32 %_public_lval482 to i64
+  %_public_lhssext484 = zext i32 %_public_lval481 to i64
+  %_public_addtmp485 = add i64 %_public_lhssext484, %_public_icast483
+  %_public_truncbinop486 = trunc i64 %_public_addtmp485 to i32
+  %_public_subtmp487 = sub i32 %_public_truncbinop486, 1
+  %_public_lhssext488 = zext i32 %_public_subtmp487 to i64
+  %_public_ugtetmp489 = icmp uge i64 %_public_lhssext488, 0
+  %_public_zexttmp490 = zext i1 %_public_ugtetmp489 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp490)
+  %_public_lval491 = load i32, i32* %_public___v68_outp
+  %_public_lval492 = load i32, i32* %_public___v84___v83_len
+  %_public_icast493 = zext i32 %_public_lval492 to i64
+  %_public_lhssext494 = zext i32 %_public_lval491 to i64
+  %_public_addtmp495 = add i64 %_public_lhssext494, %_public_icast493
+  %_public_truncbinop496 = trunc i64 %_public_addtmp495 to i32
+  %_public_subtmp497 = sub i32 %_public_truncbinop496, 1
+  %_public_lval498 = load i32, i32* %_public____out_len
+  %_public_icast499 = zext i32 %_public_lval498 to i64
+  %_public_lhssext500 = zext i32 %_public_subtmp497 to i64
+  %_public_ulttmp501 = icmp ult i64 %_public_lhssext500, %_public_icast499
+  %_public_zexttmp502 = zext i1 %_public_ulttmp501 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp502)
+  %_public_lval503 = load i32, i32* %_public___v68_outp
+  %_secret_ldedviewptr504 = load i8*, i8** %_secret_arrarg2
+  %_secret_source_gep505 = getelementptr inbounds i8, i8* %_secret_ldedviewptr504, i32 %_public_lval503
+  %_secret_arrviewdyn506 = alloca i8*
+  store i8* %_secret_source_gep505, i8** %_secret_arrviewdyn506
+  %_secret_dynarrarg507 = load i8*, i8** %_secret_arrviewdyn506
+  %_public_lval508 = load i32, i32* %_public___v84___v83_len
+  call void @SHA1_Update_public(%SHA_CTX* %_public_structgep416, i8* %_secret_dynarrarg507, i32 %_public_lval508)
+  br label %branchmerge510
 
-thenbranch476:                                    ; preds = %branchmerge107
-  %_public_lval477 = load i32, i32* %_public___v83_minlen
-  store i32 %_public_lval477, i32* %_public___v85___v84_len
-  %_public_structgep478 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_public_lval479 = load i32, i32* %_public___v68_outp
-  %_public_lval480 = load i32, i32* %_public___v85___v84_len
-  %_public_icast481 = zext i32 %_public_lval480 to i64
-  %_public_lhssext482 = zext i32 %_public_lval479 to i64
-  %_public_addtmp483 = add i64 %_public_lhssext482, %_public_icast481
-  %_public_truncbinop484 = trunc i64 %_public_addtmp483 to i32
-  %_public_lval485 = load i32, i32* %_public___v68_outp
-  %_public_ugttmp486 = icmp ugt i32 %_public_truncbinop484, %_public_lval485
-  %_public_zexttmp487 = zext i1 %_public_ugttmp486 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp487)
-  %_public_lval488 = load i32, i32* %_public___v68_outp
-  %_public_lhssext489 = zext i32 %_public_lval488 to i64
-  %_public_ugtetmp490 = icmp uge i64 %_public_lhssext489, 0
-  %_public_zexttmp491 = zext i1 %_public_ugtetmp490 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp491)
-  %_public_lval492 = load i32, i32* %_public___v68_outp
-  %_public_lval493 = load i32, i32* %_public____out_len
-  %_public_icast494 = zext i32 %_public_lval493 to i64
-  %_public_lhssext495 = zext i32 %_public_lval492 to i64
-  %_public_ulttmp496 = icmp ult i64 %_public_lhssext495, %_public_icast494
-  %_public_zexttmp497 = zext i1 %_public_ulttmp496 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp497)
-  %_public_lval498 = load i32, i32* %_public___v68_outp
-  %_public_lval499 = load i32, i32* %_public___v85___v84_len
-  %_public_icast500 = zext i32 %_public_lval499 to i64
-  %_public_lhssext501 = zext i32 %_public_lval498 to i64
-  %_public_addtmp502 = add i64 %_public_lhssext501, %_public_icast500
-  %_public_truncbinop503 = trunc i64 %_public_addtmp502 to i32
-  %_public_subtmp504 = sub i32 %_public_truncbinop503, 1
-  %_public_lhssext505 = zext i32 %_public_subtmp504 to i64
-  %_public_ugtetmp506 = icmp uge i64 %_public_lhssext505, 0
-  %_public_zexttmp507 = zext i1 %_public_ugtetmp506 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp507)
-  %_public_lval508 = load i32, i32* %_public___v68_outp
-  %_public_lval509 = load i32, i32* %_public___v85___v84_len
-  %_public_icast510 = zext i32 %_public_lval509 to i64
-  %_public_lhssext511 = zext i32 %_public_lval508 to i64
-  %_public_addtmp512 = add i64 %_public_lhssext511, %_public_icast510
-  %_public_truncbinop513 = trunc i64 %_public_addtmp512 to i32
-  %_public_subtmp514 = sub i32 %_public_truncbinop513, 1
-  %_public_lval515 = load i32, i32* %_public____out_len
-  %_public_icast516 = zext i32 %_public_lval515 to i64
-  %_public_lhssext517 = zext i32 %_public_subtmp514 to i64
-  %_public_ulttmp518 = icmp ult i64 %_public_lhssext517, %_public_icast516
-  %_public_zexttmp519 = zext i1 %_public_ulttmp518 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp519)
-  %_public_lval520 = load i32, i32* %_public___v68_outp
-  %_secret_ldedviewptr521 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep522 = getelementptr inbounds i8, i8* %_secret_ldedviewptr521, i32 %_public_lval520
-  %_secret_arrviewdyn523 = alloca i8*
-  store i8* %_secret_source_gep522, i8** %_secret_arrviewdyn523
-  %_public_lval524 = load i32, i32* %_public___v68_outp
-  %_public_lval525 = load i32, i32* %_public___v85___v84_len
-  %_public_icast526 = zext i32 %_public_lval525 to i64
-  %_public_lhssext527 = zext i32 %_public_lval524 to i64
-  %_public_addtmp528 = add i64 %_public_lhssext527, %_public_icast526
-  %_public_truncbinop529 = trunc i64 %_public_addtmp528 to i32
-  %_public_lval530 = load i32, i32* %_public___v68_outp
-  %_public_ugttmp531 = icmp ugt i32 %_public_truncbinop529, %_public_lval530
-  %_public_zexttmp532 = zext i1 %_public_ugttmp531 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp532)
-  %_public_lval533 = load i32, i32* %_public___v68_outp
-  %_public_lhssext534 = zext i32 %_public_lval533 to i64
-  %_public_ugtetmp535 = icmp uge i64 %_public_lhssext534, 0
-  %_public_zexttmp536 = zext i1 %_public_ugtetmp535 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp536)
-  %_public_lval537 = load i32, i32* %_public___v68_outp
-  %_public_lval538 = load i32, i32* %_public____out_len
-  %_public_icast539 = zext i32 %_public_lval538 to i64
-  %_public_lhssext540 = zext i32 %_public_lval537 to i64
-  %_public_ulttmp541 = icmp ult i64 %_public_lhssext540, %_public_icast539
-  %_public_zexttmp542 = zext i1 %_public_ulttmp541 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp542)
-  %_public_lval543 = load i32, i32* %_public___v68_outp
-  %_public_lval544 = load i32, i32* %_public___v85___v84_len
-  %_public_icast545 = zext i32 %_public_lval544 to i64
-  %_public_lhssext546 = zext i32 %_public_lval543 to i64
-  %_public_addtmp547 = add i64 %_public_lhssext546, %_public_icast545
-  %_public_truncbinop548 = trunc i64 %_public_addtmp547 to i32
-  %_public_subtmp549 = sub i32 %_public_truncbinop548, 1
-  %_public_lhssext550 = zext i32 %_public_subtmp549 to i64
-  %_public_ugtetmp551 = icmp uge i64 %_public_lhssext550, 0
-  %_public_zexttmp552 = zext i1 %_public_ugtetmp551 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp552)
-  %_public_lval553 = load i32, i32* %_public___v68_outp
-  %_public_lval554 = load i32, i32* %_public___v85___v84_len
-  %_public_icast555 = zext i32 %_public_lval554 to i64
-  %_public_lhssext556 = zext i32 %_public_lval553 to i64
-  %_public_addtmp557 = add i64 %_public_lhssext556, %_public_icast555
-  %_public_truncbinop558 = trunc i64 %_public_addtmp557 to i32
-  %_public_subtmp559 = sub i32 %_public_truncbinop558, 1
-  %_public_lval560 = load i32, i32* %_public____out_len
-  %_public_icast561 = zext i32 %_public_lval560 to i64
-  %_public_lhssext562 = zext i32 %_public_subtmp559 to i64
-  %_public_ulttmp563 = icmp ult i64 %_public_lhssext562, %_public_icast561
-  %_public_zexttmp564 = zext i1 %_public_ulttmp563 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp564)
-  %_public_lval565 = load i32, i32* %_public___v68_outp
-  %_secret_ldedviewptr566 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep567 = getelementptr inbounds i8, i8* %_secret_ldedviewptr566, i32 %_public_lval565
-  %_secret_arrviewdyn568 = alloca i8*
-  store i8* %_secret_source_gep567, i8** %_secret_arrviewdyn568
-  %_secret_dynarrarg569 = load i8*, i8** %_secret_arrviewdyn568
-  %_public_lval570 = load i32, i32* %_public___v85___v84_len
-  call void @SHA1_Update_public(%SHA_CTX* %_public_structgep478, i8* %_secret_dynarrarg569, i32 %_public_lval570)
-  br label %branchmerge572
+elsebranch509:                                    ; preds = %branchmerge48
+  br label %branchmerge510
 
-elsebranch571:                                    ; preds = %branchmerge107
-  br label %branchmerge572
-
-branchmerge572:                                   ; preds = %elsebranch571, %thenbranch476
-  %_public_lval573 = load i32, i32* %_public___v69__len
-  %_public_lval574 = load i32, i32* %_public___v83_minlen
-  %_public_subtmp575 = sub i32 %_public_lval573, %_public_lval574
-  store i32 %_public_subtmp575, i32* %_public___v87___v86_len
-  %_public_structgep576 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_public_lval577 = load i32, i32* %_public___v68_outp
-  %_public_lval578 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp579 = add i32 %_public_lval577, %_public_lval578
-  %_public_lval580 = load i32, i32* %_public___v87___v86_len
-  %_public_icast581 = zext i32 %_public_lval580 to i64
-  %_public_lhssext582 = zext i32 %_public_addtmp579 to i64
-  %_public_addtmp583 = add i64 %_public_lhssext582, %_public_icast581
-  %_public_truncbinop584 = trunc i64 %_public_addtmp583 to i32
-  %_public_lval585 = load i32, i32* %_public___v68_outp
-  %_public_lval586 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp587 = add i32 %_public_lval585, %_public_lval586
-  %_public_ugttmp588 = icmp ugt i32 %_public_truncbinop584, %_public_addtmp587
-  %_public_zexttmp589 = zext i1 %_public_ugttmp588 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp589)
-  %_public_lval590 = load i32, i32* %_public___v68_outp
-  %_public_lval591 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp592 = add i32 %_public_lval590, %_public_lval591
-  %_public_lhssext593 = zext i32 %_public_addtmp592 to i64
-  %_public_ugtetmp594 = icmp uge i64 %_public_lhssext593, 0
-  %_public_zexttmp595 = zext i1 %_public_ugtetmp594 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp595)
-  %_public_lval596 = load i32, i32* %_public___v68_outp
-  %_public_lval597 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp598 = add i32 %_public_lval596, %_public_lval597
-  %_public_lval599 = load i32, i32* %_public____out_len
-  %_public_icast600 = zext i32 %_public_lval599 to i64
-  %_public_lhssext601 = zext i32 %_public_addtmp598 to i64
-  %_public_ulttmp602 = icmp ult i64 %_public_lhssext601, %_public_icast600
-  %_public_zexttmp603 = zext i1 %_public_ulttmp602 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp603)
-  %_public_lval604 = load i32, i32* %_public___v68_outp
-  %_public_lval605 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp606 = add i32 %_public_lval604, %_public_lval605
-  %_public_lval607 = load i32, i32* %_public___v87___v86_len
-  %_public_icast608 = zext i32 %_public_lval607 to i64
-  %_public_lhssext609 = zext i32 %_public_addtmp606 to i64
-  %_public_addtmp610 = add i64 %_public_lhssext609, %_public_icast608
-  %_public_truncbinop611 = trunc i64 %_public_addtmp610 to i32
-  %_public_subtmp612 = sub i32 %_public_truncbinop611, 1
-  %_public_lhssext613 = zext i32 %_public_subtmp612 to i64
-  %_public_ugtetmp614 = icmp uge i64 %_public_lhssext613, 0
-  %_public_zexttmp615 = zext i1 %_public_ugtetmp614 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp615)
-  %_public_lval616 = load i32, i32* %_public___v68_outp
-  %_public_lval617 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp618 = add i32 %_public_lval616, %_public_lval617
-  %_public_lval619 = load i32, i32* %_public___v87___v86_len
-  %_public_icast620 = zext i32 %_public_lval619 to i64
-  %_public_lhssext621 = zext i32 %_public_addtmp618 to i64
-  %_public_addtmp622 = add i64 %_public_lhssext621, %_public_icast620
-  %_public_truncbinop623 = trunc i64 %_public_addtmp622 to i32
-  %_public_subtmp624 = sub i32 %_public_truncbinop623, 1
-  %_public_lval625 = load i32, i32* %_public____out_len
-  %_public_icast626 = zext i32 %_public_lval625 to i64
-  %_public_lhssext627 = zext i32 %_public_subtmp624 to i64
-  %_public_ulttmp628 = icmp ult i64 %_public_lhssext627, %_public_icast626
-  %_public_zexttmp629 = zext i1 %_public_ulttmp628 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp629)
-  %_public_lval630 = load i32, i32* %_public___v68_outp
-  %_public_lval631 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp632 = add i32 %_public_lval630, %_public_lval631
-  %_secret_ldedviewptr633 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep634 = getelementptr inbounds i8, i8* %_secret_ldedviewptr633, i32 %_public_addtmp632
-  %_secret_arrviewdyn635 = alloca i8*
-  store i8* %_secret_source_gep634, i8** %_secret_arrviewdyn635
-  %_public_lval636 = load i32, i32* %_public___v68_outp
-  %_public_lval637 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp638 = add i32 %_public_lval636, %_public_lval637
-  %_public_lval639 = load i32, i32* %_public___v87___v86_len
-  %_public_icast640 = zext i32 %_public_lval639 to i64
-  %_public_lhssext641 = zext i32 %_public_addtmp638 to i64
-  %_public_addtmp642 = add i64 %_public_lhssext641, %_public_icast640
-  %_public_truncbinop643 = trunc i64 %_public_addtmp642 to i32
-  %_public_lval644 = load i32, i32* %_public___v68_outp
-  %_public_lval645 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp646 = add i32 %_public_lval644, %_public_lval645
-  %_public_ugttmp647 = icmp ugt i32 %_public_truncbinop643, %_public_addtmp646
-  %_public_zexttmp648 = zext i1 %_public_ugttmp647 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp648)
-  %_public_lval649 = load i32, i32* %_public___v68_outp
-  %_public_lval650 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp651 = add i32 %_public_lval649, %_public_lval650
-  %_public_lhssext652 = zext i32 %_public_addtmp651 to i64
-  %_public_ugtetmp653 = icmp uge i64 %_public_lhssext652, 0
-  %_public_zexttmp654 = zext i1 %_public_ugtetmp653 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp654)
-  %_public_lval655 = load i32, i32* %_public___v68_outp
-  %_public_lval656 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp657 = add i32 %_public_lval655, %_public_lval656
-  %_public_lval658 = load i32, i32* %_public____out_len
-  %_public_icast659 = zext i32 %_public_lval658 to i64
-  %_public_lhssext660 = zext i32 %_public_addtmp657 to i64
-  %_public_ulttmp661 = icmp ult i64 %_public_lhssext660, %_public_icast659
-  %_public_zexttmp662 = zext i1 %_public_ulttmp661 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp662)
-  %_public_lval663 = load i32, i32* %_public___v68_outp
-  %_public_lval664 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp665 = add i32 %_public_lval663, %_public_lval664
-  %_public_lval666 = load i32, i32* %_public___v87___v86_len
-  %_public_icast667 = zext i32 %_public_lval666 to i64
-  %_public_lhssext668 = zext i32 %_public_addtmp665 to i64
-  %_public_addtmp669 = add i64 %_public_lhssext668, %_public_icast667
-  %_public_truncbinop670 = trunc i64 %_public_addtmp669 to i32
-  %_public_subtmp671 = sub i32 %_public_truncbinop670, 1
-  %_public_lhssext672 = zext i32 %_public_subtmp671 to i64
-  %_public_ugtetmp673 = icmp uge i64 %_public_lhssext672, 0
-  %_public_zexttmp674 = zext i1 %_public_ugtetmp673 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp674)
-  %_public_lval675 = load i32, i32* %_public___v68_outp
-  %_public_lval676 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp677 = add i32 %_public_lval675, %_public_lval676
-  %_public_lval678 = load i32, i32* %_public___v87___v86_len
-  %_public_icast679 = zext i32 %_public_lval678 to i64
-  %_public_lhssext680 = zext i32 %_public_addtmp677 to i64
-  %_public_addtmp681 = add i64 %_public_lhssext680, %_public_icast679
-  %_public_truncbinop682 = trunc i64 %_public_addtmp681 to i32
-  %_public_subtmp683 = sub i32 %_public_truncbinop682, 1
-  %_public_lval684 = load i32, i32* %_public____out_len
-  %_public_icast685 = zext i32 %_public_lval684 to i64
-  %_public_lhssext686 = zext i32 %_public_subtmp683 to i64
-  %_public_ulttmp687 = icmp ult i64 %_public_lhssext686, %_public_icast685
-  %_public_zexttmp688 = zext i1 %_public_ulttmp687 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp688)
-  %_public_lval689 = load i32, i32* %_public___v68_outp
-  %_public_lval690 = load i32, i32* %_public___v83_minlen
-  %_public_addtmp691 = add i32 %_public_lval689, %_public_lval690
-  %_secret_ldedviewptr692 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep693 = getelementptr inbounds i8, i8* %_secret_ldedviewptr692, i32 %_public_addtmp691
-  %_secret_arrviewdyn694 = alloca i8*
-  store i8* %_secret_source_gep693, i8** %_secret_arrviewdyn694
-  %_secret_dynarrarg695 = load i8*, i8** %_secret_arrviewdyn694
-  %_public_lval696 = load i32, i32* %_public___v87___v86_len
-  %_secret_lval697 = load i32, i32* %_secret___v78_inp_len
-  %_public_lval698 = load i32, i32* %_public___v83_minlen
-  %_secret_subtmp699 = sub i32 %_secret_lval697, %_public_lval698
-  call void @SHA1_Update_secret(%SHA_CTX* %_public_structgep576, i32* %_secret___v79_ctx_num, i8* %_secret_dynarrarg695, i32 %_public_lval696, i32 %_secret_subtmp699)
-  %_secret_arrtoptr = bitcast [20 x i8]* %_secret___v80_pmac to i8*
-  %_public_structgep700 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_secret_lval701 = load i32, i32* %_secret___v79_ctx_num
-  call void @SHA1_Final_secret(i8* %_secret_arrtoptr, %SHA_CTX* %_public_structgep700, i32 %_secret_lval701)
-  %_public_structgep702 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_public_structgep703 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 2
-  call void @_structcopy_SHA_CTX(%SHA_CTX* %_public_structgep702, %SHA_CTX* %_public_structgep703)
-  %_public_structgep704 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  %_secret_arrtoptr705 = bitcast [20 x i8]* %_secret___v80_pmac to i8*
-  call void @SHA1_Update_public(%SHA_CTX* %_public_structgep704, i8* %_secret_arrtoptr705, i32 20)
-  %_secret_arrtoptr706 = bitcast [20 x i8]* %_secret___v80_pmac to i8*
-  %_public_structgep707 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
-  call void @SHA1_Final_public(i8* %_secret_arrtoptr706, %SHA_CTX* %_public_structgep707)
-  %_public_lval708 = load i32, i32* %_public___v69__len
-  %_public_lval709 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp710 = add i32 256, %_public_lval709
-  %_public_ulttmp711 = icmp ult i32 %_public_lval708, %_public_addtmp710
-  %_public_condtmp712 = icmp ne i1 %_public_ulttmp711, false
-  %_public_lval713 = load i32, i32* %_public___v69__len
-  %_public_lval714 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_public_addtmp715 = add i32 256, %_public_lval714
-  %_public_subtmp716 = sub i32 %_public_lval713, %_public_addtmp715
-  %_public_terntmp717 = select i1 %_public_condtmp712, i32 0, i32 %_public_subtmp716
-  store i32 %_public_terntmp717, i32* %_public___v88_pub_start
-  %_public_lval718 = load i32, i32* %_public___v68_outp
-  %_secret_lval719 = load i32, i32* %_secret___v78_inp_len
-  %_secret_addtmp720 = add i32 %_public_lval718, %_secret_lval719
-  %_public_lval721 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_secret_addtmp722 = add i32 %_secret_addtmp720, %_public_lval721
-  %_public_lval723 = load i32, i32* %_public___v69__len
-  %_secret_ugttmp724 = icmp ugt i32 %_secret_addtmp722, %_public_lval723
-  store i1 %_secret_ugttmp724, i1* %_secret___m17
-  %_secret_lval725 = load i1, i1* %_secret___m17
-  %_secret_landtmp726 = and i1 true, %_secret_lval725
-  %_secret_lval727 = load i1, i1* %_secret___rnset
-  %_secret_landtmp728 = and i1 %_secret_landtmp726, %_secret_lval727
-  %_secret_condtmp729 = icmp ne i1 %_secret_landtmp728, false
-  %_secret_lval730 = load i32, i32* %_secret___v66_ret
-  %_secret_selecttmp731 = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp729, i32 0, i32 %_secret_lval730)
-  store i32 %_secret_selecttmp731, i32* %_secret___v66_ret
-  %_secret_lval732 = load i1, i1* %_secret___m17
-  %_secret_lnottmp733 = xor i1 %_secret_lval732, true
-  store i1 %_secret_lnottmp733, i1* %_secret___m17
+branchmerge510:                                   ; preds = %elsebranch509, %thenbranch414
+  %_public_lval511 = load i32, i32* %_public___v69__len
+  %_public_lval512 = load i32, i32* %_public___v82_minlen
+  %_public_subtmp513 = sub i32 %_public_lval511, %_public_lval512
+  store i32 %_public_subtmp513, i32* %_public___v86___v85_len
+  %_public_structgep514 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_public_lval515 = load i32, i32* %_public___v68_outp
+  %_public_lval516 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp517 = add i32 %_public_lval515, %_public_lval516
+  %_public_lval518 = load i32, i32* %_public___v86___v85_len
+  %_public_icast519 = zext i32 %_public_lval518 to i64
+  %_public_lhssext520 = zext i32 %_public_addtmp517 to i64
+  %_public_addtmp521 = add i64 %_public_lhssext520, %_public_icast519
+  %_public_truncbinop522 = trunc i64 %_public_addtmp521 to i32
+  %_public_lval523 = load i32, i32* %_public___v68_outp
+  %_public_lval524 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp525 = add i32 %_public_lval523, %_public_lval524
+  %_public_ugttmp526 = icmp ugt i32 %_public_truncbinop522, %_public_addtmp525
+  %_public_zexttmp527 = zext i1 %_public_ugttmp526 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp527)
+  %_public_lval528 = load i32, i32* %_public___v68_outp
+  %_public_lval529 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp530 = add i32 %_public_lval528, %_public_lval529
+  %_public_lhssext531 = zext i32 %_public_addtmp530 to i64
+  %_public_ugtetmp532 = icmp uge i64 %_public_lhssext531, 0
+  %_public_zexttmp533 = zext i1 %_public_ugtetmp532 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp533)
+  %_public_lval534 = load i32, i32* %_public___v68_outp
+  %_public_lval535 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp536 = add i32 %_public_lval534, %_public_lval535
+  %_public_lval537 = load i32, i32* %_public____out_len
+  %_public_icast538 = zext i32 %_public_lval537 to i64
+  %_public_lhssext539 = zext i32 %_public_addtmp536 to i64
+  %_public_ulttmp540 = icmp ult i64 %_public_lhssext539, %_public_icast538
+  %_public_zexttmp541 = zext i1 %_public_ulttmp540 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp541)
+  %_public_lval542 = load i32, i32* %_public___v68_outp
+  %_public_lval543 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp544 = add i32 %_public_lval542, %_public_lval543
+  %_public_lval545 = load i32, i32* %_public___v86___v85_len
+  %_public_icast546 = zext i32 %_public_lval545 to i64
+  %_public_lhssext547 = zext i32 %_public_addtmp544 to i64
+  %_public_addtmp548 = add i64 %_public_lhssext547, %_public_icast546
+  %_public_truncbinop549 = trunc i64 %_public_addtmp548 to i32
+  %_public_subtmp550 = sub i32 %_public_truncbinop549, 1
+  %_public_lhssext551 = zext i32 %_public_subtmp550 to i64
+  %_public_ugtetmp552 = icmp uge i64 %_public_lhssext551, 0
+  %_public_zexttmp553 = zext i1 %_public_ugtetmp552 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp553)
+  %_public_lval554 = load i32, i32* %_public___v68_outp
+  %_public_lval555 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp556 = add i32 %_public_lval554, %_public_lval555
+  %_public_lval557 = load i32, i32* %_public___v86___v85_len
+  %_public_icast558 = zext i32 %_public_lval557 to i64
+  %_public_lhssext559 = zext i32 %_public_addtmp556 to i64
+  %_public_addtmp560 = add i64 %_public_lhssext559, %_public_icast558
+  %_public_truncbinop561 = trunc i64 %_public_addtmp560 to i32
+  %_public_subtmp562 = sub i32 %_public_truncbinop561, 1
+  %_public_lval563 = load i32, i32* %_public____out_len
+  %_public_icast564 = zext i32 %_public_lval563 to i64
+  %_public_lhssext565 = zext i32 %_public_subtmp562 to i64
+  %_public_ulttmp566 = icmp ult i64 %_public_lhssext565, %_public_icast564
+  %_public_zexttmp567 = zext i1 %_public_ulttmp566 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp567)
+  %_public_lval568 = load i32, i32* %_public___v68_outp
+  %_public_lval569 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp570 = add i32 %_public_lval568, %_public_lval569
+  %_secret_ldedviewptr571 = load i8*, i8** %_secret_arrarg2
+  %_secret_source_gep572 = getelementptr inbounds i8, i8* %_secret_ldedviewptr571, i32 %_public_addtmp570
+  %_secret_arrviewdyn573 = alloca i8*
+  store i8* %_secret_source_gep572, i8** %_secret_arrviewdyn573
+  %_public_lval574 = load i32, i32* %_public___v68_outp
+  %_public_lval575 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp576 = add i32 %_public_lval574, %_public_lval575
+  %_public_lval577 = load i32, i32* %_public___v86___v85_len
+  %_public_icast578 = zext i32 %_public_lval577 to i64
+  %_public_lhssext579 = zext i32 %_public_addtmp576 to i64
+  %_public_addtmp580 = add i64 %_public_lhssext579, %_public_icast578
+  %_public_truncbinop581 = trunc i64 %_public_addtmp580 to i32
+  %_public_lval582 = load i32, i32* %_public___v68_outp
+  %_public_lval583 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp584 = add i32 %_public_lval582, %_public_lval583
+  %_public_ugttmp585 = icmp ugt i32 %_public_truncbinop581, %_public_addtmp584
+  %_public_zexttmp586 = zext i1 %_public_ugttmp585 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp586)
+  %_public_lval587 = load i32, i32* %_public___v68_outp
+  %_public_lval588 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp589 = add i32 %_public_lval587, %_public_lval588
+  %_public_lhssext590 = zext i32 %_public_addtmp589 to i64
+  %_public_ugtetmp591 = icmp uge i64 %_public_lhssext590, 0
+  %_public_zexttmp592 = zext i1 %_public_ugtetmp591 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp592)
+  %_public_lval593 = load i32, i32* %_public___v68_outp
+  %_public_lval594 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp595 = add i32 %_public_lval593, %_public_lval594
+  %_public_lval596 = load i32, i32* %_public____out_len
+  %_public_icast597 = zext i32 %_public_lval596 to i64
+  %_public_lhssext598 = zext i32 %_public_addtmp595 to i64
+  %_public_ulttmp599 = icmp ult i64 %_public_lhssext598, %_public_icast597
+  %_public_zexttmp600 = zext i1 %_public_ulttmp599 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp600)
+  %_public_lval601 = load i32, i32* %_public___v68_outp
+  %_public_lval602 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp603 = add i32 %_public_lval601, %_public_lval602
+  %_public_lval604 = load i32, i32* %_public___v86___v85_len
+  %_public_icast605 = zext i32 %_public_lval604 to i64
+  %_public_lhssext606 = zext i32 %_public_addtmp603 to i64
+  %_public_addtmp607 = add i64 %_public_lhssext606, %_public_icast605
+  %_public_truncbinop608 = trunc i64 %_public_addtmp607 to i32
+  %_public_subtmp609 = sub i32 %_public_truncbinop608, 1
+  %_public_lhssext610 = zext i32 %_public_subtmp609 to i64
+  %_public_ugtetmp611 = icmp uge i64 %_public_lhssext610, 0
+  %_public_zexttmp612 = zext i1 %_public_ugtetmp611 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp612)
+  %_public_lval613 = load i32, i32* %_public___v68_outp
+  %_public_lval614 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp615 = add i32 %_public_lval613, %_public_lval614
+  %_public_lval616 = load i32, i32* %_public___v86___v85_len
+  %_public_icast617 = zext i32 %_public_lval616 to i64
+  %_public_lhssext618 = zext i32 %_public_addtmp615 to i64
+  %_public_addtmp619 = add i64 %_public_lhssext618, %_public_icast617
+  %_public_truncbinop620 = trunc i64 %_public_addtmp619 to i32
+  %_public_subtmp621 = sub i32 %_public_truncbinop620, 1
+  %_public_lval622 = load i32, i32* %_public____out_len
+  %_public_icast623 = zext i32 %_public_lval622 to i64
+  %_public_lhssext624 = zext i32 %_public_subtmp621 to i64
+  %_public_ulttmp625 = icmp ult i64 %_public_lhssext624, %_public_icast623
+  %_public_zexttmp626 = zext i1 %_public_ulttmp625 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp626)
+  %_public_lval627 = load i32, i32* %_public___v68_outp
+  %_public_lval628 = load i32, i32* %_public___v82_minlen
+  %_public_addtmp629 = add i32 %_public_lval627, %_public_lval628
+  %_secret_ldedviewptr630 = load i8*, i8** %_secret_arrarg2
+  %_secret_source_gep631 = getelementptr inbounds i8, i8* %_secret_ldedviewptr630, i32 %_public_addtmp629
+  %_secret_arrviewdyn632 = alloca i8*
+  store i8* %_secret_source_gep631, i8** %_secret_arrviewdyn632
+  %_secret_dynarrarg633 = load i8*, i8** %_secret_arrviewdyn632
+  %_public_lval634 = load i32, i32* %_public___v86___v85_len
+  %_secret_lval635 = load i32, i32* %_secret___v77_inp_len
+  %_public_lval636 = load i32, i32* %_public___v82_minlen
+  %_secret_subtmp637 = sub i32 %_secret_lval635, %_public_lval636
+  call void @SHA1_Update_secret(%SHA_CTX* %_public_structgep514, i32* %_secret___v78_ctx_num, i8* %_secret_dynarrarg633, i32 %_public_lval634, i32 %_secret_subtmp637)
+  %_secret_arrtoptr = bitcast [20 x i8]* %_secret___v79_pmac to i8*
+  %_public_structgep638 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_secret_lval639 = load i32, i32* %_secret___v78_ctx_num
+  call void @SHA1_Final_secret(i8* %_secret_arrtoptr, %SHA_CTX* %_public_structgep638, i32 %_secret_lval639)
+  %_public_structgep640 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_public_structgep641 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 2
+  call void @_structcopy_SHA_CTX(%SHA_CTX* %_public_structgep640, %SHA_CTX* %_public_structgep641)
+  %_public_structgep642 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  %_secret_arrtoptr643 = bitcast [20 x i8]* %_secret___v79_pmac to i8*
+  call void @SHA1_Update_public(%SHA_CTX* %_public_structgep642, i8* %_secret_arrtoptr643, i32 20)
+  %_secret_arrtoptr644 = bitcast [20 x i8]* %_secret___v79_pmac to i8*
+  %_public_structgep645 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %key, i32 0, i32 3
+  call void @SHA1_Final_public(i8* %_secret_arrtoptr644, %SHA_CTX* %_public_structgep645)
+  %_public_lval646 = load i32, i32* %_public___v69__len
+  %_public_lval647 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp648 = add i32 256, %_public_lval647
+  %_public_ulttmp649 = icmp ult i32 %_public_lval646, %_public_addtmp648
+  %_public_condtmp650 = icmp ne i1 %_public_ulttmp649, false
+  %_public_lval651 = load i32, i32* %_public___v69__len
+  %_public_lval652 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_public_addtmp653 = add i32 256, %_public_lval652
+  %_public_subtmp654 = sub i32 %_public_lval651, %_public_addtmp653
+  %_public_terntmp655 = select i1 %_public_condtmp650, i32 0, i32 %_public_subtmp654
+  store i32 %_public_terntmp655, i32* %_public___v87_pub_start
+  %_public_lval656 = load i32, i32* %_public___v68_outp
+  %_secret_lval657 = load i32, i32* %_secret___v77_inp_len
+  %_secret_addtmp658 = add i32 %_public_lval656, %_secret_lval657
+  %_public_lval659 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_secret_addtmp660 = add i32 %_secret_addtmp658, %_public_lval659
+  %_public_lval661 = load i32, i32* %_public___v69__len
+  %_secret_ugttmp662 = icmp ugt i32 %_secret_addtmp660, %_public_lval661
+  store i1 %_secret_ugttmp662, i1* %_secret___m17
+  %_secret_lval663 = load i1, i1* %_secret___m17
+  %_secret_landtmp664 = and i1 true, %_secret_lval663
+  %_secret_lval665 = load i1, i1* %_secret___rnset
+  %_secret_landtmp666 = and i1 %_secret_landtmp664, %_secret_lval665
+  %_secret_condtmp667 = icmp ne i1 %_secret_landtmp666, false
+  %_secret_lval668 = load i32, i32* %_secret___v66_ret
+  %_secret_selecttmp669 = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp667, i32 0, i32 %_secret_lval668)
+  store i32 %_secret_selecttmp669, i32* %_secret___v66_ret
+  %_secret_lval670 = load i1, i1* %_secret___m17
+  %_secret_lnottmp671 = xor i1 %_secret_lval670, true
+  store i1 %_secret_lnottmp671, i1* %_secret___m17
   %_public_calltmp = call i32 @__VERIFIER_nondet_unsigned_int()
-  store i32 %_public_calltmp, i32* %_public___v89_i
-  %_public_lval734 = load i32, i32* %_public___v89_i
-  %_public_lval735 = load i32, i32* %_public___v69__len
-  %_public_ulttmp736 = icmp ult i32 %_public_lval734, %_public_lval735
-  %_public_branchcompare737 = icmp eq i1 %_public_ulttmp736, true
-  br i1 %_public_branchcompare737, label %thenbranch738, label %elsebranch824
+  store i32 %_public_calltmp, i32* %_public___v88_i
+  %_public_lval672 = load i32, i32* %_public___v88_i
+  %_public_lval673 = load i32, i32* %_public___v69__len
+  %_public_ulttmp674 = icmp ult i32 %_public_lval672, %_public_lval673
+  %_public_branchcompare675 = icmp eq i1 %_public_ulttmp674, true
+  br i1 %_public_branchcompare675, label %thenbranch676, label %elsebranch762
 
-thenbranch738:                                    ; preds = %branchmerge572
-  %_public_lval739 = load i32, i32* %_public___v89_i
-  %_public_lval740 = load i32, i32* %_public___v89_i
-  %_public_addtmp741 = add i32 %_public_lval740, 1
-  %_public_ulttmp742 = icmp ult i32 %_public_lval739, %_public_addtmp741
-  %_public_zexttmp743 = zext i1 %_public_ulttmp742 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp743)
-  %_public_lval744 = load i32, i32* %_public___v68_outp
-  %_public_lval745 = load i32, i32* %_public___v88_pub_start
-  %_public_addtmp746 = add i32 %_public_lval744, %_public_lval745
-  %_public_lval747 = load i32, i32* %_public___v89_i
-  %_public_ulttmp748 = icmp ult i32 %_public_addtmp746, %_public_lval747
-  %_public_lval749 = load i32, i32* %_public___v68_outp
-  %_public_lval750 = load i32, i32* %_public___v88_pub_start
-  %_public_addtmp751 = add i32 %_public_lval749, %_public_lval750
-  %_public_lval752 = load i32, i32* %_public___v89_i
-  %_public_eqtmp = icmp eq i32 %_public_addtmp751, %_public_lval752
-  %_public_lortmp = or i1 %_public_ulttmp748, %_public_eqtmp
-  %_public_zexttmp753 = zext i1 %_public_lortmp to i32
-  call void @__VERIFIER_assume(i32 %_public_zexttmp753)
+thenbranch676:                                    ; preds = %branchmerge510
+  %_public_lval677 = load i32, i32* %_public___v88_i
+  %_public_lval678 = load i32, i32* %_public___v88_i
+  %_public_addtmp679 = add i32 %_public_lval678, 1
+  %_public_ulttmp680 = icmp ult i32 %_public_lval677, %_public_addtmp679
+  %_public_zexttmp681 = zext i1 %_public_ulttmp680 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp681)
+  %_public_lval682 = load i32, i32* %_public___v68_outp
+  %_public_lval683 = load i32, i32* %_public___v87_pub_start
+  %_public_addtmp684 = add i32 %_public_lval682, %_public_lval683
+  %_public_lval685 = load i32, i32* %_public___v88_i
+  %_public_ulttmp686 = icmp ult i32 %_public_addtmp684, %_public_lval685
+  %_public_lval687 = load i32, i32* %_public___v68_outp
+  %_public_lval688 = load i32, i32* %_public___v87_pub_start
+  %_public_addtmp689 = add i32 %_public_lval687, %_public_lval688
+  %_public_lval690 = load i32, i32* %_public___v88_i
+  %_public_eqtmp = icmp eq i32 %_public_addtmp689, %_public_lval690
+  %_public_lortmp = or i1 %_public_ulttmp686, %_public_eqtmp
+  %_public_zexttmp691 = zext i1 %_public_lortmp to i32
+  call void @__VERIFIER_assume(i32 %_public_zexttmp691)
   store i1 false, i1* %_secret___m18
-  %_public_lval754 = load i32, i32* %_public___v89_i
-  %_public_lval755 = load i32, i32* %_public___v68_outp
-  %_secret_lval756 = load i32, i32* %_secret___v78_inp_len
-  %_secret_addtmp757 = add i32 %_public_lval755, %_secret_lval756
-  %_secret_ugtetmp = icmp uge i32 %_public_lval754, %_secret_addtmp757
+  %_public_lval692 = load i32, i32* %_public___v88_i
+  %_public_lval693 = load i32, i32* %_public___v68_outp
+  %_secret_lval694 = load i32, i32* %_secret___v77_inp_len
+  %_secret_addtmp695 = add i32 %_public_lval693, %_secret_lval694
+  %_secret_ugtetmp = icmp uge i32 %_public_lval692, %_secret_addtmp695
   store i1 %_secret_ugtetmp, i1* %_secret___m19
-  %_secret_lval758 = load i1, i1* %_secret___m19
-  %_secret_landtmp759 = and i1 true, %_secret_lval758
-  %_secret_lval760 = load i1, i1* %_secret___rnset
-  %_secret_landtmp761 = and i1 %_secret_landtmp759, %_secret_lval760
-  %_secret_condtmp762 = icmp ne i1 %_secret_landtmp761, false
-  %_public_lval763 = load i32, i32* %_public___v89_i
-  %_public_lval764 = load i32, i32* %_public___v68_outp
-  %_secret_lval765 = load i32, i32* %_secret___v78_inp_len
-  %_secret_addtmp766 = add i32 %_public_lval764, %_secret_lval765
-  %_public_lval767 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
-  %_secret_addtmp768 = add i32 %_secret_addtmp766, %_public_lval767
-  %_secret_ulttmp = icmp ult i32 %_public_lval763, %_secret_addtmp768
-  %_secret_lval769 = load i1, i1* %_secret___m18
-  %_secret_selecttmp770 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp762, i1 %_secret_ulttmp, i1 %_secret_lval769)
-  store i1 %_secret_selecttmp770, i1* %_secret___m18
-  %_secret_lval771 = load i1, i1* %_secret___m19
-  %_secret_lnottmp772 = xor i1 %_secret_lval771, true
-  store i1 %_secret_lnottmp772, i1* %_secret___m19
-  %_secret_lval773 = load i1, i1* %_secret___m19
-  %_secret_landtmp774 = and i1 true, %_secret_lval773
-  %_secret_lval775 = load i1, i1* %_secret___rnset
-  %_secret_landtmp776 = and i1 %_secret_landtmp774, %_secret_lval775
-  %_secret_condtmp777 = icmp ne i1 %_secret_landtmp776, false
-  %_secret_lval778 = load i1, i1* %_secret___m18
-  %_secret_selecttmp779 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp777, i1 false, i1 %_secret_lval778)
-  store i1 %_secret_selecttmp779, i1* %_secret___m18
-  %_secret___m18780 = load i1, i1* %_secret___m18
-  store i1 %_secret___m18780, i1* %_secret___m20
-  %_public_lval781 = load i32, i32* %_public___v89_i
-  %_public_lval782 = load i32, i32* %_public___v68_outp
-  %_secret_lval783 = load i32, i32* %_secret___v78_inp_len
-  %_secret_addtmp784 = add i32 %_public_lval782, %_secret_lval783
-  %_secret_subtmp785 = sub i32 %_public_lval781, %_secret_addtmp784
-  store i32 %_secret_subtmp785, i32* %_secret___v90_j
-  %_public_lval786 = load i32, i32* %_public___v89_i
-  %_public_lhssext787 = zext i32 %_public_lval786 to i64
-  %_public_ugtetmp788 = icmp uge i64 %_public_lhssext787, 0
-  %_public_zexttmp789 = zext i1 %_public_ugtetmp788 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp789)
-  %_public_lval790 = load i32, i32* %_public___v89_i
-  %_public_lval791 = load i32, i32* %_public____out_len
-  %_public_icast792 = zext i32 %_public_lval791 to i64
-  %_public_lhssext793 = zext i32 %_public_lval790 to i64
-  %_public_ulttmp794 = icmp ult i64 %_public_lhssext793, %_public_icast792
-  %_public_zexttmp795 = zext i1 %_public_ulttmp794 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp795)
-  %_public_lval796 = load i32, i32* %_public___v89_i
-  %_secret_dyn797 = load i8*, i8** %_secret_arrarg2
-  %_secret_ptr798 = getelementptr inbounds i8, i8* %_secret_dyn797, i32 %_public_lval796
-  %_secret_lval799 = load i8, i8* %_secret_ptr798
-  %_declassified__secret_lval800 = load i32, i32* %_secret___v90_j
-  %_public_lhssext801 = zext i32 %_declassified__secret_lval800 to i64
-  %_public_ugtetmp802 = icmp uge i64 %_public_lhssext801, 0
-  %_public_zexttmp803 = zext i1 %_public_ugtetmp802 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp803)
-  %_declassified__secret_lval804 = load i32, i32* %_secret___v90_j
-  %_public_lhssext805 = zext i32 %_declassified__secret_lval804 to i64
-  %_public_ulttmp806 = icmp ult i64 %_public_lhssext805, 20
-  %_public_zexttmp807 = zext i1 %_public_ulttmp806 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp807)
-  %_declassified__secret_lval808 = load i32, i32* %_secret___v90_j
-  %_secret_ptr809 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v80_pmac, i32 0, i32 %_declassified__secret_lval808
-  %_secret_lval810 = load i8, i8* %_secret_ptr809
-  %_secret_neqtmp = icmp ne i8 %_secret_lval799, %_secret_lval810
+  %_secret_lval696 = load i1, i1* %_secret___m19
+  %_secret_landtmp697 = and i1 true, %_secret_lval696
+  %_secret_lval698 = load i1, i1* %_secret___rnset
+  %_secret_landtmp699 = and i1 %_secret_landtmp697, %_secret_lval698
+  %_secret_condtmp700 = icmp ne i1 %_secret_landtmp699, false
+  %_public_lval701 = load i32, i32* %_public___v88_i
+  %_public_lval702 = load i32, i32* %_public___v68_outp
+  %_secret_lval703 = load i32, i32* %_secret___v77_inp_len
+  %_secret_addtmp704 = add i32 %_public_lval702, %_secret_lval703
+  %_public_lval705 = load i32, i32* %_public___v62_SHA_DIGEST_LENGTH
+  %_secret_addtmp706 = add i32 %_secret_addtmp704, %_public_lval705
+  %_secret_ulttmp = icmp ult i32 %_public_lval701, %_secret_addtmp706
+  %_secret_lval707 = load i1, i1* %_secret___m18
+  %_secret_selecttmp708 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp700, i1 %_secret_ulttmp, i1 %_secret_lval707)
+  store i1 %_secret_selecttmp708, i1* %_secret___m18
+  %_secret_lval709 = load i1, i1* %_secret___m19
+  %_secret_lnottmp710 = xor i1 %_secret_lval709, true
+  store i1 %_secret_lnottmp710, i1* %_secret___m19
+  %_secret_lval711 = load i1, i1* %_secret___m19
+  %_secret_landtmp712 = and i1 true, %_secret_lval711
+  %_secret_lval713 = load i1, i1* %_secret___rnset
+  %_secret_landtmp714 = and i1 %_secret_landtmp712, %_secret_lval713
+  %_secret_condtmp715 = icmp ne i1 %_secret_landtmp714, false
+  %_secret_lval716 = load i1, i1* %_secret___m18
+  %_secret_selecttmp717 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp715, i1 false, i1 %_secret_lval716)
+  store i1 %_secret_selecttmp717, i1* %_secret___m18
+  %_secret___m18718 = load i1, i1* %_secret___m18
+  store i1 %_secret___m18718, i1* %_secret___m20
+  %_public_lval719 = load i32, i32* %_public___v88_i
+  %_public_lval720 = load i32, i32* %_public___v68_outp
+  %_secret_lval721 = load i32, i32* %_secret___v77_inp_len
+  %_secret_addtmp722 = add i32 %_public_lval720, %_secret_lval721
+  %_secret_subtmp723 = sub i32 %_public_lval719, %_secret_addtmp722
+  store i32 %_secret_subtmp723, i32* %_secret___v89_j
+  %_public_lval724 = load i32, i32* %_public___v88_i
+  %_public_lhssext725 = zext i32 %_public_lval724 to i64
+  %_public_ugtetmp726 = icmp uge i64 %_public_lhssext725, 0
+  %_public_zexttmp727 = zext i1 %_public_ugtetmp726 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp727)
+  %_public_lval728 = load i32, i32* %_public___v88_i
+  %_public_lval729 = load i32, i32* %_public____out_len
+  %_public_icast730 = zext i32 %_public_lval729 to i64
+  %_public_lhssext731 = zext i32 %_public_lval728 to i64
+  %_public_ulttmp732 = icmp ult i64 %_public_lhssext731, %_public_icast730
+  %_public_zexttmp733 = zext i1 %_public_ulttmp732 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp733)
+  %_public_lval734 = load i32, i32* %_public___v88_i
+  %_secret_dyn735 = load i8*, i8** %_secret_arrarg2
+  %_secret_ptr736 = getelementptr inbounds i8, i8* %_secret_dyn735, i32 %_public_lval734
+  %_secret_lval737 = load i8, i8* %_secret_ptr736
+  %_declassified__secret_lval738 = load i32, i32* %_secret___v89_j
+  %_public_lhssext739 = zext i32 %_declassified__secret_lval738 to i64
+  %_public_ugtetmp740 = icmp uge i64 %_public_lhssext739, 0
+  %_public_zexttmp741 = zext i1 %_public_ugtetmp740 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp741)
+  %_declassified__secret_lval742 = load i32, i32* %_secret___v89_j
+  %_public_lhssext743 = zext i32 %_declassified__secret_lval742 to i64
+  %_public_ulttmp744 = icmp ult i64 %_public_lhssext743, 20
+  %_public_zexttmp745 = zext i1 %_public_ulttmp744 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp745)
+  %_declassified__secret_lval746 = load i32, i32* %_secret___v89_j
+  %_secret_ptr747 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v79_pmac, i32 0, i32 %_declassified__secret_lval746
+  %_secret_lval748 = load i8, i8* %_secret_ptr747
+  %_secret_neqtmp = icmp ne i8 %_secret_lval737, %_secret_lval748
   store i1 %_secret_neqtmp, i1* %_secret___m21
-  %_secret_lval811 = load i1, i1* %_secret___m21
-  %_secret_landtmp812 = and i1 true, %_secret_lval811
-  %_secret_lval813 = load i1, i1* %_secret___m20
-  %_secret_landtmp814 = and i1 %_secret_landtmp812, %_secret_lval813
-  %_secret_lval815 = load i1, i1* %_secret___rnset
-  %_secret_landtmp816 = and i1 %_secret_landtmp814, %_secret_lval815
-  %_secret_condtmp817 = icmp ne i1 %_secret_landtmp816, false
-  %_secret_lval818 = load i32, i32* %_secret___v66_ret
-  %_secret_selecttmp819 = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp817, i32 0, i32 %_secret_lval818)
-  store i32 %_secret_selecttmp819, i32* %_secret___v66_ret
-  %_secret_lval820 = load i1, i1* %_secret___m21
-  %_secret_lnottmp821 = xor i1 %_secret_lval820, true
-  store i1 %_secret_lnottmp821, i1* %_secret___m21
-  %_secret_lval822 = load i1, i1* %_secret___m20
-  %_secret_lnottmp823 = xor i1 %_secret_lval822, true
-  store i1 %_secret_lnottmp823, i1* %_secret___m20
-  br label %branchmerge825
+  %_secret_lval749 = load i1, i1* %_secret___m21
+  %_secret_landtmp750 = and i1 true, %_secret_lval749
+  %_secret_lval751 = load i1, i1* %_secret___m20
+  %_secret_landtmp752 = and i1 %_secret_landtmp750, %_secret_lval751
+  %_secret_lval753 = load i1, i1* %_secret___rnset
+  %_secret_landtmp754 = and i1 %_secret_landtmp752, %_secret_lval753
+  %_secret_condtmp755 = icmp ne i1 %_secret_landtmp754, false
+  %_secret_lval756 = load i32, i32* %_secret___v66_ret
+  %_secret_selecttmp757 = call i32 @select.cmov.sel.i32(i1 %_secret_condtmp755, i32 0, i32 %_secret_lval756)
+  store i32 %_secret_selecttmp757, i32* %_secret___v66_ret
+  %_secret_lval758 = load i1, i1* %_secret___m21
+  %_secret_lnottmp759 = xor i1 %_secret_lval758, true
+  store i1 %_secret_lnottmp759, i1* %_secret___m21
+  %_secret_lval760 = load i1, i1* %_secret___m20
+  %_secret_lnottmp761 = xor i1 %_secret_lval760, true
+  store i1 %_secret_lnottmp761, i1* %_secret___m20
+  br label %branchmerge763
 
-elsebranch824:                                    ; preds = %branchmerge572
-  br label %branchmerge825
+elsebranch762:                                    ; preds = %branchmerge510
+  br label %branchmerge763
 
-branchmerge825:                                   ; preds = %elsebranch824, %thenbranch738
-  %_secret_lval826 = load i32, i32* %_secret___v66_ret
-  store i32 %_secret_lval826, i32* %_secret___rval
-  %_secret_lval827 = load i32, i32* %_secret___rval
-  ret i32 %_secret_lval827
+branchmerge763:                                   ; preds = %elsebranch762, %thenbranch676
+  %_secret_lval764 = load i32, i32* %_secret___v66_ret
+  store i32 %_secret_lval764, i32* %_secret___rval
+  %_secret_lval765 = load i32, i32* %_secret___rval
+  ret i32 %_secret_lval765
 }
 
 ; Function Attrs: alwaysinline

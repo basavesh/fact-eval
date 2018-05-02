@@ -489,22 +489,20 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	popq	%rbp
 	retq
 .LBB4_1:                                # %branchmerge
-	movq	16(%rbp), %rcx
-	movbew	540(%rsi,%rcx), %cx
-	movzwl	%cx, %ecx
+	movzwl	24(%rbp), %ecx
 	cmpl	$770, %ecx              # imm = 0x302
 	jb	.LBB4_4
-# %bb.2:                                # %thenbranch21
+# %bb.2:                                # %thenbranch16
 	cmpl	$37, %r13d
 	jb	.LBB4_17
-# %bb.3:                                # %branchmerge30
+# %bb.3:                                # %branchmerge25
 	vmovups	(%r8), %xmm0
 	vmovups	%xmm0, (%r10)
 	leal	-16(%r13), %r12d
 	movl	$16, %edx
 	movl	$16, %ecx
 	jmp	.LBB4_7
-.LBB4_4:                                # %elsebranch43
+.LBB4_4:                                # %elsebranch36
 	xorl	%edx, %edx
 	cmpl	$21, %r13d
 	jae	.LBB4_6
@@ -514,7 +512,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 .LBB4_6:
 	xorl	%ecx, %ecx
 	movl	%r13d, %r12d
-.LBB4_7:                                # %branchmerge53
+.LBB4_7:                                # %branchmerge46
 	movq	%r12, 40(%rbx)          # 8-byte Spill
 	addq	%rcx, %r8
 	movq	%rdx, %rcx
@@ -582,12 +580,12 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	cmovbel	%eax, %r14d
 	testl	%r14d, %r14d
 	je	.LBB4_9
-# %bb.8:                                # %thenbranch150
+# %bb.8:                                # %thenbranch141
 	movq	16(%rbx), %rdi          # 8-byte Reload
 	movq	88(%rbx), %rsi          # 8-byte Reload
 	movl	%r14d, %edx
 	callq	SHA1_Update_public
-.LBB4_9:                                # %branchmerge164
+.LBB4_9:                                # %branchmerge155
 	movb	15(%rbx), %al           # 1-byte Reload
 	movb	%al, %r15b
 	movl	%r12d, %ecx
@@ -680,64 +678,64 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	(%r14), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
-	movq	32(%rbx), %rsi          # 8-byte Reload
-	movb	%cl, (%rsi)
+	movq	32(%rbx), %rdi          # 8-byte Reload
+	movb	%cl, (%rdi)
 	movl	%eax, %ecx
 	shrl	$16, %ecx
-	movb	%cl, 1(%rsi)
-	movb	%ah, 2(%rsi)  # NOREX
-	movb	%al, 3(%rsi)
+	movb	%cl, 1(%rdi)
+	movb	%ah, 2(%rdi)  # NOREX
+	movb	%al, 3(%rdi)
 	movl	4(%r14), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
-	movb	%cl, 4(%rsi)
+	movb	%cl, 4(%rdi)
 	movl	%eax, %ecx
 	shrl	$16, %ecx
-	movb	%cl, 5(%rsi)
-	movb	%ah, 6(%rsi)  # NOREX
-	movb	%al, 7(%rsi)
+	movb	%cl, 5(%rdi)
+	movb	%ah, 6(%rdi)  # NOREX
+	movb	%al, 7(%rdi)
 	movl	8(%r14), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
-	movb	%cl, 8(%rsi)
+	movb	%cl, 8(%rdi)
 	movl	%eax, %ecx
 	shrl	$16, %ecx
-	movb	%cl, 9(%rsi)
-	movb	%ah, 10(%rsi)  # NOREX
-	movb	%al, 11(%rsi)
+	movb	%cl, 9(%rdi)
+	movb	%ah, 10(%rdi)  # NOREX
+	movb	%al, 11(%rdi)
 	movl	12(%r14), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
-	movb	%cl, 12(%rsi)
+	movb	%cl, 12(%rdi)
 	movl	%eax, %ecx
 	shrl	$16, %ecx
-	movb	%cl, 13(%rsi)
-	movb	%ah, 14(%rsi)  # NOREX
-	movb	%al, 15(%rsi)
+	movb	%cl, 13(%rdi)
+	movb	%ah, 14(%rdi)  # NOREX
+	movb	%al, 15(%rdi)
 	movl	16(%r14), %ecx
 	movl	%ecx, %eax
 	shrl	$24, %eax
-	movb	%al, 16(%rsi)
+	movb	%al, 16(%rdi)
 	movl	%ecx, %eax
 	shrl	$16, %eax
-	movb	%al, 17(%rsi)
-	movb	%ch, 18(%rsi)  # NOREX
+	movb	%al, 17(%rdi)
+	movb	%ch, 18(%rdi)  # NOREX
 	xorl	%edx, %edx
 	movq	40(%rbx), %r12          # 8-byte Reload
 	cmpl	$276, %r12d             # imm = 0x114
 	cmovbl	%edx, %r13d
 	movq	80(%rbx), %rax          # 8-byte Reload
-	movq	72(%rbx), %rdi          # 8-byte Reload
-	leal	(%rax,%rdi), %r9d
+	movq	72(%rbx), %rsi          # 8-byte Reload
+	leal	(%rax,%rsi), %r9d
 	addl	$20, %r9d
 	cmpl	%r12d, %r9d
 	cmoval	%edx, %r15d
-	movb	%cl, 19(%rsi)
-	leal	(%rdi,%r13), %ecx
+	movb	%cl, 19(%rdi)
+	leal	(%rsi,%r13), %ecx
 	cmpl	%r12d, %ecx
 	jae	.LBB4_17
 # %bb.13:                               # %loop_body.preheader
-	addl	%edi, %eax
+	addl	%esi, %eax
 	addl	$20, %r13d
 	movl	52(%rbx), %esi          # 4-byte Reload
 	notl	%esi

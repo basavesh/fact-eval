@@ -279,7 +279,8 @@ secret int32
 _aesni_cbc_hmac_sha1_cipher(
     mut struct evp_cipher_ctx_st ctx,
     secret mut uint8[] _out,
-    secret uint8[] _in) {
+    secret uint8[] _in,
+    public uint16 tls_ver) {
 
   public uint64 NO_PAYLOAD_LENGTH = (uint64)-1;
   public uint32 AES_BLOCK_SIZE = 16;
@@ -300,7 +301,6 @@ _aesni_cbc_hmac_sha1_cipher(
     public mut uint32 outp = 0;
     public mut uint32 _len = len _out;
 
-    secret uint16 tls_ver = load16_be(arrview(ctx.key.tls_aad, plen - 4, 2));
     // I'm assuming that these two bytes are actually a public version number
     if (declassify(tls_ver >= TLS1_1_VERSION)) {
       if (_len < (AES_BLOCK_SIZE + SHA_DIGEST_LENGTH + 1)) {

@@ -171,126 +171,119 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	.cfi_offset %r14, -32
 	.cfi_offset %r15, -24
 	movq	%rsi, %r14
-	movq	%rdi, 208(%rbx)
-	movq	%rdx, 80(%rbx)
-	movl	%ecx, 156(%rbx)
-	movq	%r8, 184(%rbx)
-	movl	%r9d, 204(%rbx)
-	movl	$0, 112(%rbx)
-	movb	$1, 13(%rbx)
+	movq	%rdi, 216(%rbx)
+	movq	%rdx, 96(%rbx)
+	movl	%ecx, 164(%rbx)
+	movq	%r8, 192(%rbx)
+	movl	%r9d, 212(%rbx)
+	movl	$0, 124(%rbx)
+	movb	$1, 29(%rbx)
 	movq	$-1, 248(%rbx)
-	movl	$16, 152(%rbx)
-	movl	$20, 44(%rbx)
-	movl	$770, 200(%rbx)         # imm = 0x302
-	movl	$16, 64(%rbx)
-	movl	$64, 72(%rbx)
-	movl	$0, 108(%rbx)
-	movl	%ecx, 24(%rbx)
-	movl	$0, 48(%rbx)
-	movl	$1, 60(%rbx)
-	movq	16(%rbp), %rax
-	leaq	(%r14,%rax), %rdi
-	addq	$540, %rdi              # imm = 0x21C
-	movq	%rdi, 240(%rbx)
-	movq	%rdi, 232(%rbx)
-	callq	load16_be
-	movw	%ax, 118(%rbx)
-	movzwl	118(%rbx), %eax
-	cmpl	200(%rbx), %eax
+	movl	$16, 160(%rbx)
+	movl	$20, 60(%rbx)
+	movl	$770, 244(%rbx)         # imm = 0x302
+	movl	$16, 80(%rbx)
+	movl	$64, 88(%rbx)
+	movl	$0, 120(%rbx)
+	movl	%ecx, 40(%rbx)
+	movl	$0, 64(%rbx)
+	movl	$1, 76(%rbx)
+	movzwl	24(%rbp), %eax
+	cmpl	$770, %eax              # imm = 0x302
 	jae	.LBB7_1
-# %bb.4:                                # %elsebranch36
-	movl	44(%rbx), %eax
+# %bb.4:                                # %elsebranch29
+	movl	60(%rbx), %eax
 	addl	$1, %eax
-	cmpl	%eax, 24(%rbx)
+	cmpl	%eax, 40(%rbx)
 	jae	.LBB7_6
 	jmp	.LBB7_2
 .LBB7_1:                                # %thenbranch
-	movl	152(%rbx), %eax
-	movl	44(%rbx), %ecx
+	movl	160(%rbx), %eax
+	movl	60(%rbx), %ecx
 	leal	(%rax,%rcx), %eax
 	addl	$1, %eax
-	cmpl	%eax, 24(%rbx)
+	cmpl	%eax, 40(%rbx)
 	jb	.LBB7_2
 # %bb.5:                                # %branchmerge
-	movq	208(%rbx), %rdi
-	movq	184(%rbx), %rdx
-	movl	204(%rbx), %ecx
+	movq	216(%rbx), %rdi
+	movq	192(%rbx), %rdx
+	movl	212(%rbx), %ecx
 	movl	$16, %esi
 	callq	_arrcopy
-	movl	152(%rbx), %eax
-	addl	%eax, 108(%rbx)
-	addl	%eax, 48(%rbx)
-	subl	%eax, 24(%rbx)
-.LBB7_6:                                # %branchmerge46
-	movl	24(%rbx), %eax
-	movl	%eax, 228(%rbx)
-	movl	%eax, 224(%rbx)
-	movslq	108(%rbx), %rax
-	addq	184(%rbx), %rax
+	movl	160(%rbx), %eax
+	addl	%eax, 120(%rbx)
+	addl	%eax, 64(%rbx)
+	subl	%eax, 40(%rbx)
+.LBB7_6:                                # %branchmerge39
+	movl	40(%rbx), %eax
+	movl	%eax, 240(%rbx)
+	movl	%eax, 236(%rbx)
+	movslq	120(%rbx), %rax
+	addq	192(%rbx), %rax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
 	movq	%rax, -16(%rcx)
-	movslq	108(%rbx), %rdi
-	addq	184(%rbx), %rdi
+	movslq	120(%rbx), %rdi
+	addq	192(%rbx), %rdi
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rdi, -16(%rax)
-	movslq	48(%rbx), %rax
-	addq	80(%rbx), %rax
+	movslq	64(%rbx), %rax
+	addq	96(%rbx), %rax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
 	movq	%rax, -16(%rcx)
-	movslq	48(%rbx), %rsi
-	addq	80(%rbx), %rsi
+	movslq	64(%rbx), %rsi
+	addq	96(%rbx), %rsi
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rsi, -16(%rax)
-	movl	24(%rbx), %edx
-	movq	208(%rbx), %r8
+	movl	40(%rbx), %edx
+	movq	216(%rbx), %r8
 	xorl	%r9d, %r9d
 	movq	%r14, %rcx
 	callq	aesni_cbc_encrypt@PLT
-	movl	156(%rbx), %eax
+	movl	164(%rbx), %eax
 	addl	$-1, %eax
-	movq	80(%rbx), %rcx
+	movq	96(%rbx), %rcx
 	cltq
 	movzbl	(%rcx,%rax), %edx
-	movl	24(%rbx), %eax
-	movl	44(%rbx), %ecx
+	movl	40(%rbx), %eax
+	movl	60(%rbx), %ecx
 	addl	$1, %ecx
 	subl	%ecx, %eax
-	movl	%eax, 196(%rbx)
-	movl	196(%rbx), %eax
+	movl	%eax, 208(%rbx)
+	movl	208(%rbx), %eax
 	cmpl	$255, %eax
 	movl	$255, %esi
 	cmovbel	%eax, %esi
-	movl	%edx, 104(%rbx)
-	movl	%esi, 148(%rbx)
+	movl	%edx, 116(%rbx)
+	movl	%esi, 156(%rbx)
 	cmpl	%esi, %edx
 	seta	%al
-	seta	23(%rbx)
-	andb	13(%rbx), %al
+	seta	39(%rbx)
+	andb	29(%rbx), %al
 	movzbl	%al, %edi
 	callq	select.cmov.sel.i32
-	movl	%eax, 104(%rbx)
-	movb	13(%rbx), %al
-	andb	23(%rbx), %al
-	movl	60(%rbx), %edx
+	movl	%eax, 116(%rbx)
+	movb	29(%rbx), %al
+	andb	39(%rbx), %al
+	movl	76(%rbx), %edx
 	movzbl	%al, %edi
 	xorl	%esi, %esi
 	callq	select.cmov.sel.i32
-	movl	%eax, 60(%rbx)
-	movb	23(%rbx), %al
+	movl	%eax, 76(%rbx)
+	movb	39(%rbx), %al
 	notb	%al
 	andb	$1, %al
-	movb	%al, 23(%rbx)
-	movl	24(%rbx), %eax
-	movl	44(%rbx), %ecx
-	movl	104(%rbx), %edx
+	movb	%al, 39(%rbx)
+	movl	40(%rbx), %eax
+	movl	60(%rbx), %ecx
+	movl	116(%rbx), %edx
 	leal	(%rcx,%rdx), %ecx
 	addl	$1, %ecx
 	subl	%ecx, %eax
-	movl	%eax, 28(%rbx)
+	movl	%eax, 44(%rbx)
 	movq	16(%rbp), %rax
 	leaq	544(%r14), %r15
 	movq	%rsp, %rcx
@@ -303,14 +296,14 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	(%r14,%rax), %rdi
 	addq	$542, %rdi              # imm = 0x21E
 	movq	%rdi, -16(%rcx)
-	movl	28(%rbx), %esi
+	movl	44(%rbx), %esi
 	callq	store16_be
 	leaq	436(%r14), %r12
 	leaq	244(%r14), %rsi
 	movq	%r12, %rdi
 	callq	_structcopy_SHA_CTX
 	movl	16(%rbp), %eax
-	movl	%eax, 220(%rbx)
+	movl	%eax, 232(%rbx)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%r15, -16(%rax)
@@ -318,20 +311,20 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	-16(%rax), %rsp
 	movq	%r15, -16(%rax)
 	movq	16(%rbp), %rdx
-	movq	%r12, 128(%rbx)         # 8-byte Spill
+	movq	%r12, 136(%rbx)         # 8-byte Spill
 	movq	%r12, %rdi
 	movq	%r15, %rsi
 	callq	_sha1_update@PLT
-	movl	24(%rbx), %eax
-	subl	44(%rbx), %eax
-	movl	%eax, 24(%rbx)
+	movl	40(%rbx), %eax
+	subl	60(%rbx), %eax
+	movl	%eax, 40(%rbx)
 	movl	$256, %ecx              # imm = 0x100
-	addl	72(%rbx), %ecx
+	addl	88(%rbx), %ecx
 	cmpl	%ecx, %eax
 	jb	.LBB7_8
-# %bb.7:                                # %thenbranch131
-	movl	24(%rbx), %eax
-	movl	72(%rbx), %ecx
+# %bb.7:                                # %thenbranch122
+	movl	40(%rbx), %eax
+	movl	88(%rbx), %ecx
 	leal	256(%rcx), %edx
 	subl	%edx, %eax
 	movl	%ecx, %edx
@@ -339,31 +332,31 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	andl	%eax, %edx
 	addl	%ecx, %edx
 	subl	528(%r14), %edx
-	movl	%edx, 144(%rbx)
-	movl	%edx, 216(%rbx)
-	movslq	48(%rbx), %rax
-	addq	80(%rbx), %rax
+	movl	%edx, 152(%rbx)
+	movl	%edx, 228(%rbx)
+	movslq	64(%rbx), %rax
+	addq	96(%rbx), %rax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
 	movq	%rax, -16(%rcx)
-	movslq	48(%rbx), %rsi
-	addq	80(%rbx), %rsi
+	movslq	64(%rbx), %rsi
+	addq	96(%rbx), %rsi
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rsi, -16(%rax)
-	movl	144(%rbx), %edx
-	movq	128(%rbx), %rdi         # 8-byte Reload
+	movl	152(%rbx), %edx
+	movq	136(%rbx), %rdi         # 8-byte Reload
 	callq	_sha1_update@PLT
-	movl	144(%rbx), %eax
-	addl	%eax, 48(%rbx)
-	subl	%eax, 24(%rbx)
-	subl	%eax, 28(%rbx)
-.LBB7_8:                                # %branchmerge169
-	movl	28(%rbx), %edi
+	movl	152(%rbx), %eax
+	addl	%eax, 64(%rbx)
+	subl	%eax, 40(%rbx)
+	subl	%eax, 44(%rbx)
+.LBB7_8:                                # %branchmerge160
+	movl	44(%rbx), %edi
 	shll	$3, %edi
 	addl	456(%r14), %edi
 	callq	bswap4
-	movl	%eax, 100(%rbx)
+	movl	%eax, 112(%rbx)
 	movq	%rsp, %r15
 	addq	$-32, %r15
 	andq	$-32, %r15
@@ -372,268 +365,138 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	vmovups	%xmm0, (%r15)
 	movl	$0, 16(%r15)
 	movl	528(%r14), %eax
-	movl	%eax, 56(%rbx)
-	movl	$0, 52(%rbx)
+	movl	%eax, 72(%rbx)
+	movl	$0, 68(%rbx)
 	leaq	464(%r14), %rax
-	movq	%rax, 120(%rbx)         # 8-byte Spill
+	movq	%rax, 128(%rbx)         # 8-byte Spill
 	leaq	4(%r15), %rax
-	movq	%rax, 168(%rbx)         # 8-byte Spill
-	leaq	8(%r15), %rax
 	movq	%rax, 176(%rbx)         # 8-byte Spill
+	leaq	8(%r15), %rax
+	movq	%rax, 184(%rbx)         # 8-byte Spill
 	leaq	12(%r15), %rax
-	movq	%rax, 160(%rbx)         # 8-byte Spill
+	movq	%rax, 168(%rbx)         # 8-byte Spill
 	jmp	.LBB7_9
 	.p2align	4, 0x90
-.LBB7_12:                               # %branchmerge339
+.LBB7_12:                               # %branchmerge330
                                         #   in Loop: Header=BB7_9 Depth=1
-	addl	$1, 52(%rbx)
+	addl	$1, 68(%rbx)
 .LBB7_9:                                # %loop_check
                                         # =>This Inner Loop Header: Depth=1
-	movl	52(%rbx), %eax
-	cmpl	24(%rbx), %eax
+	movl	68(%rbx), %eax
+	cmpl	40(%rbx), %eax
 	jae	.LBB7_13
 # %bb.10:                               # %loop_body
                                         #   in Loop: Header=BB7_9 Depth=1
-	movb	$0, 19(%rbx)
-	movl	52(%rbx), %eax
-	cmpl	28(%rbx), %eax
-	setb	22(%rbx)
+	movb	$0, 35(%rbx)
+	movl	68(%rbx), %eax
+	cmpl	44(%rbx), %eax
+	setb	38(%rbx)
 	setb	%cl
-	andb	13(%rbx), %cl
-	movslq	56(%rbx), %r12
-	addl	48(%rbx), %eax
-	movq	80(%rbx), %rdx
+	andb	29(%rbx), %cl
+	movslq	72(%rbx), %r12
+	addl	64(%rbx), %eax
+	movq	96(%rbx), %rdx
 	cltq
 	movzbl	(%rdx,%rax), %esi
 	movzbl	%cl, %edi
-	movzbl	19(%rbx), %edx
+	movzbl	35(%rbx), %edx
 	callq	select.cmov.asm.i8
-	movb	%al, 19(%rbx)
-	movzbl	22(%rbx), %r13d
+	movb	%al, 35(%rbx)
+	movzbl	38(%rbx), %r13d
 	xorb	$1, %r13b
 	movl	%r13d, %eax
 	andb	$1, %al
-	movb	%al, 22(%rbx)
-	andb	13(%rbx), %r13b
-	movl	52(%rbx), %eax
-	cmpl	28(%rbx), %eax
-	movw	$0, 34(%rbx)
-	sete	43(%rbx)
+	movb	%al, 38(%rbx)
+	andb	29(%rbx), %r13b
+	movl	68(%rbx), %eax
+	cmpl	44(%rbx), %eax
+	movw	$0, 50(%rbx)
+	sete	59(%rbx)
 	sete	%al
 	andb	%r13b, %al
 	movzbl	%al, %edi
-	movzwl	34(%rbx), %edx
+	movzwl	50(%rbx), %edx
 	movl	$128, %esi
 	callq	select.cmov.asm.i16
-	movw	%ax, 34(%rbx)
-	movzbl	43(%rbx), %eax
+	movw	%ax, 50(%rbx)
+	movzbl	59(%rbx), %eax
 	xorb	$1, %al
-	movzbl	13(%rbx), %ecx
-	andb	22(%rbx), %cl
+	movzbl	29(%rbx), %ecx
+	andb	38(%rbx), %cl
 	andb	%al, %cl
 	andb	$1, %al
-	movb	%al, 43(%rbx)
+	movb	%al, 59(%rbx)
 	movzbl	%cl, %edi
-	movzwl	34(%rbx), %edx
+	movzwl	50(%rbx), %edx
 	xorl	%esi, %esi
 	callq	select.cmov.asm.i16
-	movw	%ax, 34(%rbx)
+	movw	%ax, 50(%rbx)
 	movzbl	%r13b, %edi
-	movzbl	19(%rbx), %edx
-	movzbl	34(%rbx), %esi
+	movzbl	35(%rbx), %edx
+	movzbl	50(%rbx), %esi
 	callq	select.cmov.asm.i8
-	movb	%al, 19(%rbx)
+	movb	%al, 35(%rbx)
 	movb	%al, 464(%r14,%r12)
-	movl	56(%rbx), %eax
-	addl	$1, %eax
-	movl	%eax, 56(%rbx)
-	cmpl	72(%rbx), %eax
-	jne	.LBB7_12
-# %bb.11:                               # %thenbranch238
-                                        #   in Loop: Header=BB7_9 Depth=1
-	movl	28(%rbx), %eax
-	addl	$7, %eax
-	cmpl	52(%rbx), %eax
-	setb	42(%rbx)
-	movl	64(%rbx), %eax
-	leal	-4(,%rax,4), %eax
-	movq	%rsp, %rcx
-	leaq	-16(%rcx), %rsp
-	cltq
-	leaq	464(%r14,%rax), %rax
-	movq	%rax, -16(%rcx)
-	movl	64(%rbx), %eax
-	leal	-4(,%rax,4), %eax
-	movq	%rsp, %rcx
-	leaq	-16(%rcx), %rsp
-	cltq
-	leaq	464(%r14,%rax), %rdi
-	movq	%rdi, -16(%rcx)
-	movl	100(%rbx), %esi
-	movzbl	42(%rbx), %edx
-	callq	cond_store
-	movl	$1, %edx
-	movq	128(%rbx), %rdi         # 8-byte Reload
-	movq	120(%rbx), %rsi         # 8-byte Reload
-	callq	sha1_block_data_order@PLT
-	movb	$0, 18(%rbx)
-	movzbl	42(%rbx), %eax
-	movb	%al, 41(%rbx)
-	andb	13(%rbx), %al
-	movl	28(%rbx), %ecx
-	addl	$72, %ecx
-	xorl	%esi, %esi
-	cmpl	%ecx, 52(%rbx)
-	setb	%sil
-	movzbl	%al, %edi
-	movzbl	18(%rbx), %edx
-	callq	select.cmov.asm.i1
-	andb	$1, %al
-	movb	%al, 18(%rbx)
-	movzbl	41(%rbx), %eax
-	xorb	$1, %al
-	movl	%eax, %ecx
-	andb	$1, %cl
-	movb	%cl, 41(%rbx)
-	andb	13(%rbx), %al
-	movzbl	%al, %edi
-	movzbl	18(%rbx), %edx
-	xorl	%esi, %esi
-	callq	select.cmov.asm.i1
-	andb	$1, %al
-	movb	%al, 18(%rbx)
-	movzbl	18(%rbx), %eax
-	movb	%al, 17(%rbx)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%r15, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%r15, -16(%rax)
-	movl	436(%r14), %esi
-	movzbl	17(%rbx), %edx
-	movq	%r15, %rdi
-	callq	cond_store
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	168(%rbx), %rdi         # 8-byte Reload
-	movq	%rdi, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%rdi, -16(%rax)
-	movl	440(%r14), %esi
-	movzbl	17(%rbx), %edx
-	callq	cond_store
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	176(%rbx), %rdi         # 8-byte Reload
-	movq	%rdi, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%rdi, -16(%rax)
-	movl	444(%r14), %esi
-	movzbl	17(%rbx), %edx
-	callq	cond_store
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	160(%rbx), %rdi         # 8-byte Reload
-	movq	%rdi, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%rdi, -16(%rax)
-	movl	448(%r14), %esi
-	movzbl	17(%rbx), %edx
-	callq	cond_store
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	leaq	16(%r15), %rdi
-	movq	%rdi, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%rdi, -16(%rax)
-	movl	452(%r14), %esi
-	movzbl	17(%rbx), %edx
-	callq	cond_store
-	movl	$0, 56(%rbx)
-	jmp	.LBB7_12
-.LBB7_13:                               # %loop_end
-	movl	24(%rbx), %eax
-	movl	%eax, 68(%rbx)
-	movl	56(%rbx), %eax
-	movl	%eax, 96(%rbx)
-	jmp	.LBB7_14
-	.p2align	4, 0x90
-.LBB7_15:                               # %loop_body344
-                                        #   in Loop: Header=BB7_14 Depth=1
-	movslq	96(%rbx), %rax
-	movb	$0, 464(%r14,%rax)
-	addl	$1, 68(%rbx)
-	addl	$1, 96(%rbx)
-.LBB7_14:                               # %loop_check343
-                                        # =>This Inner Loop Header: Depth=1
-	movl	96(%rbx), %eax
-	cmpl	72(%rbx), %eax
-	jb	.LBB7_15
-# %bb.16:                               # %loop_end345
 	movl	72(%rbx), %eax
-	addl	$-8, %eax
-	cmpl	%eax, 56(%rbx)
-	jbe	.LBB7_18
-# %bb.17:                               # %thenbranch363
-	movl	28(%rbx), %eax
-	addl	$8, %eax
+	addl	$1, %eax
+	movl	%eax, 72(%rbx)
+	cmpl	88(%rbx), %eax
+	jne	.LBB7_12
+# %bb.11:                               # %thenbranch229
+                                        #   in Loop: Header=BB7_9 Depth=1
+	movl	44(%rbx), %eax
+	addl	$7, %eax
 	cmpl	68(%rbx), %eax
-	setb	40(%rbx)
-	movl	64(%rbx), %eax
+	setb	58(%rbx)
+	movl	80(%rbx), %eax
 	leal	-4(,%rax,4), %eax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
 	cltq
 	leaq	464(%r14,%rax), %rax
 	movq	%rax, -16(%rcx)
-	movl	64(%rbx), %eax
+	movl	80(%rbx), %eax
 	leal	-4(,%rax,4), %eax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
 	cltq
 	leaq	464(%r14,%rax), %rdi
 	movq	%rdi, -16(%rcx)
-	movl	100(%rbx), %esi
-	movzbl	40(%rbx), %edx
+	movl	112(%rbx), %esi
+	movzbl	58(%rbx), %edx
 	callq	cond_store
 	movl	$1, %edx
-	movq	128(%rbx), %rdi         # 8-byte Reload
-	movq	120(%rbx), %r12         # 8-byte Reload
-	movq	%r12, %rsi
+	movq	136(%rbx), %rdi         # 8-byte Reload
+	movq	128(%rbx), %rsi         # 8-byte Reload
 	callq	sha1_block_data_order@PLT
-	movb	$0, 16(%rbx)
-	movb	40(%rbx), %al
-	movb	%al, 39(%rbx)
-	andb	13(%rbx), %al
-	movl	28(%rbx), %ecx
-	addl	$73, %ecx
+	movb	$0, 34(%rbx)
+	movzbl	58(%rbx), %eax
+	movb	%al, 57(%rbx)
+	andb	29(%rbx), %al
+	movl	44(%rbx), %ecx
+	addl	$72, %ecx
 	xorl	%esi, %esi
 	cmpl	%ecx, 68(%rbx)
 	setb	%sil
 	movzbl	%al, %edi
-	movzbl	16(%rbx), %edx
+	movzbl	34(%rbx), %edx
 	callq	select.cmov.asm.i1
 	andb	$1, %al
-	movb	%al, 16(%rbx)
-	movb	39(%rbx), %al
+	movb	%al, 34(%rbx)
+	movzbl	57(%rbx), %eax
 	xorb	$1, %al
 	movl	%eax, %ecx
 	andb	$1, %cl
-	movb	%cl, 39(%rbx)
-	andb	13(%rbx), %al
+	movb	%cl, 57(%rbx)
+	andb	29(%rbx), %al
 	movzbl	%al, %edi
-	movzbl	16(%rbx), %edx
+	movzbl	34(%rbx), %edx
 	xorl	%esi, %esi
 	callq	select.cmov.asm.i1
 	andb	$1, %al
-	movb	%al, 16(%rbx)
-	movb	16(%rbx), %al
-	movb	%al, 15(%rbx)
+	movb	%al, 34(%rbx)
+	movzbl	34(%rbx), %eax
+	movb	%al, 33(%rbx)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%r15, -16(%rax)
@@ -641,18 +504,8 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	-16(%rax), %rsp
 	movq	%r15, -16(%rax)
 	movl	436(%r14), %esi
-	movzbl	15(%rbx), %edx
+	movzbl	33(%rbx), %edx
 	movq	%r15, %rdi
-	callq	cond_store
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	168(%rbx), %rdi         # 8-byte Reload
-	movq	%rdi, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%rdi, -16(%rax)
-	movl	440(%r14), %esi
-	movzbl	15(%rbx), %edx
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
@@ -661,18 +514,28 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rdi, -16(%rax)
-	movl	444(%r14), %esi
-	movzbl	15(%rbx), %edx
+	movl	440(%r14), %esi
+	movzbl	33(%rbx), %edx
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
-	movq	160(%rbx), %rdi         # 8-byte Reload
+	movq	184(%rbx), %rdi         # 8-byte Reload
+	movq	%rdi, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%rdi, -16(%rax)
+	movl	444(%r14), %esi
+	movzbl	33(%rbx), %edx
+	callq	cond_store
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	168(%rbx), %rdi         # 8-byte Reload
 	movq	%rdi, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rdi, -16(%rax)
 	movl	448(%r14), %esi
-	movzbl	15(%rbx), %edx
+	movzbl	33(%rbx), %edx
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
@@ -682,21 +545,151 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	-16(%rax), %rsp
 	movq	%rdi, -16(%rax)
 	movl	452(%r14), %esi
-	movzbl	15(%rbx), %edx
+	movzbl	33(%rbx), %edx
 	callq	cond_store
-	movl	$64, %esi
-	movq	%r12, %rdi
-	callq	_memzero
-	addl	$64, 68(%rbx)
-.LBB7_18:                               # %branchmerge471
-	movl	64(%rbx), %eax
+	movl	$0, 72(%rbx)
+	jmp	.LBB7_12
+.LBB7_13:                               # %loop_end
+	movl	40(%rbx), %eax
+	movl	%eax, 84(%rbx)
+	movl	72(%rbx), %eax
+	movl	%eax, 108(%rbx)
+	jmp	.LBB7_14
+	.p2align	4, 0x90
+.LBB7_15:                               # %loop_body335
+                                        #   in Loop: Header=BB7_14 Depth=1
+	movslq	108(%rbx), %rax
+	movb	$0, 464(%r14,%rax)
+	addl	$1, 84(%rbx)
+	addl	$1, 108(%rbx)
+.LBB7_14:                               # %loop_check334
+                                        # =>This Inner Loop Header: Depth=1
+	movl	108(%rbx), %eax
+	cmpl	88(%rbx), %eax
+	jb	.LBB7_15
+# %bb.16:                               # %loop_end336
+	movl	88(%rbx), %eax
+	addl	$-8, %eax
+	cmpl	%eax, 72(%rbx)
+	jbe	.LBB7_18
+# %bb.17:                               # %thenbranch354
+	movl	44(%rbx), %eax
+	addl	$8, %eax
+	cmpl	84(%rbx), %eax
+	setb	56(%rbx)
+	movl	80(%rbx), %eax
 	leal	-4(,%rax,4), %eax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
 	cltq
 	leaq	464(%r14,%rax), %rax
 	movq	%rax, -16(%rcx)
-	movl	64(%rbx), %eax
+	movl	80(%rbx), %eax
+	leal	-4(,%rax,4), %eax
+	movq	%rsp, %rcx
+	leaq	-16(%rcx), %rsp
+	cltq
+	leaq	464(%r14,%rax), %rdi
+	movq	%rdi, -16(%rcx)
+	movl	112(%rbx), %esi
+	movzbl	56(%rbx), %edx
+	callq	cond_store
+	movl	$1, %edx
+	movq	136(%rbx), %rdi         # 8-byte Reload
+	movq	128(%rbx), %r12         # 8-byte Reload
+	movq	%r12, %rsi
+	callq	sha1_block_data_order@PLT
+	movb	$0, 32(%rbx)
+	movb	56(%rbx), %al
+	movb	%al, 55(%rbx)
+	andb	29(%rbx), %al
+	movl	44(%rbx), %ecx
+	addl	$73, %ecx
+	xorl	%esi, %esi
+	cmpl	%ecx, 84(%rbx)
+	setb	%sil
+	movzbl	%al, %edi
+	movzbl	32(%rbx), %edx
+	callq	select.cmov.asm.i1
+	andb	$1, %al
+	movb	%al, 32(%rbx)
+	movb	55(%rbx), %al
+	xorb	$1, %al
+	movl	%eax, %ecx
+	andb	$1, %cl
+	movb	%cl, 55(%rbx)
+	andb	29(%rbx), %al
+	movzbl	%al, %edi
+	movzbl	32(%rbx), %edx
+	xorl	%esi, %esi
+	callq	select.cmov.asm.i1
+	andb	$1, %al
+	movb	%al, 32(%rbx)
+	movb	32(%rbx), %al
+	movb	%al, 31(%rbx)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%r15, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%r15, -16(%rax)
+	movl	436(%r14), %esi
+	movzbl	31(%rbx), %edx
+	movq	%r15, %rdi
+	callq	cond_store
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	176(%rbx), %rdi         # 8-byte Reload
+	movq	%rdi, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%rdi, -16(%rax)
+	movl	440(%r14), %esi
+	movzbl	31(%rbx), %edx
+	callq	cond_store
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	184(%rbx), %rdi         # 8-byte Reload
+	movq	%rdi, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%rdi, -16(%rax)
+	movl	444(%r14), %esi
+	movzbl	31(%rbx), %edx
+	callq	cond_store
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	168(%rbx), %rdi         # 8-byte Reload
+	movq	%rdi, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%rdi, -16(%rax)
+	movl	448(%r14), %esi
+	movzbl	31(%rbx), %edx
+	callq	cond_store
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	leaq	16(%r15), %rdi
+	movq	%rdi, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%rdi, -16(%rax)
+	movl	452(%r14), %esi
+	movzbl	31(%rbx), %edx
+	callq	cond_store
+	movl	$64, %esi
+	movq	%r12, %rdi
+	callq	_memzero
+	addl	$64, 84(%rbx)
+.LBB7_18:                               # %branchmerge462
+	movl	80(%rbx), %eax
+	leal	-4(,%rax,4), %eax
+	movq	%rsp, %rcx
+	leaq	-16(%rcx), %rsp
+	cltq
+	leaq	464(%r14,%rax), %rax
+	movq	%rax, -16(%rcx)
+	movl	80(%rbx), %eax
 	leal	-4(,%rax,4), %eax
 	movq	%rsp, %rcx
 	leaq	-16(%rcx), %rsp
@@ -704,16 +697,16 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	(%r14,%rax), %rdi
 	addq	$464, %rdi              # imm = 0x1D0
 	movq	%rdi, -16(%rcx)
-	movl	100(%rbx), %esi
+	movl	112(%rbx), %esi
 	callq	_store32_le
 	movl	$1, %edx
-	movq	128(%rbx), %rdi         # 8-byte Reload
-	movq	120(%rbx), %rsi         # 8-byte Reload
+	movq	136(%rbx), %rdi         # 8-byte Reload
+	movq	128(%rbx), %rsi         # 8-byte Reload
 	callq	sha1_block_data_order@PLT
-	movl	28(%rbx), %eax
+	movl	44(%rbx), %eax
 	addl	$73, %eax
-	cmpl	%eax, 68(%rbx)
-	setb	14(%rbx)
+	cmpl	%eax, 84(%rbx)
+	setb	30(%rbx)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%r15, -16(%rax)
@@ -721,51 +714,51 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	-16(%rax), %rsp
 	movq	%r15, -16(%rax)
 	movl	436(%r14), %esi
-	movzbl	14(%rbx), %edx
+	movzbl	30(%rbx), %edx
 	movq	%r15, %rdi
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
-	movq	168(%rbx), %r13         # 8-byte Reload
+	movq	176(%rbx), %r13         # 8-byte Reload
 	movq	%r13, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%r13, -16(%rax)
 	movl	440(%r14), %esi
-	movzbl	14(%rbx), %edx
+	movzbl	30(%rbx), %edx
 	movq	%r13, %rdi
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
-	movq	176(%rbx), %r12         # 8-byte Reload
+	movq	184(%rbx), %r12         # 8-byte Reload
 	movq	%r12, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%r12, -16(%rax)
 	movl	444(%r14), %esi
-	movzbl	14(%rbx), %edx
+	movzbl	30(%rbx), %edx
 	movq	%r12, %rdi
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
-	movq	160(%rbx), %rdi         # 8-byte Reload
+	movq	168(%rbx), %rdi         # 8-byte Reload
 	movq	%rdi, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rdi, -16(%rax)
 	movl	448(%r14), %esi
-	movzbl	14(%rbx), %edx
+	movzbl	30(%rbx), %edx
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	leaq	16(%r15), %rdi
-	movq	%rdi, 120(%rbx)         # 8-byte Spill
+	movq	%rdi, 128(%rbx)         # 8-byte Spill
 	movq	%rdi, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
 	movq	%rdi, -16(%rax)
 	movl	452(%r14), %esi
-	movzbl	14(%rbx), %edx
+	movzbl	30(%rbx), %edx
 	callq	cond_store
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
@@ -826,7 +819,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	callq	_store32_le
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
-	movq	160(%rbx), %r12         # 8-byte Reload
+	movq	168(%rbx), %r12         # 8-byte Reload
 	movq	%r12, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
@@ -846,28 +839,28 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	callq	_store32_le
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rsp
-	movq	120(%rbx), %r12         # 8-byte Reload
-	movq	%r12, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%r12, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%r12, -16(%rax)
-	movq	%rsp, %rax
-	leaq	-16(%rax), %rsp
-	movq	%r12, -16(%rax)
-	movq	%r12, %rdi
-	callq	_load32_le
-	movl	%eax, %edi
-	callq	bswap4
-	movq	%r12, %rdi
-	movl	%eax, %esi
-	callq	_store32_le
-	movl	44(%rbx), %eax
-	addl	%eax, 24(%rbx)
-	addq	$340, %r14              # imm = 0x154
 	movq	128(%rbx), %r12         # 8-byte Reload
+	movq	%r12, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%r12, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%r12, -16(%rax)
+	movq	%rsp, %rax
+	leaq	-16(%rax), %rsp
+	movq	%r12, -16(%rax)
+	movq	%r12, %rdi
+	callq	_load32_le
+	movl	%eax, %edi
+	callq	bswap4
+	movq	%r12, %rdi
+	movl	%eax, %esi
+	callq	_store32_le
+	movl	60(%rbx), %eax
+	addl	%eax, 40(%rbx)
+	addq	$340, %r14              # imm = 0x154
+	movq	136(%rbx), %r12         # 8-byte Reload
 	movq	%r12, %rdi
 	movq	%r14, %rsi
 	callq	_structcopy_SHA_CTX
@@ -878,100 +871,100 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	%r15, %rdi
 	movq	%r12, %rsi
 	callq	SHA1_Final@PLT
-	movl	48(%rbx), %eax
-	addl	28(%rbx), %eax
-	movl	%eax, 140(%rbx)
-	movl	156(%rbx), %eax
+	movl	64(%rbx), %eax
+	addl	44(%rbx), %eax
+	movl	%eax, 148(%rbx)
+	movl	164(%rbx), %eax
 	addl	$-1, %eax
-	subl	148(%rbx), %eax
-	subl	44(%rbx), %eax
-	movl	%eax, 136(%rbx)
+	subl	156(%rbx), %eax
+	subl	60(%rbx), %eax
+	movl	%eax, 144(%rbx)
+	movl	$0, 104(%rbx)
 	movl	$0, 92(%rbx)
-	movl	$0, 76(%rbx)
 	jmp	.LBB7_19
 	.p2align	4, 0x90
-.LBB7_20:                               # %loop_body631
+.LBB7_20:                               # %loop_body622
                                         #   in Loop: Header=BB7_19 Depth=1
-	movl	136(%rbx), %eax
-	addl	76(%rbx), %eax
-	movq	80(%rbx), %rcx
+	movl	144(%rbx), %eax
+	addl	92(%rbx), %eax
+	movq	96(%rbx), %rcx
 	cltq
 	movzbl	(%rcx,%rax), %ecx
-	movl	%ecx, 192(%rbx)
-	movl	140(%rbx), %edx
-	addl	44(%rbx), %edx
+	movl	%ecx, 204(%rbx)
+	movl	148(%rbx), %edx
+	addl	60(%rbx), %edx
 	cmpl	%edx, %eax
-	setae	21(%rbx)
+	setae	37(%rbx)
 	setae	%al
-	cmpl	104(%rbx), %ecx
-	setne	38(%rbx)
+	cmpl	116(%rbx), %ecx
+	setne	54(%rbx)
 	setne	%cl
-	andb	13(%rbx), %al
+	andb	29(%rbx), %al
 	andb	%cl, %al
-	movl	60(%rbx), %edx
+	movl	76(%rbx), %edx
 	movzbl	%al, %edi
 	xorl	%esi, %esi
 	callq	select.cmov.sel.i32
-	movl	%eax, 60(%rbx)
-	movzbl	38(%rbx), %ecx
+	movl	%eax, 76(%rbx)
+	movzbl	54(%rbx), %ecx
 	notb	%cl
 	andb	$1, %cl
-	movb	%cl, 38(%rbx)
-	movzbl	21(%rbx), %ecx
+	movb	%cl, 54(%rbx)
+	movzbl	37(%rbx), %ecx
 	xorb	$1, %cl
 	movl	%ecx, %edx
 	andb	$1, %dl
-	movb	%dl, 21(%rbx)
-	movl	136(%rbx), %edx
-	addl	76(%rbx), %edx
-	cmpl	140(%rbx), %edx
+	movb	%dl, 37(%rbx)
+	movl	144(%rbx), %edx
+	addl	92(%rbx), %edx
+	cmpl	148(%rbx), %edx
 	setae	%dil
-	setae	20(%rbx)
-	movslq	92(%rbx), %rsi
+	setae	36(%rbx)
+	movslq	104(%rbx), %rsi
 	movzbl	(%r15,%rsi), %esi
-	cmpl	%esi, 192(%rbx)
+	cmpl	%esi, 204(%rbx)
 	setne	%dl
-	setne	37(%rbx)
+	setne	53(%rbx)
 	andb	%cl, %dl
-	andb	13(%rbx), %dl
+	andb	29(%rbx), %dl
 	andb	%dil, %dl
 	movzbl	%dl, %edi
 	xorl	%esi, %esi
 	movl	%eax, %edx
 	callq	select.cmov.sel.i32
-	movl	%eax, 60(%rbx)
-	movzbl	37(%rbx), %eax
+	movl	%eax, 76(%rbx)
+	movzbl	53(%rbx), %eax
 	notb	%al
 	andb	$1, %al
-	movb	%al, 37(%rbx)
-	movzbl	21(%rbx), %eax
-	andb	20(%rbx), %al
-	andb	13(%rbx), %al
-	movl	92(%rbx), %edx
+	movb	%al, 53(%rbx)
+	movzbl	37(%rbx), %eax
+	andb	36(%rbx), %al
+	andb	29(%rbx), %al
+	movl	104(%rbx), %edx
 	leal	1(%rdx), %esi
 	movzbl	%al, %edi
                                         # kill: def %edx killed %edx killed %rdx
 	callq	select.cmov.sel.i32
-	movl	%eax, 92(%rbx)
-	movzbl	20(%rbx), %eax
+	movl	%eax, 104(%rbx)
+	movzbl	36(%rbx), %eax
 	notb	%al
 	andb	$1, %al
-	movb	%al, 20(%rbx)
-	addl	$1, 76(%rbx)
-.LBB7_19:                               # %loop_check630
+	movb	%al, 36(%rbx)
+	addl	$1, 92(%rbx)
+.LBB7_19:                               # %loop_check621
                                         # =>This Inner Loop Header: Depth=1
-	movl	148(%rbx), %eax
-	addl	44(%rbx), %eax
-	cmpl	%eax, 76(%rbx)
+	movl	156(%rbx), %eax
+	addl	60(%rbx), %eax
+	cmpl	%eax, 92(%rbx)
 	jb	.LBB7_20
-# %bb.21:                               # %loop_end632
-	movl	60(%rbx), %eax
-	movl	%eax, 112(%rbx)
+# %bb.21:                               # %loop_end623
+	movl	76(%rbx), %eax
+	movl	%eax, 124(%rbx)
 	jmp	.LBB7_3
-.LBB7_2:                                # %thenbranch23
-	movl	$0, 112(%rbx)
+.LBB7_2:                                # %thenbranch18
+	movl	$0, 124(%rbx)
 	xorl	%eax, %eax
-.LBB7_3:                                # %thenbranch23
+.LBB7_3:                                # %thenbranch18
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12

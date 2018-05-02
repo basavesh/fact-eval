@@ -176,12 +176,12 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	.cfi_offset %r13, -40
 	.cfi_offset %r14, -32
 	.cfi_offset %r15, -24
+	movq	%rsi, %r14
 	movq	%rdi, 200(%rbx)
 	movq	%rdx, 88(%rbx)
 	movl	%ecx, 148(%rbx)
 	movq	%r8, 176(%rbx)
 	movl	%r9d, 196(%rbx)
-	movq	%rsi, %r14
 	movl	$0, 120(%rbx)
 	movb	$1, 127(%rbx)
 	movq	$-1, 248(%rbx)
@@ -191,16 +191,13 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	$16, 60(%rbx)
 	movl	$64, 80(%rbx)
 	movl	$0, 116(%rbx)
-	movl	$0, 48(%rbx)
 	movl	%ecx, 28(%rbx)
+	movl	$0, 48(%rbx)
 	movl	$1, 112(%rbx)
-	movq	16(%rbp), %rax
-	movzwl	540(%r14,%rax), %eax
-	movbew	%ax, 124(%rbx)
-	movzwl	124(%rbx), %eax
+	movzwl	24(%rbp), %eax
 	cmpl	$770, %eax              # imm = 0x302
 	jae	.LBB8_1
-# %bb.4:                                # %elsebranch37
+# %bb.4:                                # %elsebranch29
 	movl	40(%rbx), %eax
 	addl	$1, %eax
 	cmpl	%eax, 28(%rbx)
@@ -223,7 +220,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	addl	%eax, 116(%rbx)
 	addl	%eax, 48(%rbx)
 	subl	%eax, 28(%rbx)
-.LBB8_6:                                # %branchmerge47
+.LBB8_6:                                # %branchmerge39
 	movl	28(%rbx), %eax
 	movl	%eax, 240(%rbx)
 	movl	%eax, 236(%rbx)
@@ -317,7 +314,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	addl	80(%rbx), %ecx
 	cmpl	%ecx, %eax
 	jb	.LBB8_8
-# %bb.7:                                # %thenbranch128
+# %bb.7:                                # %thenbranch117
 	movl	28(%rbx), %eax
 	movl	80(%rbx), %ecx
 	leal	256(%rcx), %edx
@@ -347,7 +344,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	addl	%eax, 48(%rbx)
 	subl	%eax, 28(%rbx)
 	subl	%eax, 32(%rbx)
-.LBB8_8:                                # %branchmerge167
+.LBB8_8:                                # %branchmerge156
 	movl	32(%rbx), %edi
 	shll	$3, %edi
 	addl	456(%r14), %edi
@@ -374,7 +371,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	%rax, 168(%rbx)         # 8-byte Spill
 	jmp	.LBB8_9
 	.p2align	4, 0x90
-.LBB8_12:                               # %branchmerge307
+.LBB8_12:                               # %branchmerge295
                                         #   in Loop: Header=BB8_9 Depth=1
 	addl	$1, 76(%rbx)
 .LBB8_9:                                # %loop_check
@@ -411,7 +408,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, 56(%rbx)
 	cmpl	80(%rbx), %eax
 	jne	.LBB8_12
-# %bb.11:                               # %thenbranch216
+# %bb.11:                               # %thenbranch204
                                         #   in Loop: Header=BB8_9 Depth=1
 	movl	32(%rbx), %eax
 	addl	$7, %eax
@@ -504,23 +501,23 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, 100(%rbx)
 	jmp	.LBB8_14
 	.p2align	4, 0x90
-.LBB8_15:                               # %loop_body312
+.LBB8_15:                               # %loop_body300
                                         #   in Loop: Header=BB8_14 Depth=1
 	movslq	100(%rbx), %rax
 	movb	$0, 464(%r14,%rax)
 	addl	$1, 72(%rbx)
 	addl	$1, 100(%rbx)
-.LBB8_14:                               # %loop_check311
+.LBB8_14:                               # %loop_check299
                                         # =>This Inner Loop Header: Depth=1
 	movl	100(%rbx), %eax
 	cmpl	80(%rbx), %eax
 	jb	.LBB8_15
-# %bb.16:                               # %loop_end313
+# %bb.16:                               # %loop_end301
 	movl	80(%rbx), %eax
 	addl	$-8, %eax
 	cmpl	%eax, 56(%rbx)
 	jbe	.LBB8_18
-# %bb.17:                               # %thenbranch330
+# %bb.17:                               # %thenbranch318
 	movl	32(%rbx), %eax
 	addl	$8, %eax
 	subl	72(%rbx), %eax
@@ -607,7 +604,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	152(%rbx), %rdi         # 8-byte Reload
 	callq	_memzero
 	addl	$64, 72(%rbx)
-.LBB8_18:                               # %branchmerge428
+.LBB8_18:                               # %branchmerge416
 	movl	60(%rbx), %eax
 	leal	-4(,%rax,4), %eax
 	movq	%rsp, %rcx
@@ -818,7 +815,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	$0, 96(%rbx)
 	jmp	.LBB8_19
 	.p2align	4, 0x90
-.LBB8_20:                               # %loop_body598
+.LBB8_20:                               # %loop_body586
                                         #   in Loop: Header=BB8_19 Depth=1
 	movl	96(%rbx), %eax
 	movl	188(%rbx), %ecx
@@ -850,12 +847,12 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%esi, 64(%rbx)
 	subl	%edx, 140(%rbx)
 	addl	$1, 96(%rbx)
-.LBB8_19:                               # %loop_check597
+.LBB8_19:                               # %loop_check585
                                         # =>This Inner Loop Header: Depth=1
 	movl	96(%rbx), %eax
 	cmpl	36(%rbx), %eax
 	jb	.LBB8_20
-# %bb.21:                               # %loop_end599
+# %bb.21:                               # %loop_end587
 	movl	40(%rbx), %eax
 	subl	%eax, 36(%rbx)
 	xorl	%eax, %eax
@@ -866,10 +863,10 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, 112(%rbx)
 	movl	%eax, 120(%rbx)
 	jmp	.LBB8_3
-.LBB8_2:                                # %thenbranch24
+.LBB8_2:                                # %thenbranch18
 	movl	$0, 120(%rbx)
 	xorl	%eax, %eax
-.LBB8_3:                                # %thenbranch24
+.LBB8_3:                                # %thenbranch18
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
