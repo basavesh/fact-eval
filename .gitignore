@@ -1,4 +1,2 @@
-crypto_secretbox.h
-*.bin
-*.res
-*.h
+*.bc
+*.pseudo.fact
