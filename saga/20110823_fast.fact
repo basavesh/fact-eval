@@ -46,8 +46,6 @@ struct SHA_CTX {
     public uint32 num;
 }
 
-extern void _structcopy(mut struct SHA_CTX dst, mut struct SHA_CTX src);
-
 struct EVP_AES_HMAC_SHA1 {
     struct AES_KEY ks;
     struct SHA_CTX head;
@@ -387,7 +385,7 @@ _aesni_cbc_hmac_sha1_cipher(
   cacheline secret mut uint8[20] pmac = noinit(20); // SHA_DIGEST_LENGTH
 
   /* calculate HMAC and verify it */
-  _structcopy(ref key.md, ref key.head);
+  _structcopy_SHA_CTX(ref key.md, ref key.head);
   SHA1_Update_public(ref key.md, arrview(key.tls_aad, 0, plen));
 
   public uint32 minlen =
@@ -402,7 +400,7 @@ _aesni_cbc_hmac_sha1_cipher(
   SHA1_Final_secret(ref pmac, ref key.md, ctx_num);
   //SHA1_Update_Final_secret(ref key.md, arrview(_out, outp + minlen, _len - minlen), inp_len - minlen, ref pmac);
 
-  _structcopy(ref key.md, ref key.tail);
+  _structcopy_SHA_CTX(ref key.md, ref key.tail);
   SHA1_Update_public(ref key.md, pmac);
   SHA1_Final_public(ref pmac, ref key.md);
 

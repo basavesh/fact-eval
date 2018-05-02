@@ -3,26 +3,14 @@ all:
 nice:
 	cp 20110823_fast.fact saga.fact
 	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O3 saga.fact
-	sed -i -e '/declare.*_structcopy/d' saga.ll
-	cat saga.ll structcopy.ll > saga2.ll
-	opt -S -O3 saga2.ll -o - > saga.ll
-	llc -O3 -mcpu=core-avx2 saga.ll
 
 ghetto:
 	cp 20170717_latest.fact saga.fact
 	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O3 saga.fact
-	sed -i -e '/declare.*_structcopy/d' saga.ll
-	cat saga.ll structcopy.ll > saga2.ll
-	opt -S -O3 saga2.ll -o - > saga.ll
-	llc -O3 -mcpu=core-avx2 saga.ll
 
 raw:
 	cp 20170717_latest_raw.fact saga.fact
 	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O3 saga.fact
-	sed -i -e '/declare.*_structcopy/d' saga.ll
-	cat saga.ll structcopy.ll > saga2.ll
-	opt -S -O3 saga2.ll -o - > saga.ll
-	llc -O3 -mcpu=core-avx2 saga.ll
 
 .PHONY: all copy
 

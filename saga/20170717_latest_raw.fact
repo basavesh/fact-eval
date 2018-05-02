@@ -57,8 +57,6 @@ struct SHA_CTX {
     public uint32 num;
 }
 
-extern void _structcopy(mut struct SHA_CTX dst, mut struct SHA_CTX src);
-
 struct EVP_AES_HMAC_SHA1 {
     struct AES_KEY ks;
     struct SHA_CTX head;
@@ -205,7 +203,7 @@ _aesni_cbc_hmac_sha1_cipher(
   key.tls_aad[plen - 1] = (uint8)(inp_len >> 0);
 
   /* calculate HMAC */
-  _structcopy(ref key.md, ref key.head);
+  _structcopy_SHA_CTX(ref key.md, ref key.head);
   _sha1_update(ref key.md.h0, arrview(key.tls_aad, 0, plen), plen);
 
   /* begin post-lucky-13 section */
@@ -288,7 +286,7 @@ _aesni_cbc_hmac_sha1_cipher(
   _len += SHA_DIGEST_LENGTH;
   /* end post-lucky-13 section */
 
-  _structcopy(ref key.md, ref key.tail);
+  _structcopy_SHA_CTX(ref key.md, ref key.tail);
   _sha1_update(ref key.md.h0, pmac, len pmac);
   SHA1_Final(ref pmac, ref key.md.h0);
 
