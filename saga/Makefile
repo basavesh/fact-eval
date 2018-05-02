@@ -1,28 +1,12 @@
 all:
 
-nice:
-	cp 20110823_fast.fact saga.fact
-	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O3 saga.fact
-
-ghetto:
-	cp 20170717_latest.fact saga.fact
-	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O3 saga.fact
-
-raw:
-	cp 20170717_latest_raw.fact saga.fact
-	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O3 saga.fact
-
-.PHONY: all copy
-
-20110823_fast.o: 20110823_fast.fact Makefile ../../../fact.byte
-	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O2 20110823_fast.fact
-
-20170717_latest.o: 20170717_latest.fact Makefile ../../../fact.byte
-	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O2 20170717_latest.fact
-
-20170717_latest_raw.o: 20170717_latest_raw.fact Makefile ../../../fact.byte
-	../../../fact.byte -pseudocode -generate-header -ast-out -core-ir-out -llvm-out -debug -opt O2 20170717_latest_raw.fact
-
-
-clean:
-	rm -f *.s *.o *.bc 20170717_latest_raw.h *.pseudo.fact *.bin *.res *.ml
+generate:
+	$(FACTC) -llvm-out -smack-out -generate-header 20170717_latest_raw.fact
+	$(FACTC) -llvm-out -generate-header -opt O3 20170717_latest_raw.fact -o 20170717_latest_raw.O3.o
+	$(FACTC) -llvm-out -smack-out -generate-header 20170717_latest.fact
+	$(FACTC) -llvm-out -generate-header -opt O3 20170717_latest.fact -o 20170717_latest.O3.o
+	$(FACTC) -llvm-out -smack-out -generate-header 20110823_fast.fact
+	$(FACTC) -llvm-out -generate-header -opt O3 20110823_fast.fact -o 20110823_fast.O3.o
+	mv *.o *.s *.h obj/
+	mv *.smack.ll smack-ll/
+	mv *.bc *.ll ll/
