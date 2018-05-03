@@ -147,7 +147,7 @@ void _mpi_montred(
         secret mut uint64[] T) {
 
     secret uint64[1] one = { 1 };
-    _mpi_montmul(A, one, N, mm, T);
+    _mpi_montmul(ref A, one, N, mm, ref T);
 }
 
 // precondition: len TO >= len FROM
@@ -170,63 +170,62 @@ secret int32 _mpi_exp_mod(
         secret uint64[] RR,
         secret mut uint64[] T,
         secret mut uint64[] W,
+	secret mut uint64[] TW,
         secret uint64 mm) {
 
     public uint64 wlen = (len W) >> 4;
     secret mut int32 ret = 1;
 
     // X = R mod N
-    _mpi_copy(X, RR);
-    _mpi_montred(X, N, mm, T);
+    _mpi_copy(ref X, RR);
+    _mpi_montred(ref X, N, mm, ref T);
 
     // W[0] = R mod N
     _mpi_copy(ref arrview(W, 0, wlen), X);
 
     // W[1] = A R mod N
     _mpi_copy(ref arrview(W, wlen, wlen), A);
-    _mpi_montmul(ref arrview(W, wlen, wlen), RR, N, mm, T);
+    _mpi_montmul(ref arrview(W, wlen, wlen), RR, N, mm, ref T);
 
     // W[i] = W[i-1] * W[1] * R^-1 mod N
-    for (int32 widx = 2; widx < 16; widx += 1) {
+    for (uint32 widx = 2; widx < 16; widx += 1) {
         _mpi_copy(ref arrview(W, widx * wlen, wlen), arrview(W, (widx - 1) * wlen, wlen));
-        _mpi_montmul(ref arrview(W, widx * wlen, wlen), arrview(W, wlen, wlen), N, mm, T);
+        _mpi_montmul(ref arrview(W, widx * wlen, wlen), arrview(W, wlen, wlen), N, mm, ref T);
     }
 
     // windowed exponentiation
     for (uint32 limb = (len E) ; limb > 0; limb -= 1) {
         for (uint32 i = 1; i < 17; i += 1) {
             // square 4 times
-            _mpi_montmul(X, X, N, mm, T);
-            _mpi_montmul(X, X, N, mm, T);
-            _mpi_montmul(X, X, N, mm, T);
-            _mpi_montmul(X, X, N, mm, T);
+            _mpi_montmul(ref X, X, N, mm, ref T);
+            _mpi_montmul(ref X, X, N, mm, ref T);
+            _mpi_montmul(ref X, X, N, mm, ref T);
+            _mpi_montmul(ref X, X, N, mm, ref T);
 
             // mask 4 bits of exponent
             secret uint64 wbits = (E[limb-1] >> (64 - 4 * i)) & 0x0F;
 
-            // select the correct value of W based on wbits
-            secret mut uint64[wlen] this_Wval = arrzeros(wlen);
             for (uint32 widx = 0; widx < 16; widx += 1) {
                 if (wbits == widx) {
-                    _mpi_copy(this_Wval, arrview(W, widx * wlen, wlen));
+                    _mpi_copy(ref TW, arrview(W, widx * wlen, wlen));
                 }
             }
 
-            _mpi_montmul(X, this_Wval, N, mm, T);
+            _mpi_montmul(ref X, TW, N, mm, ref T);
         }
     }
 
     // divide by R, which results in X mod N
-    _mpi_montred(X, N, mm, T);
+    _mpi_montred(ref X, N, mm, ref T);
 
     // fix sign, assuming N is positive
     secret bool need_fix_sign = (A_sgn < 0) && ((E[0] & 1) != 0);
     if (need_fix_sign) {
         // X is really -(N-X)
         ret = -1;
-        _mpi_copy(T, N);
-        _mpi_sub_hlp(len X, X, T);
-        _mpi_copy(X, arrview(T, 0, len X));
+        _mpi_copy(ref T, N);
+        _mpi_sub_hlp(len X, X, ref T);
+        _mpi_copy(ref X, arrview(T, 0, len X));
     }
 
     return ret;
