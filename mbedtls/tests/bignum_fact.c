@@ -1,22 +1,20 @@
+#include "mbedtls/config.h"
+#include "mbedtls/platform.h"
 #include "mbedtls/bignum.h"
+#include <string.h>
+
 #include "_f_bignum.h"
 
+int fact_mpi_exp_mod(mbedtls_mpi *X, const mbedtls_mpi *A, const mbedtls_mpi *E, const mbedtls_mpi *N, mbedtls_mpi *_RR);
 static void _f_mpi_montg_init( mbedtls_mpi_uint *mm, const mbedtls_mpi *N );
 
 #define ciL    (sizeof(mbedtls_mpi_uint))       /* chars in limb  */
 #define biL    (ciL << 3)                       /* bits  in limb  */
 
 // C wrapper for _f_mpi_exp_mod
-int fact_mpi_exp_mod(
-        mbedtls_mpi *X,
-        const mbedtls_mpi *A,
-        const mbedtls_mpi *E,
-        const mbedtls_mpi *N,
-        mbedtls_mpi *_RR ) {
-
+int fact_mpi_exp_mod(mbedtls_mpi *X, const mbedtls_mpi *A, const mbedtls_mpi *E, const mbedtls_mpi *N, mbedtls_mpi *_RR ) {
     int ret;
-    size_t wbits;
-    size_t i, j;
+    size_t nsize;
     mbedtls_mpi_uint mm;
     mbedtls_mpi RR, T, W, TW;
 
@@ -35,11 +33,11 @@ int fact_mpi_exp_mod(
     mbedtls_mpi_init( &W );
     mbedtls_mpi_init( &TW );
 
-    j = N->n + 1;
-    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( X, j ) );
-    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &T, j * 2 ) );
-    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &W, j * 16 ) );
-    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &TW, j ) );
+    nsize = N->n + 1;
+    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( X, nsize ) );
+    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &T, nsize * 2 ) );
+    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &W, nsize * 16 ) );
+    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &TW, nsize ) );
 
     // compute R^2 mod N if necessary
     if( _RR == NULL || _RR->p == NULL ) {
@@ -59,10 +57,10 @@ int fact_mpi_exp_mod(
                          , A->p, A->n, A->s
                          , E->p, E->n
                          , N->p, N->n
-                         , RR->p, RR->n
-                         , T->p, T->n
-                         , W->p, W->n
-                         , TW->p, TW->n
+                         , RR.p, RR.n
+                         , T.p, T.n
+                         , W.p, W.n
+                         , TW.p, TW.n
                          , mm );
 
 cleanup:
