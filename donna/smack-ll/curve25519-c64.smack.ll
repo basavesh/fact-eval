@@ -1,4 +1,4 @@
-; verify with: smack --bit-precise --entry-point=[...]
+; verify with: smack --bit-precise --verifier=boogie --modular --entry-point=[...]
 ; ModuleID = 'SmackModule'
 source_filename = "SmackModule"
 
