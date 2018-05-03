@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+OPENSSL=$PWD
 OBJ_DIR=../..
 
 # copy FaCT port
