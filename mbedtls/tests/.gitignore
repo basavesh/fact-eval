@@ -1,3 +1,4 @@
 build/
 mbedtls_testbench
-fact_bignum.*
+bignum_fact.*
+!bignum_fact.c

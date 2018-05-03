@@ -1,6 +1,8 @@
 FACT := $(shell readlink -f ../../../fact/fact.byte)
 BUILD := build
 MBEDTLS = mbedtls-2.8.0
+#export CC := clang
+#export CXX := clang++
 
 CFLAGS = -m64 -pedantic -pedantic-errors -std=gnu11 -Werror -Wall -Wextra -Wshadow -Wpointer-arith -Wcast-qual -Wformat=2 -Wstrict-prototypes -Wmissing-prototypes
 CFLAGS += -I $(MBEDTLS)/include
