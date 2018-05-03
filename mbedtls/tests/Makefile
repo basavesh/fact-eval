@@ -28,4 +28,4 @@ mbedtls_testbench: build/library/libmbedcrypto.a
 
 .PHONY: clean
 clean:
-	rm -rf build fact_bignum.* mbedtls_testbench
+	rm -rf build bignum_fact.o mbedtls_testbench
