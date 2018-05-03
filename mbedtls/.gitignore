@@ -1,7 +1,7 @@
-bignum_new.bc
-bignum_new.h
-bignum_new.ll
-bignum_new.fpic.o
-bignum_new.fpic.s
-bignum_new.o
-bignum_new.s
+bignum.bc
+bignum.h
+bignum.ll
+bignum.fpic.o
+bignum.fpic.s
+bignum.o
+bignum.s

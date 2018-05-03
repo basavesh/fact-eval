@@ -1,8 +1,15 @@
-all:
-	echo "please specify a target"
+FACT := ../../fact/fact.byte
+FACT_OPTS += -generate-header -debug
 
-bignum:
-	../../fact.byte -opt O2 -generate-header -llvm-out bignum.fact
+DEBUG ?= 0
+ifeq ($(DEBUG),0)
+	FACT_OPTS += -opt O2
+endif
+
+all: bignum.o
+
+bignum.o: bignum.fact
+	$(FACT) $(FACT_OPTS) bignum.fact
 
 clean:
-	rm -f *.s *.o *.bc
+	rm -f *.s *.o *.bc *.h *.ll
