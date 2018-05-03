@@ -161,7 +161,7 @@ void _mpi_copy(secret mut uint64[] TO, secret uint64[] FROM) {
 }
 
 export
-secret int32 _mpi_exp_mod(
+secret int32 _f_mpi_exp_mod(
         secret mut uint64[] X,
         secret uint64[] A,
         secret int32 A_sgn,
@@ -170,6 +170,7 @@ secret int32 _mpi_exp_mod(
         secret uint64[] RR,
         secret mut uint64[] T,
         secret mut uint64[] W,
+        secret mut uint64[] TW,
         secret uint64 mm) {
 
     public uint32 wlen = (len W) >> 4;
@@ -205,15 +206,14 @@ secret int32 _mpi_exp_mod(
             secret uint64 wbits = (E[limb-1] >> (64 - 4 * i)) & 0x0F;
 
             // select correct precomputed exponent value
-            secret mut uint64[wlen] this_Wval = noinit(wlen);
             for (uint32 widx = 0; widx < 16; widx += 1) {
                 if (wbits == widx) {
-                    _mpi_copy(ref this_Wval, arrview(W, widx * wlen, wlen));
+                    _mpi_copy(ref TW, arrview(W, widx * wlen, wlen));
                 }
             }
 
             // multiply by exponent value
-            _mpi_montmul(ref X, this_Wval, N, mm, ref T);
+            _mpi_montmul(ref X, TW, N, mm, ref T);
         }
     }
 
