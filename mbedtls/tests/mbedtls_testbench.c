@@ -1,38 +1,135 @@
-/*
- *  Simple MPI demonstration program
- *
- *  Copyright (C) 2006-2015, ARM Limited, All Rights Reserved
- *  SPDX-License-Identifier: Apache-2.0
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may
- *  not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- *  This file is part of mbed TLS (https://tls.mbed.org)
- */
+#include <stdio.h>
+#include <string.h>
+#include <sys/random.h>
+
+#include <gmp.h>
 
 #include "mbedtls/config.h"
 #include "mbedtls/platform.h"
 #include "mbedtls/bignum.h"
-#include <stdio.h>
 
-int main( void )
-{
-    int ret;
-    mbedtls_mpi E, P, Q, N, H, D, X, Y, Z;
+#include "bignum_fact.h"
 
-    mbedtls_mpi_init( &E ); mbedtls_mpi_init( &P ); mbedtls_mpi_init( &Q ); mbedtls_mpi_init( &N );
-    mbedtls_mpi_init( &H ); mbedtls_mpi_init( &D ); mbedtls_mpi_init( &X ); mbedtls_mpi_init( &Y );
-    mbedtls_mpi_init( &Z );
+#define ciL    (sizeof(mbedtls_mpi_uint))       /* chars in limb  */
+#define biL    (ciL << 3)                       /* bits  in limb  */
 
+int main(int argc, char **argv) {
+    unsigned primebits = 0;
+    if (argc > 1) {
+        primebits = (unsigned) atoi(argv[1]);
+    }
+    if (primebits == 0) {
+        primebits = 1032;
+    }
+
+    unsigned logiters = 0;
+    if (argc > 2) {
+        logiters = (unsigned) atoi(argv[2]);
+    }
+    if (logiters == 0) {
+        logiters = 2;
+    }
+    int niters = 1 << logiters;
+
+
+    mbedtls_mpi E, P, RR, X, Y1, Y2, Y3;
+    mbedtls_mpi_init(&E);
+    mbedtls_mpi_init(&P);
+    mbedtls_mpi_init(&RR);
+    mbedtls_mpi_init(&X);
+    mbedtls_mpi_init(&Y1);
+    mbedtls_mpi_init(&Y2);
+    mbedtls_mpi_init(&Y3);
+
+    mpz_t e, p, x, y;
+    mpz_init(e);
+    mpz_init(p);
+    mpz_init(x);
+    mpz_init(y);
+
+    // rng
+    gmp_randstate_t rstate;
+    gmp_randinit_default(rstate);
+    {
+        uint64_t rseed;
+        getrandom(&rseed, sizeof(rseed), 0);
+        gmp_randseed_ui(rstate, rseed);
+    }
+
+    for (int outer = 0; outer < niters; outer++) {
+        // random prime
+        mpz_urandomb(p, rstate, primebits + 1);
+        mpz_nextprime(p, p);
+
+        // make sure all the mpis have enough room
+        {
+            unsigned nlimbs = mpz_sizeinbase(p, 2);
+            nlimbs = (nlimbs / biL) + ((nlimbs % biL) != 0);
+            mbedtls_mpi_grow(&P, nlimbs + 2);
+            mbedtls_mpi_grow(&E, nlimbs + 2);
+            mbedtls_mpi_free(&RR);
+            mbedtls_mpi_grow(&X, nlimbs + 2);
+            mbedtls_mpi_grow(&Y1, nlimbs + 2);
+            mbedtls_mpi_grow(&Y2, nlimbs + 2);
+            mbedtls_mpi_grow(&Y3, nlimbs + 2);
+        }
+
+        // export p to P
+        memset(P.p, 0, ciL * P.n);
+        P.s = 1;
+        mpz_export(P.p, NULL, -1, ciL, 0, 0, p);
+
+        /*
+        // export testing
+        mbedtls_mpi_write_file("P = ", &P, 16, NULL);
+        gmp_fprintf(stderr, "P = %ZX\n", p);
+        */
+
+        for (int inner = 0; inner < niters; inner++) {
+            // random X
+            mpz_urandomm(x, rstate, p);
+            X.s = 1;
+            mpz_export(X.p, NULL, -1, ciL, 0, 0, x);
+
+            // random E less than p-1
+            mpz_sub_ui(e, p, 1);
+            mpz_urandomm(e, rstate, e);
+            E.s = 1;
+            mpz_export(E.p, NULL, -1, ciL, 0, 0, e);
+
+            memset(Y1.p, 0, ciL * Y1.n);
+            mbedtls_mpi_exp_mod(&Y1, &X, &E, &P, &RR);
+            //mbedtls_mpi_write_file("Y1= ", &Y1, 16, NULL);
+
+            memset(Y2.p, 0, ciL * Y2.n);
+            mbedtls_mpi_exp_mod_simple(&Y2, &X, &E, &P, &RR);
+            //mbedtls_mpi_write_file("Y2= ", &Y2, 16, NULL);
+
+            memset(Y3.p, 0, ciL * Y3.n);
+            fact_mpi_exp_mod(&Y3, &X, &E, &P, &RR);
+            //mbedtls_mpi_write_file("Y3= ", &Y3, 16, NULL);
+
+            /*
+            mpz_powm(y, x, e, p);
+            //gmp_printf("y = %Zx\n\n", y);
+            */
+        }
+    }
+
+    gmp_randclear(rstate);
+    mpz_clear(x);
+    mpz_clear(p);
+    mpz_clear(e);
+    mpz_clear(y);
+    mbedtls_mpi_free(&Y3);
+    mbedtls_mpi_free(&Y2);
+    mbedtls_mpi_free(&Y1);
+    mbedtls_mpi_free(&X);
+    mbedtls_mpi_free(&RR);
+    mbedtls_mpi_free(&P);
+    mbedtls_mpi_free(&E);
+
+    /*
     MBEDTLS_MPI_CHK( mbedtls_mpi_read_string( &P, 10, "2789" ) );
     MBEDTLS_MPI_CHK( mbedtls_mpi_read_string( &Q, 10, "3203" ) );
     MBEDTLS_MPI_CHK( mbedtls_mpi_read_string( &E, 10,  "257" ) );
@@ -81,6 +178,7 @@ cleanup:
         mbedtls_printf( "\nAn error occurred.\n" );
         ret = 1;
     }
+    */
 
-    return( ret );
+    return 0;
 }

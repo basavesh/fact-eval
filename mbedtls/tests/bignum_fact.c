@@ -67,8 +67,9 @@ cleanup:
     mbedtls_mpi_free( &TW );
     mbedtls_mpi_free( &W );
     mbedtls_mpi_free( &T );
-    if( _RR == NULL || _RR->p == NULL )
+    if( _RR == NULL || _RR->p == NULL ) {
         mbedtls_mpi_free( &RR );
+    }
 
     return( ret );
 }

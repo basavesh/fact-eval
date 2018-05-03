@@ -125,7 +125,7 @@ int mbedtls_mpi_grow( mbedtls_mpi *X, size_t nblimbs )
 
     if( X->n < nblimbs )
     {
-        if( ( p = (mbedtls_mpi_uint*)mbedtls_calloc( nblimbs, ciL ) ) == NULL )
+        if( ( p = (mbedtls_mpi_uint*)calloc( nblimbs, ciL ) ) == NULL )
             return( MBEDTLS_ERR_MPI_ALLOC_FAILED );
 
         if( X->p != NULL )
@@ -163,7 +163,7 @@ int mbedtls_mpi_shrink( mbedtls_mpi *X, size_t nblimbs )
     if( i < nblimbs )
         i = nblimbs;
 
-    if( ( p = (mbedtls_mpi_uint*)mbedtls_calloc( i, ciL ) ) == NULL )
+    if( ( p = (mbedtls_mpi_uint*)calloc( i, ciL ) ) == NULL )
         return( MBEDTLS_ERR_MPI_ALLOC_FAILED );
 
     if( X->p != NULL )
@@ -1841,13 +1841,13 @@ int mbedtls_mpi_exp_mod_simple( mbedtls_mpi *X, const mbedtls_mpi *A, const mbed
      * Init temps and window size
      */
     mpi_montg_init( &mm, N );
-    mbedtls_mpi_init( &RR ); mbedtls_mpi_init( &T );
+    mbedtls_mpi_init( &RR );
+    mbedtls_mpi_init( &T );
     mbedtls_mpi_init( &Apos );
     memset( W, 0, sizeof( W ) );
 
     j = N->n + 1;
     MBEDTLS_MPI_CHK( mbedtls_mpi_grow( X, j ) );
-    MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &W[0],  j ) );
     MBEDTLS_MPI_CHK( mbedtls_mpi_grow( &T, j * 2 ) );
 
     /*
@@ -1885,7 +1885,7 @@ int mbedtls_mpi_exp_mod_simple( mbedtls_mpi *X, const mbedtls_mpi *A, const mbed
     /*
      * initialize W in a very ugly way
      */
-    if ( (W_data = (mbedtls_mpi_uint *) mbedtls_calloc( 16 * (N->n + 1), ciL ) ) == NULL ) {
+    if ( (W_data = (mbedtls_mpi_uint *)calloc( 16 * (N->n + 1), ciL ) ) == NULL ) {
         return( MBEDTLS_ERR_MPI_ALLOC_FAILED );
     }
 

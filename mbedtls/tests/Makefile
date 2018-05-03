@@ -12,7 +12,8 @@ DEBUG ?= 0
 ifeq ($(DEBUG),1)
 CFLAGS += -g -Og
 else
-CFLAGS += -O2 -flto
+CFLAGS += -O2
+LDFLAGS += -flto
 endif
 
 all: mbedtls_testbench
@@ -35,11 +36,13 @@ build/libmbed_bench.a: build/library/libmbedcrypto.a bignum_fact.o ../bignum.o
 
 bignum_fact.o: ../bignum.h
 
+mbedtls_testbench: CFLAGS += -fpic
 mbedtls_testbench: LDFLAGS += -Lbuild
 mbedtls_testbench: LDLIBS += -lmbed_bench -lgmp
-mbedtls_testbench: build/libmbed_bench.a
+mbedtls_testbench: mbedtls_testbench.c build/libmbed_bench.a
+	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
 
 .PHONY: clean
 clean:
-	rm -rf build bignum_fact.o mbedtls_testbench
+	rm -rf build bignum_fact.o mbedtls_testbench mbedtls_testbench.o
 	+$(MAKE) -C ../ clean

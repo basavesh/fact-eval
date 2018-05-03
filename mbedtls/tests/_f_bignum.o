@@ -1,1 +1,1 @@
-../bignum.o
+../bignum.fpic.o

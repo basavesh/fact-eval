@@ -1,4 +1,6 @@
 build/
 mbedtls_testbench
+mbedtls_testbench.o
 bignum_fact.*
 !bignum_fact.c
+core

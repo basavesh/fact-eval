@@ -68,7 +68,8 @@ secret int32 _mbedtls_mpi_cmp_abs(
         return -1;
     }
 
-    for (uint64 i = len X_p; i > 0; i -= 1) {
+    public uint64 start_idx = (len X_p < len Y_p) ? len X_p : len Y_p;
+    for (uint64 i = start_idx; i > 0; i -= 1) {
         if (i <= saved_i) {
             if (X_p[i - 1] > Y_p[i - 1]) {
                 return 1;
@@ -116,8 +117,9 @@ void _mpi_montmul(
 
     public uint64 n = len N_p;
     public uint64 m = (len B_p < n) ? len B_p : n;
-
-    _memzero64(ref T_p);
+    for (uint64 i = 0; i < len T_p; i += 1) {
+        T_p[i] = 0;
+    }
 
     for(uint64 i = 0; i < n; i += 1) {
         secret uint64 u0 = A_p[i];
@@ -150,12 +152,12 @@ void _mpi_montred(
     _mpi_montmul(ref A, one, N, mm, ref T);
 }
 
-// precondition: len TO >= len FROM
 void _mpi_copy(secret mut uint64[] TO, secret uint64[] FROM) {
-    for (uint32 i = 0; i < len FROM; i += 1) {
+    public uint32 clen = (len TO < len FROM) ? len TO : len FROM;
+    for (uint32 i = 0; i < clen; i += 1) {
         TO[i] = FROM[i];
     }
-    for (uint32 i = len FROM; i < len TO; i += 1) {
+    for (uint32 i = clen; i < len TO; i += 1) {
         TO[i] = 0;
     }
 }
