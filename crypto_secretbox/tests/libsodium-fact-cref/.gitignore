@@ -155,3 +155,5 @@ test/default/verify1
 test/default/xchacha20
 test/js.done
 testing
+src/libsodium/include/sodium/fact_secretbox.h
+test/default/cmptest.h
