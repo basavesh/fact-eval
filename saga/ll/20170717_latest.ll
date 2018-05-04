@@ -1198,8 +1198,9 @@ loop_body622:                                     ; preds = %loop_check621
   %_secret_ugtetmp661 = icmp uge i32 %_public_addtmp659, %_secret_lval660
   store i1 %_secret_ugtetmp661, i1* %_secret___m14
   %_secret_lval662 = load i32, i32* %_secret___v47_c
-  %_declassified__secret_lval663 = load i32, i32* %_secret___v45_i
-  %_secret_ptr664 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v33_pmac, i32 0, i32 %_declassified__secret_lval663
+  %_secret_lval663 = load i32, i32* %_secret___v45_i
+  %_declassified_res = call i32 @fact.declassify.i32(i32 %_secret_lval663)
+  %_secret_ptr664 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v33_pmac, i32 0, i32 %_declassified_res
   %_secret_lval665 = load i8, i8* %_secret_ptr664
   %_secret_rhssext = zext i8 %_secret_lval665 to i32
   %_secret_neqtmp666 = icmp ne i32 %_secret_lval662, %_secret_rhssext
@@ -1306,6 +1307,12 @@ define internal void @_memzero(i8*, i32) #3 {
 entry:
   call void @llvm.memset.p0i8.i32(i8* %0, i8 0, i32 %1, i32 1, i1 false)
   ret void
+}
+
+; Function Attrs: noinline
+define internal i32 @fact.declassify.i32(i32 %_declassified_x) #3 {
+entry:
+  ret i32 %_declassified_x
 }
 
 attributes #0 = { alwaysinline }

@@ -187,7 +187,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	$0, 120(%rbx)
 	movl	%ecx, 40(%rbx)
 	movl	$0, 64(%rbx)
-	movl	$1, 76(%rbx)
+	movl	$1, 68(%rbx)
 	movzwl	24(%rbp), %eax
 	cmpl	$770, %eax              # imm = 0x302
 	jae	.LBB7_1
@@ -268,11 +268,11 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, 116(%rbx)
 	movb	29(%rbx), %al
 	andb	39(%rbx), %al
-	movl	76(%rbx), %edx
+	movl	68(%rbx), %edx
 	movzbl	%al, %edi
 	xorl	%esi, %esi
 	callq	select.cmov.sel.i32
-	movl	%eax, 76(%rbx)
+	movl	%eax, 68(%rbx)
 	movb	39(%rbx), %al
 	notb	%al
 	andb	$1, %al
@@ -365,8 +365,8 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	vmovups	%xmm0, (%r15)
 	movl	$0, 16(%r15)
 	movl	528(%r14), %eax
-	movl	%eax, 72(%rbx)
-	movl	$0, 68(%rbx)
+	movl	%eax, 76(%rbx)
+	movl	$0, 72(%rbx)
 	leaq	464(%r14), %rax
 	movq	%rax, 128(%rbx)         # 8-byte Spill
 	leaq	4(%r15), %rax
@@ -379,36 +379,36 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	.p2align	4, 0x90
 .LBB7_12:                               # %branchmerge330
                                         #   in Loop: Header=BB7_9 Depth=1
-	addl	$1, 68(%rbx)
+	addl	$1, 72(%rbx)
 .LBB7_9:                                # %loop_check
                                         # =>This Inner Loop Header: Depth=1
-	movl	68(%rbx), %eax
+	movl	72(%rbx), %eax
 	cmpl	40(%rbx), %eax
 	jae	.LBB7_13
 # %bb.10:                               # %loop_body
                                         #   in Loop: Header=BB7_9 Depth=1
-	movb	$0, 35(%rbx)
-	movl	68(%rbx), %eax
+	movb	$0, 37(%rbx)
+	movl	72(%rbx), %eax
 	cmpl	44(%rbx), %eax
 	setb	38(%rbx)
 	setb	%cl
 	andb	29(%rbx), %cl
-	movslq	72(%rbx), %r12
+	movslq	76(%rbx), %r12
 	addl	64(%rbx), %eax
 	movq	96(%rbx), %rdx
 	cltq
 	movzbl	(%rdx,%rax), %esi
 	movzbl	%cl, %edi
-	movzbl	35(%rbx), %edx
+	movzbl	37(%rbx), %edx
 	callq	select.cmov.asm.i8
-	movb	%al, 35(%rbx)
+	movb	%al, 37(%rbx)
 	movzbl	38(%rbx), %r13d
 	xorb	$1, %r13b
 	movl	%r13d, %eax
 	andb	$1, %al
 	movb	%al, 38(%rbx)
 	andb	29(%rbx), %r13b
-	movl	68(%rbx), %eax
+	movl	72(%rbx), %eax
 	cmpl	44(%rbx), %eax
 	movw	$0, 50(%rbx)
 	sete	59(%rbx)
@@ -432,21 +432,21 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	callq	select.cmov.asm.i16
 	movw	%ax, 50(%rbx)
 	movzbl	%r13b, %edi
-	movzbl	35(%rbx), %edx
+	movzbl	37(%rbx), %edx
 	movzbl	50(%rbx), %esi
 	callq	select.cmov.asm.i8
-	movb	%al, 35(%rbx)
+	movb	%al, 37(%rbx)
 	movb	%al, 464(%r14,%r12)
-	movl	72(%rbx), %eax
+	movl	76(%rbx), %eax
 	addl	$1, %eax
-	movl	%eax, 72(%rbx)
+	movl	%eax, 76(%rbx)
 	cmpl	88(%rbx), %eax
 	jne	.LBB7_12
 # %bb.11:                               # %thenbranch229
                                         #   in Loop: Header=BB7_9 Depth=1
 	movl	44(%rbx), %eax
 	addl	$7, %eax
-	cmpl	68(%rbx), %eax
+	cmpl	72(%rbx), %eax
 	setb	58(%rbx)
 	movl	80(%rbx), %eax
 	leal	-4(,%rax,4), %eax
@@ -476,7 +476,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	44(%rbx), %ecx
 	addl	$72, %ecx
 	xorl	%esi, %esi
-	cmpl	%ecx, 68(%rbx)
+	cmpl	%ecx, 72(%rbx)
 	setb	%sil
 	movzbl	%al, %edi
 	movzbl	34(%rbx), %edx
@@ -547,12 +547,12 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	452(%r14), %esi
 	movzbl	33(%rbx), %edx
 	callq	cond_store
-	movl	$0, 72(%rbx)
+	movl	$0, 76(%rbx)
 	jmp	.LBB7_12
 .LBB7_13:                               # %loop_end
 	movl	40(%rbx), %eax
 	movl	%eax, 84(%rbx)
-	movl	72(%rbx), %eax
+	movl	76(%rbx), %eax
 	movl	%eax, 108(%rbx)
 	jmp	.LBB7_14
 	.p2align	4, 0x90
@@ -570,7 +570,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 # %bb.16:                               # %loop_end336
 	movl	88(%rbx), %eax
 	addl	$-8, %eax
-	cmpl	%eax, 72(%rbx)
+	cmpl	%eax, 76(%rbx)
 	jbe	.LBB7_18
 # %bb.17:                               # %thenbranch354
 	movl	44(%rbx), %eax
@@ -894,51 +894,53 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	148(%rbx), %edx
 	addl	60(%rbx), %edx
 	cmpl	%edx, %eax
-	setae	37(%rbx)
+	setae	36(%rbx)
 	setae	%al
 	cmpl	116(%rbx), %ecx
 	setne	54(%rbx)
 	setne	%cl
 	andb	29(%rbx), %al
 	andb	%cl, %al
-	movl	76(%rbx), %edx
+	movl	68(%rbx), %edx
 	movzbl	%al, %edi
 	xorl	%esi, %esi
 	callq	select.cmov.sel.i32
-	movl	%eax, 76(%rbx)
-	movzbl	54(%rbx), %ecx
-	notb	%cl
-	andb	$1, %cl
-	movb	%cl, 54(%rbx)
-	movzbl	37(%rbx), %ecx
-	xorb	$1, %cl
-	movl	%ecx, %edx
-	andb	$1, %dl
-	movb	%dl, 37(%rbx)
-	movl	144(%rbx), %edx
-	addl	92(%rbx), %edx
-	cmpl	148(%rbx), %edx
-	setae	%dil
-	setae	36(%rbx)
-	movslq	104(%rbx), %rsi
-	movzbl	(%r15,%rsi), %esi
-	cmpl	%esi, 204(%rbx)
-	setne	%dl
+	movl	%eax, 68(%rbx)
+	movzbl	54(%rbx), %eax
+	notb	%al
+	andb	$1, %al
+	movb	%al, 54(%rbx)
+	movzbl	36(%rbx), %eax
+	notb	%al
+	andb	$1, %al
+	movl	144(%rbx), %ecx
+	addl	92(%rbx), %ecx
+	cmpl	148(%rbx), %ecx
+	setae	35(%rbx)
+	movb	%al, 36(%rbx)
+	movl	204(%rbx), %r14d
+	movl	104(%rbx), %edi
+	callq	fact.declassify.i32
+	cltq
+	movzbl	(%r15,%rax), %eax
+	cmpl	%eax, %r14d
+	setne	%al
 	setne	53(%rbx)
-	andb	%cl, %dl
-	andb	29(%rbx), %dl
-	andb	%dil, %dl
-	movzbl	%dl, %edi
+	movzbl	36(%rbx), %ecx
+	andb	35(%rbx), %cl
+	andb	29(%rbx), %cl
+	andb	%al, %cl
+	movl	68(%rbx), %edx
+	movzbl	%cl, %edi
 	xorl	%esi, %esi
-	movl	%eax, %edx
 	callq	select.cmov.sel.i32
-	movl	%eax, 76(%rbx)
+	movl	%eax, 68(%rbx)
 	movzbl	53(%rbx), %eax
 	notb	%al
 	andb	$1, %al
 	movb	%al, 53(%rbx)
-	movzbl	37(%rbx), %eax
-	andb	36(%rbx), %al
+	movzbl	36(%rbx), %eax
+	andb	35(%rbx), %al
 	andb	29(%rbx), %al
 	movl	104(%rbx), %edx
 	leal	1(%rdx), %esi
@@ -946,10 +948,10 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
                                         # kill: def %edx killed %edx killed %rdx
 	callq	select.cmov.sel.i32
 	movl	%eax, 104(%rbx)
-	movzbl	36(%rbx), %eax
+	movzbl	35(%rbx), %eax
 	notb	%al
 	andb	$1, %al
-	movb	%al, 36(%rbx)
+	movb	%al, 35(%rbx)
 	addl	$1, 92(%rbx)
 .LBB7_19:                               # %loop_check621
                                         # =>This Inner Loop Header: Depth=1
@@ -958,7 +960,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	cmpl	%eax, 92(%rbx)
 	jb	.LBB7_20
 # %bb.21:                               # %loop_end623
-	movl	76(%rbx), %eax
+	movl	68(%rbx), %eax
 	movl	%eax, 124(%rbx)
 	jmp	.LBB7_3
 .LBB7_2:                                # %thenbranch18
@@ -1080,6 +1082,17 @@ _memzero:                               # @_memzero
 	retq
 .Lfunc_end13:
 	.size	_memzero, .Lfunc_end13-_memzero
+	.cfi_endproc
+                                        # -- End function
+	.p2align	4, 0x90         # -- Begin function fact.declassify.i32
+	.type	fact.declassify.i32,@function
+fact.declassify.i32:                    # @fact.declassify.i32
+	.cfi_startproc
+# %bb.0:                                # %entry
+	movl	%edi, %eax
+	retq
+.Lfunc_end14:
+	.size	fact.declassify.i32, .Lfunc_end14-fact.declassify.i32
 	.cfi_endproc
                                         # -- End function
 

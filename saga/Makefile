@@ -1,3 +1,5 @@
+FACTC ?= $(shell readlink -f $(shell git rev-parse --show-toplevel)/../fact/fact.byte)
+
 all:
 
 generate:

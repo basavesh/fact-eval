@@ -1,4 +1,4 @@
-; verify with: smack --bit-precise --entry-point=[...]
+; verify with: smack --bit-precise --verifier=boogie --modular --entry-point=[...]
 ; ModuleID = 'SmackModule'
 source_filename = "SmackModule"
 
@@ -2099,7 +2099,7 @@ branchmerge956:                                   ; preds = %elsebranch955, %the
   %_public_lval1213 = load i32, i32* %_public___v21_maxpad
   %_public_ulttmp1214 = icmp ult i32 %_public_lval1212, %_public_lval1213
   %_public_branchcompare1215 = icmp eq i1 %_public_ulttmp1214, true
-  br i1 %_public_branchcompare1215, label %thenbranch1216, label %elsebranch1293
+  br i1 %_public_branchcompare1215, label %thenbranch1216, label %elsebranch1295
 
 thenbranch1216:                                   ; preds = %branchmerge956
   %_public_lval1217 = load i32, i32* %_public___v45_j
@@ -2167,57 +2167,60 @@ thenbranch1216:                                   ; preds = %branchmerge956
   store i32 %_secret_andtmp1268, i32* %_secret___v47_cmask
   %_secret_lval1269 = load i32, i32* %_secret___v43_s_res
   %_secret_lval1270 = load i32, i32* %_secret___v46_c
-  %_declassified__secret_lval1271 = load i32, i32* %_secret___v44_i
-  %_public_lhssext1272 = zext i32 %_declassified__secret_lval1271 to i64
+  %_secret_lval1271 = load i32, i32* %_secret___v44_i
+  %_declassified_res = call i32 @fact.declassify.i32(i32 %_secret_lval1271)
+  %_public_lhssext1272 = zext i32 %_declassified_res to i64
   %_public_ugtetmp1273 = icmp uge i64 %_public_lhssext1272, 0
   %_public_zexttmp1274 = zext i1 %_public_ugtetmp1273 to i32
   call void @__VERIFIER_assert(i32 %_public_zexttmp1274)
-  %_declassified__secret_lval1275 = load i32, i32* %_secret___v44_i
-  %_public_lhssext1276 = zext i32 %_declassified__secret_lval1275 to i64
-  %_public_ulttmp1277 = icmp ult i64 %_public_lhssext1276, 20
-  %_public_zexttmp1278 = zext i1 %_public_ulttmp1277 to i32
-  call void @__VERIFIER_assert(i32 %_public_zexttmp1278)
-  %_declassified__secret_lval1279 = load i32, i32* %_secret___v44_i
-  %_secret_ptr1280 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v30_pmac, i32 0, i32 %_declassified__secret_lval1279
-  %_secret_lval1281 = load i8, i8* %_secret_ptr1280
-  %_secret_rhssext1282 = zext i8 %_secret_lval1281 to i32
-  %_secret_xortmp1283 = xor i32 %_secret_lval1270, %_secret_rhssext1282
-  %_secret_lval1284 = load i32, i32* %_secret___v47_cmask
-  %_secret_andtmp1285 = and i32 %_secret_xortmp1283, %_secret_lval1284
-  %_secret_ortmp1286 = or i32 %_secret_lval1269, %_secret_andtmp1285
-  store i32 %_secret_ortmp1286, i32* %_secret___v43_s_res
-  %_secret_lval1287 = load i32, i32* %_secret___v44_i
-  %_secret_lval1288 = load i32, i32* %_secret___v47_cmask
-  %_secret_andtmp1289 = and i32 1, %_secret_lval1288
-  %_secret_truncbinop1290 = trunc i32 %_secret_andtmp1289 to i8
-  %_secret_rhssext1291 = zext i8 %_secret_truncbinop1290 to i32
-  %_secret_addtmp1292 = add i32 %_secret_lval1287, %_secret_rhssext1291
-  store i32 %_secret_addtmp1292, i32* %_secret___v44_i
-  br label %branchmerge1294
+  %_secret_lval1275 = load i32, i32* %_secret___v44_i
+  %_declassified_res1276 = call i32 @fact.declassify.i32(i32 %_secret_lval1275)
+  %_public_lhssext1277 = zext i32 %_declassified_res1276 to i64
+  %_public_ulttmp1278 = icmp ult i64 %_public_lhssext1277, 20
+  %_public_zexttmp1279 = zext i1 %_public_ulttmp1278 to i32
+  call void @__VERIFIER_assert(i32 %_public_zexttmp1279)
+  %_secret_lval1280 = load i32, i32* %_secret___v44_i
+  %_declassified_res1281 = call i32 @fact.declassify.i32(i32 %_secret_lval1280)
+  %_secret_ptr1282 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v30_pmac, i32 0, i32 %_declassified_res1281
+  %_secret_lval1283 = load i8, i8* %_secret_ptr1282
+  %_secret_rhssext1284 = zext i8 %_secret_lval1283 to i32
+  %_secret_xortmp1285 = xor i32 %_secret_lval1270, %_secret_rhssext1284
+  %_secret_lval1286 = load i32, i32* %_secret___v47_cmask
+  %_secret_andtmp1287 = and i32 %_secret_xortmp1285, %_secret_lval1286
+  %_secret_ortmp1288 = or i32 %_secret_lval1269, %_secret_andtmp1287
+  store i32 %_secret_ortmp1288, i32* %_secret___v43_s_res
+  %_secret_lval1289 = load i32, i32* %_secret___v44_i
+  %_secret_lval1290 = load i32, i32* %_secret___v47_cmask
+  %_secret_andtmp1291 = and i32 1, %_secret_lval1290
+  %_secret_truncbinop1292 = trunc i32 %_secret_andtmp1291 to i8
+  %_secret_rhssext1293 = zext i8 %_secret_truncbinop1292 to i32
+  %_secret_addtmp1294 = add i32 %_secret_lval1289, %_secret_rhssext1293
+  store i32 %_secret_addtmp1294, i32* %_secret___v44_i
+  br label %branchmerge1296
 
-elsebranch1293:                                   ; preds = %branchmerge956
-  br label %branchmerge1294
+elsebranch1295:                                   ; preds = %branchmerge956
+  br label %branchmerge1296
 
-branchmerge1294:                                  ; preds = %elsebranch1293, %thenbranch1216
-  %_public_lval1295 = load i32, i32* %_public___v21_maxpad
-  %_public_lval1296 = load i32, i32* %_public___v8_SHA_DIGEST_LENGTH
-  %_public_subtmp1297 = sub i32 %_public_lval1295, %_public_lval1296
-  store i32 %_public_subtmp1297, i32* %_public___v21_maxpad
+branchmerge1296:                                  ; preds = %elsebranch1295, %thenbranch1216
+  %_public_lval1297 = load i32, i32* %_public___v21_maxpad
+  %_public_lval1298 = load i32, i32* %_public___v8_SHA_DIGEST_LENGTH
+  %_public_subtmp1299 = sub i32 %_public_lval1297, %_public_lval1298
+  store i32 %_public_subtmp1299, i32* %_public___v21_maxpad
   call void @__VERIFIER_assert(i32 1)
-  %_secret_lval1298 = load i32, i32* %_secret___v43_s_res
-  %_secret_subtmp1299 = sub i32 0, %_secret_lval1298
-  %_secret_lrshift1300 = lshr i32 %_secret_subtmp1299, 31
-  %_secret_subtmp1301 = sub i32 0, %_secret_lrshift1300
-  store i32 %_secret_subtmp1301, i32* %_secret___v43_s_res
-  %_secret_lval1302 = load i32, i32* %_secret___v15_ret
-  %_secret_lval1303 = load i32, i32* %_secret___v43_s_res
-  %_secret_bnottmp1304 = xor i32 %_secret_lval1303, -1
-  %_secret_andtmp1305 = and i32 %_secret_lval1302, %_secret_bnottmp1304
-  store i32 %_secret_andtmp1305, i32* %_secret___v15_ret
-  %_secret_lval1306 = load i32, i32* %_secret___v15_ret
-  store i32 %_secret_lval1306, i32* %_secret___rval
-  %_secret_lval1307 = load i32, i32* %_secret___rval
-  ret i32 %_secret_lval1307
+  %_secret_lval1300 = load i32, i32* %_secret___v43_s_res
+  %_secret_subtmp1301 = sub i32 0, %_secret_lval1300
+  %_secret_lrshift1302 = lshr i32 %_secret_subtmp1301, 31
+  %_secret_subtmp1303 = sub i32 0, %_secret_lrshift1302
+  store i32 %_secret_subtmp1303, i32* %_secret___v43_s_res
+  %_secret_lval1304 = load i32, i32* %_secret___v15_ret
+  %_secret_lval1305 = load i32, i32* %_secret___v43_s_res
+  %_secret_bnottmp1306 = xor i32 %_secret_lval1305, -1
+  %_secret_andtmp1307 = and i32 %_secret_lval1304, %_secret_bnottmp1306
+  store i32 %_secret_andtmp1307, i32* %_secret___v15_ret
+  %_secret_lval1308 = load i32, i32* %_secret___v15_ret
+  store i32 %_secret_lval1308, i32* %_secret___rval
+  %_secret_lval1309 = load i32, i32* %_secret___rval
+  ret i32 %_secret_lval1309
 }
 
 ; Function Attrs: argmemonly nounwind
@@ -2250,6 +2253,12 @@ define internal void @_memzero(i8*, i32) #3 {
 entry:
   call void @llvm.memset.p0i8.i32(i8* %0, i8 0, i32 %1, i32 1, i1 false)
   ret void
+}
+
+; Function Attrs: noinline
+define internal i32 @fact.declassify.i32(i32 %_declassified_x) #3 {
+entry:
+  ret i32 %_declassified_x
 }
 
 attributes #0 = { alwaysinline }

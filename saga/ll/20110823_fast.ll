@@ -1766,8 +1766,9 @@ loop_body:                                        ; preds = %loop_check
   %_secret_dyn250 = load i8*, i8** %_secret_arrarg2
   %_secret_ptr251 = getelementptr inbounds i8, i8* %_secret_dyn250, i32 %_public_lval249
   %_secret_lval252 = load i8, i8* %_secret_ptr251
-  %_declassified__secret_lval253 = load i32, i32* %_secret___v89_j
-  %_secret_ptr254 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v79_pmac, i32 0, i32 %_declassified__secret_lval253
+  %_secret_lval253 = load i32, i32* %_secret___v89_j
+  %_declassified_res = call i32 @fact.declassify.i32(i32 %_secret_lval253)
+  %_secret_ptr254 = getelementptr inbounds [20 x i8], [20 x i8]* %_secret___v79_pmac, i32 0, i32 %_declassified_res
   %_secret_lval255 = load i8, i8* %_secret_ptr254
   %_secret_neqtmp = icmp ne i8 %_secret_lval252, %_secret_lval255
   store i1 %_secret_neqtmp, i1* %_secret___m21
@@ -1806,6 +1807,12 @@ entry:
   %_secret_cast1 = bitcast %SHA_CTX* %1 to i8*
   call void @llvm.memcpy.p0i8.p0i8.i32(i8* %_secret_cast, i8* %_secret_cast1, i32 96, i32 4, i1 false)
   ret void
+}
+
+; Function Attrs: noinline
+define internal i32 @fact.declassify.i32(i32 %_declassified_x) #2 {
+entry:
+  ret i32 %_declassified_x
 }
 
 attributes #0 = { alwaysinline }
