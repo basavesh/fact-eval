@@ -38,7 +38,7 @@ bignum_fact.o: ../bignum.h
 
 mbedtls_testbench: CFLAGS += -fpic
 mbedtls_testbench: LDFLAGS += -Lbuild
-mbedtls_testbench: LDLIBS += -lmbed_bench -lgmp
+mbedtls_testbench: LDLIBS += -lmbed_bench -lgmp -lm
 mbedtls_testbench: mbedtls_testbench.c build/libmbed_bench.a
 	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
 

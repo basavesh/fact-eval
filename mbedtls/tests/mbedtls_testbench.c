@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -24,17 +25,22 @@
         REC.tot += tmp;                                                                                 \
         if (tmp > REC.max) { REC.max = tmp; }                                                           \
         if (tmp < REC.min) { REC.min = tmp; }                                                           \
+        double tmp2 = (double) tmp * (double) tmp;                                                      \
+        REC.sumsq += tmp2;                                                                              \
     } while (false);
 
-#define SHOW_TIME(NAME, REC)                                                                                    \
-    do {                                                                                                        \
-        printf("%27s  min: %9ld  avg: %9ld  max: %9ld\n", NAME, REC.min, REC.tot >> (2 * logiters), REC.max);   \
+#define SHOW_TIME(NAME, REC)                                                                                \
+    do {                                                                                                    \
+        long mean = REC.tot >> (2 * logiters);                                                              \
+        long rms = (long) sqrt(REC.sumsq / ((double) (1 << (2 * logiters))) - (double) (mean * mean));      \
+        printf("%27s  min: %9ld  avg: %9ld  max: %9ld  stdev: %9ld\n", NAME, REC.min, mean, REC.max, rms);  \
     } while (false);
 
 typedef struct {
     long tot;
     long min;
     long max;
+    double sumsq;
 } timelog_t;
 
 int main(int argc, char **argv) {
@@ -57,7 +63,7 @@ int main(int argc, char **argv) {
     int niters = 1 << logiters;
 
     // C is original impl, CTC is "const-time" C, F is FaCT
-    timelog_t timeC = { 0, (1L << 40), 0 };
+    timelog_t timeC = { 0, (1L << 40), 0, 0.0 };
     timelog_t timeCTC = timeC;
     timelog_t timeF = timeC;
     struct timespec t_start;
@@ -153,7 +159,7 @@ int main(int argc, char **argv) {
     }
 
     // print out stats
-    printf("Ran 2^%d iterations total. Average times:\n", 2 * logiters);
+    printf("Ran 2^%d iterations total. Stats (in nanoseconds):\n", 2 * logiters);
     SHOW_TIME("mbedtls_mpi_exp_mod", timeC);
     SHOW_TIME("mbedtls_mpi_exp_mod_simple", timeCTC);
     SHOW_TIME("fact_mpi_exp_mod", timeF);
