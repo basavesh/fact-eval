@@ -28,7 +28,7 @@ void _poly1305_blocks(
   secret uint64 s1 = r1 * (5 << 2);
   secret uint64 s2 = r2 * (5 << 2);
 
-  public mut uint32 mloops = (len m) >> 4; // dividing by 16
+  public uint32 mloops = (len m) >> 4; // dividing by 16
   for (uint32 bindex = 0 to mloops) {
     secret uint64 t0 = _load64_le(arrview(m, bindex * 16, 8));
     secret uint64 t1 = _load64_le(arrview(m, bindex * 16 + 8, 8));
