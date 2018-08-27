@@ -2,7 +2,15 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/random.h>
+#if __linux
+  #define _GNU_SOURCE
+  #include <unistd.h>
+  #include <sys/syscall.h>
+  #include <linux/random.h>
+  #define getrandom(x,y,z) syscall(SYS_getrandom, (x), (y), (z))
+#else
+  #include <sys/random.h>
+#endif
 #include <time.h>
 
 #include <gmp.h>

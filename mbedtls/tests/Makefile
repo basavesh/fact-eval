@@ -1,4 +1,3 @@
-FACT := $(shell readlink -f ../../../fact/fact.byte)
 BUILD := build
 MBEDTLS = mbedtls-2.8.0
 export CC := clang
@@ -25,6 +24,9 @@ build/library/libmbedcrypto.a: build/Makefile
 	+$(MAKE) -C build
 
 ../bignum.o: ../bignum.fact
+	+$(MAKE) -C ../
+
+../bignum.fpic.o: ../bignum.fact
 	+$(MAKE) -C ../
 
 ../bignum.h: ../bignum.fact
