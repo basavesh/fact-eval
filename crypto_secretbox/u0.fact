@@ -1,19 +1,23 @@
 inline
 public uint64 _u1(
-    secret mut uint32[] x,
+    secret mut uint32[16] x,
     secret uint8[] m,
     secret mut uint8[] c) {
+  assume(len c == len m);
   public uint64 bytes = len m;
 
-  for (uint32 j = 0; j + 64 <= bytes; j += 64) {
-    secret mut uint32<4> diag0 = _load32_4_le(arrview(x,  0, 4));
-    secret mut uint32<4> diag1 = _load32_4_le(arrview(x,  4, 4));
-    secret mut uint32<4> diag2 = _load32_4_le(arrview(x,  8, 4));
-    secret mut uint32<4> diag3 = _load32_4_le(arrview(x, 12, 4));
+  public uint64 jtimes = bytes / 64;
+  for (uint64 _j from 0 to jtimes) {
+    public uint64 j = _j * 64;
+    secret mut uint32<4> diag0 = load_le(view(x,  0, 4));
+    secret mut uint32<4> diag1 = load_le(view(x,  4, 4));
+    secret mut uint32<4> diag2 = load_le(view(x,  8, 4));
+    secret mut uint32<4> diag3 = load_le(view(x, 12, 4));
 
     secret mut uint32<4> a0 = diag1;
 
-    for (uint32 i = 0; i < 20; i += 4) {
+    for (uint32 _i from 0 to 20 / 4) {
+      public uint32 i = _i * 4;
       a0    = a0 + diag0;
       secret mut uint32<4> a1    = diag0;
       secret mut uint32<4> b0    = a0;
@@ -159,10 +163,10 @@ public uint64 _u1(
       diag0 = diag0 ^ b7;
     }
 
-    diag0 = diag0 + _load32_4_le(arrview(x,  0, 4));
-    diag1 = diag1 + _load32_4_le(arrview(x,  4, 4));
-    diag2 = diag2 + _load32_4_le(arrview(x,  8, 4));
-    diag3 = diag3 + _load32_4_le(arrview(x, 12, 4));
+    diag0 = diag0 + load_le(view(x,  0, 4));
+    diag1 = diag1 + load_le(view(x,  4, 4));
+    diag2 = diag2 + load_le(view(x,  8, 4));
+    diag3 = diag3 + load_le(view(x, 12, 4));
 
     if (true) {
       public uint32 A =  0;
@@ -177,14 +181,14 @@ public uint64 _u1(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      inA ^= _load32_le(arrview(m, j + A * 4, 4));
-      inB ^= _load32_le(arrview(m, j + B * 4, 4));
-      inC ^= _load32_le(arrview(m, j + C * 4, 4));
-      inD ^= _load32_le(arrview(m, j + D * 4, 4));
-      _store32_le(ref arrview(c, j + A * 4, 4), inA);
-      _store32_le(ref arrview(c, j + B * 4, 4), inB);
-      _store32_le(ref arrview(c, j + C * 4, 4), inC);
-      _store32_le(ref arrview(c, j + D * 4, 4), inD);
+      inA ^= load_le(view(m, j + A * 4, 4));
+      inB ^= load_le(view(m, j + B * 4, 4));
+      inC ^= load_le(view(m, j + C * 4, 4));
+      inD ^= load_le(view(m, j + D * 4, 4));
+      store_le(view(c, j + A * 4, 4), inA);
+      store_le(view(c, j + B * 4, 4), inB);
+      store_le(view(c, j + C * 4, 4), inC);
+      store_le(view(c, j + D * 4, 4), inD);
     }
     if (true) {
       public uint32 A =  5;
@@ -199,14 +203,14 @@ public uint64 _u1(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      inA ^= _load32_le(arrview(m, j + A * 4, 4));
-      inB ^= _load32_le(arrview(m, j + B * 4, 4));
-      inC ^= _load32_le(arrview(m, j + C * 4, 4));
-      inD ^= _load32_le(arrview(m, j + D * 4, 4));
-      _store32_le(ref arrview(c, j + A * 4, 4), inA);
-      _store32_le(ref arrview(c, j + B * 4, 4), inB);
-      _store32_le(ref arrview(c, j + C * 4, 4), inC);
-      _store32_le(ref arrview(c, j + D * 4, 4), inD);
+      inA ^= load_le(view(m, j + A * 4, 4));
+      inB ^= load_le(view(m, j + B * 4, 4));
+      inC ^= load_le(view(m, j + C * 4, 4));
+      inD ^= load_le(view(m, j + D * 4, 4));
+      store_le(view(c, j + A * 4, 4), inA);
+      store_le(view(c, j + B * 4, 4), inB);
+      store_le(view(c, j + C * 4, 4), inC);
+      store_le(view(c, j + D * 4, 4), inD);
     }
     if (true) {
       public uint32 A = 10;
@@ -221,14 +225,14 @@ public uint64 _u1(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      inA ^= _load32_le(arrview(m, j + A * 4, 4));
-      inB ^= _load32_le(arrview(m, j + B * 4, 4));
-      inC ^= _load32_le(arrview(m, j + C * 4, 4));
-      inD ^= _load32_le(arrview(m, j + D * 4, 4));
-      _store32_le(ref arrview(c, j + A * 4, 4), inA);
-      _store32_le(ref arrview(c, j + B * 4, 4), inB);
-      _store32_le(ref arrview(c, j + C * 4, 4), inC);
-      _store32_le(ref arrview(c, j + D * 4, 4), inD);
+      inA ^= load_le(view(m, j + A * 4, 4));
+      inB ^= load_le(view(m, j + B * 4, 4));
+      inC ^= load_le(view(m, j + C * 4, 4));
+      inD ^= load_le(view(m, j + D * 4, 4));
+      store_le(view(c, j + A * 4, 4), inA);
+      store_le(view(c, j + B * 4, 4), inB);
+      store_le(view(c, j + C * 4, 4), inC);
+      store_le(view(c, j + D * 4, 4), inD);
     }
     if (true) {
       public uint32 A = 15;
@@ -243,14 +247,14 @@ public uint64 _u1(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      inA ^= _load32_le(arrview(m, j + A * 4, 4));
-      inB ^= _load32_le(arrview(m, j + B * 4, 4));
-      inC ^= _load32_le(arrview(m, j + C * 4, 4));
-      inD ^= _load32_le(arrview(m, j + D * 4, 4));
-      _store32_le(ref arrview(c, j + A * 4, 4), inA);
-      _store32_le(ref arrview(c, j + B * 4, 4), inB);
-      _store32_le(ref arrview(c, j + C * 4, 4), inC);
-      _store32_le(ref arrview(c, j + D * 4, 4), inD);
+      inA ^= load_le(view(m, j + A * 4, 4));
+      inB ^= load_le(view(m, j + B * 4, 4));
+      inC ^= load_le(view(m, j + C * 4, 4));
+      inD ^= load_le(view(m, j + D * 4, 4));
+      store_le(view(c, j + A * 4, 4), inA);
+      store_le(view(c, j + B * 4, 4), inB);
+      store_le(view(c, j + C * 4, 4), inC);
+      store_le(view(c, j + D * 4, 4), inD);
     }
 
     secret mut uint32 in8 = x[8];
@@ -267,20 +271,23 @@ public uint64 _u1(
 
 inline
 void _u0(
-    secret mut uint32[] x,
+    secret mut uint32[16] x,
     secret uint8[] m,
     secret mut uint8[] c) {
   public uint64 bytes = len m;
+  assume(len c == len m);
+  assume(bytes < 64);
 
   if (bytes > 0) {
-    secret mut uint32<4> diag0 = _load32_4_le(arrview(x,  0, 4));
-    secret mut uint32<4> diag1 = _load32_4_le(arrview(x,  4, 4));
-    secret mut uint32<4> diag2 = _load32_4_le(arrview(x,  8, 4));
-    secret mut uint32<4> diag3 = _load32_4_le(arrview(x, 12, 4));
+    secret mut uint32<4> diag0 = load_le(view(x,  0, 4));
+    secret mut uint32<4> diag1 = load_le(view(x,  4, 4));
+    secret mut uint32<4> diag2 = load_le(view(x,  8, 4));
+    secret mut uint32<4> diag3 = load_le(view(x, 12, 4));
 
     secret mut uint32<4> a0 = diag1;
 
-    for (uint32 i = 0; i < 20; i += 4) {
+    for (uint32 _i from 0 to 20 / 4) {
+      public uint32 i = _i * 4;
       a0    = a0 + diag0;
       secret mut uint32<4> a1    = diag0;
       secret mut uint32<4> b0    = a0;
@@ -426,12 +433,12 @@ void _u0(
       diag0 = diag0 ^ b7;
     }
 
-    diag0 = diag0 + _load32_4_le(arrview(x,  0, 4));
-    diag1 = diag1 + _load32_4_le(arrview(x,  4, 4));
-    diag2 = diag2 + _load32_4_le(arrview(x,  8, 4));
-    diag3 = diag3 + _load32_4_le(arrview(x, 12, 4));
+    diag0 = diag0 + load_le(view(x,  0, 4));
+    diag1 = diag1 + load_le(view(x,  4, 4));
+    diag2 = diag2 + load_le(view(x,  8, 4));
+    diag3 = diag3 + load_le(view(x, 12, 4));
 
-    secret mut uint8[64] partialblock = noinit(64);
+    secret mut uint8[64] partialblock = zeros(64);
 
     if (true) {
       secret uint32 inA = diag0:<0>;
@@ -442,10 +449,10 @@ void _u0(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      _store32_le(ref arrview(partialblock,  0 * 4, 4), inA);
-      _store32_le(ref arrview(partialblock, 12 * 4, 4), inB);
-      _store32_le(ref arrview(partialblock,  8 * 4, 4), inC);
-      _store32_le(ref arrview(partialblock,  4 * 4, 4), inD);
+      store_le(view(partialblock,  0 * 4, 4), inA);
+      store_le(view(partialblock, 12 * 4, 4), inB);
+      store_le(view(partialblock,  8 * 4, 4), inC);
+      store_le(view(partialblock,  4 * 4, 4), inD);
     }
     if (true) {
       secret uint32 inA = diag0:<0>;
@@ -456,10 +463,10 @@ void _u0(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      _store32_le(ref arrview(partialblock,  5 * 4, 4), inA);
-      _store32_le(ref arrview(partialblock,  1 * 4, 4), inB);
-      _store32_le(ref arrview(partialblock, 13 * 4, 4), inC);
-      _store32_le(ref arrview(partialblock,  9 * 4, 4), inD);
+      store_le(view(partialblock,  5 * 4, 4), inA);
+      store_le(view(partialblock,  1 * 4, 4), inB);
+      store_le(view(partialblock, 13 * 4, 4), inC);
+      store_le(view(partialblock,  9 * 4, 4), inD);
     }
     if (true) {
       secret uint32 inA = diag0:<0>;
@@ -470,10 +477,10 @@ void _u0(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      _store32_le(ref arrview(partialblock, 10 * 4, 4), inA);
-      _store32_le(ref arrview(partialblock,  6 * 4, 4), inB);
-      _store32_le(ref arrview(partialblock,  2 * 4, 4), inC);
-      _store32_le(ref arrview(partialblock, 14 * 4, 4), inD);
+      store_le(view(partialblock, 10 * 4, 4), inA);
+      store_le(view(partialblock,  6 * 4, 4), inB);
+      store_le(view(partialblock,  2 * 4, 4), inC);
+      store_le(view(partialblock, 14 * 4, 4), inD);
     }
     if (true) {
       secret uint32 inA = diag0:<0>;
@@ -484,25 +491,28 @@ void _u0(
       diag1 = diag1:<1, 2, 3, 0>;
       diag2 = diag2:<1, 2, 3, 0>;
       diag3 = diag3:<1, 2, 3, 0>;
-      _store32_le(ref arrview(partialblock, 15 * 4, 4), inA);
-      _store32_le(ref arrview(partialblock, 11 * 4, 4), inB);
-      _store32_le(ref arrview(partialblock,  7 * 4, 4), inC);
-      _store32_le(ref arrview(partialblock,  3 * 4, 4), inD);
+      store_le(view(partialblock, 15 * 4, 4), inA);
+      store_le(view(partialblock, 11 * 4, 4), inB);
+      store_le(view(partialblock,  7 * 4, 4), inC);
+      store_le(view(partialblock,  3 * 4, 4), inD);
     }
 
-    for (uint32 i = 0; i < bytes; i += 1) {
+    for (uint64 i from 0 to bytes) {
       c[i] = m[i] ^ partialblock[i];
     }
-    _memzero(ref partialblock);
+    memzero(partialblock);
   }
 }
 
 void u0(
-    secret mut uint32[] x,
+    secret mut uint32[16] x,
     secret uint8[] m,
     secret mut uint8[] c) {
-  public uint64 processed = _u1(ref x, m, ref c);
-  _u0(ref x,
-      arrview(m, processed, len m - processed),
-      ref arrview(c, processed, len c - processed));
+  assume(len m == len c);
+  public uint64 processed = _u1(x, m, c);
+  assume(processed < len m);
+  assume(len m - processed < 64);
+  _u0(x,
+      view(m, processed, len m - processed),
+      view(c, processed, len c - processed));
 }
