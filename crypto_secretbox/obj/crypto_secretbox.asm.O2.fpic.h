@@ -1,5 +1,5 @@
-#ifndef __CRYPTO_SECRETBOX_CREF_O2_H
-#define __CRYPTO_SECRETBOX_CREF_O2_H
+#ifndef __CRYPTO_SECRETBOX_ASM_O2_FPIC_H
+#define __CRYPTO_SECRETBOX_ASM_O2_FPIC_H
 
 struct poly1305_state_internal_t;
 // struct poly1305_state_internal_t {
@@ -14,9 +14,9 @@ struct poly1305_state_internal_t;
 
 /*public*/ uint8_t _crypto_secretbox_open(
   /*secret*/ uint8_t __v1_m[],
-  /*public*/ uint64_t __v205___v1_m_len,
+  /*public*/ uint64_t __v304___v1_m_len,
   const /*public*/ uint8_t __v2_c[],
-  /*public*/ uint64_t __v206___v2_c_len,
+  /*public*/ uint64_t __v305___v2_c_len,
   const /*public*/ uint8_t __v3_n[24],
   const /*secret*/ uint8_t __v4_k[32]);
 
@@ -26,13 +26,15 @@ struct poly1305_state_internal_t;
 
 /* _crypto_stream_salsa20 is an internal function */
 
+/* _salsa_ivsetup_null is an internal function */
+
 /*public*/ uint8_t _crypto_secretbox(
-  /*secret*/ uint8_t __v32_c[],
-  /*public*/ uint64_t __v211___v32_c_len,
-  const /*secret*/ uint8_t __v33_m[],
-  /*public*/ uint64_t __v212___v33_m_len,
-  const /*public*/ uint8_t __v34_n[24],
-  const /*secret*/ uint8_t __v35_k[32]);
+  /*secret*/ uint8_t __v24_c[],
+  /*public*/ uint64_t __v310___v24_c_len,
+  const /*secret*/ uint8_t __v25_m[],
+  /*public*/ uint64_t __v311___v25_m_len,
+  const /*public*/ uint8_t __v26_n[24],
+  const /*secret*/ uint8_t __v27_k[32]);
 
 /* _crypto_secretbox_xsalsa20poly1305 is an internal function */
 
@@ -41,6 +43,18 @@ struct poly1305_state_internal_t;
 /* _crypto_stream_xsalsa20_xor_ic is an internal function */
 
 /* _crypto_stream_salsa20_xor_ic is an internal function */
+
+/* _salsa_keysetup is an internal function */
+
+/* _salsa_ivsetup is an internal function */
+
+/* _salsa20_encrypt_bytes is an internal function */
+
+/* u0 is an internal function */
+
+/* _u1 is an internal function */
+
+/* _u0 is an internal function */
 
 /* _crypto_onetimeauth_poly1305_verify is an internal function */
 
@@ -56,8 +70,6 @@ struct poly1305_state_internal_t;
 
 /* _poly1305_blocks is an internal function */
 
-/* _crypto_core_salsa20 is an internal function */
-
 /* _crypto_core_hsalsa20 is an internal function */
 
 
@@ -72,4 +84,12 @@ struct poly1305_state_internal_t;
 
 
 
-#endif /* __CRYPTO_SECRETBOX_CREF_O2_H */
+
+
+
+
+
+
+
+
+#endif /* __CRYPTO_SECRETBOX_ASM_O2_FPIC_H */

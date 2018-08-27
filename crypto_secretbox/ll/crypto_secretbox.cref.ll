@@ -3,3174 +3,2111 @@ source_filename = "Module"
 
 %poly1305_state_internal_t = type { [3 x i64], [3 x i64], [2 x i64], i64, [16 x i8], i8 }
 
-define internal void @_fact_memzero(i8* %_secret_arrarg1, i32 %_public___buf_len2) {
+; Function Attrs: alwaysinline
+define internal void @"__memzero[8]/secret"(i8* %dst, i64 %len) #0 {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___buf_len = alloca i32
-  store i32 %_public___buf_len2, i32* %_public___buf_len
-  %_secret___rnset = alloca i1
-  store i1 true, i1* %_secret___rnset
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___buf_len
-  call void @_memzero(i8* %_secret_dynarrarg, i32 %_public_lval)
+  call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
   ret void
 }
 
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memset.p0i8.i32(i8* nocapture writeonly, i8, i32, i32, i1) #0
-
-; Function Attrs: noinline
-define internal void @_memzero(i8*, i32) #1 {
-entry:
-  call void @llvm.memset.p0i8.i32(i8* %0, i8 0, i32 %1, i32 1, i1 false)
-  ret void
-}
-
-define internal void @_fact_memzero64(i64* %_secret_arrarg1, i32 %_public___buf_len2) {
-entry:
-  %_secret_arrarg = alloca i64*
-  store i64* %_secret_arrarg1, i64** %_secret_arrarg
-  %_public___buf_len = alloca i32
-  store i32 %_public___buf_len2, i32* %_public___buf_len
-  %_secret___rnset = alloca i1
-  store i1 true, i1* %_secret___rnset
-  %_secret_dynarrarg = load i64*, i64** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___buf_len
-  call void @_memzero64(i64* %_secret_dynarrarg, i32 %_public_lval)
-  ret void
-}
-
-; Function Attrs: noinline
-define internal void @_memzero64(i64*, i32) #1 {
-entry:
-  %_secret_cast = bitcast i64* %0 to i8*
-  call void @llvm.memset.p0i8.i32(i8* %_secret_cast, i8 0, i32 %1, i32 8, i1 false)
-  ret void
-}
-
-define internal i1 @_crypto_verify_16(i8* %_secret_arrarg1, i8* %_secret_arrarg3) {
-entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_secret_arrarg2 = alloca i8*
-  store i8* %_secret_arrarg3, i8** %_secret_arrarg2
-  %_secret___rval = alloca i1
-  %_secret___rnset = alloca i1
-  %_public___v1_i = alloca i32
-  %_secret___m1 = alloca i1
-  store i1 false, i1* %_secret___rval
-  store i1 true, i1* %_secret___rnset
-  store i32 0, i32* %_public___v1_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %entry
-  %_public_lval = load i32, i32* %_public___v1_i
-  %_public_ulttmp = icmp ult i32 %_public_lval, 16
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_public_lval4 = load i32, i32* %_public___v1_i
-  %_secret_dyn = load i8*, i8** %_secret_arrarg
-  %_secret_ptr = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_lval4
-  %_secret_lval = load i8, i8* %_secret_ptr
-  %_public_lval5 = load i32, i32* %_public___v1_i
-  %_secret_dyn6 = load i8*, i8** %_secret_arrarg2
-  %_secret_ptr7 = getelementptr inbounds i8, i8* %_secret_dyn6, i32 %_public_lval5
-  %_secret_lval8 = load i8, i8* %_secret_ptr7
-  %_secret_neqtmp = icmp ne i8 %_secret_lval, %_secret_lval8
-  store i1 %_secret_neqtmp, i1* %_secret___m1
-  %_secret_lval9 = load i1, i1* %_secret___m1
-  %_secret_landtmp = and i1 true, %_secret_lval9
-  %_secret_lval10 = load i1, i1* %_secret___rnset
-  %_secret_landtmp11 = and i1 %_secret_landtmp, %_secret_lval10
-  %_secret_condtmp = icmp ne i1 %_secret_landtmp11, false
-  %_secret_lval12 = load i1, i1* %_secret___rval
-  %_secret_selecttmp = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp, i1 false, i1 %_secret_lval12)
-  store i1 %_secret_selecttmp, i1* %_secret___rval
-  %_secret_lval13 = load i1, i1* %_secret___m1
-  %_secret_landtmp14 = and i1 true, %_secret_lval13
-  %_secret_lval15 = load i1, i1* %_secret___rnset
-  %_secret_landtmp16 = and i1 %_secret_landtmp14, %_secret_lval15
-  %_secret_condtmp17 = icmp ne i1 %_secret_landtmp16, false
-  %_secret_lval18 = load i1, i1* %_secret___rnset
-  %_secret_selecttmp19 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp17, i1 false, i1 %_secret_lval18)
-  store i1 %_secret_selecttmp19, i1* %_secret___rnset
-  %_secret_lval20 = load i1, i1* %_secret___m1
-  %_secret_lnottmp = xor i1 %_secret_lval20, true
-  store i1 %_secret_lnottmp, i1* %_secret___m1
-  %_public_lval21 = load i32, i32* %_public___v1_i
-  %_public_addtmp = add i32 %_public_lval21, 1
-  store i32 %_public_addtmp, i32* %_public___v1_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_secret_lval22 = load i1, i1* %_secret___rnset
-  %_secret_landtmp23 = and i1 true, %_secret_lval22
-  %_secret_condtmp24 = icmp ne i1 %_secret_landtmp23, false
-  %_secret_lval25 = load i1, i1* %_secret___rval
-  %_secret_selecttmp26 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp24, i1 true, i1 %_secret_lval25)
-  store i1 %_secret_selecttmp26, i1* %_secret___rval
-  %_secret_lval27 = load i1, i1* %_secret___rnset
-  %_secret_landtmp28 = and i1 true, %_secret_lval27
-  %_secret_condtmp29 = icmp ne i1 %_secret_landtmp28, false
-  %_secret_lval30 = load i1, i1* %_secret___rnset
-  %_secret_selecttmp31 = call i1 @select.cmov.asm.i1(i1 %_secret_condtmp29, i1 false, i1 %_secret_lval30)
-  store i1 %_secret_selecttmp31, i1* %_secret___rnset
-  %_secret_lval32 = load i1, i1* %_secret___rval
-  ret i1 %_secret_lval32
-}
+declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #1
 
 ; Function Attrs: alwaysinline
-define internal i1 @select.cmov.asm.i1(i1 %_secret_cond, i1 %_secret_a, i1 %_secret_b) #2 {
+define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
 entry:
-  %_secret_zext = zext i1 %_secret_a to i32
-  %_secret_zext1 = zext i1 %_secret_b to i32
-  %_secret_asm = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %_secret_cond, i32 %_secret_zext, i32 %_secret_zext1)
-  %_secret_trunc = trunc i32 %_secret_asm to i1
-  ret i1 %_secret_trunc
-}
-
-define internal void @_poly1305_blocks(%poly1305_state_internal_t* %state, i8* %_secret_arrarg1, i32 %_public___m_len2) {
-entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len2, i32* %_public___m_len
-  %_secret___rnset = alloca i1
-  %_public___v2_mask44 = alloca i64
-  %_public___v3_mask42 = alloca i64
-  %_secret___m2 = alloca i64
-  %_secret___m3 = alloca i1
-  %_secret___v4_hibit = alloca i64
-  %_secret___v5_r0 = alloca i64
-  %_secret___v6_r1 = alloca i64
-  %_secret___v7_r2 = alloca i64
-  %_secret___v8_h0 = alloca i64
-  %_secret___v9_h1 = alloca i64
-  %_secret___v10_h2 = alloca i64
-  %_secret___v11_s1 = alloca i64
-  %_secret___v12_s2 = alloca i64
-  %_public___v13_mloops = alloca i32
-  %_public___v14_bindex = alloca i32
-  %_secret___v15_t0 = alloca i64
-  %_secret___v16_t1 = alloca i64
-  %_secret___v17_d0 = alloca i128
-  %_secret___v18_d1 = alloca i128
-  %_secret___v19_d2 = alloca i128
-  %_secret___v20_c = alloca i64
-  store i1 true, i1* %_secret___rnset
-  store i64 17592186044415, i64* %_public___v2_mask44
-  store i64 4398046511103, i64* %_public___v3_mask42
-  store i64 0, i64* %_secret___m2
-  %_secret_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 5
-  %_secret_lval = load i8, i8* %_secret_structgep
-  %_secret_neqtmp = icmp ne i8 %_secret_lval, 0
-  store i1 %_secret_neqtmp, i1* %_secret___m3
-  %_secret_lval3 = load i1, i1* %_secret___m3
-  %_secret_landtmp = and i1 true, %_secret_lval3
-  %_secret_lval4 = load i1, i1* %_secret___rnset
-  %_secret_landtmp5 = and i1 %_secret_landtmp, %_secret_lval4
-  %_secret_condtmp = icmp ne i1 %_secret_landtmp5, false
-  %_secret_lval6 = load i64, i64* %_secret___m2
-  %_secret_selecttmp = call i64 @select.cmov.sel.i64(i1 %_secret_condtmp, i64 0, i64 %_secret_lval6)
-  store i64 %_secret_selecttmp, i64* %_secret___m2
-  %_secret_lval7 = load i1, i1* %_secret___m3
-  %_secret_lnottmp = xor i1 %_secret_lval7, true
-  store i1 %_secret_lnottmp, i1* %_secret___m3
-  %_secret_lval8 = load i1, i1* %_secret___m3
-  %_secret_landtmp9 = and i1 true, %_secret_lval8
-  %_secret_lval10 = load i1, i1* %_secret___rnset
-  %_secret_landtmp11 = and i1 %_secret_landtmp9, %_secret_lval10
-  %_secret_condtmp12 = icmp ne i1 %_secret_landtmp11, false
-  %_secret_lval13 = load i64, i64* %_secret___m2
-  %_secret_selecttmp14 = call i64 @select.cmov.sel.i64(i1 %_secret_condtmp12, i64 1099511627776, i64 %_secret_lval13)
-  store i64 %_secret_selecttmp14, i64* %_secret___m2
-  %_secret___m215 = load i64, i64* %_secret___m2
-  store i64 %_secret___m215, i64* %_secret___v4_hibit
-  %_secret_structgep16 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_ptr = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep16, i8 0, i8 0
-  %_secret_lval17 = load i64, i64* %_secret_ptr
-  store i64 %_secret_lval17, i64* %_secret___v5_r0
-  %_secret_structgep18 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_ptr19 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep18, i8 0, i8 1
-  %_secret_lval20 = load i64, i64* %_secret_ptr19
-  store i64 %_secret_lval20, i64* %_secret___v6_r1
-  %_secret_structgep21 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_ptr22 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep21, i8 0, i8 2
-  %_secret_lval23 = load i64, i64* %_secret_ptr22
-  store i64 %_secret_lval23, i64* %_secret___v7_r2
-  %_secret_structgep24 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr25 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep24, i8 0, i8 0
-  %_secret_lval26 = load i64, i64* %_secret_ptr25
-  store i64 %_secret_lval26, i64* %_secret___v8_h0
-  %_secret_structgep27 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr28 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep27, i8 0, i8 1
-  %_secret_lval29 = load i64, i64* %_secret_ptr28
-  store i64 %_secret_lval29, i64* %_secret___v9_h1
-  %_secret_structgep30 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr31 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep30, i8 0, i8 2
-  %_secret_lval32 = load i64, i64* %_secret_ptr31
-  store i64 %_secret_lval32, i64* %_secret___v10_h2
-  %_secret_lval33 = load i64, i64* %_secret___v6_r1
-  %_secret_multmp = mul i64 %_secret_lval33, 20
-  store i64 %_secret_multmp, i64* %_secret___v11_s1
-  %_secret_lval34 = load i64, i64* %_secret___v7_r2
-  %_secret_multmp35 = mul i64 %_secret_lval34, 20
-  store i64 %_secret_multmp35, i64* %_secret___v12_s2
-  %_public_lval = load i32, i32* %_public___m_len
-  %_public_lrshift = lshr i32 %_public_lval, 4
-  store i32 %_public_lrshift, i32* %_public___v13_mloops
-  store i32 0, i32* %_public___v14_bindex
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %entry
-  %_public_lval36 = load i32, i32* %_public___v14_bindex
-  %_public_lval37 = load i32, i32* %_public___v13_mloops
-  %_public_ulttmp = icmp ult i32 %_public_lval36, %_public_lval37
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_public_lval38 = load i32, i32* %_public___v14_bindex
-  %_public_multmp = mul i32 %_public_lval38, 16
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i32 %_public_multmp
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
-  %_public_lval39 = load i32, i32* %_public___v14_bindex
-  %_public_multmp40 = mul i32 %_public_lval39, 16
-  %_secret_ldedviewptr41 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep42 = getelementptr inbounds i8, i8* %_secret_ldedviewptr41, i32 %_public_multmp40
-  %_secret_arrviewdyn43 = alloca i8*
-  store i8* %_secret_source_gep42, i8** %_secret_arrviewdyn43
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrviewdyn43
-  %_secret_calltmp = call i64 @_load64_le(i8* %_secret_dynarrarg)
-  store i64 %_secret_calltmp, i64* %_secret___v15_t0
-  %_public_lval44 = load i32, i32* %_public___v14_bindex
-  %_public_multmp45 = mul i32 %_public_lval44, 16
-  %_public_addtmp = add i32 %_public_multmp45, 8
-  %_secret_ldedviewptr46 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep47 = getelementptr inbounds i8, i8* %_secret_ldedviewptr46, i32 %_public_addtmp
-  %_secret_arrviewdyn48 = alloca i8*
-  store i8* %_secret_source_gep47, i8** %_secret_arrviewdyn48
-  %_public_lval49 = load i32, i32* %_public___v14_bindex
-  %_public_multmp50 = mul i32 %_public_lval49, 16
-  %_public_addtmp51 = add i32 %_public_multmp50, 8
-  %_secret_ldedviewptr52 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep53 = getelementptr inbounds i8, i8* %_secret_ldedviewptr52, i32 %_public_addtmp51
-  %_secret_arrviewdyn54 = alloca i8*
-  store i8* %_secret_source_gep53, i8** %_secret_arrviewdyn54
-  %_secret_dynarrarg55 = load i8*, i8** %_secret_arrviewdyn54
-  %_secret_calltmp56 = call i64 @_load64_le(i8* %_secret_dynarrarg55)
-  store i64 %_secret_calltmp56, i64* %_secret___v16_t1
-  %_secret_lval57 = load i64, i64* %_secret___v8_h0
-  %_secret_lval58 = load i64, i64* %_secret___v15_t0
-  %_public_lval59 = load i64, i64* %_public___v2_mask44
-  %_secret_andtmp = and i64 %_secret_lval58, %_public_lval59
-  %_secret_addtmp = add i64 %_secret_lval57, %_secret_andtmp
-  store i64 %_secret_addtmp, i64* %_secret___v8_h0
-  %_secret_lval60 = load i64, i64* %_secret___v9_h1
-  %_secret_lval61 = load i64, i64* %_secret___v15_t0
-  %_secret_lrshift = lshr i64 %_secret_lval61, 44
-  %_secret_lval62 = load i64, i64* %_secret___v16_t1
-  %_secret_lshift = shl i64 %_secret_lval62, 20
-  %_secret_ortmp = or i64 %_secret_lrshift, %_secret_lshift
-  %_public_lval63 = load i64, i64* %_public___v2_mask44
-  %_secret_andtmp64 = and i64 %_secret_ortmp, %_public_lval63
-  %_secret_addtmp65 = add i64 %_secret_lval60, %_secret_andtmp64
-  store i64 %_secret_addtmp65, i64* %_secret___v9_h1
-  %_secret_lval66 = load i64, i64* %_secret___v10_h2
-  %_secret_lval67 = load i64, i64* %_secret___v16_t1
-  %_secret_lrshift68 = lshr i64 %_secret_lval67, 24
-  %_public_lval69 = load i64, i64* %_public___v3_mask42
-  %_secret_andtmp70 = and i64 %_secret_lrshift68, %_public_lval69
-  %_secret_lval71 = load i64, i64* %_secret___v4_hibit
-  %_secret_ortmp72 = or i64 %_secret_andtmp70, %_secret_lval71
-  %_secret_addtmp73 = add i64 %_secret_lval66, %_secret_ortmp72
-  store i64 %_secret_addtmp73, i64* %_secret___v10_h2
-  %_secret_lval74 = load i64, i64* %_secret___v8_h0
-  %_secret_ucast = zext i64 %_secret_lval74 to i128
-  %_secret_lval75 = load i64, i64* %_secret___v5_r0
-  %_secret_rhssext = zext i64 %_secret_lval75 to i128
-  %_secret_multmp76 = mul i128 %_secret_ucast, %_secret_rhssext
-  %_secret_lval77 = load i64, i64* %_secret___v9_h1
-  %_secret_ucast78 = zext i64 %_secret_lval77 to i128
-  %_secret_lval79 = load i64, i64* %_secret___v12_s2
-  %_secret_rhssext80 = zext i64 %_secret_lval79 to i128
-  %_secret_multmp81 = mul i128 %_secret_ucast78, %_secret_rhssext80
-  %_secret_addtmp82 = add i128 %_secret_multmp76, %_secret_multmp81
-  %_secret_lval83 = load i64, i64* %_secret___v10_h2
-  %_secret_ucast84 = zext i64 %_secret_lval83 to i128
-  %_secret_lval85 = load i64, i64* %_secret___v11_s1
-  %_secret_rhssext86 = zext i64 %_secret_lval85 to i128
-  %_secret_multmp87 = mul i128 %_secret_ucast84, %_secret_rhssext86
-  %_secret_addtmp88 = add i128 %_secret_addtmp82, %_secret_multmp87
-  store i128 %_secret_addtmp88, i128* %_secret___v17_d0
-  %_secret_lval89 = load i64, i64* %_secret___v8_h0
-  %_secret_ucast90 = zext i64 %_secret_lval89 to i128
-  %_secret_lval91 = load i64, i64* %_secret___v6_r1
-  %_secret_rhssext92 = zext i64 %_secret_lval91 to i128
-  %_secret_multmp93 = mul i128 %_secret_ucast90, %_secret_rhssext92
-  %_secret_lval94 = load i64, i64* %_secret___v9_h1
-  %_secret_ucast95 = zext i64 %_secret_lval94 to i128
-  %_secret_lval96 = load i64, i64* %_secret___v5_r0
-  %_secret_rhssext97 = zext i64 %_secret_lval96 to i128
-  %_secret_multmp98 = mul i128 %_secret_ucast95, %_secret_rhssext97
-  %_secret_addtmp99 = add i128 %_secret_multmp93, %_secret_multmp98
-  %_secret_lval100 = load i64, i64* %_secret___v10_h2
-  %_secret_ucast101 = zext i64 %_secret_lval100 to i128
-  %_secret_lval102 = load i64, i64* %_secret___v12_s2
-  %_secret_rhssext103 = zext i64 %_secret_lval102 to i128
-  %_secret_multmp104 = mul i128 %_secret_ucast101, %_secret_rhssext103
-  %_secret_addtmp105 = add i128 %_secret_addtmp99, %_secret_multmp104
-  store i128 %_secret_addtmp105, i128* %_secret___v18_d1
-  %_secret_lval106 = load i64, i64* %_secret___v8_h0
-  %_secret_ucast107 = zext i64 %_secret_lval106 to i128
-  %_secret_lval108 = load i64, i64* %_secret___v7_r2
-  %_secret_rhssext109 = zext i64 %_secret_lval108 to i128
-  %_secret_multmp110 = mul i128 %_secret_ucast107, %_secret_rhssext109
-  %_secret_lval111 = load i64, i64* %_secret___v9_h1
-  %_secret_ucast112 = zext i64 %_secret_lval111 to i128
-  %_secret_lval113 = load i64, i64* %_secret___v6_r1
-  %_secret_rhssext114 = zext i64 %_secret_lval113 to i128
-  %_secret_multmp115 = mul i128 %_secret_ucast112, %_secret_rhssext114
-  %_secret_addtmp116 = add i128 %_secret_multmp110, %_secret_multmp115
-  %_secret_lval117 = load i64, i64* %_secret___v10_h2
-  %_secret_ucast118 = zext i64 %_secret_lval117 to i128
-  %_secret_lval119 = load i64, i64* %_secret___v5_r0
-  %_secret_rhssext120 = zext i64 %_secret_lval119 to i128
-  %_secret_multmp121 = mul i128 %_secret_ucast118, %_secret_rhssext120
-  %_secret_addtmp122 = add i128 %_secret_addtmp116, %_secret_multmp121
-  store i128 %_secret_addtmp122, i128* %_secret___v19_d2
-  %_secret_lval123 = load i128, i128* %_secret___v17_d0
-  %_secret_lrshift124 = lshr i128 %_secret_lval123, 44
-  %_secret_ucast125 = trunc i128 %_secret_lrshift124 to i64
-  store i64 %_secret_ucast125, i64* %_secret___v20_c
-  %_secret_lval126 = load i128, i128* %_secret___v17_d0
-  %_public_lval127 = load i64, i64* %_public___v2_mask44
-  %_secret_rhssext128 = zext i64 %_public_lval127 to i128
-  %_secret_andtmp129 = and i128 %_secret_lval126, %_secret_rhssext128
-  %_secret_truncbinop = trunc i128 %_secret_andtmp129 to i64
-  store i64 %_secret_truncbinop, i64* %_secret___v8_h0
-  %_secret_lval130 = load i128, i128* %_secret___v18_d1
-  %_secret_lval131 = load i64, i64* %_secret___v20_c
-  %_secret_rhssext132 = zext i64 %_secret_lval131 to i128
-  %_secret_addtmp133 = add i128 %_secret_lval130, %_secret_rhssext132
-  store i128 %_secret_addtmp133, i128* %_secret___v18_d1
-  %_secret_lval134 = load i128, i128* %_secret___v18_d1
-  %_secret_lrshift135 = lshr i128 %_secret_lval134, 44
-  %_secret_ucast136 = trunc i128 %_secret_lrshift135 to i64
-  store i64 %_secret_ucast136, i64* %_secret___v20_c
-  %_secret_lval137 = load i128, i128* %_secret___v18_d1
-  %_public_lval138 = load i64, i64* %_public___v2_mask44
-  %_secret_rhssext139 = zext i64 %_public_lval138 to i128
-  %_secret_andtmp140 = and i128 %_secret_lval137, %_secret_rhssext139
-  %_secret_truncbinop141 = trunc i128 %_secret_andtmp140 to i64
-  store i64 %_secret_truncbinop141, i64* %_secret___v9_h1
-  %_secret_lval142 = load i128, i128* %_secret___v19_d2
-  %_secret_lval143 = load i64, i64* %_secret___v20_c
-  %_secret_rhssext144 = zext i64 %_secret_lval143 to i128
-  %_secret_addtmp145 = add i128 %_secret_lval142, %_secret_rhssext144
-  store i128 %_secret_addtmp145, i128* %_secret___v19_d2
-  %_secret_lval146 = load i128, i128* %_secret___v19_d2
-  %_secret_lrshift147 = lshr i128 %_secret_lval146, 42
-  %_secret_ucast148 = trunc i128 %_secret_lrshift147 to i64
-  store i64 %_secret_ucast148, i64* %_secret___v20_c
-  %_secret_lval149 = load i128, i128* %_secret___v19_d2
-  %_public_lval150 = load i64, i64* %_public___v3_mask42
-  %_secret_rhssext151 = zext i64 %_public_lval150 to i128
-  %_secret_andtmp152 = and i128 %_secret_lval149, %_secret_rhssext151
-  %_secret_truncbinop153 = trunc i128 %_secret_andtmp152 to i64
-  store i64 %_secret_truncbinop153, i64* %_secret___v10_h2
-  %_secret_lval154 = load i64, i64* %_secret___v8_h0
-  %_secret_lval155 = load i64, i64* %_secret___v20_c
-  %_secret_multmp156 = mul i64 %_secret_lval155, 5
-  %_secret_addtmp157 = add i64 %_secret_lval154, %_secret_multmp156
-  store i64 %_secret_addtmp157, i64* %_secret___v8_h0
-  %_secret_lval158 = load i64, i64* %_secret___v8_h0
-  %_secret_lrshift159 = lshr i64 %_secret_lval158, 44
-  store i64 %_secret_lrshift159, i64* %_secret___v20_c
-  %_secret_lval160 = load i64, i64* %_secret___v8_h0
-  %_public_lval161 = load i64, i64* %_public___v2_mask44
-  %_secret_andtmp162 = and i64 %_secret_lval160, %_public_lval161
-  store i64 %_secret_andtmp162, i64* %_secret___v8_h0
-  %_secret_lval163 = load i64, i64* %_secret___v9_h1
-  %_secret_lval164 = load i64, i64* %_secret___v20_c
-  %_secret_addtmp165 = add i64 %_secret_lval163, %_secret_lval164
-  store i64 %_secret_addtmp165, i64* %_secret___v9_h1
-  %_public_lval166 = load i32, i32* %_public___v14_bindex
-  %_public_addtmp167 = add i32 %_public_lval166, 1
-  store i32 %_public_addtmp167, i32* %_public___v14_bindex
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_secret_structgep168 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr169 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep168, i8 0, i8 0
-  %_secret_lval170 = load i64, i64* %_secret___v8_h0
-  store i64 %_secret_lval170, i64* %_secret_ptr169
-  %_secret_structgep171 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr172 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep171, i8 0, i8 1
-  %_secret_lval173 = load i64, i64* %_secret___v9_h1
-  store i64 %_secret_lval173, i64* %_secret_ptr172
-  %_secret_structgep174 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr175 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep174, i8 0, i8 2
-  %_secret_lval176 = load i64, i64* %_secret___v10_h2
-  store i64 %_secret_lval176, i64* %_secret_ptr175
+  %0 = mul i64 %len, 1
+  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 false)
   ret void
 }
 
 ; Function Attrs: alwaysinline
-define internal i64 @select.cmov.sel.i64(i1 %_secret_cond, i64 %_secret_a, i64 %_secret_b) #2 {
+define internal i64 @"__load[64]/secret_le"(i8* %src) #0 {
 entry:
-  %_secret_select = select i1 %_secret_cond, i64 %_secret_a, i64 %_secret_b
-  ret i64 %_secret_select
+  %0 = bitcast i8* %src to i64*
+  %1 = load i64, i64* %0
+  ret i64 %1
 }
 
-; Function Attrs: alwaysinline readonly
-define internal i64 @_load64_le(i8*) #3 {
+; Function Attrs: alwaysinline
+define internal void @"__store[64]/secret_le"(i8* %dst, i64 %value) #0 {
 entry:
-  %_secret_cast = bitcast i8* %0 to i64*
-  %_secret_ld = load i64, i64* %_secret_cast
-  ret i64 %_secret_ld
-}
-
-define internal void @_poly1305_init(%poly1305_state_internal_t* %state, i8* %_secret_arrarg1) {
-entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_secret___rnset = alloca i1
-  %_secret___v21_t0 = alloca i64
-  %_secret___v22_t1 = alloca i64
-  store i1 true, i1* %_secret___rnset
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i8 0
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
-  %_secret_ldedviewptr2 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep3 = getelementptr inbounds i8, i8* %_secret_ldedviewptr2, i8 0
-  %_secret_arrviewdyn4 = alloca i8*
-  store i8* %_secret_source_gep3, i8** %_secret_arrviewdyn4
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrviewdyn4
-  %_secret_calltmp = call i64 @_load64_le(i8* %_secret_dynarrarg)
-  store i64 %_secret_calltmp, i64* %_secret___v21_t0
-  %_secret_ldedviewptr5 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep6 = getelementptr inbounds i8, i8* %_secret_ldedviewptr5, i8 8
-  %_secret_arrviewdyn7 = alloca i8*
-  store i8* %_secret_source_gep6, i8** %_secret_arrviewdyn7
-  %_secret_ldedviewptr8 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep9 = getelementptr inbounds i8, i8* %_secret_ldedviewptr8, i8 8
-  %_secret_arrviewdyn10 = alloca i8*
-  store i8* %_secret_source_gep9, i8** %_secret_arrviewdyn10
-  %_secret_dynarrarg11 = load i8*, i8** %_secret_arrviewdyn10
-  %_secret_calltmp12 = call i64 @_load64_le(i8* %_secret_dynarrarg11)
-  store i64 %_secret_calltmp12, i64* %_secret___v22_t1
-  %_secret_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_ptr = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep, i8 0, i8 0
-  %_secret_lval = load i64, i64* %_secret___v21_t0
-  %_secret_andtmp = and i64 %_secret_lval, 17575274610687
-  store i64 %_secret_andtmp, i64* %_secret_ptr
-  %_secret_structgep13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_ptr14 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep13, i8 0, i8 1
-  %_secret_lval15 = load i64, i64* %_secret___v21_t0
-  %_secret_lrshift = lshr i64 %_secret_lval15, 44
-  %_secret_lval16 = load i64, i64* %_secret___v22_t1
-  %_secret_lshift = shl i64 %_secret_lval16, 20
-  %_secret_ortmp = or i64 %_secret_lrshift, %_secret_lshift
-  %_secret_andtmp17 = and i64 %_secret_ortmp, 17592181915647
-  store i64 %_secret_andtmp17, i64* %_secret_ptr14
-  %_secret_structgep18 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_ptr19 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep18, i8 0, i8 2
-  %_secret_lval20 = load i64, i64* %_secret___v22_t1
-  %_secret_lrshift21 = lshr i64 %_secret_lval20, 24
-  %_secret_andtmp22 = and i64 %_secret_lrshift21, 68719475727
-  store i64 %_secret_andtmp22, i64* %_secret_ptr19
-  %_secret_structgep23 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr24 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep23, i8 0, i8 0
-  store i64 0, i64* %_secret_ptr24
-  %_secret_structgep25 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr26 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep25, i8 0, i8 1
-  store i64 0, i64* %_secret_ptr26
-  %_secret_structgep27 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr28 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep27, i8 0, i8 2
-  store i64 0, i64* %_secret_ptr28
-  %_secret_structgep29 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 2
-  %_secret_ptr30 = getelementptr inbounds [2 x i64], [2 x i64]* %_secret_structgep29, i8 0, i8 0
-  %_secret_ldedviewptr31 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep32 = getelementptr inbounds i8, i8* %_secret_ldedviewptr31, i8 16
-  %_secret_arrviewdyn33 = alloca i8*
-  store i8* %_secret_source_gep32, i8** %_secret_arrviewdyn33
-  %_secret_ldedviewptr34 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep35 = getelementptr inbounds i8, i8* %_secret_ldedviewptr34, i8 16
-  %_secret_arrviewdyn36 = alloca i8*
-  store i8* %_secret_source_gep35, i8** %_secret_arrviewdyn36
-  %_secret_dynarrarg37 = load i8*, i8** %_secret_arrviewdyn36
-  %_secret_calltmp38 = call i64 @_load64_le(i8* %_secret_dynarrarg37)
-  store i64 %_secret_calltmp38, i64* %_secret_ptr30
-  %_secret_structgep39 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 2
-  %_secret_ptr40 = getelementptr inbounds [2 x i64], [2 x i64]* %_secret_structgep39, i8 0, i8 1
-  %_secret_ldedviewptr41 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep42 = getelementptr inbounds i8, i8* %_secret_ldedviewptr41, i8 24
-  %_secret_arrviewdyn43 = alloca i8*
-  store i8* %_secret_source_gep42, i8** %_secret_arrviewdyn43
-  %_secret_ldedviewptr44 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep45 = getelementptr inbounds i8, i8* %_secret_ldedviewptr44, i8 24
-  %_secret_arrviewdyn46 = alloca i8*
-  store i8* %_secret_source_gep45, i8** %_secret_arrviewdyn46
-  %_secret_dynarrarg47 = load i8*, i8** %_secret_arrviewdyn46
-  %_secret_calltmp48 = call i64 @_load64_le(i8* %_secret_dynarrarg47)
-  store i64 %_secret_calltmp48, i64* %_secret_ptr40
-  %_public_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  store i64 0, i64* %_public_structgep
-  %_secret_structgep49 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 5
-  store i8 0, i8* %_secret_structgep49
-  ret void
-}
-
-define internal void @_poly1305_update(%poly1305_state_internal_t* %state, i8* %_secret_arrarg1, i32 %_public___m_len2) {
-entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len2, i32* %_public___m_len
-  %_secret___rnset = alloca i1
-  %_public___v23_mindex = alloca i64
-  %_public___v24_want = alloca i64
-  %_public___v25_i = alloca i64
-  %_public___v26_want = alloca i64
-  %_public___v28___v27_len = alloca i32
-  %_public___v30_remaining = alloca i64
-  %_public___v31_i = alloca i64
-  store i1 true, i1* %_secret___rnset
-  store i64 0, i64* %_public___v23_mindex
-  %_public_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval = load i64, i64* %_public_structgep
-  %_public_neqtmp = icmp ne i64 %_public_lval, 0
-  %_public_branchcompare = icmp eq i1 %_public_neqtmp, true
-  br i1 %_public_branchcompare, label %thenbranch, label %elsebranch37
-
-thenbranch:                                       ; preds = %entry
-  %_public_structgep3 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval4 = load i64, i64* %_public_structgep3
-  %_public_subtmp = sub i64 16, %_public_lval4
-  store i64 %_public_subtmp, i64* %_public___v24_want
-  %_public_lval5 = load i64, i64* %_public___v24_want
-  %_public_lval6 = load i32, i32* %_public___m_len
-  %_public_rhssext = zext i32 %_public_lval6 to i64
-  %_public_ugttmp = icmp ugt i64 %_public_lval5, %_public_rhssext
-  %_public_branchcompare7 = icmp eq i1 %_public_ugttmp, true
-  br i1 %_public_branchcompare7, label %thenbranch8, label %elsebranch
-
-thenbranch8:                                      ; preds = %thenbranch
-  %_public_lval9 = load i32, i32* %_public___m_len
-  %_public_zexttmp = zext i32 %_public_lval9 to i64
-  store i64 %_public_zexttmp, i64* %_public___v24_want
-  br label %branchmerge
-
-elsebranch:                                       ; preds = %thenbranch
-  br label %branchmerge
-
-branchmerge:                                      ; preds = %elsebranch, %thenbranch8
-  store i64 0, i64* %_public___v25_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %branchmerge
-  %_public_lval10 = load i64, i64* %_public___v25_i
-  %_public_lval11 = load i64, i64* %_public___v24_want
-  %_public_ulttmp = icmp ult i64 %_public_lval10, %_public_lval11
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_secret_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_public_structgep12 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval13 = load i64, i64* %_public_structgep12
-  %_public_lval14 = load i64, i64* %_public___v25_i
-  %_public_addtmp = add i64 %_public_lval13, %_public_lval14
-  %_secret_ptr = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep, i64 0, i64 %_public_addtmp
-  %_public_lval15 = load i64, i64* %_public___v25_i
-  %_secret_dyn = load i8*, i8** %_secret_arrarg
-  %_secret_ptr16 = getelementptr inbounds i8, i8* %_secret_dyn, i64 %_public_lval15
-  %_secret_lval = load i8, i8* %_secret_ptr16
-  store i8 %_secret_lval, i8* %_secret_ptr
-  %_public_lval17 = load i64, i64* %_public___v25_i
-  %_public_addtmp18 = add i64 %_public_lval17, 1
-  store i64 %_public_addtmp18, i64* %_public___v25_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_public_lval19 = load i64, i64* %_public___v23_mindex
-  %_public_lval20 = load i64, i64* %_public___v24_want
-  %_public_addtmp21 = add i64 %_public_lval19, %_public_lval20
-  store i64 %_public_addtmp21, i64* %_public___v23_mindex
-  %_public_structgep22 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_structgep23 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval24 = load i64, i64* %_public_structgep23
-  %_public_lval25 = load i64, i64* %_public___v24_want
-  %_public_addtmp26 = add i64 %_public_lval24, %_public_lval25
-  store i64 %_public_addtmp26, i64* %_public_structgep22
-  %_public_structgep27 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval28 = load i64, i64* %_public_structgep27
-  %_public_ulttmp29 = icmp ult i64 %_public_lval28, 16
-  %_public_branchcompare30 = icmp eq i1 %_public_ulttmp29, true
-  br i1 %_public_branchcompare30, label %thenbranch31, label %elsebranch32
-
-thenbranch31:                                     ; preds = %loop_end
-  ret void
-
-elsebranch32:                                     ; preds = %loop_end
-  br label %branchmerge33
-
-branchmerge33:                                    ; preds = %elsebranch32
-  %_secret_structgep34 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_secret_structgep35 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_secret_arrtoptr = bitcast [16 x i8]* %_secret_structgep35 to i8*
-  call void @_poly1305_blocks(%poly1305_state_internal_t* %state, i8* %_secret_arrtoptr, i32 16)
-  %_public_structgep36 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  store i64 0, i64* %_public_structgep36
-  br label %branchmerge38
-
-elsebranch37:                                     ; preds = %entry
-  br label %branchmerge38
-
-branchmerge38:                                    ; preds = %elsebranch37, %branchmerge33
-  %_public_lval39 = load i32, i32* %_public___m_len
-  %_public_lval40 = load i64, i64* %_public___v23_mindex
-  %_public_lhssext = zext i32 %_public_lval39 to i64
-  %_public_subtmp41 = sub i64 %_public_lhssext, %_public_lval40
-  %_public_ugtetmp = icmp uge i64 %_public_subtmp41, 16
-  %_public_branchcompare42 = icmp eq i1 %_public_ugtetmp, true
-  br i1 %_public_branchcompare42, label %thenbranch43, label %elsebranch55
-
-thenbranch43:                                     ; preds = %branchmerge38
-  %_public_lval44 = load i32, i32* %_public___m_len
-  %_public_lval45 = load i64, i64* %_public___v23_mindex
-  %_public_lhssext46 = zext i32 %_public_lval44 to i64
-  %_public_subtmp47 = sub i64 %_public_lhssext46, %_public_lval45
-  %_public_andtmp = and i64 %_public_subtmp47, 4294967280
-  %_public_truncbinop = trunc i64 %_public_andtmp to i32
-  %_public_zexttmp48 = zext i32 %_public_truncbinop to i64
-  store i64 %_public_zexttmp48, i64* %_public___v26_want
-  %_public_lval49 = load i64, i64* %_public___v26_want
-  %_public_trunctmp = trunc i64 %_public_lval49 to i32
-  store i32 %_public_trunctmp, i32* %_public___v28___v27_len
-  %_public_lval50 = load i64, i64* %_public___v23_mindex
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i64 %_public_lval50
-  %_secret___v29_mview = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret___v29_mview
-  %_secret_dynarrarg = load i8*, i8** %_secret___v29_mview
-  %_public_lval51 = load i32, i32* %_public___v28___v27_len
-  call void @_poly1305_blocks(%poly1305_state_internal_t* %state, i8* %_secret_dynarrarg, i32 %_public_lval51)
-  %_public_lval52 = load i64, i64* %_public___v23_mindex
-  %_public_lval53 = load i64, i64* %_public___v26_want
-  %_public_addtmp54 = add i64 %_public_lval52, %_public_lval53
-  store i64 %_public_addtmp54, i64* %_public___v23_mindex
-  br label %branchmerge56
-
-elsebranch55:                                     ; preds = %branchmerge38
-  br label %branchmerge56
-
-branchmerge56:                                    ; preds = %elsebranch55, %thenbranch43
-  %_public_lval57 = load i64, i64* %_public___v23_mindex
-  %_public_lval58 = load i32, i32* %_public___m_len
-  %_public_rhssext59 = zext i32 %_public_lval58 to i64
-  %_public_ulttmp60 = icmp ult i64 %_public_lval57, %_public_rhssext59
-  %_public_branchcompare61 = icmp eq i1 %_public_ulttmp60, true
-  br i1 %_public_branchcompare61, label %thenbranch62, label %elsebranch92
-
-thenbranch62:                                     ; preds = %branchmerge56
-  %_public_lval63 = load i32, i32* %_public___m_len
-  %_public_lval64 = load i64, i64* %_public___v23_mindex
-  %_public_lhssext65 = zext i32 %_public_lval63 to i64
-  %_public_subtmp66 = sub i64 %_public_lhssext65, %_public_lval64
-  store i64 %_public_subtmp66, i64* %_public___v30_remaining
-  store i64 0, i64* %_public___v31_i
-  br label %loop_check67
-
-loop_check67:                                     ; preds = %loop_body68, %thenbranch62
-  %_public_lval70 = load i64, i64* %_public___v31_i
-  %_public_lval71 = load i64, i64* %_public___v30_remaining
-  %_public_ulttmp72 = icmp ult i64 %_public_lval70, %_public_lval71
-  br i1 %_public_ulttmp72, label %loop_body68, label %loop_end69
-
-loop_body68:                                      ; preds = %loop_check67
-  %_secret_structgep73 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_public_structgep74 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval75 = load i64, i64* %_public_structgep74
-  %_public_lval76 = load i64, i64* %_public___v31_i
-  %_public_addtmp77 = add i64 %_public_lval75, %_public_lval76
-  %_secret_ptr78 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep73, i64 0, i64 %_public_addtmp77
-  %_public_lval79 = load i64, i64* %_public___v23_mindex
-  %_public_lval80 = load i64, i64* %_public___v31_i
-  %_public_addtmp81 = add i64 %_public_lval79, %_public_lval80
-  %_secret_dyn82 = load i8*, i8** %_secret_arrarg
-  %_secret_ptr83 = getelementptr inbounds i8, i8* %_secret_dyn82, i64 %_public_addtmp81
-  %_secret_lval84 = load i8, i8* %_secret_ptr83
-  store i8 %_secret_lval84, i8* %_secret_ptr78
-  %_public_lval85 = load i64, i64* %_public___v31_i
-  %_public_addtmp86 = add i64 %_public_lval85, 1
-  store i64 %_public_addtmp86, i64* %_public___v31_i
-  br label %loop_check67
-
-loop_end69:                                       ; preds = %loop_check67
-  %_public_structgep87 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_structgep88 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval89 = load i64, i64* %_public_structgep88
-  %_public_lval90 = load i64, i64* %_public___v30_remaining
-  %_public_addtmp91 = add i64 %_public_lval89, %_public_lval90
-  store i64 %_public_addtmp91, i64* %_public_structgep87
-  br label %branchmerge93
-
-elsebranch92:                                     ; preds = %branchmerge56
-  br label %branchmerge93
-
-branchmerge93:                                    ; preds = %elsebranch92, %loop_end69
-  ret void
-}
-
-define internal void @_poly1305_finish(%poly1305_state_internal_t* %state, i8* %_secret_arrarg1) {
-entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_secret___rnset = alloca i1
-  %_public___v32_start = alloca i64
-  %_public___v33_i = alloca i64
-  %_public___v34_mask44 = alloca i64
-  %_public___v35_mask42 = alloca i64
-  %_secret___v36_h0 = alloca i64
-  %_secret___v37_h1 = alloca i64
-  %_secret___v38_h2 = alloca i64
-  %_secret___v39_c = alloca i64
-  %_secret___v40_g0 = alloca i64
-  %_secret___v41_g1 = alloca i64
-  %_secret___v42_g2 = alloca i64
-  %_secret___v43_t0 = alloca i64
-  %_secret___v44_t1 = alloca i64
-  store i1 true, i1* %_secret___rnset
-  %_public_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval = load i64, i64* %_public_structgep
-  %_public_neqtmp = icmp ne i64 %_public_lval, 0
-  %_public_branchcompare = icmp eq i1 %_public_neqtmp, true
-  br i1 %_public_branchcompare, label %thenbranch, label %elsebranch
-
-thenbranch:                                       ; preds = %entry
-  %_public_structgep2 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  %_public_lval3 = load i64, i64* %_public_structgep2
-  store i64 %_public_lval3, i64* %_public___v32_start
-  %_secret_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_public_lval4 = load i64, i64* %_public___v32_start
-  %_secret_ptr = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep, i64 0, i64 %_public_lval4
-  store i8 1, i8* %_secret_ptr
-  %_public_lval5 = load i64, i64* %_public___v32_start
-  %_public_addtmp = add i64 %_public_lval5, 1
-  store i64 %_public_addtmp, i64* %_public___v33_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %thenbranch
-  %_public_lval6 = load i64, i64* %_public___v33_i
-  %_public_ulttmp = icmp ult i64 %_public_lval6, 16
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_secret_structgep7 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_public_lval8 = load i64, i64* %_public___v33_i
-  %_secret_ptr9 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret_structgep7, i64 0, i64 %_public_lval8
-  store i8 0, i8* %_secret_ptr9
-  %_public_lval10 = load i64, i64* %_public___v33_i
-  %_public_addtmp11 = add i64 %_public_lval10, 1
-  store i64 %_public_addtmp11, i64* %_public___v33_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_secret_structgep12 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 5
-  store i8 1, i8* %_secret_structgep12
-  %_secret_structgep13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_secret_structgep14 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_secret_arrtoptr = bitcast [16 x i8]* %_secret_structgep14 to i8*
-  call void @_poly1305_blocks(%poly1305_state_internal_t* %state, i8* %_secret_arrtoptr, i32 16)
-  br label %branchmerge
-
-elsebranch:                                       ; preds = %entry
-  br label %branchmerge
-
-branchmerge:                                      ; preds = %elsebranch, %loop_end
-  store i64 17592186044415, i64* %_public___v34_mask44
-  store i64 4398046511103, i64* %_public___v35_mask42
-  %_secret_structgep15 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr16 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep15, i8 0, i8 0
-  %_secret_lval = load i64, i64* %_secret_ptr16
-  store i64 %_secret_lval, i64* %_secret___v36_h0
-  %_secret_structgep17 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr18 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep17, i8 0, i8 1
-  %_secret_lval19 = load i64, i64* %_secret_ptr18
-  store i64 %_secret_lval19, i64* %_secret___v37_h1
-  %_secret_structgep20 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_ptr21 = getelementptr inbounds [3 x i64], [3 x i64]* %_secret_structgep20, i8 0, i8 2
-  %_secret_lval22 = load i64, i64* %_secret_ptr21
-  store i64 %_secret_lval22, i64* %_secret___v38_h2
-  %_secret_lval23 = load i64, i64* %_secret___v37_h1
-  %_secret_lrshift = lshr i64 %_secret_lval23, 44
-  store i64 %_secret_lrshift, i64* %_secret___v39_c
-  %_secret_lval24 = load i64, i64* %_secret___v37_h1
-  %_public_lval25 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp = and i64 %_secret_lval24, %_public_lval25
-  store i64 %_secret_andtmp, i64* %_secret___v37_h1
-  %_secret_lval26 = load i64, i64* %_secret___v38_h2
-  %_secret_lval27 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp = add i64 %_secret_lval26, %_secret_lval27
-  store i64 %_secret_addtmp, i64* %_secret___v38_h2
-  %_secret_lval28 = load i64, i64* %_secret___v38_h2
-  %_secret_lrshift29 = lshr i64 %_secret_lval28, 42
-  store i64 %_secret_lrshift29, i64* %_secret___v39_c
-  %_secret_lval30 = load i64, i64* %_secret___v38_h2
-  %_public_lval31 = load i64, i64* %_public___v35_mask42
-  %_secret_andtmp32 = and i64 %_secret_lval30, %_public_lval31
-  store i64 %_secret_andtmp32, i64* %_secret___v38_h2
-  %_secret_lval33 = load i64, i64* %_secret___v36_h0
-  %_secret_lval34 = load i64, i64* %_secret___v39_c
-  %_secret_multmp = mul i64 %_secret_lval34, 5
-  %_secret_addtmp35 = add i64 %_secret_lval33, %_secret_multmp
-  store i64 %_secret_addtmp35, i64* %_secret___v36_h0
-  %_secret_lval36 = load i64, i64* %_secret___v36_h0
-  %_secret_lrshift37 = lshr i64 %_secret_lval36, 44
-  store i64 %_secret_lrshift37, i64* %_secret___v39_c
-  %_secret_lval38 = load i64, i64* %_secret___v36_h0
-  %_public_lval39 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp40 = and i64 %_secret_lval38, %_public_lval39
-  store i64 %_secret_andtmp40, i64* %_secret___v36_h0
-  %_secret_lval41 = load i64, i64* %_secret___v37_h1
-  %_secret_lval42 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp43 = add i64 %_secret_lval41, %_secret_lval42
-  store i64 %_secret_addtmp43, i64* %_secret___v37_h1
-  %_secret_lval44 = load i64, i64* %_secret___v37_h1
-  %_secret_lrshift45 = lshr i64 %_secret_lval44, 44
-  store i64 %_secret_lrshift45, i64* %_secret___v39_c
-  %_secret_lval46 = load i64, i64* %_secret___v37_h1
-  %_public_lval47 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp48 = and i64 %_secret_lval46, %_public_lval47
-  store i64 %_secret_andtmp48, i64* %_secret___v37_h1
-  %_secret_lval49 = load i64, i64* %_secret___v38_h2
-  %_secret_lval50 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp51 = add i64 %_secret_lval49, %_secret_lval50
-  store i64 %_secret_addtmp51, i64* %_secret___v38_h2
-  %_secret_lval52 = load i64, i64* %_secret___v38_h2
-  %_secret_lrshift53 = lshr i64 %_secret_lval52, 42
-  store i64 %_secret_lrshift53, i64* %_secret___v39_c
-  %_secret_lval54 = load i64, i64* %_secret___v38_h2
-  %_public_lval55 = load i64, i64* %_public___v35_mask42
-  %_secret_andtmp56 = and i64 %_secret_lval54, %_public_lval55
-  store i64 %_secret_andtmp56, i64* %_secret___v38_h2
-  %_secret_lval57 = load i64, i64* %_secret___v36_h0
-  %_secret_lval58 = load i64, i64* %_secret___v39_c
-  %_secret_multmp59 = mul i64 %_secret_lval58, 5
-  %_secret_addtmp60 = add i64 %_secret_lval57, %_secret_multmp59
-  store i64 %_secret_addtmp60, i64* %_secret___v36_h0
-  %_secret_lval61 = load i64, i64* %_secret___v36_h0
-  %_secret_lrshift62 = lshr i64 %_secret_lval61, 44
-  store i64 %_secret_lrshift62, i64* %_secret___v39_c
-  %_secret_lval63 = load i64, i64* %_secret___v36_h0
-  %_public_lval64 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp65 = and i64 %_secret_lval63, %_public_lval64
-  store i64 %_secret_andtmp65, i64* %_secret___v36_h0
-  %_secret_lval66 = load i64, i64* %_secret___v37_h1
-  %_secret_lval67 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp68 = add i64 %_secret_lval66, %_secret_lval67
-  store i64 %_secret_addtmp68, i64* %_secret___v37_h1
-  %_secret_lval69 = load i64, i64* %_secret___v36_h0
-  %_secret_addtmp70 = add i64 %_secret_lval69, 5
-  store i64 %_secret_addtmp70, i64* %_secret___v40_g0
-  %_secret_lval71 = load i64, i64* %_secret___v40_g0
-  %_secret_lrshift72 = lshr i64 %_secret_lval71, 44
-  store i64 %_secret_lrshift72, i64* %_secret___v39_c
-  %_secret_lval73 = load i64, i64* %_secret___v40_g0
-  %_public_lval74 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp75 = and i64 %_secret_lval73, %_public_lval74
-  store i64 %_secret_andtmp75, i64* %_secret___v40_g0
-  %_secret_lval76 = load i64, i64* %_secret___v37_h1
-  %_secret_lval77 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp78 = add i64 %_secret_lval76, %_secret_lval77
-  store i64 %_secret_addtmp78, i64* %_secret___v41_g1
-  %_secret_lval79 = load i64, i64* %_secret___v41_g1
-  %_secret_lrshift80 = lshr i64 %_secret_lval79, 44
-  store i64 %_secret_lrshift80, i64* %_secret___v39_c
-  %_secret_lval81 = load i64, i64* %_secret___v41_g1
-  %_public_lval82 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp83 = and i64 %_secret_lval81, %_public_lval82
-  store i64 %_secret_andtmp83, i64* %_secret___v41_g1
-  %_secret_lval84 = load i64, i64* %_secret___v38_h2
-  %_secret_lval85 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp86 = add i64 %_secret_lval84, %_secret_lval85
-  %_secret_subtmp = sub i64 %_secret_addtmp86, 4398046511104
-  store i64 %_secret_subtmp, i64* %_secret___v42_g2
-  %_secret_lval87 = load i64, i64* %_secret___v42_g2
-  %_secret_lrshift88 = lshr i64 %_secret_lval87, 63
-  %_secret_subtmp89 = sub i64 %_secret_lrshift88, 1
-  store i64 %_secret_subtmp89, i64* %_secret___v39_c
-  %_secret_lval90 = load i64, i64* %_secret___v40_g0
-  %_secret_lval91 = load i64, i64* %_secret___v39_c
-  %_secret_andtmp92 = and i64 %_secret_lval90, %_secret_lval91
-  store i64 %_secret_andtmp92, i64* %_secret___v40_g0
-  %_secret_lval93 = load i64, i64* %_secret___v41_g1
-  %_secret_lval94 = load i64, i64* %_secret___v39_c
-  %_secret_andtmp95 = and i64 %_secret_lval93, %_secret_lval94
-  store i64 %_secret_andtmp95, i64* %_secret___v41_g1
-  %_secret_lval96 = load i64, i64* %_secret___v42_g2
-  %_secret_lval97 = load i64, i64* %_secret___v39_c
-  %_secret_andtmp98 = and i64 %_secret_lval96, %_secret_lval97
-  store i64 %_secret_andtmp98, i64* %_secret___v42_g2
-  %_secret_lval99 = load i64, i64* %_secret___v39_c
-  %_secret_bnottmp = xor i64 %_secret_lval99, -1
-  store i64 %_secret_bnottmp, i64* %_secret___v39_c
-  %_secret_lval100 = load i64, i64* %_secret___v36_h0
-  %_secret_lval101 = load i64, i64* %_secret___v39_c
-  %_secret_andtmp102 = and i64 %_secret_lval100, %_secret_lval101
-  %_secret_lval103 = load i64, i64* %_secret___v40_g0
-  %_secret_ortmp = or i64 %_secret_andtmp102, %_secret_lval103
-  store i64 %_secret_ortmp, i64* %_secret___v36_h0
-  %_secret_lval104 = load i64, i64* %_secret___v37_h1
-  %_secret_lval105 = load i64, i64* %_secret___v39_c
-  %_secret_andtmp106 = and i64 %_secret_lval104, %_secret_lval105
-  %_secret_lval107 = load i64, i64* %_secret___v41_g1
-  %_secret_ortmp108 = or i64 %_secret_andtmp106, %_secret_lval107
-  store i64 %_secret_ortmp108, i64* %_secret___v37_h1
-  %_secret_lval109 = load i64, i64* %_secret___v38_h2
-  %_secret_lval110 = load i64, i64* %_secret___v39_c
-  %_secret_andtmp111 = and i64 %_secret_lval109, %_secret_lval110
-  %_secret_lval112 = load i64, i64* %_secret___v42_g2
-  %_secret_ortmp113 = or i64 %_secret_andtmp111, %_secret_lval112
-  store i64 %_secret_ortmp113, i64* %_secret___v38_h2
-  %_secret_structgep114 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 2
-  %_secret_ptr115 = getelementptr inbounds [2 x i64], [2 x i64]* %_secret_structgep114, i8 0, i8 0
-  %_secret_lval116 = load i64, i64* %_secret_ptr115
-  store i64 %_secret_lval116, i64* %_secret___v43_t0
-  %_secret_structgep117 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 2
-  %_secret_ptr118 = getelementptr inbounds [2 x i64], [2 x i64]* %_secret_structgep117, i8 0, i8 1
-  %_secret_lval119 = load i64, i64* %_secret_ptr118
-  store i64 %_secret_lval119, i64* %_secret___v44_t1
-  %_secret_lval120 = load i64, i64* %_secret___v36_h0
-  %_secret_lval121 = load i64, i64* %_secret___v43_t0
-  %_public_lval122 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp123 = and i64 %_secret_lval121, %_public_lval122
-  %_secret_addtmp124 = add i64 %_secret_lval120, %_secret_andtmp123
-  store i64 %_secret_addtmp124, i64* %_secret___v36_h0
-  %_secret_lval125 = load i64, i64* %_secret___v36_h0
-  %_secret_lrshift126 = lshr i64 %_secret_lval125, 44
-  store i64 %_secret_lrshift126, i64* %_secret___v39_c
-  %_secret_lval127 = load i64, i64* %_secret___v36_h0
-  %_public_lval128 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp129 = and i64 %_secret_lval127, %_public_lval128
-  store i64 %_secret_andtmp129, i64* %_secret___v36_h0
-  %_secret_lval130 = load i64, i64* %_secret___v37_h1
-  %_secret_lval131 = load i64, i64* %_secret___v43_t0
-  %_secret_lrshift132 = lshr i64 %_secret_lval131, 44
-  %_secret_lval133 = load i64, i64* %_secret___v44_t1
-  %_secret_lshift = shl i64 %_secret_lval133, 20
-  %_secret_ortmp134 = or i64 %_secret_lrshift132, %_secret_lshift
-  %_public_lval135 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp136 = and i64 %_secret_ortmp134, %_public_lval135
-  %_secret_lval137 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp138 = add i64 %_secret_andtmp136, %_secret_lval137
-  %_secret_addtmp139 = add i64 %_secret_lval130, %_secret_addtmp138
-  store i64 %_secret_addtmp139, i64* %_secret___v37_h1
-  %_secret_lval140 = load i64, i64* %_secret___v37_h1
-  %_secret_lrshift141 = lshr i64 %_secret_lval140, 44
-  store i64 %_secret_lrshift141, i64* %_secret___v39_c
-  %_secret_lval142 = load i64, i64* %_secret___v37_h1
-  %_public_lval143 = load i64, i64* %_public___v34_mask44
-  %_secret_andtmp144 = and i64 %_secret_lval142, %_public_lval143
-  store i64 %_secret_andtmp144, i64* %_secret___v37_h1
-  %_secret_lval145 = load i64, i64* %_secret___v38_h2
-  %_secret_lval146 = load i64, i64* %_secret___v44_t1
-  %_secret_lrshift147 = lshr i64 %_secret_lval146, 24
-  %_public_lval148 = load i64, i64* %_public___v35_mask42
-  %_secret_andtmp149 = and i64 %_secret_lrshift147, %_public_lval148
-  %_secret_lval150 = load i64, i64* %_secret___v39_c
-  %_secret_addtmp151 = add i64 %_secret_andtmp149, %_secret_lval150
-  %_secret_addtmp152 = add i64 %_secret_lval145, %_secret_addtmp151
-  store i64 %_secret_addtmp152, i64* %_secret___v38_h2
-  %_secret_lval153 = load i64, i64* %_secret___v38_h2
-  %_public_lval154 = load i64, i64* %_public___v35_mask42
-  %_secret_andtmp155 = and i64 %_secret_lval153, %_public_lval154
-  store i64 %_secret_andtmp155, i64* %_secret___v38_h2
-  %_secret_lval156 = load i64, i64* %_secret___v36_h0
-  %_secret_lval157 = load i64, i64* %_secret___v37_h1
-  %_secret_lshift158 = shl i64 %_secret_lval157, 44
-  %_secret_ortmp159 = or i64 %_secret_lval156, %_secret_lshift158
-  store i64 %_secret_ortmp159, i64* %_secret___v36_h0
-  %_secret_lval160 = load i64, i64* %_secret___v37_h1
-  %_secret_lrshift161 = lshr i64 %_secret_lval160, 20
-  %_secret_lval162 = load i64, i64* %_secret___v38_h2
-  %_secret_lshift163 = shl i64 %_secret_lval162, 24
-  %_secret_ortmp164 = or i64 %_secret_lrshift161, %_secret_lshift163
-  store i64 %_secret_ortmp164, i64* %_secret___v37_h1
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i8 0
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
-  %_secret_ldedviewptr165 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep166 = getelementptr inbounds i8, i8* %_secret_ldedviewptr165, i8 0
-  %_secret_arrviewdyn167 = alloca i8*
-  store i8* %_secret_source_gep166, i8** %_secret_arrviewdyn167
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrviewdyn167
-  %_secret_lval168 = load i64, i64* %_secret___v36_h0
-  call void @_store64_le(i8* %_secret_dynarrarg, i64 %_secret_lval168)
-  %_secret_ldedviewptr169 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep170 = getelementptr inbounds i8, i8* %_secret_ldedviewptr169, i8 8
-  %_secret_arrviewdyn171 = alloca i8*
-  store i8* %_secret_source_gep170, i8** %_secret_arrviewdyn171
-  %_secret_ldedviewptr172 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep173 = getelementptr inbounds i8, i8* %_secret_ldedviewptr172, i8 8
-  %_secret_arrviewdyn174 = alloca i8*
-  store i8* %_secret_source_gep173, i8** %_secret_arrviewdyn174
-  %_secret_dynarrarg175 = load i8*, i8** %_secret_arrviewdyn174
-  %_secret_lval176 = load i64, i64* %_secret___v37_h1
-  call void @_store64_le(i8* %_secret_dynarrarg175, i64 %_secret_lval176)
-  %_secret_structgep177 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_structgep178 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 0
-  %_secret_arrtoptr179 = bitcast [3 x i64]* %_secret_structgep178 to i64*
-  call void @_fact_memzero64(i64* %_secret_arrtoptr179, i32 3)
-  %_secret_structgep180 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_structgep181 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 1
-  %_secret_arrtoptr182 = bitcast [3 x i64]* %_secret_structgep181 to i64*
-  call void @_fact_memzero64(i64* %_secret_arrtoptr182, i32 3)
-  %_secret_structgep183 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 2
-  %_secret_structgep184 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 2
-  %_secret_arrtoptr185 = bitcast [2 x i64]* %_secret_structgep184 to i64*
-  call void @_fact_memzero64(i64* %_secret_arrtoptr185, i32 2)
-  %_public_structgep186 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 3
-  store i64 0, i64* %_public_structgep186
-  %_secret_structgep187 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_secret_structgep188 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 4
-  %_secret_arrtoptr189 = bitcast [16 x i8]* %_secret_structgep188 to i8*
-  call void @_fact_memzero(i8* %_secret_arrtoptr189, i32 16)
-  %_secret_structgep190 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %state, i32 0, i32 5
-  store i8 0, i8* %_secret_structgep190
+  %0 = bitcast i8* %dst to i64*
+  store i64 %value, i64* %0
   ret void
 }
 
 ; Function Attrs: alwaysinline
-define internal void @_store64_le(i8*, i64) #2 {
+define internal void @"__memzero[64]/secret"(i64* %dst, i64 %len) #0 {
 entry:
-  %_secret_cast = bitcast i8* %0 to i64*
-  store i64 %1, i64* %_secret_cast
+  call void @fact.memset.i64(i64* %dst, i8 0, i64 %len)
   ret void
 }
 
-define internal i32 @_crypto_onetimeauth_poly1305(i8* %_secret_arrarg1, i8* %_secret_arrarg3, i32 %_public___m_len4, i8* %_secret_arrarg6) {
+; Function Attrs: alwaysinline
+define internal void @fact.memset.i64(i64* %dst, i8 %n, i64 %len) #0 {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_secret_arrarg2 = alloca i8*
-  store i8* %_secret_arrarg3, i8** %_secret_arrarg2
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len4, i32* %_public___m_len
-  %_secret_arrarg5 = alloca i8*
-  store i8* %_secret_arrarg6, i8** %_secret_arrarg5
-  %_public___rval = alloca i32
-  %_secret___rnset = alloca i1
-  %_public___v45_state = alloca %poly1305_state_internal_t
-  %_public_sourcecasted = bitcast %poly1305_state_internal_t* %_public___v45_state to i8*
-  call void @llvm.memset.p0i8.i64(i8* %_public_sourcecasted, i8 0, i64 92, i32 4, i1 false)
-  store i32 0, i32* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 0
-  %_secret_structgep7 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 0
-  %_secret_arrtoptr = bitcast [3 x i64]* %_secret_structgep7 to i64*
-  call void @_fact_memzero64(i64* %_secret_arrtoptr, i32 3)
-  %_secret_structgep8 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 1
-  %_secret_structgep9 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 1
-  %_secret_arrtoptr10 = bitcast [3 x i64]* %_secret_structgep9 to i64*
-  call void @_fact_memzero64(i64* %_secret_arrtoptr10, i32 3)
-  %_secret_structgep11 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 2
-  %_secret_structgep12 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 2
-  %_secret_arrtoptr13 = bitcast [2 x i64]* %_secret_structgep12 to i64*
-  call void @_fact_memzero64(i64* %_secret_arrtoptr13, i32 2)
-  %_public_structgep = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 3
-  store i64 0, i64* %_public_structgep
-  %_secret_structgep14 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 4
-  %_secret_structgep15 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 4
-  %_secret_arrtoptr16 = bitcast [16 x i8]* %_secret_structgep15 to i8*
-  call void @_fact_memzero(i8* %_secret_arrtoptr16, i32 16)
-  %_secret_structgep17 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %_public___v45_state, i32 0, i32 5
-  store i8 0, i8* %_secret_structgep17
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg5
-  call void @_poly1305_init(%poly1305_state_internal_t* %_public___v45_state, i8* %_secret_dynarrarg)
-  %_secret_dynarrarg18 = load i8*, i8** %_secret_arrarg2
-  %_public_lval = load i32, i32* %_public___m_len
-  call void @_poly1305_update(%poly1305_state_internal_t* %_public___v45_state, i8* %_secret_dynarrarg18, i32 %_public_lval)
-  %_secret_dynarrarg19 = load i8*, i8** %_secret_arrarg
-  call void @_poly1305_finish(%poly1305_state_internal_t* %_public___v45_state, i8* %_secret_dynarrarg19)
-  store i32 0, i32* %_public___rval
-  %_public_lval20 = load i32, i32* %_public___rval
-  ret i32 %_public_lval20
+  %0 = bitcast i64* %dst to i8*
+  %1 = mul i64 %len, 8
+  call void @llvm.memset.p0i8.i64(i8* %0, i8 %n, i64 %1, i32 8, i1 false)
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal i32 @"__load[32]/secret_le"(i8* %src) #0 {
+entry:
+  %0 = bitcast i8* %src to i32*
+  %1 = load i32, i32* %0
+  ret i32 %1
+}
+
+; Function Attrs: alwaysinline
+define internal void @"__store[32]/secret_le"(i8* %dst, i32 %value) #0 {
+entry:
+  %0 = bitcast i8* %dst to i32*
+  store i32 %value, i32* %0
+  ret void
+}
+
+define internal void @_crypto_core_hsalsa20(i8* %__v178_out, i8* %__v179_input, i8* %__v180_k) {
+entry:
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v181_x0 = alloca i32
+  store i32 1634760805, i32* %__v181_x0
+  %__v182_x5 = alloca i32
+  store i32 857760878, i32* %__v182_x5
+  %__v183_x10 = alloca i32
+  store i32 2036477234, i32* %__v183_x10
+  %__v184_x15 = alloca i32
+  store i32 1797285236, i32* %__v184_x15
+  %0 = getelementptr i8, i8* %__v180_k, i64 0
+  %"__v283___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
+  %__v185_x1 = alloca i32
+  store i32 %"__v283___load[32]/secret_le", i32* %__v185_x1
+  %1 = getelementptr i8, i8* %__v180_k, i64 4
+  %"__v284___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
+  %__v186_x2 = alloca i32
+  store i32 %"__v284___load[32]/secret_le", i32* %__v186_x2
+  %2 = getelementptr i8, i8* %__v180_k, i64 8
+  %"__v285___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
+  %__v187_x3 = alloca i32
+  store i32 %"__v285___load[32]/secret_le", i32* %__v187_x3
+  %3 = getelementptr i8, i8* %__v180_k, i64 12
+  %"__v286___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
+  %__v188_x4 = alloca i32
+  store i32 %"__v286___load[32]/secret_le", i32* %__v188_x4
+  %4 = getelementptr i8, i8* %__v180_k, i64 16
+  %"__v287___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
+  %__v189_x11 = alloca i32
+  store i32 %"__v287___load[32]/secret_le", i32* %__v189_x11
+  %5 = getelementptr i8, i8* %__v180_k, i64 20
+  %"__v288___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
+  %__v190_x12 = alloca i32
+  store i32 %"__v288___load[32]/secret_le", i32* %__v190_x12
+  %6 = getelementptr i8, i8* %__v180_k, i64 24
+  %"__v289___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
+  %__v191_x13 = alloca i32
+  store i32 %"__v289___load[32]/secret_le", i32* %__v191_x13
+  %7 = getelementptr i8, i8* %__v180_k, i64 28
+  %"__v290___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
+  %__v192_x14 = alloca i32
+  store i32 %"__v290___load[32]/secret_le", i32* %__v192_x14
+  %8 = getelementptr i8, i8* %__v179_input, i64 0
+  %"__v291___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
+  %__v193_x6 = alloca i32
+  store i32 %"__v291___load[32]/secret_le", i32* %__v193_x6
+  %9 = getelementptr i8, i8* %__v179_input, i64 4
+  %"__v292___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
+  %__v194_x7 = alloca i32
+  store i32 %"__v292___load[32]/secret_le", i32* %__v194_x7
+  %10 = getelementptr i8, i8* %__v179_input, i64 8
+  %"__v293___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
+  %__v195_x8 = alloca i32
+  store i32 %"__v293___load[32]/secret_le", i32* %__v195_x8
+  %11 = getelementptr i8, i8* %__v179_input, i64 12
+  %"__v294___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
+  %__v196_x9 = alloca i32
+  store i32 %"__v294___load[32]/secret_le", i32* %__v196_x9
+  br label %12
+
+; <label>:12:                                     ; preds = %207, %entry
+  %__v197_i = phi i32 [ 0, %entry ], [ %208, %207 ]
+  %13 = icmp ult i32 %__v197_i, 10
+  br i1 %13, label %14, label %209
+
+; <label>:14:                                     ; preds = %12
+  %15 = load i32, i32* %__v188_x4
+  %16 = load i32, i32* %__v181_x0
+  %17 = load i32, i32* %__v190_x12
+  %18 = add i32 %16, %17
+  %19 = call i32 @fact.rotl.i32(i32 %18, i32 7)
+  %20 = xor i32 %15, %19
+  store i32 %20, i32* %__v188_x4
+  %21 = load i32, i32* %__v195_x8
+  %22 = load i32, i32* %__v188_x4
+  %23 = load i32, i32* %__v181_x0
+  %24 = add i32 %22, %23
+  %25 = call i32 @fact.rotl.i32(i32 %24, i32 9)
+  %26 = xor i32 %21, %25
+  store i32 %26, i32* %__v195_x8
+  %27 = load i32, i32* %__v190_x12
+  %28 = load i32, i32* %__v195_x8
+  %29 = load i32, i32* %__v188_x4
+  %30 = add i32 %28, %29
+  %31 = call i32 @fact.rotl.i32(i32 %30, i32 13)
+  %32 = xor i32 %27, %31
+  store i32 %32, i32* %__v190_x12
+  %33 = load i32, i32* %__v181_x0
+  %34 = load i32, i32* %__v190_x12
+  %35 = load i32, i32* %__v195_x8
+  %36 = add i32 %34, %35
+  %37 = call i32 @fact.rotl.i32(i32 %36, i32 18)
+  %38 = xor i32 %33, %37
+  store i32 %38, i32* %__v181_x0
+  %39 = load i32, i32* %__v196_x9
+  %40 = load i32, i32* %__v182_x5
+  %41 = load i32, i32* %__v185_x1
+  %42 = add i32 %40, %41
+  %43 = call i32 @fact.rotl.i32(i32 %42, i32 7)
+  %44 = xor i32 %39, %43
+  store i32 %44, i32* %__v196_x9
+  %45 = load i32, i32* %__v191_x13
+  %46 = load i32, i32* %__v196_x9
+  %47 = load i32, i32* %__v182_x5
+  %48 = add i32 %46, %47
+  %49 = call i32 @fact.rotl.i32(i32 %48, i32 9)
+  %50 = xor i32 %45, %49
+  store i32 %50, i32* %__v191_x13
+  %51 = load i32, i32* %__v185_x1
+  %52 = load i32, i32* %__v191_x13
+  %53 = load i32, i32* %__v196_x9
+  %54 = add i32 %52, %53
+  %55 = call i32 @fact.rotl.i32(i32 %54, i32 13)
+  %56 = xor i32 %51, %55
+  store i32 %56, i32* %__v185_x1
+  %57 = load i32, i32* %__v182_x5
+  %58 = load i32, i32* %__v185_x1
+  %59 = load i32, i32* %__v191_x13
+  %60 = add i32 %58, %59
+  %61 = call i32 @fact.rotl.i32(i32 %60, i32 18)
+  %62 = xor i32 %57, %61
+  store i32 %62, i32* %__v182_x5
+  %63 = load i32, i32* %__v192_x14
+  %64 = load i32, i32* %__v183_x10
+  %65 = load i32, i32* %__v193_x6
+  %66 = add i32 %64, %65
+  %67 = call i32 @fact.rotl.i32(i32 %66, i32 7)
+  %68 = xor i32 %63, %67
+  store i32 %68, i32* %__v192_x14
+  %69 = load i32, i32* %__v186_x2
+  %70 = load i32, i32* %__v192_x14
+  %71 = load i32, i32* %__v183_x10
+  %72 = add i32 %70, %71
+  %73 = call i32 @fact.rotl.i32(i32 %72, i32 9)
+  %74 = xor i32 %69, %73
+  store i32 %74, i32* %__v186_x2
+  %75 = load i32, i32* %__v193_x6
+  %76 = load i32, i32* %__v186_x2
+  %77 = load i32, i32* %__v192_x14
+  %78 = add i32 %76, %77
+  %79 = call i32 @fact.rotl.i32(i32 %78, i32 13)
+  %80 = xor i32 %75, %79
+  store i32 %80, i32* %__v193_x6
+  %81 = load i32, i32* %__v183_x10
+  %82 = load i32, i32* %__v193_x6
+  %83 = load i32, i32* %__v186_x2
+  %84 = add i32 %82, %83
+  %85 = call i32 @fact.rotl.i32(i32 %84, i32 18)
+  %86 = xor i32 %81, %85
+  store i32 %86, i32* %__v183_x10
+  %87 = load i32, i32* %__v187_x3
+  %88 = load i32, i32* %__v184_x15
+  %89 = load i32, i32* %__v189_x11
+  %90 = add i32 %88, %89
+  %91 = call i32 @fact.rotl.i32(i32 %90, i32 7)
+  %92 = xor i32 %87, %91
+  store i32 %92, i32* %__v187_x3
+  %93 = load i32, i32* %__v194_x7
+  %94 = load i32, i32* %__v187_x3
+  %95 = load i32, i32* %__v184_x15
+  %96 = add i32 %94, %95
+  %97 = call i32 @fact.rotl.i32(i32 %96, i32 9)
+  %98 = xor i32 %93, %97
+  store i32 %98, i32* %__v194_x7
+  %99 = load i32, i32* %__v189_x11
+  %100 = load i32, i32* %__v194_x7
+  %101 = load i32, i32* %__v187_x3
+  %102 = add i32 %100, %101
+  %103 = call i32 @fact.rotl.i32(i32 %102, i32 13)
+  %104 = xor i32 %99, %103
+  store i32 %104, i32* %__v189_x11
+  %105 = load i32, i32* %__v184_x15
+  %106 = load i32, i32* %__v189_x11
+  %107 = load i32, i32* %__v194_x7
+  %108 = add i32 %106, %107
+  %109 = call i32 @fact.rotl.i32(i32 %108, i32 18)
+  %110 = xor i32 %105, %109
+  store i32 %110, i32* %__v184_x15
+  %111 = load i32, i32* %__v185_x1
+  %112 = load i32, i32* %__v181_x0
+  %113 = load i32, i32* %__v187_x3
+  %114 = add i32 %112, %113
+  %115 = call i32 @fact.rotl.i32(i32 %114, i32 7)
+  %116 = xor i32 %111, %115
+  store i32 %116, i32* %__v185_x1
+  %117 = load i32, i32* %__v186_x2
+  %118 = load i32, i32* %__v185_x1
+  %119 = load i32, i32* %__v181_x0
+  %120 = add i32 %118, %119
+  %121 = call i32 @fact.rotl.i32(i32 %120, i32 9)
+  %122 = xor i32 %117, %121
+  store i32 %122, i32* %__v186_x2
+  %123 = load i32, i32* %__v187_x3
+  %124 = load i32, i32* %__v186_x2
+  %125 = load i32, i32* %__v185_x1
+  %126 = add i32 %124, %125
+  %127 = call i32 @fact.rotl.i32(i32 %126, i32 13)
+  %128 = xor i32 %123, %127
+  store i32 %128, i32* %__v187_x3
+  %129 = load i32, i32* %__v181_x0
+  %130 = load i32, i32* %__v187_x3
+  %131 = load i32, i32* %__v186_x2
+  %132 = add i32 %130, %131
+  %133 = call i32 @fact.rotl.i32(i32 %132, i32 18)
+  %134 = xor i32 %129, %133
+  store i32 %134, i32* %__v181_x0
+  %135 = load i32, i32* %__v193_x6
+  %136 = load i32, i32* %__v182_x5
+  %137 = load i32, i32* %__v188_x4
+  %138 = add i32 %136, %137
+  %139 = call i32 @fact.rotl.i32(i32 %138, i32 7)
+  %140 = xor i32 %135, %139
+  store i32 %140, i32* %__v193_x6
+  %141 = load i32, i32* %__v194_x7
+  %142 = load i32, i32* %__v193_x6
+  %143 = load i32, i32* %__v182_x5
+  %144 = add i32 %142, %143
+  %145 = call i32 @fact.rotl.i32(i32 %144, i32 9)
+  %146 = xor i32 %141, %145
+  store i32 %146, i32* %__v194_x7
+  %147 = load i32, i32* %__v188_x4
+  %148 = load i32, i32* %__v194_x7
+  %149 = load i32, i32* %__v193_x6
+  %150 = add i32 %148, %149
+  %151 = call i32 @fact.rotl.i32(i32 %150, i32 13)
+  %152 = xor i32 %147, %151
+  store i32 %152, i32* %__v188_x4
+  %153 = load i32, i32* %__v182_x5
+  %154 = load i32, i32* %__v188_x4
+  %155 = load i32, i32* %__v194_x7
+  %156 = add i32 %154, %155
+  %157 = call i32 @fact.rotl.i32(i32 %156, i32 18)
+  %158 = xor i32 %153, %157
+  store i32 %158, i32* %__v182_x5
+  %159 = load i32, i32* %__v189_x11
+  %160 = load i32, i32* %__v183_x10
+  %161 = load i32, i32* %__v196_x9
+  %162 = add i32 %160, %161
+  %163 = call i32 @fact.rotl.i32(i32 %162, i32 7)
+  %164 = xor i32 %159, %163
+  store i32 %164, i32* %__v189_x11
+  %165 = load i32, i32* %__v195_x8
+  %166 = load i32, i32* %__v189_x11
+  %167 = load i32, i32* %__v183_x10
+  %168 = add i32 %166, %167
+  %169 = call i32 @fact.rotl.i32(i32 %168, i32 9)
+  %170 = xor i32 %165, %169
+  store i32 %170, i32* %__v195_x8
+  %171 = load i32, i32* %__v196_x9
+  %172 = load i32, i32* %__v195_x8
+  %173 = load i32, i32* %__v189_x11
+  %174 = add i32 %172, %173
+  %175 = call i32 @fact.rotl.i32(i32 %174, i32 13)
+  %176 = xor i32 %171, %175
+  store i32 %176, i32* %__v196_x9
+  %177 = load i32, i32* %__v183_x10
+  %178 = load i32, i32* %__v196_x9
+  %179 = load i32, i32* %__v195_x8
+  %180 = add i32 %178, %179
+  %181 = call i32 @fact.rotl.i32(i32 %180, i32 18)
+  %182 = xor i32 %177, %181
+  store i32 %182, i32* %__v183_x10
+  %183 = load i32, i32* %__v190_x12
+  %184 = load i32, i32* %__v184_x15
+  %185 = load i32, i32* %__v192_x14
+  %186 = add i32 %184, %185
+  %187 = call i32 @fact.rotl.i32(i32 %186, i32 7)
+  %188 = xor i32 %183, %187
+  store i32 %188, i32* %__v190_x12
+  %189 = load i32, i32* %__v191_x13
+  %190 = load i32, i32* %__v190_x12
+  %191 = load i32, i32* %__v184_x15
+  %192 = add i32 %190, %191
+  %193 = call i32 @fact.rotl.i32(i32 %192, i32 9)
+  %194 = xor i32 %189, %193
+  store i32 %194, i32* %__v191_x13
+  %195 = load i32, i32* %__v192_x14
+  %196 = load i32, i32* %__v191_x13
+  %197 = load i32, i32* %__v190_x12
+  %198 = add i32 %196, %197
+  %199 = call i32 @fact.rotl.i32(i32 %198, i32 13)
+  %200 = xor i32 %195, %199
+  store i32 %200, i32* %__v192_x14
+  %201 = load i32, i32* %__v184_x15
+  %202 = load i32, i32* %__v192_x14
+  %203 = load i32, i32* %__v191_x13
+  %204 = add i32 %202, %203
+  %205 = call i32 @fact.rotl.i32(i32 %204, i32 18)
+  %206 = xor i32 %201, %205
+  store i32 %206, i32* %__v184_x15
+  br label %207
+
+; <label>:207:                                    ; preds = %14
+  %208 = add i32 %__v197_i, 1
+  br label %12
+
+; <label>:209:                                    ; preds = %12
+  %210 = getelementptr i8, i8* %__v178_out, i64 0
+  %211 = load i32, i32* %__v181_x0
+  call void @"__store[32]/secret_le"(i8* %210, i32 %211)
+  %212 = getelementptr i8, i8* %__v178_out, i64 4
+  %213 = load i32, i32* %__v182_x5
+  call void @"__store[32]/secret_le"(i8* %212, i32 %213)
+  %214 = getelementptr i8, i8* %__v178_out, i64 8
+  %215 = load i32, i32* %__v183_x10
+  call void @"__store[32]/secret_le"(i8* %214, i32 %215)
+  %216 = getelementptr i8, i8* %__v178_out, i64 12
+  %217 = load i32, i32* %__v184_x15
+  call void @"__store[32]/secret_le"(i8* %216, i32 %217)
+  %218 = getelementptr i8, i8* %__v178_out, i64 16
+  %219 = load i32, i32* %__v193_x6
+  call void @"__store[32]/secret_le"(i8* %218, i32 %219)
+  %220 = getelementptr i8, i8* %__v178_out, i64 20
+  %221 = load i32, i32* %__v194_x7
+  call void @"__store[32]/secret_le"(i8* %220, i32 %221)
+  %222 = getelementptr i8, i8* %__v178_out, i64 24
+  %223 = load i32, i32* %__v195_x8
+  call void @"__store[32]/secret_le"(i8* %222, i32 %223)
+  %224 = getelementptr i8, i8* %__v178_out, i64 28
+  %225 = load i32, i32* %__v196_x9
+  call void @"__store[32]/secret_le"(i8* %224, i32 %225)
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal i32 @fact.rotl.i32(i32 %x, i32 %n) #0 {
+entry:
+  %0 = shl i32 %x, %n
+  %1 = sub i32 32, %n
+  %2 = lshr i32 %x, %1
+  %3 = or i32 %0, %2
+  ret i32 %3
+}
+
+define internal void @_crypto_core_salsa20(i8* %__v142_output, i8* %__v143_input, i8* %__v144_k) {
+entry:
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v145_x0 = alloca i32
+  store i32 1634760805, i32* %__v145_x0
+  %__v146_x5 = alloca i32
+  store i32 857760878, i32* %__v146_x5
+  %__v147_x10 = alloca i32
+  store i32 2036477234, i32* %__v147_x10
+  %__v148_x15 = alloca i32
+  store i32 1797285236, i32* %__v148_x15
+  %__v149_j0 = load i32, i32* %__v145_x0
+  %__v150_j5 = load i32, i32* %__v146_x5
+  %__v151_j10 = load i32, i32* %__v147_x10
+  %__v152_j15 = load i32, i32* %__v148_x15
+  %0 = getelementptr i8, i8* %__v144_k, i64 0
+  %"__v271___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
+  %__v153_x1 = alloca i32
+  store i32 %"__v271___load[32]/secret_le", i32* %__v153_x1
+  %1 = getelementptr i8, i8* %__v144_k, i64 4
+  %"__v272___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
+  %__v154_x2 = alloca i32
+  store i32 %"__v272___load[32]/secret_le", i32* %__v154_x2
+  %2 = getelementptr i8, i8* %__v144_k, i64 8
+  %"__v273___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
+  %__v155_x3 = alloca i32
+  store i32 %"__v273___load[32]/secret_le", i32* %__v155_x3
+  %3 = getelementptr i8, i8* %__v144_k, i64 12
+  %"__v274___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
+  %__v156_x4 = alloca i32
+  store i32 %"__v274___load[32]/secret_le", i32* %__v156_x4
+  %4 = getelementptr i8, i8* %__v144_k, i64 16
+  %"__v275___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
+  %__v157_x11 = alloca i32
+  store i32 %"__v275___load[32]/secret_le", i32* %__v157_x11
+  %5 = getelementptr i8, i8* %__v144_k, i64 20
+  %"__v276___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
+  %__v158_x12 = alloca i32
+  store i32 %"__v276___load[32]/secret_le", i32* %__v158_x12
+  %6 = getelementptr i8, i8* %__v144_k, i64 24
+  %"__v277___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
+  %__v159_x13 = alloca i32
+  store i32 %"__v277___load[32]/secret_le", i32* %__v159_x13
+  %7 = getelementptr i8, i8* %__v144_k, i64 28
+  %"__v278___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
+  %__v160_x14 = alloca i32
+  store i32 %"__v278___load[32]/secret_le", i32* %__v160_x14
+  %__v161_j1 = load i32, i32* %__v153_x1
+  %__v162_j2 = load i32, i32* %__v154_x2
+  %__v163_j3 = load i32, i32* %__v155_x3
+  %__v164_j4 = load i32, i32* %__v156_x4
+  %__v165_j11 = load i32, i32* %__v157_x11
+  %__v166_j12 = load i32, i32* %__v158_x12
+  %__v167_j13 = load i32, i32* %__v159_x13
+  %__v168_j14 = load i32, i32* %__v160_x14
+  %8 = getelementptr i8, i8* %__v143_input, i64 0
+  %"__v279___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
+  %__v169_x6 = alloca i32
+  store i32 %"__v279___load[32]/secret_le", i32* %__v169_x6
+  %9 = getelementptr i8, i8* %__v143_input, i64 4
+  %"__v280___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
+  %__v170_x7 = alloca i32
+  store i32 %"__v280___load[32]/secret_le", i32* %__v170_x7
+  %10 = getelementptr i8, i8* %__v143_input, i64 8
+  %"__v281___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
+  %__v171_x8 = alloca i32
+  store i32 %"__v281___load[32]/secret_le", i32* %__v171_x8
+  %11 = getelementptr i8, i8* %__v143_input, i64 12
+  %"__v282___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
+  %__v172_x9 = alloca i32
+  store i32 %"__v282___load[32]/secret_le", i32* %__v172_x9
+  %__v173_j6 = load i32, i32* %__v169_x6
+  %__v174_j7 = load i32, i32* %__v170_x7
+  %__v175_j8 = load i32, i32* %__v171_x8
+  %__v176_j9 = load i32, i32* %__v172_x9
+  br label %12
+
+; <label>:12:                                     ; preds = %207, %entry
+  %__v177_i = phi i32 [ 0, %entry ], [ %208, %207 ]
+  %13 = icmp ult i32 %__v177_i, 10
+  br i1 %13, label %14, label %209
+
+; <label>:14:                                     ; preds = %12
+  %15 = load i32, i32* %__v156_x4
+  %16 = load i32, i32* %__v145_x0
+  %17 = load i32, i32* %__v158_x12
+  %18 = add i32 %16, %17
+  %19 = call i32 @fact.rotl.i32(i32 %18, i32 7)
+  %20 = xor i32 %15, %19
+  store i32 %20, i32* %__v156_x4
+  %21 = load i32, i32* %__v171_x8
+  %22 = load i32, i32* %__v156_x4
+  %23 = load i32, i32* %__v145_x0
+  %24 = add i32 %22, %23
+  %25 = call i32 @fact.rotl.i32(i32 %24, i32 9)
+  %26 = xor i32 %21, %25
+  store i32 %26, i32* %__v171_x8
+  %27 = load i32, i32* %__v158_x12
+  %28 = load i32, i32* %__v171_x8
+  %29 = load i32, i32* %__v156_x4
+  %30 = add i32 %28, %29
+  %31 = call i32 @fact.rotl.i32(i32 %30, i32 13)
+  %32 = xor i32 %27, %31
+  store i32 %32, i32* %__v158_x12
+  %33 = load i32, i32* %__v145_x0
+  %34 = load i32, i32* %__v158_x12
+  %35 = load i32, i32* %__v171_x8
+  %36 = add i32 %34, %35
+  %37 = call i32 @fact.rotl.i32(i32 %36, i32 18)
+  %38 = xor i32 %33, %37
+  store i32 %38, i32* %__v145_x0
+  %39 = load i32, i32* %__v172_x9
+  %40 = load i32, i32* %__v146_x5
+  %41 = load i32, i32* %__v153_x1
+  %42 = add i32 %40, %41
+  %43 = call i32 @fact.rotl.i32(i32 %42, i32 7)
+  %44 = xor i32 %39, %43
+  store i32 %44, i32* %__v172_x9
+  %45 = load i32, i32* %__v159_x13
+  %46 = load i32, i32* %__v172_x9
+  %47 = load i32, i32* %__v146_x5
+  %48 = add i32 %46, %47
+  %49 = call i32 @fact.rotl.i32(i32 %48, i32 9)
+  %50 = xor i32 %45, %49
+  store i32 %50, i32* %__v159_x13
+  %51 = load i32, i32* %__v153_x1
+  %52 = load i32, i32* %__v159_x13
+  %53 = load i32, i32* %__v172_x9
+  %54 = add i32 %52, %53
+  %55 = call i32 @fact.rotl.i32(i32 %54, i32 13)
+  %56 = xor i32 %51, %55
+  store i32 %56, i32* %__v153_x1
+  %57 = load i32, i32* %__v146_x5
+  %58 = load i32, i32* %__v153_x1
+  %59 = load i32, i32* %__v159_x13
+  %60 = add i32 %58, %59
+  %61 = call i32 @fact.rotl.i32(i32 %60, i32 18)
+  %62 = xor i32 %57, %61
+  store i32 %62, i32* %__v146_x5
+  %63 = load i32, i32* %__v160_x14
+  %64 = load i32, i32* %__v147_x10
+  %65 = load i32, i32* %__v169_x6
+  %66 = add i32 %64, %65
+  %67 = call i32 @fact.rotl.i32(i32 %66, i32 7)
+  %68 = xor i32 %63, %67
+  store i32 %68, i32* %__v160_x14
+  %69 = load i32, i32* %__v154_x2
+  %70 = load i32, i32* %__v160_x14
+  %71 = load i32, i32* %__v147_x10
+  %72 = add i32 %70, %71
+  %73 = call i32 @fact.rotl.i32(i32 %72, i32 9)
+  %74 = xor i32 %69, %73
+  store i32 %74, i32* %__v154_x2
+  %75 = load i32, i32* %__v169_x6
+  %76 = load i32, i32* %__v154_x2
+  %77 = load i32, i32* %__v160_x14
+  %78 = add i32 %76, %77
+  %79 = call i32 @fact.rotl.i32(i32 %78, i32 13)
+  %80 = xor i32 %75, %79
+  store i32 %80, i32* %__v169_x6
+  %81 = load i32, i32* %__v147_x10
+  %82 = load i32, i32* %__v169_x6
+  %83 = load i32, i32* %__v154_x2
+  %84 = add i32 %82, %83
+  %85 = call i32 @fact.rotl.i32(i32 %84, i32 18)
+  %86 = xor i32 %81, %85
+  store i32 %86, i32* %__v147_x10
+  %87 = load i32, i32* %__v155_x3
+  %88 = load i32, i32* %__v148_x15
+  %89 = load i32, i32* %__v157_x11
+  %90 = add i32 %88, %89
+  %91 = call i32 @fact.rotl.i32(i32 %90, i32 7)
+  %92 = xor i32 %87, %91
+  store i32 %92, i32* %__v155_x3
+  %93 = load i32, i32* %__v170_x7
+  %94 = load i32, i32* %__v155_x3
+  %95 = load i32, i32* %__v148_x15
+  %96 = add i32 %94, %95
+  %97 = call i32 @fact.rotl.i32(i32 %96, i32 9)
+  %98 = xor i32 %93, %97
+  store i32 %98, i32* %__v170_x7
+  %99 = load i32, i32* %__v157_x11
+  %100 = load i32, i32* %__v170_x7
+  %101 = load i32, i32* %__v155_x3
+  %102 = add i32 %100, %101
+  %103 = call i32 @fact.rotl.i32(i32 %102, i32 13)
+  %104 = xor i32 %99, %103
+  store i32 %104, i32* %__v157_x11
+  %105 = load i32, i32* %__v148_x15
+  %106 = load i32, i32* %__v157_x11
+  %107 = load i32, i32* %__v170_x7
+  %108 = add i32 %106, %107
+  %109 = call i32 @fact.rotl.i32(i32 %108, i32 18)
+  %110 = xor i32 %105, %109
+  store i32 %110, i32* %__v148_x15
+  %111 = load i32, i32* %__v153_x1
+  %112 = load i32, i32* %__v145_x0
+  %113 = load i32, i32* %__v155_x3
+  %114 = add i32 %112, %113
+  %115 = call i32 @fact.rotl.i32(i32 %114, i32 7)
+  %116 = xor i32 %111, %115
+  store i32 %116, i32* %__v153_x1
+  %117 = load i32, i32* %__v154_x2
+  %118 = load i32, i32* %__v153_x1
+  %119 = load i32, i32* %__v145_x0
+  %120 = add i32 %118, %119
+  %121 = call i32 @fact.rotl.i32(i32 %120, i32 9)
+  %122 = xor i32 %117, %121
+  store i32 %122, i32* %__v154_x2
+  %123 = load i32, i32* %__v155_x3
+  %124 = load i32, i32* %__v154_x2
+  %125 = load i32, i32* %__v153_x1
+  %126 = add i32 %124, %125
+  %127 = call i32 @fact.rotl.i32(i32 %126, i32 13)
+  %128 = xor i32 %123, %127
+  store i32 %128, i32* %__v155_x3
+  %129 = load i32, i32* %__v145_x0
+  %130 = load i32, i32* %__v155_x3
+  %131 = load i32, i32* %__v154_x2
+  %132 = add i32 %130, %131
+  %133 = call i32 @fact.rotl.i32(i32 %132, i32 18)
+  %134 = xor i32 %129, %133
+  store i32 %134, i32* %__v145_x0
+  %135 = load i32, i32* %__v169_x6
+  %136 = load i32, i32* %__v146_x5
+  %137 = load i32, i32* %__v156_x4
+  %138 = add i32 %136, %137
+  %139 = call i32 @fact.rotl.i32(i32 %138, i32 7)
+  %140 = xor i32 %135, %139
+  store i32 %140, i32* %__v169_x6
+  %141 = load i32, i32* %__v170_x7
+  %142 = load i32, i32* %__v169_x6
+  %143 = load i32, i32* %__v146_x5
+  %144 = add i32 %142, %143
+  %145 = call i32 @fact.rotl.i32(i32 %144, i32 9)
+  %146 = xor i32 %141, %145
+  store i32 %146, i32* %__v170_x7
+  %147 = load i32, i32* %__v156_x4
+  %148 = load i32, i32* %__v170_x7
+  %149 = load i32, i32* %__v169_x6
+  %150 = add i32 %148, %149
+  %151 = call i32 @fact.rotl.i32(i32 %150, i32 13)
+  %152 = xor i32 %147, %151
+  store i32 %152, i32* %__v156_x4
+  %153 = load i32, i32* %__v146_x5
+  %154 = load i32, i32* %__v156_x4
+  %155 = load i32, i32* %__v170_x7
+  %156 = add i32 %154, %155
+  %157 = call i32 @fact.rotl.i32(i32 %156, i32 18)
+  %158 = xor i32 %153, %157
+  store i32 %158, i32* %__v146_x5
+  %159 = load i32, i32* %__v157_x11
+  %160 = load i32, i32* %__v147_x10
+  %161 = load i32, i32* %__v172_x9
+  %162 = add i32 %160, %161
+  %163 = call i32 @fact.rotl.i32(i32 %162, i32 7)
+  %164 = xor i32 %159, %163
+  store i32 %164, i32* %__v157_x11
+  %165 = load i32, i32* %__v171_x8
+  %166 = load i32, i32* %__v157_x11
+  %167 = load i32, i32* %__v147_x10
+  %168 = add i32 %166, %167
+  %169 = call i32 @fact.rotl.i32(i32 %168, i32 9)
+  %170 = xor i32 %165, %169
+  store i32 %170, i32* %__v171_x8
+  %171 = load i32, i32* %__v172_x9
+  %172 = load i32, i32* %__v171_x8
+  %173 = load i32, i32* %__v157_x11
+  %174 = add i32 %172, %173
+  %175 = call i32 @fact.rotl.i32(i32 %174, i32 13)
+  %176 = xor i32 %171, %175
+  store i32 %176, i32* %__v172_x9
+  %177 = load i32, i32* %__v147_x10
+  %178 = load i32, i32* %__v172_x9
+  %179 = load i32, i32* %__v171_x8
+  %180 = add i32 %178, %179
+  %181 = call i32 @fact.rotl.i32(i32 %180, i32 18)
+  %182 = xor i32 %177, %181
+  store i32 %182, i32* %__v147_x10
+  %183 = load i32, i32* %__v158_x12
+  %184 = load i32, i32* %__v148_x15
+  %185 = load i32, i32* %__v160_x14
+  %186 = add i32 %184, %185
+  %187 = call i32 @fact.rotl.i32(i32 %186, i32 7)
+  %188 = xor i32 %183, %187
+  store i32 %188, i32* %__v158_x12
+  %189 = load i32, i32* %__v159_x13
+  %190 = load i32, i32* %__v158_x12
+  %191 = load i32, i32* %__v148_x15
+  %192 = add i32 %190, %191
+  %193 = call i32 @fact.rotl.i32(i32 %192, i32 9)
+  %194 = xor i32 %189, %193
+  store i32 %194, i32* %__v159_x13
+  %195 = load i32, i32* %__v160_x14
+  %196 = load i32, i32* %__v159_x13
+  %197 = load i32, i32* %__v158_x12
+  %198 = add i32 %196, %197
+  %199 = call i32 @fact.rotl.i32(i32 %198, i32 13)
+  %200 = xor i32 %195, %199
+  store i32 %200, i32* %__v160_x14
+  %201 = load i32, i32* %__v148_x15
+  %202 = load i32, i32* %__v160_x14
+  %203 = load i32, i32* %__v159_x13
+  %204 = add i32 %202, %203
+  %205 = call i32 @fact.rotl.i32(i32 %204, i32 18)
+  %206 = xor i32 %201, %205
+  store i32 %206, i32* %__v148_x15
+  br label %207
+
+; <label>:207:                                    ; preds = %14
+  %208 = add i32 %__v177_i, 1
+  br label %12
+
+; <label>:209:                                    ; preds = %12
+  %210 = getelementptr i8, i8* %__v142_output, i64 0
+  %211 = load i32, i32* %__v145_x0
+  %212 = add i32 %211, %__v149_j0
+  call void @"__store[32]/secret_le"(i8* %210, i32 %212)
+  %213 = getelementptr i8, i8* %__v142_output, i64 4
+  %214 = load i32, i32* %__v153_x1
+  %215 = add i32 %214, %__v161_j1
+  call void @"__store[32]/secret_le"(i8* %213, i32 %215)
+  %216 = getelementptr i8, i8* %__v142_output, i64 8
+  %217 = load i32, i32* %__v154_x2
+  %218 = add i32 %217, %__v162_j2
+  call void @"__store[32]/secret_le"(i8* %216, i32 %218)
+  %219 = getelementptr i8, i8* %__v142_output, i64 12
+  %220 = load i32, i32* %__v155_x3
+  %221 = add i32 %220, %__v163_j3
+  call void @"__store[32]/secret_le"(i8* %219, i32 %221)
+  %222 = getelementptr i8, i8* %__v142_output, i64 16
+  %223 = load i32, i32* %__v156_x4
+  %224 = add i32 %223, %__v164_j4
+  call void @"__store[32]/secret_le"(i8* %222, i32 %224)
+  %225 = getelementptr i8, i8* %__v142_output, i64 20
+  %226 = load i32, i32* %__v146_x5
+  %227 = add i32 %226, %__v150_j5
+  call void @"__store[32]/secret_le"(i8* %225, i32 %227)
+  %228 = getelementptr i8, i8* %__v142_output, i64 24
+  %229 = load i32, i32* %__v169_x6
+  %230 = add i32 %229, %__v173_j6
+  call void @"__store[32]/secret_le"(i8* %228, i32 %230)
+  %231 = getelementptr i8, i8* %__v142_output, i64 28
+  %232 = load i32, i32* %__v170_x7
+  %233 = add i32 %232, %__v174_j7
+  call void @"__store[32]/secret_le"(i8* %231, i32 %233)
+  %234 = getelementptr i8, i8* %__v142_output, i64 32
+  %235 = load i32, i32* %__v171_x8
+  %236 = add i32 %235, %__v175_j8
+  call void @"__store[32]/secret_le"(i8* %234, i32 %236)
+  %237 = getelementptr i8, i8* %__v142_output, i64 36
+  %238 = load i32, i32* %__v172_x9
+  %239 = add i32 %238, %__v176_j9
+  call void @"__store[32]/secret_le"(i8* %237, i32 %239)
+  %240 = getelementptr i8, i8* %__v142_output, i64 40
+  %241 = load i32, i32* %__v147_x10
+  %242 = add i32 %241, %__v151_j10
+  call void @"__store[32]/secret_le"(i8* %240, i32 %242)
+  %243 = getelementptr i8, i8* %__v142_output, i64 44
+  %244 = load i32, i32* %__v157_x11
+  %245 = add i32 %244, %__v165_j11
+  call void @"__store[32]/secret_le"(i8* %243, i32 %245)
+  %246 = getelementptr i8, i8* %__v142_output, i64 48
+  %247 = load i32, i32* %__v158_x12
+  %248 = add i32 %247, %__v166_j12
+  call void @"__store[32]/secret_le"(i8* %246, i32 %248)
+  %249 = getelementptr i8, i8* %__v142_output, i64 52
+  %250 = load i32, i32* %__v159_x13
+  %251 = add i32 %250, %__v167_j13
+  call void @"__store[32]/secret_le"(i8* %249, i32 %251)
+  %252 = getelementptr i8, i8* %__v142_output, i64 56
+  %253 = load i32, i32* %__v160_x14
+  %254 = add i32 %253, %__v168_j14
+  call void @"__store[32]/secret_le"(i8* %252, i32 %254)
+  %255 = getelementptr i8, i8* %__v142_output, i64 60
+  %256 = load i32, i32* %__v148_x15
+  %257 = add i32 %256, %__v152_j15
+  call void @"__store[32]/secret_le"(i8* %255, i32 %257)
+  ret void
+}
+
+define internal void @_poly1305_blocks(%poly1305_state_internal_t* %__v121_state, i8* %__v122_m, i64 %__v224___v122_m_len) {
+entry:
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 5
+  %1 = load i8, i8* %0
+  %2 = icmp ne i8 %1, 0
+  %__v125_hibit = call i64 @fact.select.sel.i64(i1 %2, i64 0, i64 1099511627776)
+  %3 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
+  %4 = bitcast [3 x i64]* %3 to i64*
+  %5 = getelementptr i64, i64* %4, i64 0
+  %__v126_r0 = load i64, i64* %5
+  %6 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
+  %7 = bitcast [3 x i64]* %6 to i64*
+  %8 = getelementptr i64, i64* %7, i64 1
+  %__v127_r1 = load i64, i64* %8
+  %9 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
+  %10 = bitcast [3 x i64]* %9 to i64*
+  %11 = getelementptr i64, i64* %10, i64 2
+  %__v128_r2 = load i64, i64* %11
+  %12 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %13 = bitcast [3 x i64]* %12 to i64*
+  %14 = getelementptr i64, i64* %13, i64 0
+  %15 = load i64, i64* %14
+  %__v129_h0 = alloca i64
+  store i64 %15, i64* %__v129_h0
+  %16 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %17 = bitcast [3 x i64]* %16 to i64*
+  %18 = getelementptr i64, i64* %17, i64 1
+  %19 = load i64, i64* %18
+  %__v130_h1 = alloca i64
+  store i64 %19, i64* %__v130_h1
+  %20 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %21 = bitcast [3 x i64]* %20 to i64*
+  %22 = getelementptr i64, i64* %21, i64 2
+  %23 = load i64, i64* %22
+  %__v131_h2 = alloca i64
+  store i64 %23, i64* %__v131_h2
+  %__v132_s1 = mul i64 %__v127_r1, 20
+  %__v133_s2 = mul i64 %__v128_r2, 20
+  %__v134_mloops = udiv i64 %__v224___v122_m_len, 16
+  br label %24
+
+; <label>:24:                                     ; preds = %124, %entry
+  %__v135_bindex = phi i64 [ 0, %entry ], [ %125, %124 ]
+  %25 = icmp ult i64 %__v135_bindex, %__v134_mloops
+  br i1 %25, label %26, label %126
+
+; <label>:26:                                     ; preds = %24
+  %__v268_lexpr = mul i64 %__v135_bindex, 16
+  %__v267_lexpr = mul i64 %__v135_bindex, 16
+  %27 = getelementptr i8, i8* %__v122_m, i64 %__v268_lexpr
+  %__v136_t0 = call i64 @"__load[64]/secret_le"(i8* %27)
+  %28 = mul i64 %__v135_bindex, 16
+  %__v270_lexpr = add i64 %28, 8
+  %29 = mul i64 %__v135_bindex, 16
+  %__v269_lexpr = add i64 %29, 8
+  %30 = getelementptr i8, i8* %__v122_m, i64 %__v270_lexpr
+  %__v137_t1 = call i64 @"__load[64]/secret_le"(i8* %30)
+  %31 = load i64, i64* %__v129_h0
+  %32 = and i64 %__v136_t0, 17592186044415
+  %33 = add i64 %31, %32
+  store i64 %33, i64* %__v129_h0
+  %34 = load i64, i64* %__v130_h1
+  %35 = lshr i64 %__v136_t0, 44
+  %36 = shl i64 %__v137_t1, 20
+  %37 = or i64 %35, %36
+  %38 = and i64 %37, 17592186044415
+  %39 = add i64 %34, %38
+  store i64 %39, i64* %__v130_h1
+  %40 = load i64, i64* %__v131_h2
+  %41 = lshr i64 %__v137_t1, 24
+  %42 = and i64 %41, 4398046511103
+  %43 = or i64 %42, %__v125_hibit
+  %44 = add i64 %40, %43
+  store i64 %44, i64* %__v131_h2
+  %45 = load i64, i64* %__v129_h0
+  %46 = zext i64 %45 to i128
+  %47 = zext i64 %__v126_r0 to i128
+  %48 = mul i128 %46, %47
+  %49 = load i64, i64* %__v130_h1
+  %50 = zext i64 %49 to i128
+  %51 = zext i64 %__v133_s2 to i128
+  %52 = mul i128 %50, %51
+  %53 = add i128 %48, %52
+  %54 = load i64, i64* %__v131_h2
+  %55 = zext i64 %54 to i128
+  %56 = zext i64 %__v132_s1 to i128
+  %57 = mul i128 %55, %56
+  %58 = add i128 %53, %57
+  %__v138_d0 = alloca i128
+  store i128 %58, i128* %__v138_d0
+  %59 = load i64, i64* %__v129_h0
+  %60 = zext i64 %59 to i128
+  %61 = zext i64 %__v127_r1 to i128
+  %62 = mul i128 %60, %61
+  %63 = load i64, i64* %__v130_h1
+  %64 = zext i64 %63 to i128
+  %65 = zext i64 %__v126_r0 to i128
+  %66 = mul i128 %64, %65
+  %67 = add i128 %62, %66
+  %68 = load i64, i64* %__v131_h2
+  %69 = zext i64 %68 to i128
+  %70 = zext i64 %__v133_s2 to i128
+  %71 = mul i128 %69, %70
+  %72 = add i128 %67, %71
+  %__v139_d1 = alloca i128
+  store i128 %72, i128* %__v139_d1
+  %73 = load i64, i64* %__v129_h0
+  %74 = zext i64 %73 to i128
+  %75 = zext i64 %__v128_r2 to i128
+  %76 = mul i128 %74, %75
+  %77 = load i64, i64* %__v130_h1
+  %78 = zext i64 %77 to i128
+  %79 = zext i64 %__v127_r1 to i128
+  %80 = mul i128 %78, %79
+  %81 = add i128 %76, %80
+  %82 = load i64, i64* %__v131_h2
+  %83 = zext i64 %82 to i128
+  %84 = zext i64 %__v126_r0 to i128
+  %85 = mul i128 %83, %84
+  %86 = add i128 %81, %85
+  %__v140_d2 = alloca i128
+  store i128 %86, i128* %__v140_d2
+  %87 = load i128, i128* %__v138_d0
+  %88 = lshr i128 %87, 44
+  %89 = trunc i128 %88 to i64
+  %__v141_c = alloca i64
+  store i64 %89, i64* %__v141_c
+  %90 = load i128, i128* %__v138_d0
+  %91 = trunc i128 %90 to i64
+  %92 = and i64 %91, 17592186044415
+  store i64 %92, i64* %__v129_h0
+  %93 = load i128, i128* %__v139_d1
+  %94 = load i64, i64* %__v141_c
+  %95 = zext i64 %94 to i128
+  %96 = add i128 %93, %95
+  store i128 %96, i128* %__v139_d1
+  %97 = load i128, i128* %__v139_d1
+  %98 = lshr i128 %97, 44
+  %99 = trunc i128 %98 to i64
+  store i64 %99, i64* %__v141_c
+  %100 = load i128, i128* %__v139_d1
+  %101 = trunc i128 %100 to i64
+  %102 = and i64 %101, 17592186044415
+  store i64 %102, i64* %__v130_h1
+  %103 = load i128, i128* %__v140_d2
+  %104 = load i64, i64* %__v141_c
+  %105 = zext i64 %104 to i128
+  %106 = add i128 %103, %105
+  store i128 %106, i128* %__v140_d2
+  %107 = load i128, i128* %__v140_d2
+  %108 = lshr i128 %107, 42
+  %109 = trunc i128 %108 to i64
+  store i64 %109, i64* %__v141_c
+  %110 = load i128, i128* %__v140_d2
+  %111 = trunc i128 %110 to i64
+  %112 = and i64 %111, 4398046511103
+  store i64 %112, i64* %__v131_h2
+  %113 = load i64, i64* %__v129_h0
+  %114 = load i64, i64* %__v141_c
+  %115 = mul i64 %114, 5
+  %116 = add i64 %113, %115
+  store i64 %116, i64* %__v129_h0
+  %117 = load i64, i64* %__v129_h0
+  %118 = lshr i64 %117, 44
+  store i64 %118, i64* %__v141_c
+  %119 = load i64, i64* %__v129_h0
+  %120 = and i64 %119, 17592186044415
+  store i64 %120, i64* %__v129_h0
+  %121 = load i64, i64* %__v130_h1
+  %122 = load i64, i64* %__v141_c
+  %123 = add i64 %121, %122
+  store i64 %123, i64* %__v130_h1
+  br label %124
+
+; <label>:124:                                    ; preds = %26
+  %125 = add i64 %__v135_bindex, 1
+  br label %24
+
+; <label>:126:                                    ; preds = %24
+  %127 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %128 = bitcast [3 x i64]* %127 to i64*
+  %129 = getelementptr i64, i64* %128, i64 0
+  %130 = load i64, i64* %__v129_h0
+  store i64 %130, i64* %129
+  %131 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %132 = bitcast [3 x i64]* %131 to i64*
+  %133 = getelementptr i64, i64* %132, i64 1
+  %134 = load i64, i64* %__v130_h1
+  store i64 %134, i64* %133
+  %135 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %136 = bitcast [3 x i64]* %135 to i64*
+  %137 = getelementptr i64, i64* %136, i64 2
+  %138 = load i64, i64* %__v131_h2
+  store i64 %138, i64* %137
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal i64 @fact.select.sel.i64(i1 %cond, i64 %x, i64 %y) #0 {
+entry:
+  %0 = select i1 %cond, i64 %x, i64 %y
+  ret i64 %0
+}
+
+define internal void @_poly1305_finish(%poly1305_state_internal_t* %__v106_state, i8* %__v107_mac) {
+entry:
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 3
+  %1 = load i64, i64* %0
+  %2 = icmp ne i64 %1, 0
+  br i1 %2, label %3, label %9
+
+; <label>:3:                                      ; preds = %entry
+  %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 3
+  %__v265_lexpr = load i64, i64* %4
+  %5 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %6 = bitcast [16 x i8]* %5 to i8*
+  %7 = getelementptr i8, i8* %6, i64 %__v265_lexpr
+  store i8 1, i8* %7
+  %8 = add i64 %__v265_lexpr, 1
+  br label %169
+
+; <label>:9:                                      ; preds = %entry
+  br label %10
+
+; <label>:10:                                     ; preds = %9, %177
+  %11 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
+  %12 = bitcast [3 x i64]* %11 to i64*
+  %13 = getelementptr i64, i64* %12, i64 0
+  %14 = load i64, i64* %13
+  %__v112_h0 = alloca i64
+  store i64 %14, i64* %__v112_h0
+  %15 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
+  %16 = bitcast [3 x i64]* %15 to i64*
+  %17 = getelementptr i64, i64* %16, i64 1
+  %18 = load i64, i64* %17
+  %__v113_h1 = alloca i64
+  store i64 %18, i64* %__v113_h1
+  %19 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
+  %20 = bitcast [3 x i64]* %19 to i64*
+  %21 = getelementptr i64, i64* %20, i64 2
+  %22 = load i64, i64* %21
+  %__v114_h2 = alloca i64
+  store i64 %22, i64* %__v114_h2
+  %23 = load i64, i64* %__v113_h1
+  %24 = lshr i64 %23, 44
+  %__v115_c = alloca i64
+  store i64 %24, i64* %__v115_c
+  %25 = load i64, i64* %__v113_h1
+  %26 = and i64 %25, 17592186044415
+  store i64 %26, i64* %__v113_h1
+  %27 = load i64, i64* %__v114_h2
+  %28 = load i64, i64* %__v115_c
+  %29 = add i64 %27, %28
+  store i64 %29, i64* %__v114_h2
+  %30 = load i64, i64* %__v114_h2
+  %31 = lshr i64 %30, 42
+  store i64 %31, i64* %__v115_c
+  %32 = load i64, i64* %__v114_h2
+  %33 = and i64 %32, 4398046511103
+  store i64 %33, i64* %__v114_h2
+  %34 = load i64, i64* %__v112_h0
+  %35 = load i64, i64* %__v115_c
+  %36 = mul i64 %35, 5
+  %37 = add i64 %34, %36
+  store i64 %37, i64* %__v112_h0
+  %38 = load i64, i64* %__v112_h0
+  %39 = lshr i64 %38, 44
+  store i64 %39, i64* %__v115_c
+  %40 = load i64, i64* %__v112_h0
+  %41 = and i64 %40, 17592186044415
+  store i64 %41, i64* %__v112_h0
+  %42 = load i64, i64* %__v113_h1
+  %43 = load i64, i64* %__v115_c
+  %44 = add i64 %42, %43
+  store i64 %44, i64* %__v113_h1
+  %45 = load i64, i64* %__v113_h1
+  %46 = lshr i64 %45, 44
+  store i64 %46, i64* %__v115_c
+  %47 = load i64, i64* %__v113_h1
+  %48 = and i64 %47, 17592186044415
+  store i64 %48, i64* %__v113_h1
+  %49 = load i64, i64* %__v114_h2
+  %50 = load i64, i64* %__v115_c
+  %51 = add i64 %49, %50
+  store i64 %51, i64* %__v114_h2
+  %52 = load i64, i64* %__v114_h2
+  %53 = lshr i64 %52, 42
+  store i64 %53, i64* %__v115_c
+  %54 = load i64, i64* %__v114_h2
+  %55 = and i64 %54, 4398046511103
+  store i64 %55, i64* %__v114_h2
+  %56 = load i64, i64* %__v112_h0
+  %57 = load i64, i64* %__v115_c
+  %58 = mul i64 %57, 5
+  %59 = add i64 %56, %58
+  store i64 %59, i64* %__v112_h0
+  %60 = load i64, i64* %__v112_h0
+  %61 = lshr i64 %60, 44
+  store i64 %61, i64* %__v115_c
+  %62 = load i64, i64* %__v112_h0
+  %63 = and i64 %62, 17592186044415
+  store i64 %63, i64* %__v112_h0
+  %64 = load i64, i64* %__v113_h1
+  %65 = load i64, i64* %__v115_c
+  %66 = add i64 %64, %65
+  store i64 %66, i64* %__v113_h1
+  %67 = load i64, i64* %__v112_h0
+  %68 = add i64 %67, 5
+  %__v116_g0 = alloca i64
+  store i64 %68, i64* %__v116_g0
+  %69 = load i64, i64* %__v116_g0
+  %70 = lshr i64 %69, 44
+  store i64 %70, i64* %__v115_c
+  %71 = load i64, i64* %__v116_g0
+  %72 = and i64 %71, 17592186044415
+  store i64 %72, i64* %__v116_g0
+  %73 = load i64, i64* %__v113_h1
+  %74 = load i64, i64* %__v115_c
+  %75 = add i64 %73, %74
+  %__v117_g1 = alloca i64
+  store i64 %75, i64* %__v117_g1
+  %76 = load i64, i64* %__v117_g1
+  %77 = lshr i64 %76, 44
+  store i64 %77, i64* %__v115_c
+  %78 = load i64, i64* %__v117_g1
+  %79 = and i64 %78, 17592186044415
+  store i64 %79, i64* %__v117_g1
+  %80 = load i64, i64* %__v114_h2
+  %81 = load i64, i64* %__v115_c
+  %82 = add i64 %80, %81
+  %83 = sub i64 %82, 4398046511104
+  %__v118_g2 = alloca i64
+  store i64 %83, i64* %__v118_g2
+  %84 = load i64, i64* %__v118_g2
+  %85 = lshr i64 %84, 63
+  %86 = sub i64 %85, 1
+  store i64 %86, i64* %__v115_c
+  %87 = load i64, i64* %__v116_g0
+  %88 = load i64, i64* %__v115_c
+  %89 = and i64 %87, %88
+  store i64 %89, i64* %__v116_g0
+  %90 = load i64, i64* %__v117_g1
+  %91 = load i64, i64* %__v115_c
+  %92 = and i64 %90, %91
+  store i64 %92, i64* %__v117_g1
+  %93 = load i64, i64* %__v118_g2
+  %94 = load i64, i64* %__v115_c
+  %95 = and i64 %93, %94
+  store i64 %95, i64* %__v118_g2
+  %96 = load i64, i64* %__v115_c
+  %97 = xor i64 %96, -1
+  store i64 %97, i64* %__v115_c
+  %98 = load i64, i64* %__v112_h0
+  %99 = load i64, i64* %__v115_c
+  %100 = and i64 %98, %99
+  %101 = load i64, i64* %__v116_g0
+  %102 = or i64 %100, %101
+  store i64 %102, i64* %__v112_h0
+  %103 = load i64, i64* %__v113_h1
+  %104 = load i64, i64* %__v115_c
+  %105 = and i64 %103, %104
+  %106 = load i64, i64* %__v117_g1
+  %107 = or i64 %105, %106
+  store i64 %107, i64* %__v113_h1
+  %108 = load i64, i64* %__v114_h2
+  %109 = load i64, i64* %__v115_c
+  %110 = and i64 %108, %109
+  %111 = load i64, i64* %__v118_g2
+  %112 = or i64 %110, %111
+  store i64 %112, i64* %__v114_h2
+  %113 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 2
+  %114 = bitcast [2 x i64]* %113 to i64*
+  %115 = getelementptr i64, i64* %114, i64 0
+  %__v119_t0 = load i64, i64* %115
+  %116 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 2
+  %117 = bitcast [2 x i64]* %116 to i64*
+  %118 = getelementptr i64, i64* %117, i64 1
+  %__v120_t1 = load i64, i64* %118
+  %119 = load i64, i64* %__v112_h0
+  %120 = and i64 %__v119_t0, 17592186044415
+  %121 = add i64 %119, %120
+  store i64 %121, i64* %__v112_h0
+  %122 = load i64, i64* %__v112_h0
+  %123 = lshr i64 %122, 44
+  store i64 %123, i64* %__v115_c
+  %124 = load i64, i64* %__v112_h0
+  %125 = and i64 %124, 17592186044415
+  store i64 %125, i64* %__v112_h0
+  %126 = load i64, i64* %__v113_h1
+  %127 = lshr i64 %__v119_t0, 44
+  %128 = shl i64 %__v120_t1, 20
+  %129 = or i64 %127, %128
+  %130 = and i64 %129, 17592186044415
+  %131 = load i64, i64* %__v115_c
+  %132 = add i64 %130, %131
+  %133 = add i64 %126, %132
+  store i64 %133, i64* %__v113_h1
+  %134 = load i64, i64* %__v113_h1
+  %135 = lshr i64 %134, 44
+  store i64 %135, i64* %__v115_c
+  %136 = load i64, i64* %__v113_h1
+  %137 = and i64 %136, 17592186044415
+  store i64 %137, i64* %__v113_h1
+  %138 = load i64, i64* %__v114_h2
+  %139 = lshr i64 %__v120_t1, 24
+  %140 = and i64 %139, 4398046511103
+  %141 = load i64, i64* %__v115_c
+  %142 = add i64 %140, %141
+  %143 = add i64 %138, %142
+  store i64 %143, i64* %__v114_h2
+  %144 = load i64, i64* %__v114_h2
+  %145 = and i64 %144, 4398046511103
+  store i64 %145, i64* %__v114_h2
+  %146 = load i64, i64* %__v112_h0
+  %147 = load i64, i64* %__v113_h1
+  %148 = shl i64 %147, 44
+  %149 = or i64 %146, %148
+  store i64 %149, i64* %__v112_h0
+  %150 = load i64, i64* %__v113_h1
+  %151 = lshr i64 %150, 20
+  %152 = load i64, i64* %__v114_h2
+  %153 = shl i64 %152, 24
+  %154 = or i64 %151, %153
+  store i64 %154, i64* %__v113_h1
+  %155 = getelementptr i8, i8* %__v107_mac, i64 0
+  %156 = load i64, i64* %__v112_h0
+  call void @"__store[64]/secret_le"(i8* %155, i64 %156)
+  %157 = getelementptr i8, i8* %__v107_mac, i64 8
+  %158 = load i64, i64* %__v113_h1
+  call void @"__store[64]/secret_le"(i8* %157, i64 %158)
+  %159 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 0
+  %160 = bitcast [3 x i64]* %159 to i64*
+  call void @"__memzero[64]/secret"(i64* %160, i64 3)
+  %161 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
+  %162 = bitcast [3 x i64]* %161 to i64*
+  call void @"__memzero[64]/secret"(i64* %162, i64 3)
+  %163 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 2
+  %164 = bitcast [2 x i64]* %163 to i64*
+  call void @"__memzero[64]/secret"(i64* %164, i64 2)
+  %165 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 3
+  store i64 0, i64* %165
+  %166 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %167 = bitcast [16 x i8]* %166 to i8*
+  call void @"__memzero[8]/secret"(i8* %167, i64 16)
+  %168 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
+  store i8 0, i8* %168
+  ret void
+
+; <label>:169:                                    ; preds = %175, %3
+  %__v266_lexpr = phi i64 [ %8, %3 ], [ %176, %175 ]
+  %170 = icmp ult i64 %__v266_lexpr, 16
+  br i1 %170, label %171, label %177
+
+; <label>:171:                                    ; preds = %169
+  %172 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %173 = bitcast [16 x i8]* %172 to i8*
+  %174 = getelementptr i8, i8* %173, i64 %__v266_lexpr
+  store i8 0, i8* %174
+  br label %175
+
+; <label>:175:                                    ; preds = %171
+  %176 = add i64 %__v266_lexpr, 1
+  br label %169
+
+; <label>:177:                                    ; preds = %169
+  %178 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
+  store i8 1, i8* %178
+  %179 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %180 = bitcast [16 x i8]* %179 to i8*
+  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v106_state, i8* %180, i64 16)
+  br label %10
+}
+
+define internal void @_poly1305_update(%poly1305_state_internal_t* %__v93_state, i8* %__v94_m, i64 %__v223___v94_m_len) {
+entry:
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v95_mindex = alloca i64
+  store i64 0, i64* %__v95_mindex
+  %0 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %1 = load i64, i64* %0
+  %2 = icmp ne i64 %1, 0
+  br i1 %2, label %3, label %9
+
+; <label>:3:                                      ; preds = %entry
+  %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %5 = load i64, i64* %4
+  %6 = sub i64 16, %5
+  %__v96_want = alloca i64
+  store i64 %6, i64* %__v96_want
+  %7 = load i64, i64* %__v96_want
+  %8 = icmp ugt i64 %7, %__v223___v94_m_len
+  br i1 %8, label %14, label %15
+
+; <label>:9:                                      ; preds = %entry
+  br label %10
+
+; <label>:10:                                     ; preds = %9, %44
+  %11 = load i64, i64* %__v95_mindex
+  %12 = sub i64 %__v223___v94_m_len, %11
+  %13 = icmp uge i64 %12, 16
+  br i1 %13, label %48, label %55
+
+; <label>:14:                                     ; preds = %3
+  store i64 %__v223___v94_m_len, i64* %__v96_want
+  br label %16
+
+; <label>:15:                                     ; preds = %3
+  br label %16
+
+; <label>:16:                                     ; preds = %15, %14
+  %17 = load i64, i64* %__v96_want
+  br label %18
+
+; <label>:18:                                     ; preds = %28, %16
+  %__v260_lexpr = phi i64 [ 0, %16 ], [ %29, %28 ]
+  %19 = icmp ult i64 %__v260_lexpr, %17
+  br i1 %19, label %20, label %30
+
+; <label>:20:                                     ; preds = %18
+  %21 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %22 = load i64, i64* %21
+  %__v259_lexpr = add i64 %22, %__v260_lexpr
+  %23 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
+  %24 = bitcast [16 x i8]* %23 to i8*
+  %25 = getelementptr i8, i8* %24, i64 %__v259_lexpr
+  %26 = getelementptr i8, i8* %__v94_m, i64 %__v260_lexpr
+  %27 = load i8, i8* %26
+  store i8 %27, i8* %25
+  br label %28
+
+; <label>:28:                                     ; preds = %20
+  %29 = add i64 %__v260_lexpr, 1
+  br label %18
+
+; <label>:30:                                     ; preds = %18
+  %31 = load i64, i64* %__v95_mindex
+  %32 = load i64, i64* %__v96_want
+  %33 = add i64 %31, %32
+  store i64 %33, i64* %__v95_mindex
+  %34 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %35 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %36 = load i64, i64* %35
+  %37 = load i64, i64* %__v96_want
+  %38 = add i64 %36, %37
+  store i64 %38, i64* %34
+  %39 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %40 = load i64, i64* %39
+  %41 = icmp ult i64 %40, 16
+  br i1 %41, label %42, label %43
+
+; <label>:42:                                     ; preds = %30
+  ret void
+
+; <label>:43:                                     ; preds = %30
+  br label %44
+
+; <label>:44:                                     ; preds = %43
+  %45 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
+  %46 = bitcast [16 x i8]* %45 to i8*
+  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v93_state, i8* %46, i64 16)
+  %47 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  store i64 0, i64* %47
+  br label %10
+
+; <label>:48:                                     ; preds = %10
+  %49 = load i64, i64* %__v95_mindex
+  %50 = sub i64 %__v223___v94_m_len, %49
+  %51 = trunc i64 %50 to i32
+  %52 = and i32 %51, -16
+  %__v262_lexpr = zext i32 %52 to i64
+  %__v261_lexpr = load i64, i64* %__v95_mindex
+  %__v101_mview = getelementptr i8, i8* %__v94_m, i64 %__v261_lexpr
+  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v93_state, i8* %__v101_mview, i64 %__v262_lexpr)
+  %53 = load i64, i64* %__v95_mindex
+  %54 = add i64 %53, %__v262_lexpr
+  store i64 %54, i64* %__v95_mindex
+  br label %56
+
+; <label>:55:                                     ; preds = %10
+  br label %56
+
+; <label>:56:                                     ; preds = %55, %48
+  %57 = load i64, i64* %__v95_mindex
+  %58 = icmp ult i64 %57, %__v223___v94_m_len
+  br i1 %58, label %59, label %61
+
+; <label>:59:                                     ; preds = %56
+  %60 = load i64, i64* %__v95_mindex
+  %__v102_remaining = sub i64 %__v223___v94_m_len, %60
+  br label %63
+
+; <label>:61:                                     ; preds = %56
+  br label %62
+
+; <label>:62:                                     ; preds = %61, %75
+  ret void
+
+; <label>:63:                                     ; preds = %73, %59
+  %__v103_i = phi i64 [ 0, %59 ], [ %74, %73 ]
+  %64 = icmp ult i64 %__v103_i, %__v102_remaining
+  br i1 %64, label %65, label %75
+
+; <label>:65:                                     ; preds = %63
+  %66 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %67 = load i64, i64* %66
+  %__v104_index = add i64 %67, %__v103_i
+  %__v105__mindex = load i64, i64* %__v95_mindex
+  %__v264_lexpr = add i64 %__v105__mindex, %__v103_i
+  %__v263_lexpr = add i64 %__v104_index, %__v103_i
+  %68 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
+  %69 = bitcast [16 x i8]* %68 to i8*
+  %70 = getelementptr i8, i8* %69, i64 %__v263_lexpr
+  %71 = getelementptr i8, i8* %__v94_m, i64 %__v264_lexpr
+  %72 = load i8, i8* %71
+  store i8 %72, i8* %70
+  br label %73
+
+; <label>:73:                                     ; preds = %65
+  %74 = add i64 %__v103_i, 1
+  br label %63
+
+; <label>:75:                                     ; preds = %63
+  %76 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %77 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %78 = load i64, i64* %77
+  %79 = add i64 %78, %__v102_remaining
+  store i64 %79, i64* %76
+  br label %62
+}
+
+define internal void @_poly1305_init(%poly1305_state_internal_t* %__v89_state, i8* %__v90_key) {
+entry:
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = getelementptr i8, i8* %__v90_key, i64 0
+  %__v91_t0 = call i64 @"__load[64]/secret_le"(i8* %0)
+  %1 = getelementptr i8, i8* %__v90_key, i64 8
+  %__v92_t1 = call i64 @"__load[64]/secret_le"(i8* %1)
+  %2 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
+  %3 = bitcast [3 x i64]* %2 to i64*
+  %4 = getelementptr i64, i64* %3, i64 0
+  %5 = and i64 %__v91_t0, 17575274610687
+  store i64 %5, i64* %4
+  %6 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
+  %7 = bitcast [3 x i64]* %6 to i64*
+  %8 = getelementptr i64, i64* %7, i64 1
+  %9 = lshr i64 %__v91_t0, 44
+  %10 = shl i64 %__v92_t1, 20
+  %11 = or i64 %9, %10
+  %12 = and i64 %11, 17592181915647
+  store i64 %12, i64* %8
+  %13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
+  %14 = bitcast [3 x i64]* %13 to i64*
+  %15 = getelementptr i64, i64* %14, i64 2
+  %16 = lshr i64 %__v92_t1, 24
+  %17 = and i64 %16, 68719475727
+  store i64 %17, i64* %15
+  %18 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
+  %19 = bitcast [3 x i64]* %18 to i64*
+  %20 = getelementptr i64, i64* %19, i64 0
+  store i64 0, i64* %20
+  %21 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
+  %22 = bitcast [3 x i64]* %21 to i64*
+  %23 = getelementptr i64, i64* %22, i64 1
+  store i64 0, i64* %23
+  %24 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
+  %25 = bitcast [3 x i64]* %24 to i64*
+  %26 = getelementptr i64, i64* %25, i64 2
+  store i64 0, i64* %26
+  %27 = getelementptr i8, i8* %__v90_key, i64 16
+  %__v203_load_le = call i64 @"__load[64]/secret_le"(i8* %27)
+  %28 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 2
+  %29 = bitcast [2 x i64]* %28 to i64*
+  %30 = getelementptr i64, i64* %29, i64 0
+  store i64 %__v203_load_le, i64* %30
+  %31 = getelementptr i8, i8* %__v90_key, i64 24
+  %__v204_load_le = call i64 @"__load[64]/secret_le"(i8* %31)
+  %32 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 2
+  %33 = bitcast [2 x i64]* %32 to i64*
+  %34 = getelementptr i64, i64* %33, i64 1
+  store i64 %__v204_load_le, i64* %34
+  %35 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 3
+  store i64 0, i64* %35
+  %36 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 5
+  store i8 0, i8* %36
+  ret void
+}
+
+define internal i32 @_crypto_onetimeauth_poly1305(i8* %__v85_out, i8* %__v86_m, i64 %__v222___v86_m_len, i8* %__v87_key) {
+entry:
+  %__rval = alloca i32
+  store i32 0, i32* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v88_state = alloca %poly1305_state_internal_t
+  %0 = alloca i64, i64 3
+  call void @fact.memset.i64(i64* %0, i8 0, i64 3)
+  %1 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 0
+  %2 = bitcast [3 x i64]* %1 to i64*
+  call void @fact.memcpy.i64(i64* %2, i64* %0, i64 3)
+  %3 = alloca i64, i64 3
+  call void @fact.memset.i64(i64* %3, i8 0, i64 3)
+  %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 1
+  %5 = bitcast [3 x i64]* %4 to i64*
+  call void @fact.memcpy.i64(i64* %5, i64* %3, i64 3)
+  %6 = alloca i64, i64 2
+  call void @fact.memset.i64(i64* %6, i8 0, i64 2)
+  %7 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 2
+  %8 = bitcast [2 x i64]* %7 to i64*
+  call void @fact.memcpy.i64(i64* %8, i64* %6, i64 2)
+  %9 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 3
+  store i64 0, i64* %9
+  %10 = alloca i8, i64 16
+  call void @fact.memset.i8(i8* %10, i8 0, i64 16)
+  %11 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 4
+  %12 = bitcast [16 x i8]* %11 to i8*
+  call void @fact.memcpy.i8(i8* %12, i8* %10, i64 16)
+  %13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 5
+  store i8 0, i8* %13
+  call void @_poly1305_init(%poly1305_state_internal_t* %__v88_state, i8* %__v87_key)
+  call void @_poly1305_update(%poly1305_state_internal_t* %__v88_state, i8* %__v86_m, i64 %__v222___v86_m_len)
+  call void @_poly1305_finish(%poly1305_state_internal_t* %__v88_state, i8* %__v85_out)
+  ret i32 0
 }
 
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #0
+declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #1
 
-define internal i1 @_crypto_onetimeauth_poly1305_verify(i8* %_public_arrarg1, i8* %_public_arrarg3, i32 %_public___in_len4, i8* %_secret_arrarg5) {
+; Function Attrs: alwaysinline
+define internal void @fact.memcpy.i64(i64* %dst, i64* %src, i64 %len) #0 {
 entry:
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg1, i8** %_public_arrarg
-  %_public_arrarg2 = alloca i8*
-  store i8* %_public_arrarg3, i8** %_public_arrarg2
-  %_public___in_len = alloca i32
-  store i32 %_public___in_len4, i32* %_public___in_len
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg5, i8** %_secret_arrarg
-  %_public___rval = alloca i1
-  %_secret___rnset = alloca i1
-  store i1 false, i1* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret___v46_correct = alloca [16 x i8]
-  %_secret_arrtoptr = bitcast [16 x i8]* %_secret___v46_correct to i8*
-  %_secret_dynarrarg = load i8*, i8** %_public_arrarg2
-  %_public_lval = load i32, i32* %_public___in_len
-  %_secret_dynarrarg6 = load i8*, i8** %_secret_arrarg
-  %0 = call i32 @_crypto_onetimeauth_poly1305(i8* %_secret_arrtoptr, i8* %_secret_dynarrarg, i32 %_public_lval, i8* %_secret_dynarrarg6)
-  %_secret_dynarrarg7 = load i8*, i8** %_public_arrarg
-  %_secret_arrtoptr8 = bitcast [16 x i8]* %_secret___v46_correct to i8*
-  %_secret_calltmp = call i1 @_crypto_verify_16(i8* %_secret_dynarrarg7, i8* %_secret_arrtoptr8)
-  %_declassified_res = call i1 @fact.declassify.i1(i1 %_secret_calltmp)
-  store i1 %_declassified_res, i1* %_public___rval
-  %_public_lval9 = load i1, i1* %_public___rval
-  ret i1 %_public_lval9
-}
-
-; Function Attrs: noinline
-define internal i1 @fact.declassify.i1(i1 %_declassified_x) #1 {
-entry:
-  ret i1 %_declassified_x
-}
-
-define internal void @_crypto_core_salsa20(i8* %_secret_arrarg1, i8* %_secret_arrarg3, i8* %_secret_arrarg5) {
-entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_secret_arrarg2 = alloca i8*
-  store i8* %_secret_arrarg3, i8** %_secret_arrarg2
-  %_secret_arrarg4 = alloca i8*
-  store i8* %_secret_arrarg5, i8** %_secret_arrarg4
-  %_secret___rnset = alloca i1
-  %_secret___v47_x0 = alloca i32
-  %_secret___v48_x5 = alloca i32
-  %_secret___v49_x10 = alloca i32
-  %_secret___v50_x15 = alloca i32
-  %_secret___v51_j0 = alloca i32
-  %_secret___v52_j5 = alloca i32
-  %_secret___v53_j10 = alloca i32
-  %_secret___v54_j15 = alloca i32
-  %_secret___v55_x1 = alloca i32
-  %_secret___v56_x2 = alloca i32
-  %_secret___v57_x3 = alloca i32
-  %_secret___v58_x4 = alloca i32
-  %_secret___v59_x11 = alloca i32
-  %_secret___v60_x12 = alloca i32
-  %_secret___v61_x13 = alloca i32
-  %_secret___v62_x14 = alloca i32
-  %_secret___v63_j1 = alloca i32
-  %_secret___v64_j2 = alloca i32
-  %_secret___v65_j3 = alloca i32
-  %_secret___v66_j4 = alloca i32
-  %_secret___v67_j11 = alloca i32
-  %_secret___v68_j12 = alloca i32
-  %_secret___v69_j13 = alloca i32
-  %_secret___v70_j14 = alloca i32
-  %_secret___v71_x6 = alloca i32
-  %_secret___v72_x7 = alloca i32
-  %_secret___v73_x8 = alloca i32
-  %_secret___v74_x9 = alloca i32
-  %_secret___v75_j6 = alloca i32
-  %_secret___v76_j7 = alloca i32
-  %_secret___v77_j8 = alloca i32
-  %_secret___v78_j9 = alloca i32
-  %_public___v79_i = alloca i32
-  store i1 true, i1* %_secret___rnset
-  store i32 1634760805, i32* %_secret___v47_x0
-  store i32 857760878, i32* %_secret___v48_x5
-  store i32 2036477234, i32* %_secret___v49_x10
-  store i32 1797285236, i32* %_secret___v50_x15
-  %_secret_lval = load i32, i32* %_secret___v47_x0
-  store i32 %_secret_lval, i32* %_secret___v51_j0
-  %_secret_lval6 = load i32, i32* %_secret___v48_x5
-  store i32 %_secret_lval6, i32* %_secret___v52_j5
-  %_secret_lval7 = load i32, i32* %_secret___v49_x10
-  store i32 %_secret_lval7, i32* %_secret___v53_j10
-  %_secret_lval8 = load i32, i32* %_secret___v50_x15
-  store i32 %_secret_lval8, i32* %_secret___v54_j15
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i8 0
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
-  %_secret_ldedviewptr9 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep10 = getelementptr inbounds i8, i8* %_secret_ldedviewptr9, i8 0
-  %_secret_arrviewdyn11 = alloca i8*
-  store i8* %_secret_source_gep10, i8** %_secret_arrviewdyn11
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrviewdyn11
-  %_secret_calltmp = call i32 @_load32_le(i8* %_secret_dynarrarg)
-  store i32 %_secret_calltmp, i32* %_secret___v55_x1
-  %_secret_ldedviewptr12 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep13 = getelementptr inbounds i8, i8* %_secret_ldedviewptr12, i8 4
-  %_secret_arrviewdyn14 = alloca i8*
-  store i8* %_secret_source_gep13, i8** %_secret_arrviewdyn14
-  %_secret_ldedviewptr15 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep16 = getelementptr inbounds i8, i8* %_secret_ldedviewptr15, i8 4
-  %_secret_arrviewdyn17 = alloca i8*
-  store i8* %_secret_source_gep16, i8** %_secret_arrviewdyn17
-  %_secret_dynarrarg18 = load i8*, i8** %_secret_arrviewdyn17
-  %_secret_calltmp19 = call i32 @_load32_le(i8* %_secret_dynarrarg18)
-  store i32 %_secret_calltmp19, i32* %_secret___v56_x2
-  %_secret_ldedviewptr20 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep21 = getelementptr inbounds i8, i8* %_secret_ldedviewptr20, i8 8
-  %_secret_arrviewdyn22 = alloca i8*
-  store i8* %_secret_source_gep21, i8** %_secret_arrviewdyn22
-  %_secret_ldedviewptr23 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep24 = getelementptr inbounds i8, i8* %_secret_ldedviewptr23, i8 8
-  %_secret_arrviewdyn25 = alloca i8*
-  store i8* %_secret_source_gep24, i8** %_secret_arrviewdyn25
-  %_secret_dynarrarg26 = load i8*, i8** %_secret_arrviewdyn25
-  %_secret_calltmp27 = call i32 @_load32_le(i8* %_secret_dynarrarg26)
-  store i32 %_secret_calltmp27, i32* %_secret___v57_x3
-  %_secret_ldedviewptr28 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep29 = getelementptr inbounds i8, i8* %_secret_ldedviewptr28, i8 12
-  %_secret_arrviewdyn30 = alloca i8*
-  store i8* %_secret_source_gep29, i8** %_secret_arrviewdyn30
-  %_secret_ldedviewptr31 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep32 = getelementptr inbounds i8, i8* %_secret_ldedviewptr31, i8 12
-  %_secret_arrviewdyn33 = alloca i8*
-  store i8* %_secret_source_gep32, i8** %_secret_arrviewdyn33
-  %_secret_dynarrarg34 = load i8*, i8** %_secret_arrviewdyn33
-  %_secret_calltmp35 = call i32 @_load32_le(i8* %_secret_dynarrarg34)
-  store i32 %_secret_calltmp35, i32* %_secret___v58_x4
-  %_secret_ldedviewptr36 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep37 = getelementptr inbounds i8, i8* %_secret_ldedviewptr36, i8 16
-  %_secret_arrviewdyn38 = alloca i8*
-  store i8* %_secret_source_gep37, i8** %_secret_arrviewdyn38
-  %_secret_ldedviewptr39 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep40 = getelementptr inbounds i8, i8* %_secret_ldedviewptr39, i8 16
-  %_secret_arrviewdyn41 = alloca i8*
-  store i8* %_secret_source_gep40, i8** %_secret_arrviewdyn41
-  %_secret_dynarrarg42 = load i8*, i8** %_secret_arrviewdyn41
-  %_secret_calltmp43 = call i32 @_load32_le(i8* %_secret_dynarrarg42)
-  store i32 %_secret_calltmp43, i32* %_secret___v59_x11
-  %_secret_ldedviewptr44 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep45 = getelementptr inbounds i8, i8* %_secret_ldedviewptr44, i8 20
-  %_secret_arrviewdyn46 = alloca i8*
-  store i8* %_secret_source_gep45, i8** %_secret_arrviewdyn46
-  %_secret_ldedviewptr47 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep48 = getelementptr inbounds i8, i8* %_secret_ldedviewptr47, i8 20
-  %_secret_arrviewdyn49 = alloca i8*
-  store i8* %_secret_source_gep48, i8** %_secret_arrviewdyn49
-  %_secret_dynarrarg50 = load i8*, i8** %_secret_arrviewdyn49
-  %_secret_calltmp51 = call i32 @_load32_le(i8* %_secret_dynarrarg50)
-  store i32 %_secret_calltmp51, i32* %_secret___v60_x12
-  %_secret_ldedviewptr52 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep53 = getelementptr inbounds i8, i8* %_secret_ldedviewptr52, i8 24
-  %_secret_arrviewdyn54 = alloca i8*
-  store i8* %_secret_source_gep53, i8** %_secret_arrviewdyn54
-  %_secret_ldedviewptr55 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep56 = getelementptr inbounds i8, i8* %_secret_ldedviewptr55, i8 24
-  %_secret_arrviewdyn57 = alloca i8*
-  store i8* %_secret_source_gep56, i8** %_secret_arrviewdyn57
-  %_secret_dynarrarg58 = load i8*, i8** %_secret_arrviewdyn57
-  %_secret_calltmp59 = call i32 @_load32_le(i8* %_secret_dynarrarg58)
-  store i32 %_secret_calltmp59, i32* %_secret___v61_x13
-  %_secret_ldedviewptr60 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep61 = getelementptr inbounds i8, i8* %_secret_ldedviewptr60, i8 28
-  %_secret_arrviewdyn62 = alloca i8*
-  store i8* %_secret_source_gep61, i8** %_secret_arrviewdyn62
-  %_secret_ldedviewptr63 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep64 = getelementptr inbounds i8, i8* %_secret_ldedviewptr63, i8 28
-  %_secret_arrviewdyn65 = alloca i8*
-  store i8* %_secret_source_gep64, i8** %_secret_arrviewdyn65
-  %_secret_dynarrarg66 = load i8*, i8** %_secret_arrviewdyn65
-  %_secret_calltmp67 = call i32 @_load32_le(i8* %_secret_dynarrarg66)
-  store i32 %_secret_calltmp67, i32* %_secret___v62_x14
-  %_secret_lval68 = load i32, i32* %_secret___v55_x1
-  store i32 %_secret_lval68, i32* %_secret___v63_j1
-  %_secret_lval69 = load i32, i32* %_secret___v56_x2
-  store i32 %_secret_lval69, i32* %_secret___v64_j2
-  %_secret_lval70 = load i32, i32* %_secret___v57_x3
-  store i32 %_secret_lval70, i32* %_secret___v65_j3
-  %_secret_lval71 = load i32, i32* %_secret___v58_x4
-  store i32 %_secret_lval71, i32* %_secret___v66_j4
-  %_secret_lval72 = load i32, i32* %_secret___v59_x11
-  store i32 %_secret_lval72, i32* %_secret___v67_j11
-  %_secret_lval73 = load i32, i32* %_secret___v60_x12
-  store i32 %_secret_lval73, i32* %_secret___v68_j12
-  %_secret_lval74 = load i32, i32* %_secret___v61_x13
-  store i32 %_secret_lval74, i32* %_secret___v69_j13
-  %_secret_lval75 = load i32, i32* %_secret___v62_x14
-  store i32 %_secret_lval75, i32* %_secret___v70_j14
-  %_secret_ldedviewptr76 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep77 = getelementptr inbounds i8, i8* %_secret_ldedviewptr76, i8 0
-  %_secret_arrviewdyn78 = alloca i8*
-  store i8* %_secret_source_gep77, i8** %_secret_arrviewdyn78
-  %_secret_ldedviewptr79 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep80 = getelementptr inbounds i8, i8* %_secret_ldedviewptr79, i8 0
-  %_secret_arrviewdyn81 = alloca i8*
-  store i8* %_secret_source_gep80, i8** %_secret_arrviewdyn81
-  %_secret_dynarrarg82 = load i8*, i8** %_secret_arrviewdyn81
-  %_secret_calltmp83 = call i32 @_load32_le(i8* %_secret_dynarrarg82)
-  store i32 %_secret_calltmp83, i32* %_secret___v71_x6
-  %_secret_ldedviewptr84 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep85 = getelementptr inbounds i8, i8* %_secret_ldedviewptr84, i8 4
-  %_secret_arrviewdyn86 = alloca i8*
-  store i8* %_secret_source_gep85, i8** %_secret_arrviewdyn86
-  %_secret_ldedviewptr87 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep88 = getelementptr inbounds i8, i8* %_secret_ldedviewptr87, i8 4
-  %_secret_arrviewdyn89 = alloca i8*
-  store i8* %_secret_source_gep88, i8** %_secret_arrviewdyn89
-  %_secret_dynarrarg90 = load i8*, i8** %_secret_arrviewdyn89
-  %_secret_calltmp91 = call i32 @_load32_le(i8* %_secret_dynarrarg90)
-  store i32 %_secret_calltmp91, i32* %_secret___v72_x7
-  %_secret_ldedviewptr92 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep93 = getelementptr inbounds i8, i8* %_secret_ldedviewptr92, i8 8
-  %_secret_arrviewdyn94 = alloca i8*
-  store i8* %_secret_source_gep93, i8** %_secret_arrviewdyn94
-  %_secret_ldedviewptr95 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep96 = getelementptr inbounds i8, i8* %_secret_ldedviewptr95, i8 8
-  %_secret_arrviewdyn97 = alloca i8*
-  store i8* %_secret_source_gep96, i8** %_secret_arrviewdyn97
-  %_secret_dynarrarg98 = load i8*, i8** %_secret_arrviewdyn97
-  %_secret_calltmp99 = call i32 @_load32_le(i8* %_secret_dynarrarg98)
-  store i32 %_secret_calltmp99, i32* %_secret___v73_x8
-  %_secret_ldedviewptr100 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep101 = getelementptr inbounds i8, i8* %_secret_ldedviewptr100, i8 12
-  %_secret_arrviewdyn102 = alloca i8*
-  store i8* %_secret_source_gep101, i8** %_secret_arrviewdyn102
-  %_secret_ldedviewptr103 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep104 = getelementptr inbounds i8, i8* %_secret_ldedviewptr103, i8 12
-  %_secret_arrviewdyn105 = alloca i8*
-  store i8* %_secret_source_gep104, i8** %_secret_arrviewdyn105
-  %_secret_dynarrarg106 = load i8*, i8** %_secret_arrviewdyn105
-  %_secret_calltmp107 = call i32 @_load32_le(i8* %_secret_dynarrarg106)
-  store i32 %_secret_calltmp107, i32* %_secret___v74_x9
-  %_secret_lval108 = load i32, i32* %_secret___v71_x6
-  store i32 %_secret_lval108, i32* %_secret___v75_j6
-  %_secret_lval109 = load i32, i32* %_secret___v72_x7
-  store i32 %_secret_lval109, i32* %_secret___v76_j7
-  %_secret_lval110 = load i32, i32* %_secret___v73_x8
-  store i32 %_secret_lval110, i32* %_secret___v77_j8
-  %_secret_lval111 = load i32, i32* %_secret___v74_x9
-  store i32 %_secret_lval111, i32* %_secret___v78_j9
-  store i32 0, i32* %_public___v79_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %entry
-  %_public_lval = load i32, i32* %_public___v79_i
-  %_public_ulttmp = icmp ult i32 %_public_lval, 10
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_secret_lval112 = load i32, i32* %_secret___v58_x4
-  %_secret_lval113 = load i32, i32* %_secret___v47_x0
-  %_secret_lval114 = load i32, i32* %_secret___v60_x12
-  %_secret_addtmp = add i32 %_secret_lval113, %_secret_lval114
-  %_secret_rotltmp = call i32 @__rotl32(i32 %_secret_addtmp, i32 7)
-  %_secret_xortmp = xor i32 %_secret_lval112, %_secret_rotltmp
-  store i32 %_secret_xortmp, i32* %_secret___v58_x4
-  %_secret_lval115 = load i32, i32* %_secret___v73_x8
-  %_secret_lval116 = load i32, i32* %_secret___v58_x4
-  %_secret_lval117 = load i32, i32* %_secret___v47_x0
-  %_secret_addtmp118 = add i32 %_secret_lval116, %_secret_lval117
-  %_secret_rotltmp119 = call i32 @__rotl32(i32 %_secret_addtmp118, i32 9)
-  %_secret_xortmp120 = xor i32 %_secret_lval115, %_secret_rotltmp119
-  store i32 %_secret_xortmp120, i32* %_secret___v73_x8
-  %_secret_lval121 = load i32, i32* %_secret___v60_x12
-  %_secret_lval122 = load i32, i32* %_secret___v73_x8
-  %_secret_lval123 = load i32, i32* %_secret___v58_x4
-  %_secret_addtmp124 = add i32 %_secret_lval122, %_secret_lval123
-  %_secret_rotltmp125 = call i32 @__rotl32(i32 %_secret_addtmp124, i32 13)
-  %_secret_xortmp126 = xor i32 %_secret_lval121, %_secret_rotltmp125
-  store i32 %_secret_xortmp126, i32* %_secret___v60_x12
-  %_secret_lval127 = load i32, i32* %_secret___v47_x0
-  %_secret_lval128 = load i32, i32* %_secret___v60_x12
-  %_secret_lval129 = load i32, i32* %_secret___v73_x8
-  %_secret_addtmp130 = add i32 %_secret_lval128, %_secret_lval129
-  %_secret_rotltmp131 = call i32 @__rotl32(i32 %_secret_addtmp130, i32 18)
-  %_secret_xortmp132 = xor i32 %_secret_lval127, %_secret_rotltmp131
-  store i32 %_secret_xortmp132, i32* %_secret___v47_x0
-  %_secret_lval133 = load i32, i32* %_secret___v74_x9
-  %_secret_lval134 = load i32, i32* %_secret___v48_x5
-  %_secret_lval135 = load i32, i32* %_secret___v55_x1
-  %_secret_addtmp136 = add i32 %_secret_lval134, %_secret_lval135
-  %_secret_rotltmp137 = call i32 @__rotl32(i32 %_secret_addtmp136, i32 7)
-  %_secret_xortmp138 = xor i32 %_secret_lval133, %_secret_rotltmp137
-  store i32 %_secret_xortmp138, i32* %_secret___v74_x9
-  %_secret_lval139 = load i32, i32* %_secret___v61_x13
-  %_secret_lval140 = load i32, i32* %_secret___v74_x9
-  %_secret_lval141 = load i32, i32* %_secret___v48_x5
-  %_secret_addtmp142 = add i32 %_secret_lval140, %_secret_lval141
-  %_secret_rotltmp143 = call i32 @__rotl32(i32 %_secret_addtmp142, i32 9)
-  %_secret_xortmp144 = xor i32 %_secret_lval139, %_secret_rotltmp143
-  store i32 %_secret_xortmp144, i32* %_secret___v61_x13
-  %_secret_lval145 = load i32, i32* %_secret___v55_x1
-  %_secret_lval146 = load i32, i32* %_secret___v61_x13
-  %_secret_lval147 = load i32, i32* %_secret___v74_x9
-  %_secret_addtmp148 = add i32 %_secret_lval146, %_secret_lval147
-  %_secret_rotltmp149 = call i32 @__rotl32(i32 %_secret_addtmp148, i32 13)
-  %_secret_xortmp150 = xor i32 %_secret_lval145, %_secret_rotltmp149
-  store i32 %_secret_xortmp150, i32* %_secret___v55_x1
-  %_secret_lval151 = load i32, i32* %_secret___v48_x5
-  %_secret_lval152 = load i32, i32* %_secret___v55_x1
-  %_secret_lval153 = load i32, i32* %_secret___v61_x13
-  %_secret_addtmp154 = add i32 %_secret_lval152, %_secret_lval153
-  %_secret_rotltmp155 = call i32 @__rotl32(i32 %_secret_addtmp154, i32 18)
-  %_secret_xortmp156 = xor i32 %_secret_lval151, %_secret_rotltmp155
-  store i32 %_secret_xortmp156, i32* %_secret___v48_x5
-  %_secret_lval157 = load i32, i32* %_secret___v62_x14
-  %_secret_lval158 = load i32, i32* %_secret___v49_x10
-  %_secret_lval159 = load i32, i32* %_secret___v71_x6
-  %_secret_addtmp160 = add i32 %_secret_lval158, %_secret_lval159
-  %_secret_rotltmp161 = call i32 @__rotl32(i32 %_secret_addtmp160, i32 7)
-  %_secret_xortmp162 = xor i32 %_secret_lval157, %_secret_rotltmp161
-  store i32 %_secret_xortmp162, i32* %_secret___v62_x14
-  %_secret_lval163 = load i32, i32* %_secret___v56_x2
-  %_secret_lval164 = load i32, i32* %_secret___v62_x14
-  %_secret_lval165 = load i32, i32* %_secret___v49_x10
-  %_secret_addtmp166 = add i32 %_secret_lval164, %_secret_lval165
-  %_secret_rotltmp167 = call i32 @__rotl32(i32 %_secret_addtmp166, i32 9)
-  %_secret_xortmp168 = xor i32 %_secret_lval163, %_secret_rotltmp167
-  store i32 %_secret_xortmp168, i32* %_secret___v56_x2
-  %_secret_lval169 = load i32, i32* %_secret___v71_x6
-  %_secret_lval170 = load i32, i32* %_secret___v56_x2
-  %_secret_lval171 = load i32, i32* %_secret___v62_x14
-  %_secret_addtmp172 = add i32 %_secret_lval170, %_secret_lval171
-  %_secret_rotltmp173 = call i32 @__rotl32(i32 %_secret_addtmp172, i32 13)
-  %_secret_xortmp174 = xor i32 %_secret_lval169, %_secret_rotltmp173
-  store i32 %_secret_xortmp174, i32* %_secret___v71_x6
-  %_secret_lval175 = load i32, i32* %_secret___v49_x10
-  %_secret_lval176 = load i32, i32* %_secret___v71_x6
-  %_secret_lval177 = load i32, i32* %_secret___v56_x2
-  %_secret_addtmp178 = add i32 %_secret_lval176, %_secret_lval177
-  %_secret_rotltmp179 = call i32 @__rotl32(i32 %_secret_addtmp178, i32 18)
-  %_secret_xortmp180 = xor i32 %_secret_lval175, %_secret_rotltmp179
-  store i32 %_secret_xortmp180, i32* %_secret___v49_x10
-  %_secret_lval181 = load i32, i32* %_secret___v57_x3
-  %_secret_lval182 = load i32, i32* %_secret___v50_x15
-  %_secret_lval183 = load i32, i32* %_secret___v59_x11
-  %_secret_addtmp184 = add i32 %_secret_lval182, %_secret_lval183
-  %_secret_rotltmp185 = call i32 @__rotl32(i32 %_secret_addtmp184, i32 7)
-  %_secret_xortmp186 = xor i32 %_secret_lval181, %_secret_rotltmp185
-  store i32 %_secret_xortmp186, i32* %_secret___v57_x3
-  %_secret_lval187 = load i32, i32* %_secret___v72_x7
-  %_secret_lval188 = load i32, i32* %_secret___v57_x3
-  %_secret_lval189 = load i32, i32* %_secret___v50_x15
-  %_secret_addtmp190 = add i32 %_secret_lval188, %_secret_lval189
-  %_secret_rotltmp191 = call i32 @__rotl32(i32 %_secret_addtmp190, i32 9)
-  %_secret_xortmp192 = xor i32 %_secret_lval187, %_secret_rotltmp191
-  store i32 %_secret_xortmp192, i32* %_secret___v72_x7
-  %_secret_lval193 = load i32, i32* %_secret___v59_x11
-  %_secret_lval194 = load i32, i32* %_secret___v72_x7
-  %_secret_lval195 = load i32, i32* %_secret___v57_x3
-  %_secret_addtmp196 = add i32 %_secret_lval194, %_secret_lval195
-  %_secret_rotltmp197 = call i32 @__rotl32(i32 %_secret_addtmp196, i32 13)
-  %_secret_xortmp198 = xor i32 %_secret_lval193, %_secret_rotltmp197
-  store i32 %_secret_xortmp198, i32* %_secret___v59_x11
-  %_secret_lval199 = load i32, i32* %_secret___v50_x15
-  %_secret_lval200 = load i32, i32* %_secret___v59_x11
-  %_secret_lval201 = load i32, i32* %_secret___v72_x7
-  %_secret_addtmp202 = add i32 %_secret_lval200, %_secret_lval201
-  %_secret_rotltmp203 = call i32 @__rotl32(i32 %_secret_addtmp202, i32 18)
-  %_secret_xortmp204 = xor i32 %_secret_lval199, %_secret_rotltmp203
-  store i32 %_secret_xortmp204, i32* %_secret___v50_x15
-  %_secret_lval205 = load i32, i32* %_secret___v55_x1
-  %_secret_lval206 = load i32, i32* %_secret___v47_x0
-  %_secret_lval207 = load i32, i32* %_secret___v57_x3
-  %_secret_addtmp208 = add i32 %_secret_lval206, %_secret_lval207
-  %_secret_rotltmp209 = call i32 @__rotl32(i32 %_secret_addtmp208, i32 7)
-  %_secret_xortmp210 = xor i32 %_secret_lval205, %_secret_rotltmp209
-  store i32 %_secret_xortmp210, i32* %_secret___v55_x1
-  %_secret_lval211 = load i32, i32* %_secret___v56_x2
-  %_secret_lval212 = load i32, i32* %_secret___v55_x1
-  %_secret_lval213 = load i32, i32* %_secret___v47_x0
-  %_secret_addtmp214 = add i32 %_secret_lval212, %_secret_lval213
-  %_secret_rotltmp215 = call i32 @__rotl32(i32 %_secret_addtmp214, i32 9)
-  %_secret_xortmp216 = xor i32 %_secret_lval211, %_secret_rotltmp215
-  store i32 %_secret_xortmp216, i32* %_secret___v56_x2
-  %_secret_lval217 = load i32, i32* %_secret___v57_x3
-  %_secret_lval218 = load i32, i32* %_secret___v56_x2
-  %_secret_lval219 = load i32, i32* %_secret___v55_x1
-  %_secret_addtmp220 = add i32 %_secret_lval218, %_secret_lval219
-  %_secret_rotltmp221 = call i32 @__rotl32(i32 %_secret_addtmp220, i32 13)
-  %_secret_xortmp222 = xor i32 %_secret_lval217, %_secret_rotltmp221
-  store i32 %_secret_xortmp222, i32* %_secret___v57_x3
-  %_secret_lval223 = load i32, i32* %_secret___v47_x0
-  %_secret_lval224 = load i32, i32* %_secret___v57_x3
-  %_secret_lval225 = load i32, i32* %_secret___v56_x2
-  %_secret_addtmp226 = add i32 %_secret_lval224, %_secret_lval225
-  %_secret_rotltmp227 = call i32 @__rotl32(i32 %_secret_addtmp226, i32 18)
-  %_secret_xortmp228 = xor i32 %_secret_lval223, %_secret_rotltmp227
-  store i32 %_secret_xortmp228, i32* %_secret___v47_x0
-  %_secret_lval229 = load i32, i32* %_secret___v71_x6
-  %_secret_lval230 = load i32, i32* %_secret___v48_x5
-  %_secret_lval231 = load i32, i32* %_secret___v58_x4
-  %_secret_addtmp232 = add i32 %_secret_lval230, %_secret_lval231
-  %_secret_rotltmp233 = call i32 @__rotl32(i32 %_secret_addtmp232, i32 7)
-  %_secret_xortmp234 = xor i32 %_secret_lval229, %_secret_rotltmp233
-  store i32 %_secret_xortmp234, i32* %_secret___v71_x6
-  %_secret_lval235 = load i32, i32* %_secret___v72_x7
-  %_secret_lval236 = load i32, i32* %_secret___v71_x6
-  %_secret_lval237 = load i32, i32* %_secret___v48_x5
-  %_secret_addtmp238 = add i32 %_secret_lval236, %_secret_lval237
-  %_secret_rotltmp239 = call i32 @__rotl32(i32 %_secret_addtmp238, i32 9)
-  %_secret_xortmp240 = xor i32 %_secret_lval235, %_secret_rotltmp239
-  store i32 %_secret_xortmp240, i32* %_secret___v72_x7
-  %_secret_lval241 = load i32, i32* %_secret___v58_x4
-  %_secret_lval242 = load i32, i32* %_secret___v72_x7
-  %_secret_lval243 = load i32, i32* %_secret___v71_x6
-  %_secret_addtmp244 = add i32 %_secret_lval242, %_secret_lval243
-  %_secret_rotltmp245 = call i32 @__rotl32(i32 %_secret_addtmp244, i32 13)
-  %_secret_xortmp246 = xor i32 %_secret_lval241, %_secret_rotltmp245
-  store i32 %_secret_xortmp246, i32* %_secret___v58_x4
-  %_secret_lval247 = load i32, i32* %_secret___v48_x5
-  %_secret_lval248 = load i32, i32* %_secret___v58_x4
-  %_secret_lval249 = load i32, i32* %_secret___v72_x7
-  %_secret_addtmp250 = add i32 %_secret_lval248, %_secret_lval249
-  %_secret_rotltmp251 = call i32 @__rotl32(i32 %_secret_addtmp250, i32 18)
-  %_secret_xortmp252 = xor i32 %_secret_lval247, %_secret_rotltmp251
-  store i32 %_secret_xortmp252, i32* %_secret___v48_x5
-  %_secret_lval253 = load i32, i32* %_secret___v59_x11
-  %_secret_lval254 = load i32, i32* %_secret___v49_x10
-  %_secret_lval255 = load i32, i32* %_secret___v74_x9
-  %_secret_addtmp256 = add i32 %_secret_lval254, %_secret_lval255
-  %_secret_rotltmp257 = call i32 @__rotl32(i32 %_secret_addtmp256, i32 7)
-  %_secret_xortmp258 = xor i32 %_secret_lval253, %_secret_rotltmp257
-  store i32 %_secret_xortmp258, i32* %_secret___v59_x11
-  %_secret_lval259 = load i32, i32* %_secret___v73_x8
-  %_secret_lval260 = load i32, i32* %_secret___v59_x11
-  %_secret_lval261 = load i32, i32* %_secret___v49_x10
-  %_secret_addtmp262 = add i32 %_secret_lval260, %_secret_lval261
-  %_secret_rotltmp263 = call i32 @__rotl32(i32 %_secret_addtmp262, i32 9)
-  %_secret_xortmp264 = xor i32 %_secret_lval259, %_secret_rotltmp263
-  store i32 %_secret_xortmp264, i32* %_secret___v73_x8
-  %_secret_lval265 = load i32, i32* %_secret___v74_x9
-  %_secret_lval266 = load i32, i32* %_secret___v73_x8
-  %_secret_lval267 = load i32, i32* %_secret___v59_x11
-  %_secret_addtmp268 = add i32 %_secret_lval266, %_secret_lval267
-  %_secret_rotltmp269 = call i32 @__rotl32(i32 %_secret_addtmp268, i32 13)
-  %_secret_xortmp270 = xor i32 %_secret_lval265, %_secret_rotltmp269
-  store i32 %_secret_xortmp270, i32* %_secret___v74_x9
-  %_secret_lval271 = load i32, i32* %_secret___v49_x10
-  %_secret_lval272 = load i32, i32* %_secret___v74_x9
-  %_secret_lval273 = load i32, i32* %_secret___v73_x8
-  %_secret_addtmp274 = add i32 %_secret_lval272, %_secret_lval273
-  %_secret_rotltmp275 = call i32 @__rotl32(i32 %_secret_addtmp274, i32 18)
-  %_secret_xortmp276 = xor i32 %_secret_lval271, %_secret_rotltmp275
-  store i32 %_secret_xortmp276, i32* %_secret___v49_x10
-  %_secret_lval277 = load i32, i32* %_secret___v60_x12
-  %_secret_lval278 = load i32, i32* %_secret___v50_x15
-  %_secret_lval279 = load i32, i32* %_secret___v62_x14
-  %_secret_addtmp280 = add i32 %_secret_lval278, %_secret_lval279
-  %_secret_rotltmp281 = call i32 @__rotl32(i32 %_secret_addtmp280, i32 7)
-  %_secret_xortmp282 = xor i32 %_secret_lval277, %_secret_rotltmp281
-  store i32 %_secret_xortmp282, i32* %_secret___v60_x12
-  %_secret_lval283 = load i32, i32* %_secret___v61_x13
-  %_secret_lval284 = load i32, i32* %_secret___v60_x12
-  %_secret_lval285 = load i32, i32* %_secret___v50_x15
-  %_secret_addtmp286 = add i32 %_secret_lval284, %_secret_lval285
-  %_secret_rotltmp287 = call i32 @__rotl32(i32 %_secret_addtmp286, i32 9)
-  %_secret_xortmp288 = xor i32 %_secret_lval283, %_secret_rotltmp287
-  store i32 %_secret_xortmp288, i32* %_secret___v61_x13
-  %_secret_lval289 = load i32, i32* %_secret___v62_x14
-  %_secret_lval290 = load i32, i32* %_secret___v61_x13
-  %_secret_lval291 = load i32, i32* %_secret___v60_x12
-  %_secret_addtmp292 = add i32 %_secret_lval290, %_secret_lval291
-  %_secret_rotltmp293 = call i32 @__rotl32(i32 %_secret_addtmp292, i32 13)
-  %_secret_xortmp294 = xor i32 %_secret_lval289, %_secret_rotltmp293
-  store i32 %_secret_xortmp294, i32* %_secret___v62_x14
-  %_secret_lval295 = load i32, i32* %_secret___v50_x15
-  %_secret_lval296 = load i32, i32* %_secret___v62_x14
-  %_secret_lval297 = load i32, i32* %_secret___v61_x13
-  %_secret_addtmp298 = add i32 %_secret_lval296, %_secret_lval297
-  %_secret_rotltmp299 = call i32 @__rotl32(i32 %_secret_addtmp298, i32 18)
-  %_secret_xortmp300 = xor i32 %_secret_lval295, %_secret_rotltmp299
-  store i32 %_secret_xortmp300, i32* %_secret___v50_x15
-  %_public_lval301 = load i32, i32* %_public___v79_i
-  %_public_addtmp = add i32 %_public_lval301, 1
-  store i32 %_public_addtmp, i32* %_public___v79_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_secret_ldedviewptr302 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep303 = getelementptr inbounds i8, i8* %_secret_ldedviewptr302, i8 0
-  %_secret_arrviewdyn304 = alloca i8*
-  store i8* %_secret_source_gep303, i8** %_secret_arrviewdyn304
-  %_secret_ldedviewptr305 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep306 = getelementptr inbounds i8, i8* %_secret_ldedviewptr305, i8 0
-  %_secret_arrviewdyn307 = alloca i8*
-  store i8* %_secret_source_gep306, i8** %_secret_arrviewdyn307
-  %_secret_dynarrarg308 = load i8*, i8** %_secret_arrviewdyn307
-  %_secret_lval309 = load i32, i32* %_secret___v47_x0
-  %_secret_lval310 = load i32, i32* %_secret___v51_j0
-  %_secret_addtmp311 = add i32 %_secret_lval309, %_secret_lval310
-  call void @_store32_le(i8* %_secret_dynarrarg308, i32 %_secret_addtmp311)
-  %_secret_ldedviewptr312 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep313 = getelementptr inbounds i8, i8* %_secret_ldedviewptr312, i8 4
-  %_secret_arrviewdyn314 = alloca i8*
-  store i8* %_secret_source_gep313, i8** %_secret_arrviewdyn314
-  %_secret_ldedviewptr315 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep316 = getelementptr inbounds i8, i8* %_secret_ldedviewptr315, i8 4
-  %_secret_arrviewdyn317 = alloca i8*
-  store i8* %_secret_source_gep316, i8** %_secret_arrviewdyn317
-  %_secret_dynarrarg318 = load i8*, i8** %_secret_arrviewdyn317
-  %_secret_lval319 = load i32, i32* %_secret___v55_x1
-  %_secret_lval320 = load i32, i32* %_secret___v63_j1
-  %_secret_addtmp321 = add i32 %_secret_lval319, %_secret_lval320
-  call void @_store32_le(i8* %_secret_dynarrarg318, i32 %_secret_addtmp321)
-  %_secret_ldedviewptr322 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep323 = getelementptr inbounds i8, i8* %_secret_ldedviewptr322, i8 8
-  %_secret_arrviewdyn324 = alloca i8*
-  store i8* %_secret_source_gep323, i8** %_secret_arrviewdyn324
-  %_secret_ldedviewptr325 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep326 = getelementptr inbounds i8, i8* %_secret_ldedviewptr325, i8 8
-  %_secret_arrviewdyn327 = alloca i8*
-  store i8* %_secret_source_gep326, i8** %_secret_arrviewdyn327
-  %_secret_dynarrarg328 = load i8*, i8** %_secret_arrviewdyn327
-  %_secret_lval329 = load i32, i32* %_secret___v56_x2
-  %_secret_lval330 = load i32, i32* %_secret___v64_j2
-  %_secret_addtmp331 = add i32 %_secret_lval329, %_secret_lval330
-  call void @_store32_le(i8* %_secret_dynarrarg328, i32 %_secret_addtmp331)
-  %_secret_ldedviewptr332 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep333 = getelementptr inbounds i8, i8* %_secret_ldedviewptr332, i8 12
-  %_secret_arrviewdyn334 = alloca i8*
-  store i8* %_secret_source_gep333, i8** %_secret_arrviewdyn334
-  %_secret_ldedviewptr335 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep336 = getelementptr inbounds i8, i8* %_secret_ldedviewptr335, i8 12
-  %_secret_arrviewdyn337 = alloca i8*
-  store i8* %_secret_source_gep336, i8** %_secret_arrviewdyn337
-  %_secret_dynarrarg338 = load i8*, i8** %_secret_arrviewdyn337
-  %_secret_lval339 = load i32, i32* %_secret___v57_x3
-  %_secret_lval340 = load i32, i32* %_secret___v65_j3
-  %_secret_addtmp341 = add i32 %_secret_lval339, %_secret_lval340
-  call void @_store32_le(i8* %_secret_dynarrarg338, i32 %_secret_addtmp341)
-  %_secret_ldedviewptr342 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep343 = getelementptr inbounds i8, i8* %_secret_ldedviewptr342, i8 16
-  %_secret_arrviewdyn344 = alloca i8*
-  store i8* %_secret_source_gep343, i8** %_secret_arrviewdyn344
-  %_secret_ldedviewptr345 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep346 = getelementptr inbounds i8, i8* %_secret_ldedviewptr345, i8 16
-  %_secret_arrviewdyn347 = alloca i8*
-  store i8* %_secret_source_gep346, i8** %_secret_arrviewdyn347
-  %_secret_dynarrarg348 = load i8*, i8** %_secret_arrviewdyn347
-  %_secret_lval349 = load i32, i32* %_secret___v58_x4
-  %_secret_lval350 = load i32, i32* %_secret___v66_j4
-  %_secret_addtmp351 = add i32 %_secret_lval349, %_secret_lval350
-  call void @_store32_le(i8* %_secret_dynarrarg348, i32 %_secret_addtmp351)
-  %_secret_ldedviewptr352 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep353 = getelementptr inbounds i8, i8* %_secret_ldedviewptr352, i8 20
-  %_secret_arrviewdyn354 = alloca i8*
-  store i8* %_secret_source_gep353, i8** %_secret_arrviewdyn354
-  %_secret_ldedviewptr355 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep356 = getelementptr inbounds i8, i8* %_secret_ldedviewptr355, i8 20
-  %_secret_arrviewdyn357 = alloca i8*
-  store i8* %_secret_source_gep356, i8** %_secret_arrviewdyn357
-  %_secret_dynarrarg358 = load i8*, i8** %_secret_arrviewdyn357
-  %_secret_lval359 = load i32, i32* %_secret___v48_x5
-  %_secret_lval360 = load i32, i32* %_secret___v52_j5
-  %_secret_addtmp361 = add i32 %_secret_lval359, %_secret_lval360
-  call void @_store32_le(i8* %_secret_dynarrarg358, i32 %_secret_addtmp361)
-  %_secret_ldedviewptr362 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep363 = getelementptr inbounds i8, i8* %_secret_ldedviewptr362, i8 24
-  %_secret_arrviewdyn364 = alloca i8*
-  store i8* %_secret_source_gep363, i8** %_secret_arrviewdyn364
-  %_secret_ldedviewptr365 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep366 = getelementptr inbounds i8, i8* %_secret_ldedviewptr365, i8 24
-  %_secret_arrviewdyn367 = alloca i8*
-  store i8* %_secret_source_gep366, i8** %_secret_arrviewdyn367
-  %_secret_dynarrarg368 = load i8*, i8** %_secret_arrviewdyn367
-  %_secret_lval369 = load i32, i32* %_secret___v71_x6
-  %_secret_lval370 = load i32, i32* %_secret___v75_j6
-  %_secret_addtmp371 = add i32 %_secret_lval369, %_secret_lval370
-  call void @_store32_le(i8* %_secret_dynarrarg368, i32 %_secret_addtmp371)
-  %_secret_ldedviewptr372 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep373 = getelementptr inbounds i8, i8* %_secret_ldedviewptr372, i8 28
-  %_secret_arrviewdyn374 = alloca i8*
-  store i8* %_secret_source_gep373, i8** %_secret_arrviewdyn374
-  %_secret_ldedviewptr375 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep376 = getelementptr inbounds i8, i8* %_secret_ldedviewptr375, i8 28
-  %_secret_arrviewdyn377 = alloca i8*
-  store i8* %_secret_source_gep376, i8** %_secret_arrviewdyn377
-  %_secret_dynarrarg378 = load i8*, i8** %_secret_arrviewdyn377
-  %_secret_lval379 = load i32, i32* %_secret___v72_x7
-  %_secret_lval380 = load i32, i32* %_secret___v76_j7
-  %_secret_addtmp381 = add i32 %_secret_lval379, %_secret_lval380
-  call void @_store32_le(i8* %_secret_dynarrarg378, i32 %_secret_addtmp381)
-  %_secret_ldedviewptr382 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep383 = getelementptr inbounds i8, i8* %_secret_ldedviewptr382, i8 32
-  %_secret_arrviewdyn384 = alloca i8*
-  store i8* %_secret_source_gep383, i8** %_secret_arrviewdyn384
-  %_secret_ldedviewptr385 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep386 = getelementptr inbounds i8, i8* %_secret_ldedviewptr385, i8 32
-  %_secret_arrviewdyn387 = alloca i8*
-  store i8* %_secret_source_gep386, i8** %_secret_arrviewdyn387
-  %_secret_dynarrarg388 = load i8*, i8** %_secret_arrviewdyn387
-  %_secret_lval389 = load i32, i32* %_secret___v73_x8
-  %_secret_lval390 = load i32, i32* %_secret___v77_j8
-  %_secret_addtmp391 = add i32 %_secret_lval389, %_secret_lval390
-  call void @_store32_le(i8* %_secret_dynarrarg388, i32 %_secret_addtmp391)
-  %_secret_ldedviewptr392 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep393 = getelementptr inbounds i8, i8* %_secret_ldedviewptr392, i8 36
-  %_secret_arrviewdyn394 = alloca i8*
-  store i8* %_secret_source_gep393, i8** %_secret_arrviewdyn394
-  %_secret_ldedviewptr395 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep396 = getelementptr inbounds i8, i8* %_secret_ldedviewptr395, i8 36
-  %_secret_arrviewdyn397 = alloca i8*
-  store i8* %_secret_source_gep396, i8** %_secret_arrviewdyn397
-  %_secret_dynarrarg398 = load i8*, i8** %_secret_arrviewdyn397
-  %_secret_lval399 = load i32, i32* %_secret___v74_x9
-  %_secret_lval400 = load i32, i32* %_secret___v78_j9
-  %_secret_addtmp401 = add i32 %_secret_lval399, %_secret_lval400
-  call void @_store32_le(i8* %_secret_dynarrarg398, i32 %_secret_addtmp401)
-  %_secret_ldedviewptr402 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep403 = getelementptr inbounds i8, i8* %_secret_ldedviewptr402, i8 40
-  %_secret_arrviewdyn404 = alloca i8*
-  store i8* %_secret_source_gep403, i8** %_secret_arrviewdyn404
-  %_secret_ldedviewptr405 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep406 = getelementptr inbounds i8, i8* %_secret_ldedviewptr405, i8 40
-  %_secret_arrviewdyn407 = alloca i8*
-  store i8* %_secret_source_gep406, i8** %_secret_arrviewdyn407
-  %_secret_dynarrarg408 = load i8*, i8** %_secret_arrviewdyn407
-  %_secret_lval409 = load i32, i32* %_secret___v49_x10
-  %_secret_lval410 = load i32, i32* %_secret___v53_j10
-  %_secret_addtmp411 = add i32 %_secret_lval409, %_secret_lval410
-  call void @_store32_le(i8* %_secret_dynarrarg408, i32 %_secret_addtmp411)
-  %_secret_ldedviewptr412 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep413 = getelementptr inbounds i8, i8* %_secret_ldedviewptr412, i8 44
-  %_secret_arrviewdyn414 = alloca i8*
-  store i8* %_secret_source_gep413, i8** %_secret_arrviewdyn414
-  %_secret_ldedviewptr415 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep416 = getelementptr inbounds i8, i8* %_secret_ldedviewptr415, i8 44
-  %_secret_arrviewdyn417 = alloca i8*
-  store i8* %_secret_source_gep416, i8** %_secret_arrviewdyn417
-  %_secret_dynarrarg418 = load i8*, i8** %_secret_arrviewdyn417
-  %_secret_lval419 = load i32, i32* %_secret___v59_x11
-  %_secret_lval420 = load i32, i32* %_secret___v67_j11
-  %_secret_addtmp421 = add i32 %_secret_lval419, %_secret_lval420
-  call void @_store32_le(i8* %_secret_dynarrarg418, i32 %_secret_addtmp421)
-  %_secret_ldedviewptr422 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep423 = getelementptr inbounds i8, i8* %_secret_ldedviewptr422, i8 48
-  %_secret_arrviewdyn424 = alloca i8*
-  store i8* %_secret_source_gep423, i8** %_secret_arrviewdyn424
-  %_secret_ldedviewptr425 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep426 = getelementptr inbounds i8, i8* %_secret_ldedviewptr425, i8 48
-  %_secret_arrviewdyn427 = alloca i8*
-  store i8* %_secret_source_gep426, i8** %_secret_arrviewdyn427
-  %_secret_dynarrarg428 = load i8*, i8** %_secret_arrviewdyn427
-  %_secret_lval429 = load i32, i32* %_secret___v60_x12
-  %_secret_lval430 = load i32, i32* %_secret___v68_j12
-  %_secret_addtmp431 = add i32 %_secret_lval429, %_secret_lval430
-  call void @_store32_le(i8* %_secret_dynarrarg428, i32 %_secret_addtmp431)
-  %_secret_ldedviewptr432 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep433 = getelementptr inbounds i8, i8* %_secret_ldedviewptr432, i8 52
-  %_secret_arrviewdyn434 = alloca i8*
-  store i8* %_secret_source_gep433, i8** %_secret_arrviewdyn434
-  %_secret_ldedviewptr435 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep436 = getelementptr inbounds i8, i8* %_secret_ldedviewptr435, i8 52
-  %_secret_arrviewdyn437 = alloca i8*
-  store i8* %_secret_source_gep436, i8** %_secret_arrviewdyn437
-  %_secret_dynarrarg438 = load i8*, i8** %_secret_arrviewdyn437
-  %_secret_lval439 = load i32, i32* %_secret___v61_x13
-  %_secret_lval440 = load i32, i32* %_secret___v69_j13
-  %_secret_addtmp441 = add i32 %_secret_lval439, %_secret_lval440
-  call void @_store32_le(i8* %_secret_dynarrarg438, i32 %_secret_addtmp441)
-  %_secret_ldedviewptr442 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep443 = getelementptr inbounds i8, i8* %_secret_ldedviewptr442, i8 56
-  %_secret_arrviewdyn444 = alloca i8*
-  store i8* %_secret_source_gep443, i8** %_secret_arrviewdyn444
-  %_secret_ldedviewptr445 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep446 = getelementptr inbounds i8, i8* %_secret_ldedviewptr445, i8 56
-  %_secret_arrviewdyn447 = alloca i8*
-  store i8* %_secret_source_gep446, i8** %_secret_arrviewdyn447
-  %_secret_dynarrarg448 = load i8*, i8** %_secret_arrviewdyn447
-  %_secret_lval449 = load i32, i32* %_secret___v62_x14
-  %_secret_lval450 = load i32, i32* %_secret___v70_j14
-  %_secret_addtmp451 = add i32 %_secret_lval449, %_secret_lval450
-  call void @_store32_le(i8* %_secret_dynarrarg448, i32 %_secret_addtmp451)
-  %_secret_ldedviewptr452 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep453 = getelementptr inbounds i8, i8* %_secret_ldedviewptr452, i8 60
-  %_secret_arrviewdyn454 = alloca i8*
-  store i8* %_secret_source_gep453, i8** %_secret_arrviewdyn454
-  %_secret_ldedviewptr455 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep456 = getelementptr inbounds i8, i8* %_secret_ldedviewptr455, i8 60
-  %_secret_arrviewdyn457 = alloca i8*
-  store i8* %_secret_source_gep456, i8** %_secret_arrviewdyn457
-  %_secret_dynarrarg458 = load i8*, i8** %_secret_arrviewdyn457
-  %_secret_lval459 = load i32, i32* %_secret___v50_x15
-  %_secret_lval460 = load i32, i32* %_secret___v54_j15
-  %_secret_addtmp461 = add i32 %_secret_lval459, %_secret_lval460
-  call void @_store32_le(i8* %_secret_dynarrarg458, i32 %_secret_addtmp461)
+  %0 = bitcast i64* %dst to i8*
+  %1 = bitcast i64* %src to i8*
+  %2 = mul i64 %len, 8
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 %2, i32 8, i1 false)
   ret void
-}
-
-; Function Attrs: alwaysinline readonly
-define internal i32 @_load32_le(i8*) #3 {
-entry:
-  %_secret_cast = bitcast i8* %0 to i32*
-  %_secret_ld = load i32, i32* %_secret_cast
-  ret i32 %_secret_ld
 }
 
 ; Function Attrs: alwaysinline
-define internal i32 @__rotl32(i32 %_secret_x, i32 %_secret_n) #2 {
+define internal void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len) #0 {
 entry:
-  %_secret_lshift = shl i32 %_secret_x, %_secret_n
-  %_secret_subtmp = sub i32 32, %_secret_n
-  %_secret_lrshift = lshr i32 %_secret_x, %_secret_subtmp
-  %_secret_rotltmp = or i32 %_secret_lshift, %_secret_lrshift
-  ret i32 %_secret_rotltmp
+  %0 = mul i64 %len, 1
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %dst, i8* %src, i64 %0, i32 1, i1 false)
+  ret void
+}
+
+define internal i1 @_crypto_verify_16(i8* %__v82_x, i8* %__v83_y) {
+entry:
+  %__rval = alloca i1
+  store i1 false, i1* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  br label %0
+
+; <label>:0:                                      ; preds = %15, %entry
+  %__v84_i = phi i32 [ 0, %entry ], [ %16, %15 ]
+  %1 = icmp ult i32 %__v84_i, 16
+  br i1 %1, label %2, label %17
+
+; <label>:2:                                      ; preds = %0
+  %__m3 = load i1, i1* %__rctx
+  %__v258_lexpr = zext i32 %__v84_i to i64
+  %__v257_lexpr = zext i32 %__v84_i to i64
+  %3 = getelementptr i8, i8* %__v82_x, i64 %__v257_lexpr
+  %4 = load i8, i8* %3
+  %5 = getelementptr i8, i8* %__v83_y, i64 %__v258_lexpr
+  %6 = load i8, i8* %5
+  %__m4 = icmp ne i8 %4, %6
+  %7 = and i1 true, %__m4
+  %8 = and i1 %7, %__m3
+  %9 = load i1, i1* %__rval
+  %10 = call i1 @fact.cmov.asm.i1(i1 %8, i1 false, i1 %9)
+  store i1 %10, i1* %__rval
+  %11 = and i1 true, %__m4
+  %12 = and i1 %11, %__m3
+  %13 = load i1, i1* %__rctx
+  %14 = call i1 @fact.cmov.asm.i1(i1 %12, i1 false, i1 %13)
+  store i1 %14, i1* %__rctx
+  %__m5 = xor i1 %__m4, true
+  %__m6 = xor i1 %__m3, true
+  br label %15
+
+; <label>:15:                                     ; preds = %2
+  %16 = add i32 %__v84_i, 1
+  br label %0
+
+; <label>:17:                                     ; preds = %0
+  %__m1 = load i1, i1* %__rctx
+  %18 = and i1 true, %__m1
+  %19 = load i1, i1* %__rval
+  %20 = call i1 @fact.cmov.asm.i1(i1 %18, i1 true, i1 %19)
+  store i1 %20, i1* %__rval
+  %21 = and i1 true, %__m1
+  %22 = load i1, i1* %__rctx
+  %23 = call i1 @fact.cmov.asm.i1(i1 %21, i1 false, i1 %22)
+  store i1 %23, i1* %__rctx
+  %__m2 = xor i1 %__m1, true
+  %24 = load i1, i1* %__rval
+  ret i1 %24
 }
 
 ; Function Attrs: alwaysinline
-define internal void @_store32_le(i8*, i32) #2 {
+define internal i1 @fact.cmov.asm.i1(i1 %cond, i1 %x, i1 %y) #0 {
 entry:
-  %_secret_cast = bitcast i8* %0 to i32*
-  store i32 %1, i32* %_secret_cast
-  ret void
+  %0 = zext i1 %x to i32
+  %1 = zext i1 %y to i32
+  %2 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %cond, i32 %0, i32 %1)
+  %3 = trunc i32 %2 to i1
+  ret i1 %3
 }
 
-define internal i32 @_crypto_stream_salsa20(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_public_arrarg3, i8* %_secret_arrarg5) {
+define internal i1 @_crypto_onetimeauth_poly1305_verify(i8* %__v78_h, i8* %__v79_input, i64 %__v221___v79_input_len, i8* %__v80_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg3, i8** %_public_arrarg
-  %_secret_arrarg4 = alloca i8*
-  store i8* %_secret_arrarg5, i8** %_secret_arrarg4
-  %_public___rval = alloca i32
-  %_secret___rnset = alloca i1
-  %_public___v82_i = alloca i32
-  %_public___v83_ctimes = alloca i32
-  %_public___v84_j = alloca i32
-  %_secret___v85_u = alloca i32
-  %_public___v86_i = alloca i32
-  %_public___v88_remain = alloca i32
-  %_public___v90___v89_len = alloca i32
-  %_public___v92_i = alloca i32
-  store i32 0, i32* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_public_lval = load i32, i32* %_public___c_len
-  %_public_eqtmp = icmp eq i32 %_public_lval, 0
-  %_public_branchcompare = icmp eq i1 %_public_eqtmp, true
-  br i1 %_public_branchcompare, label %thenbranch, label %elsebranch
-
-thenbranch:                                       ; preds = %entry
-  store i32 0, i32* %_public___rval
-  %_public_lval6 = load i32, i32* %_public___rval
-  ret i32 %_public_lval6
-
-elsebranch:                                       ; preds = %entry
-  br label %branchmerge
-
-branchmerge:                                      ; preds = %elsebranch
-  %_secret___v80_kcopy = alloca [32 x i8]
-  %_secret_ldedtocopy = load i8*, i8** %_secret_arrarg4
-  %_secret_destcast = bitcast [32 x i8]* %_secret___v80_kcopy to i8*
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %_secret_destcast, i8* %_secret_ldedtocopy, i64 32, i32 0, i1 false)
-  %_secret___v81_in = alloca [16 x i8]
-  %_secret_sourcecasted = bitcast [16 x i8]* %_secret___v81_in to i8*
-  call void @llvm.memset.p0i8.i64(i8* %_secret_sourcecasted, i8 0, i64 16, i32 0, i1 false)
-  store i32 0, i32* %_public___v82_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %branchmerge
-  %_public_lval7 = load i32, i32* %_public___v82_i
-  %_public_ulttmp = icmp ult i32 %_public_lval7, 8
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_public_lval8 = load i32, i32* %_public___v82_i
-  %_secret_ptr = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v81_in, i32 0, i32 %_public_lval8
-  %_public_lval9 = load i32, i32* %_public___v82_i
-  %_public_dyn = load i8*, i8** %_public_arrarg
-  %_public_ptr = getelementptr inbounds i8, i8* %_public_dyn, i32 %_public_lval9
-  %_public_lval10 = load i8, i8* %_public_ptr
-  store i8 %_public_lval10, i8* %_secret_ptr
-  %_public_lval11 = load i32, i32* %_public___v82_i
-  %_public_addtmp = add i32 %_public_lval11, 1
-  store i32 %_public_addtmp, i32* %_public___v82_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_public_lval12 = load i32, i32* %_public___c_len
-  %_public_lrshift = lshr i32 %_public_lval12, 6
-  store i32 %_public_lrshift, i32* %_public___v83_ctimes
-  store i32 0, i32* %_public___v84_j
-  br label %loop_check13
-
-loop_check13:                                     ; preds = %loop_end28, %loop_end
-  %_public_lval16 = load i32, i32* %_public___v84_j
-  %_public_lval17 = load i32, i32* %_public___v83_ctimes
-  %_public_ulttmp18 = icmp ult i32 %_public_lval16, %_public_lval17
-  br i1 %_public_ulttmp18, label %loop_body14, label %loop_end15
-
-loop_body14:                                      ; preds = %loop_check13
-  %_public_lval19 = load i32, i32* %_public___v84_j
-  %_public_multmp = mul i32 %_public_lval19, 64
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i32 %_public_multmp
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
-  %_public_lval20 = load i32, i32* %_public___v84_j
-  %_public_multmp21 = mul i32 %_public_lval20, 64
-  %_secret_ldedviewptr22 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep23 = getelementptr inbounds i8, i8* %_secret_ldedviewptr22, i32 %_public_multmp21
-  %_secret_arrviewdyn24 = alloca i8*
-  store i8* %_secret_source_gep23, i8** %_secret_arrviewdyn24
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrviewdyn24
-  %_secret_arrtoptr = bitcast [16 x i8]* %_secret___v81_in to i8*
-  %_secret_arrtoptr25 = bitcast [32 x i8]* %_secret___v80_kcopy to i8*
-  call void @_crypto_core_salsa20(i8* %_secret_dynarrarg, i8* %_secret_arrtoptr, i8* %_secret_arrtoptr25)
-  store i32 1, i32* %_secret___v85_u
-  store i32 8, i32* %_public___v86_i
-  br label %loop_check26
-
-loop_end15:                                       ; preds = %loop_check13
-  %_secret___v87_block = alloca [64 x i8]
-  %_public_lval42 = load i32, i32* %_public___v83_ctimes
-  %_public_multmp43 = mul i32 %_public_lval42, 64
-  %_public_lval44 = load i32, i32* %_public___c_len
-  %_public_ulttmp45 = icmp ult i32 %_public_multmp43, %_public_lval44
-  %_public_branchcompare46 = icmp eq i1 %_public_ulttmp45, true
-  br i1 %_public_branchcompare46, label %thenbranch47, label %elsebranch73
-
-loop_check26:                                     ; preds = %loop_body27, %loop_body14
-  %_public_lval29 = load i32, i32* %_public___v86_i
-  %_public_ulttmp30 = icmp ult i32 %_public_lval29, 16
-  br i1 %_public_ulttmp30, label %loop_body27, label %loop_end28
-
-loop_body27:                                      ; preds = %loop_check26
-  %_secret_lval = load i32, i32* %_secret___v85_u
-  %_public_lval31 = load i32, i32* %_public___v86_i
-  %_secret_ptr32 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v81_in, i32 0, i32 %_public_lval31
-  %_secret_lval33 = load i8, i8* %_secret_ptr32
-  %_secret_rhssext = zext i8 %_secret_lval33 to i32
-  %_secret_addtmp = add i32 %_secret_lval, %_secret_rhssext
-  store i32 %_secret_addtmp, i32* %_secret___v85_u
-  %_public_lval34 = load i32, i32* %_public___v86_i
-  %_secret_ptr35 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v81_in, i32 0, i32 %_public_lval34
-  %_secret_lval36 = load i32, i32* %_secret___v85_u
-  %_secret_ucast = trunc i32 %_secret_lval36 to i8
-  store i8 %_secret_ucast, i8* %_secret_ptr35
-  %_secret_lval37 = load i32, i32* %_secret___v85_u
-  %_secret_lrshift = lshr i32 %_secret_lval37, 8
-  store i32 %_secret_lrshift, i32* %_secret___v85_u
-  %_public_lval38 = load i32, i32* %_public___v86_i
-  %_public_addtmp39 = add i32 %_public_lval38, 1
-  store i32 %_public_addtmp39, i32* %_public___v86_i
-  br label %loop_check26
-
-loop_end28:                                       ; preds = %loop_check26
-  %_public_lval40 = load i32, i32* %_public___v84_j
-  %_public_addtmp41 = add i32 %_public_lval40, 1
-  store i32 %_public_addtmp41, i32* %_public___v84_j
-  br label %loop_check13
-
-thenbranch47:                                     ; preds = %loop_end15
-  %_secret_arrtoptr48 = bitcast [64 x i8]* %_secret___v87_block to i8*
-  %_secret_arrtoptr49 = bitcast [16 x i8]* %_secret___v81_in to i8*
-  %_secret_arrtoptr50 = bitcast [32 x i8]* %_secret___v80_kcopy to i8*
-  call void @_crypto_core_salsa20(i8* %_secret_arrtoptr48, i8* %_secret_arrtoptr49, i8* %_secret_arrtoptr50)
-  %_public_lval51 = load i32, i32* %_public___c_len
-  %_public_lval52 = load i32, i32* %_public___v83_ctimes
-  %_public_multmp53 = mul i32 %_public_lval52, 64
-  %_public_subtmp = sub i32 %_public_lval51, %_public_multmp53
-  store i32 %_public_subtmp, i32* %_public___v88_remain
-  %_public_lval54 = load i32, i32* %_public___v88_remain
-  store i32 %_public_lval54, i32* %_public___v90___v89_len
-  %_public_lval55 = load i32, i32* %_public___v83_ctimes
-  %_public_multmp56 = mul i32 %_public_lval55, 64
-  %_secret_ldedviewptr57 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep58 = getelementptr inbounds i8, i8* %_secret_ldedviewptr57, i32 %_public_multmp56
-  %_secret___v91_cview = alloca i8*
-  store i8* %_secret_source_gep58, i8** %_secret___v91_cview
-  store i32 0, i32* %_public___v92_i
-  br label %loop_check60
-
-loop_check60:                                     ; preds = %loop_body61, %thenbranch47
-  %_public_lval63 = load i32, i32* %_public___v92_i
-  %_public_lval64 = load i32, i32* %_public___v88_remain
-  %_public_ulttmp65 = icmp ult i32 %_public_lval63, %_public_lval64
-  br i1 %_public_ulttmp65, label %loop_body61, label %loop_end62
-
-loop_body61:                                      ; preds = %loop_check60
-  %_public_lval66 = load i32, i32* %_public___v92_i
-  %_secret_dyn = load i8*, i8** %_secret___v91_cview
-  %_secret_ptr67 = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_lval66
-  %_public_lval68 = load i32, i32* %_public___v92_i
-  %_secret_ptr69 = getelementptr inbounds [64 x i8], [64 x i8]* %_secret___v87_block, i32 0, i32 %_public_lval68
-  %_secret_lval70 = load i8, i8* %_secret_ptr69
-  store i8 %_secret_lval70, i8* %_secret_ptr67
-  %_public_lval71 = load i32, i32* %_public___v92_i
-  %_public_addtmp72 = add i32 %_public_lval71, 1
-  store i32 %_public_addtmp72, i32* %_public___v92_i
-  br label %loop_check60
-
-loop_end62:                                       ; preds = %loop_check60
-  br label %branchmerge74
-
-elsebranch73:                                     ; preds = %loop_end15
-  br label %branchmerge74
-
-branchmerge74:                                    ; preds = %elsebranch73, %loop_end62
-  %_secret_arrtoptr75 = bitcast [64 x i8]* %_secret___v87_block to i8*
-  call void @_fact_memzero(i8* %_secret_arrtoptr75, i32 64)
-  %_secret_arrtoptr76 = bitcast [32 x i8]* %_secret___v80_kcopy to i8*
-  call void @_fact_memzero(i8* %_secret_arrtoptr76, i32 32)
-  store i32 0, i32* %_public___rval
-  %_public_lval77 = load i32, i32* %_public___rval
-  ret i32 %_public_lval77
+  %__rval = alloca i1
+  store i1 false, i1* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v81_correct = alloca i8, i64 16
+  call void @fact.memset.i8(i8* %__v81_correct, i8 0, i64 16)
+  %0 = call i32 @_crypto_onetimeauth_poly1305(i8* %__v81_correct, i8* %__v79_input, i64 %__v221___v79_input_len, i8* %__v80_k)
+  %__v202__crypto_verify_16 = call i1 @_crypto_verify_16(i8* %__v78_h, i8* %__v81_correct)
+  ret i1 %__v202__crypto_verify_16
 }
 
-; Function Attrs: argmemonly nounwind
-declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #0
-
-define internal i32 @_crypto_stream_salsa20_xor_ic(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_secret_arrarg4, i32 %_public___m_len5, i8* %_secret_arrarg7, i64 %_public_ic_val8, i8* %_secret_arrarg10) {
+define internal i32 @_crypto_stream_salsa20_xor_ic(i8* %__v56_c, i64 %__v219___v56_c_len, i8* %__v57_m, i64 %__v220___v57_m_len, i8* %__v58_n, i64 %__v59_ic_val, i8* %__v60_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_secret_arrarg3 = alloca i8*
-  store i8* %_secret_arrarg4, i8** %_secret_arrarg3
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len5, i32* %_public___m_len
-  %_secret_arrarg6 = alloca i8*
-  store i8* %_secret_arrarg7, i8** %_secret_arrarg6
-  %_public_ic_val = alloca i64
-  store i64 %_public_ic_val8, i64* %_public_ic_val
-  %_secret_arrarg9 = alloca i8*
-  store i8* %_secret_arrarg10, i8** %_secret_arrarg9
-  %_public___rval = alloca i32
-  %_secret___rnset = alloca i1
-  %_public___v93_ic = alloca i64
-  %_public___v96_i = alloca i32
-  %_public___v97_i = alloca i32
-  %_public___v98_mtimes = alloca i32
-  %_public___v100_j = alloca i32
-  %_public___v103_i = alloca i32
-  %_secret___v104_u = alloca i32
-  %_public___v105_i = alloca i32
-  %_public___v106_remain = alloca i32
-  %_public___v108___v107_len = alloca i32
-  %_public___v111___v110_len = alloca i32
-  %_public___v113_i = alloca i32
-  store i32 0, i32* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_public_lval = load i32, i32* %_public___m_len
-  %_public_eqtmp = icmp eq i32 %_public_lval, 0
-  %_public_branchcompare = icmp eq i1 %_public_eqtmp, true
-  br i1 %_public_branchcompare, label %thenbranch, label %elsebranch
+  %__rval = alloca i32
+  store i32 0, i32* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = icmp eq i64 %__v220___v57_m_len, 0
+  br i1 %0, label %1, label %2
 
-thenbranch:                                       ; preds = %entry
-  store i32 0, i32* %_public___rval
-  %_public_lval11 = load i32, i32* %_public___rval
-  ret i32 %_public_lval11
+; <label>:1:                                      ; preds = %entry
+  ret i32 0
 
-elsebranch:                                       ; preds = %entry
-  br label %branchmerge
+; <label>:2:                                      ; preds = %entry
+  br label %3
 
-branchmerge:                                      ; preds = %elsebranch
-  %_public_lval12 = load i64, i64* %_public_ic_val
-  store i64 %_public_lval12, i64* %_public___v93_ic
-  %_secret___v94_kcopy = alloca [32 x i8]
-  %_secret_ldedtocopy = load i8*, i8** %_secret_arrarg9
-  %_secret_destcast = bitcast [32 x i8]* %_secret___v94_kcopy to i8*
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %_secret_destcast, i8* %_secret_ldedtocopy, i64 32, i32 0, i1 false)
-  %_secret___v95_in = alloca [16 x i8]
-  %_secret_sourcecasted = bitcast [16 x i8]* %_secret___v95_in to i8*
-  call void @llvm.memset.p0i8.i64(i8* %_secret_sourcecasted, i8 0, i64 16, i32 0, i1 false)
-  store i32 0, i32* %_public___v96_i
-  br label %loop_check
+; <label>:3:                                      ; preds = %2
+  %__v61_ic = alloca i64
+  store i64 %__v59_ic_val, i64* %__v61_ic
+  %__v62_kcopy = alloca i8, i64 32
+  call void @fact.memcpy.i8(i8* %__v62_kcopy, i8* %__v60_k, i64 32)
+  %__v63_input = alloca i8, i64 16
+  call void @fact.memset.i8(i8* %__v63_input, i8 0, i64 16)
+  br label %4
 
-loop_check:                                       ; preds = %loop_body, %branchmerge
-  %_public_lval13 = load i32, i32* %_public___v96_i
-  %_public_ulttmp = icmp ult i32 %_public_lval13, 8
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
+; <label>:4:                                      ; preds = %10, %3
+  %__v64_i = phi i32 [ 0, %3 ], [ %11, %10 ]
+  %5 = icmp ult i32 %__v64_i, 8
+  br i1 %5, label %6, label %12
 
-loop_body:                                        ; preds = %loop_check
-  %_public_lval14 = load i32, i32* %_public___v96_i
-  %_secret_ptr = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v95_in, i32 0, i32 %_public_lval14
-  %_public_lval15 = load i32, i32* %_public___v96_i
-  %_secret_dyn = load i8*, i8** %_secret_arrarg6
-  %_secret_ptr16 = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_lval15
-  %_secret_lval = load i8, i8* %_secret_ptr16
-  store i8 %_secret_lval, i8* %_secret_ptr
-  %_public_lval17 = load i32, i32* %_public___v96_i
-  %_public_addtmp = add i32 %_public_lval17, 1
-  store i32 %_public_addtmp, i32* %_public___v96_i
-  br label %loop_check
+; <label>:6:                                      ; preds = %4
+  %__v239_lexpr = zext i32 %__v64_i to i64
+  %__v238_lexpr = zext i32 %__v64_i to i64
+  %7 = getelementptr i8, i8* %__v63_input, i64 %__v238_lexpr
+  %8 = getelementptr i8, i8* %__v58_n, i64 %__v239_lexpr
+  %9 = load i8, i8* %8
+  store i8 %9, i8* %7
+  br label %10
 
-loop_end:                                         ; preds = %loop_check
-  store i32 8, i32* %_public___v97_i
-  br label %loop_check18
+; <label>:10:                                     ; preds = %6
+  %11 = add i32 %__v64_i, 1
+  br label %4
 
-loop_check18:                                     ; preds = %loop_body19, %loop_end
-  %_public_lval21 = load i32, i32* %_public___v97_i
-  %_public_ulttmp22 = icmp ult i32 %_public_lval21, 16
-  br i1 %_public_ulttmp22, label %loop_body19, label %loop_end20
+; <label>:12:                                     ; preds = %4
+  br label %13
 
-loop_body19:                                      ; preds = %loop_check18
-  %_public_lval23 = load i32, i32* %_public___v97_i
-  %_secret_ptr24 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v95_in, i32 0, i32 %_public_lval23
-  %_public_lval25 = load i64, i64* %_public___v93_ic
-  %_public_andtmp = and i64 %_public_lval25, 255
-  %_public_truncbinop = trunc i64 %_public_andtmp to i8
-  store i8 %_public_truncbinop, i8* %_secret_ptr24
-  %_public_lval26 = load i64, i64* %_public___v93_ic
-  %_public_lrshift = lshr i64 %_public_lval26, 8
-  store i64 %_public_lrshift, i64* %_public___v93_ic
-  %_public_lval27 = load i32, i32* %_public___v97_i
-  %_public_addtmp28 = add i32 %_public_lval27, 1
-  store i32 %_public_addtmp28, i32* %_public___v97_i
-  br label %loop_check18
+; <label>:13:                                     ; preds = %21, %12
+  %__v65_i = phi i32 [ 8, %12 ], [ %22, %21 ]
+  %14 = icmp ult i32 %__v65_i, 16
+  br i1 %14, label %15, label %23
 
-loop_end20:                                       ; preds = %loop_check18
-  %_public_lval29 = load i32, i32* %_public___m_len
-  %_public_lrshift30 = lshr i32 %_public_lval29, 6
-  store i32 %_public_lrshift30, i32* %_public___v98_mtimes
-  %_secret___v99_block = alloca [64 x i8]
-  store i32 0, i32* %_public___v100_j
-  br label %loop_check31
+; <label>:15:                                     ; preds = %13
+  %__v240_lexpr = zext i32 %__v65_i to i64
+  %16 = getelementptr i8, i8* %__v63_input, i64 %__v240_lexpr
+  %17 = load i64, i64* %__v61_ic
+  %18 = trunc i64 %17 to i8
+  store i8 %18, i8* %16
+  %19 = load i64, i64* %__v61_ic
+  %20 = lshr i64 %19, 8
+  store i64 %20, i64* %__v61_ic
+  br label %21
 
-loop_check31:                                     ; preds = %loop_end63, %loop_end20
-  %_public_lval34 = load i32, i32* %_public___v100_j
-  %_public_lval35 = load i32, i32* %_public___v98_mtimes
-  %_public_ulttmp36 = icmp ult i32 %_public_lval34, %_public_lval35
-  br i1 %_public_ulttmp36, label %loop_body32, label %loop_end33
+; <label>:21:                                     ; preds = %15
+  %22 = add i32 %__v65_i, 1
+  br label %13
 
-loop_body32:                                      ; preds = %loop_check31
-  %_secret_arrtoptr = bitcast [64 x i8]* %_secret___v99_block to i8*
-  %_secret_arrtoptr37 = bitcast [16 x i8]* %_secret___v95_in to i8*
-  %_secret_arrtoptr38 = bitcast [32 x i8]* %_secret___v94_kcopy to i8*
-  call void @_crypto_core_salsa20(i8* %_secret_arrtoptr, i8* %_secret_arrtoptr37, i8* %_secret_arrtoptr38)
-  %_public_lval39 = load i32, i32* %_public___v100_j
-  %_public_multmp = mul i32 %_public_lval39, 64
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i32 %_public_multmp
-  %_secret___v101_cview = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret___v101_cview
-  %_public_lval40 = load i32, i32* %_public___v100_j
-  %_public_multmp41 = mul i32 %_public_lval40, 64
-  %_secret_ldedviewptr42 = load i8*, i8** %_secret_arrarg3
-  %_secret_source_gep43 = getelementptr inbounds i8, i8* %_secret_ldedviewptr42, i32 %_public_multmp41
-  %_secret___v102_mview = alloca i8*
-  store i8* %_secret_source_gep43, i8** %_secret___v102_mview
-  store i32 0, i32* %_public___v103_i
-  br label %loop_check44
+; <label>:23:                                     ; preds = %13
+  %__v66_mtimes = udiv i64 %__v220___v57_m_len, 64
+  %__v67_block = alloca i8, i64 64
+  call void @fact.memset.i8(i8* %__v67_block, i8 0, i64 64)
+  br label %24
 
-loop_end33:                                       ; preds = %loop_check31
-  %_public_lval78 = load i32, i32* %_public___v98_mtimes
-  %_public_multmp79 = mul i32 %_public_lval78, 64
-  %_public_lval80 = load i32, i32* %_public___m_len
-  %_public_ulttmp81 = icmp ult i32 %_public_multmp79, %_public_lval80
-  %_public_branchcompare82 = icmp eq i1 %_public_ulttmp81, true
-  br i1 %_public_branchcompare82, label %thenbranch83, label %elsebranch119
+; <label>:24:                                     ; preds = %27, %23
+  %__v68_j = phi i64 [ 0, %23 ], [ %28, %27 ]
+  %25 = icmp ult i64 %__v68_j, %__v66_mtimes
+  br i1 %25, label %26, label %29
 
-loop_check44:                                     ; preds = %loop_body45, %loop_body32
-  %_public_lval47 = load i32, i32* %_public___v103_i
-  %_public_ulttmp48 = icmp ult i32 %_public_lval47, 64
-  br i1 %_public_ulttmp48, label %loop_body45, label %loop_end46
+; <label>:26:                                     ; preds = %24
+  call void @_crypto_core_salsa20(i8* %__v67_block, i8* %__v63_input, i8* %__v62_kcopy)
+  %__v241_lexpr = mul i64 %__v68_j, 64
+  %__v69_cview = getelementptr i8, i8* %__v56_c, i64 %__v241_lexpr
+  %__v242_lexpr = mul i64 %__v68_j, 64
+  %__v70_mview = getelementptr i8, i8* %__v57_m, i64 %__v242_lexpr
+  br label %32
 
-loop_body45:                                      ; preds = %loop_check44
-  %_public_lval49 = load i32, i32* %_public___v103_i
-  %_secret_dyn50 = load i8*, i8** %_secret___v101_cview
-  %_secret_ptr51 = getelementptr inbounds i8, i8* %_secret_dyn50, i32 %_public_lval49
-  %_public_lval52 = load i32, i32* %_public___v103_i
-  %_secret_dyn53 = load i8*, i8** %_secret___v102_mview
-  %_secret_ptr54 = getelementptr inbounds i8, i8* %_secret_dyn53, i32 %_public_lval52
-  %_secret_lval55 = load i8, i8* %_secret_ptr54
-  %_public_lval56 = load i32, i32* %_public___v103_i
-  %_secret_ptr57 = getelementptr inbounds [64 x i8], [64 x i8]* %_secret___v99_block, i32 0, i32 %_public_lval56
-  %_secret_lval58 = load i8, i8* %_secret_ptr57
-  %_secret_xortmp = xor i8 %_secret_lval55, %_secret_lval58
-  store i8 %_secret_xortmp, i8* %_secret_ptr51
-  %_public_lval59 = load i32, i32* %_public___v103_i
-  %_public_addtmp60 = add i32 %_public_lval59, 1
-  store i32 %_public_addtmp60, i32* %_public___v103_i
-  br label %loop_check44
+; <label>:27:                                     ; preds = %59
+  %28 = add i64 %__v68_j, 1
+  br label %24
 
-loop_end46:                                       ; preds = %loop_check44
-  store i32 1, i32* %_secret___v104_u
-  store i32 8, i32* %_public___v105_i
-  br label %loop_check61
+; <label>:29:                                     ; preds = %24
+  %30 = mul i64 %__v66_mtimes, 64
+  %31 = icmp ult i64 %30, %__v220___v57_m_len
+  br i1 %31, label %60, label %62
 
-loop_check61:                                     ; preds = %loop_body62, %loop_end46
-  %_public_lval64 = load i32, i32* %_public___v105_i
-  %_public_ulttmp65 = icmp ult i32 %_public_lval64, 16
-  br i1 %_public_ulttmp65, label %loop_body62, label %loop_end63
+; <label>:32:                                     ; preds = %41, %26
+  %__v71_i = phi i32 [ 0, %26 ], [ %42, %41 ]
+  %33 = icmp ult i32 %__v71_i, 64
+  br i1 %33, label %34, label %43
 
-loop_body62:                                      ; preds = %loop_check61
-  %_secret_lval66 = load i32, i32* %_secret___v104_u
-  %_public_lval67 = load i32, i32* %_public___v105_i
-  %_secret_ptr68 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v95_in, i32 0, i32 %_public_lval67
-  %_secret_lval69 = load i8, i8* %_secret_ptr68
-  %_secret_rhssext = zext i8 %_secret_lval69 to i32
-  %_secret_addtmp = add i32 %_secret_lval66, %_secret_rhssext
-  store i32 %_secret_addtmp, i32* %_secret___v104_u
-  %_public_lval70 = load i32, i32* %_public___v105_i
-  %_secret_ptr71 = getelementptr inbounds [16 x i8], [16 x i8]* %_secret___v95_in, i32 0, i32 %_public_lval70
-  %_secret_lval72 = load i32, i32* %_secret___v104_u
-  %_secret_ucast = trunc i32 %_secret_lval72 to i8
-  store i8 %_secret_ucast, i8* %_secret_ptr71
-  %_secret_lval73 = load i32, i32* %_secret___v104_u
-  %_secret_lrshift = lshr i32 %_secret_lval73, 8
-  store i32 %_secret_lrshift, i32* %_secret___v104_u
-  %_public_lval74 = load i32, i32* %_public___v105_i
-  %_public_addtmp75 = add i32 %_public_lval74, 1
-  store i32 %_public_addtmp75, i32* %_public___v105_i
-  br label %loop_check61
+; <label>:34:                                     ; preds = %32
+  %__v245_lexpr = zext i32 %__v71_i to i64
+  %__v244_lexpr = zext i32 %__v71_i to i64
+  %__v243_lexpr = zext i32 %__v71_i to i64
+  %35 = getelementptr i8, i8* %__v69_cview, i64 %__v243_lexpr
+  %36 = getelementptr i8, i8* %__v70_mview, i64 %__v244_lexpr
+  %37 = load i8, i8* %36
+  %38 = getelementptr i8, i8* %__v67_block, i64 %__v245_lexpr
+  %39 = load i8, i8* %38
+  %40 = xor i8 %37, %39
+  store i8 %40, i8* %35
+  br label %41
 
-loop_end63:                                       ; preds = %loop_check61
-  %_public_lval76 = load i32, i32* %_public___v100_j
-  %_public_addtmp77 = add i32 %_public_lval76, 1
-  store i32 %_public_addtmp77, i32* %_public___v100_j
-  br label %loop_check31
+; <label>:41:                                     ; preds = %34
+  %42 = add i32 %__v71_i, 1
+  br label %32
 
-thenbranch83:                                     ; preds = %loop_end33
-  %_public_lval84 = load i32, i32* %_public___m_len
-  %_public_lval85 = load i32, i32* %_public___v98_mtimes
-  %_public_multmp86 = mul i32 %_public_lval85, 64
-  %_public_subtmp = sub i32 %_public_lval84, %_public_multmp86
-  store i32 %_public_subtmp, i32* %_public___v106_remain
-  %_secret_arrtoptr87 = bitcast [64 x i8]* %_secret___v99_block to i8*
-  %_secret_arrtoptr88 = bitcast [16 x i8]* %_secret___v95_in to i8*
-  %_secret_arrtoptr89 = bitcast [32 x i8]* %_secret___v94_kcopy to i8*
-  call void @_crypto_core_salsa20(i8* %_secret_arrtoptr87, i8* %_secret_arrtoptr88, i8* %_secret_arrtoptr89)
-  %_public_lval90 = load i32, i32* %_public___v106_remain
-  store i32 %_public_lval90, i32* %_public___v108___v107_len
-  %_public_lval91 = load i32, i32* %_public___v98_mtimes
-  %_public_multmp92 = mul i32 %_public_lval91, 64
-  %_secret_ldedviewptr93 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep94 = getelementptr inbounds i8, i8* %_secret_ldedviewptr93, i32 %_public_multmp92
-  %_secret___v109_cview = alloca i8*
-  store i8* %_secret_source_gep94, i8** %_secret___v109_cview
-  %_public_lval95 = load i32, i32* %_public___v106_remain
-  store i32 %_public_lval95, i32* %_public___v111___v110_len
-  %_public_lval96 = load i32, i32* %_public___v98_mtimes
-  %_public_multmp97 = mul i32 %_public_lval96, 64
-  %_secret_ldedviewptr98 = load i8*, i8** %_secret_arrarg3
-  %_secret_source_gep99 = getelementptr inbounds i8, i8* %_secret_ldedviewptr98, i32 %_public_multmp97
-  %_secret___v112_mview = alloca i8*
-  store i8* %_secret_source_gep99, i8** %_secret___v112_mview
-  store i32 0, i32* %_public___v113_i
-  br label %loop_check100
+; <label>:43:                                     ; preds = %32
+  %__v72_u = alloca i32
+  store i32 1, i32* %__v72_u
+  br label %44
 
-loop_check100:                                    ; preds = %loop_body101, %thenbranch83
-  %_public_lval103 = load i32, i32* %_public___v113_i
-  %_public_lval104 = load i32, i32* %_public___v106_remain
-  %_public_ulttmp105 = icmp ult i32 %_public_lval103, %_public_lval104
-  br i1 %_public_ulttmp105, label %loop_body101, label %loop_end102
+; <label>:44:                                     ; preds = %57, %43
+  %__v73_i = phi i32 [ 8, %43 ], [ %58, %57 ]
+  %45 = icmp ult i32 %__v73_i, 16
+  br i1 %45, label %46, label %59
 
-loop_body101:                                     ; preds = %loop_check100
-  %_public_lval106 = load i32, i32* %_public___v113_i
-  %_secret_dyn107 = load i8*, i8** %_secret___v109_cview
-  %_secret_ptr108 = getelementptr inbounds i8, i8* %_secret_dyn107, i32 %_public_lval106
-  %_public_lval109 = load i32, i32* %_public___v113_i
-  %_secret_dyn110 = load i8*, i8** %_secret___v112_mview
-  %_secret_ptr111 = getelementptr inbounds i8, i8* %_secret_dyn110, i32 %_public_lval109
-  %_secret_lval112 = load i8, i8* %_secret_ptr111
-  %_public_lval113 = load i32, i32* %_public___v113_i
-  %_secret_ptr114 = getelementptr inbounds [64 x i8], [64 x i8]* %_secret___v99_block, i32 0, i32 %_public_lval113
-  %_secret_lval115 = load i8, i8* %_secret_ptr114
-  %_secret_xortmp116 = xor i8 %_secret_lval112, %_secret_lval115
-  store i8 %_secret_xortmp116, i8* %_secret_ptr108
-  %_public_lval117 = load i32, i32* %_public___v113_i
-  %_public_addtmp118 = add i32 %_public_lval117, 1
-  store i32 %_public_addtmp118, i32* %_public___v113_i
-  br label %loop_check100
+; <label>:46:                                     ; preds = %44
+  %__v246_lexpr = zext i32 %__v73_i to i64
+  %47 = load i32, i32* %__v72_u
+  %48 = getelementptr i8, i8* %__v63_input, i64 %__v246_lexpr
+  %49 = load i8, i8* %48
+  %50 = zext i8 %49 to i32
+  %51 = add i32 %47, %50
+  store i32 %51, i32* %__v72_u
+  %__v247_lexpr = zext i32 %__v73_i to i64
+  %52 = getelementptr i8, i8* %__v63_input, i64 %__v247_lexpr
+  %53 = load i32, i32* %__v72_u
+  %54 = trunc i32 %53 to i8
+  store i8 %54, i8* %52
+  %55 = load i32, i32* %__v72_u
+  %56 = lshr i32 %55, 8
+  store i32 %56, i32* %__v72_u
+  br label %57
 
-loop_end102:                                      ; preds = %loop_check100
-  br label %branchmerge120
+; <label>:57:                                     ; preds = %46
+  %58 = add i32 %__v73_i, 1
+  br label %44
 
-elsebranch119:                                    ; preds = %loop_end33
-  br label %branchmerge120
+; <label>:59:                                     ; preds = %44
+  br label %27
 
-branchmerge120:                                   ; preds = %elsebranch119, %loop_end102
-  %_secret_arrtoptr121 = bitcast [64 x i8]* %_secret___v99_block to i8*
-  call void @_memzero(i8* %_secret_arrtoptr121, i32 64)
-  %_secret_arrtoptr122 = bitcast [32 x i8]* %_secret___v94_kcopy to i8*
-  call void @_memzero(i8* %_secret_arrtoptr122, i32 32)
-  store i32 0, i32* %_public___rval
-  %_public_lval123 = load i32, i32* %_public___rval
-  ret i32 %_public_lval123
+; <label>:60:                                     ; preds = %29
+  %61 = mul i64 %__v66_mtimes, 64
+  %__v251_lexpr = sub i64 %__v220___v57_m_len, %61
+  call void @_crypto_core_salsa20(i8* %__v67_block, i8* %__v63_input, i8* %__v62_kcopy)
+  %__v248_lexpr = mul i64 %__v66_mtimes, 64
+  %__v75_cview = getelementptr i8, i8* %__v56_c, i64 %__v248_lexpr
+  %__v250_lexpr = mul i64 %__v66_mtimes, 64
+  %__v76_mview = getelementptr i8, i8* %__v57_m, i64 %__v250_lexpr
+  br label %64
+
+; <label>:62:                                     ; preds = %29
+  br label %63
+
+; <label>:63:                                     ; preds = %62, %75
+  call void @"__memzero[8]/secret"(i8* %__v67_block, i64 64)
+  call void @"__memzero[8]/secret"(i8* %__v62_kcopy, i64 32)
+  ret i32 0
+
+; <label>:64:                                     ; preds = %73, %60
+  %__v252_lexpr = phi i64 [ 0, %60 ], [ %74, %73 ]
+  %65 = icmp ult i64 %__v252_lexpr, %__v251_lexpr
+  br i1 %65, label %66, label %75
+
+; <label>:66:                                     ; preds = %64
+  %67 = getelementptr i8, i8* %__v75_cview, i64 %__v252_lexpr
+  %68 = getelementptr i8, i8* %__v76_mview, i64 %__v252_lexpr
+  %69 = load i8, i8* %68
+  %70 = getelementptr i8, i8* %__v67_block, i64 %__v252_lexpr
+  %71 = load i8, i8* %70
+  %72 = xor i8 %69, %71
+  store i8 %72, i8* %67
+  br label %73
+
+; <label>:73:                                     ; preds = %66
+  %74 = add i64 %__v252_lexpr, 1
+  br label %64
+
+; <label>:75:                                     ; preds = %64
+  br label %63
 }
 
-define internal void @_crypto_core_hsalsa20(i8* %_secret_arrarg1, i8* %_secret_arrarg3, i8* %_secret_arrarg5) {
+define internal i32 @_crypto_stream_xsalsa20_xor_ic(i8* %__v48_c, i64 %__v217___v48_c_len, i8* %__v49_m, i64 %__v218___v49_m_len, i8* %__v50_n, i64 %__v51_ic, i8* %__v52_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_secret_arrarg2 = alloca i8*
-  store i8* %_secret_arrarg3, i8** %_secret_arrarg2
-  %_secret_arrarg4 = alloca i8*
-  store i8* %_secret_arrarg5, i8** %_secret_arrarg4
-  %_secret___rnset = alloca i1
-  %_secret___v114_x0 = alloca i32
-  %_secret___v115_x5 = alloca i32
-  %_secret___v116_x10 = alloca i32
-  %_secret___v117_x15 = alloca i32
-  %_secret___v118_x1 = alloca i32
-  %_secret___v119_x2 = alloca i32
-  %_secret___v120_x3 = alloca i32
-  %_secret___v121_x4 = alloca i32
-  %_secret___v122_x11 = alloca i32
-  %_secret___v123_x12 = alloca i32
-  %_secret___v124_x13 = alloca i32
-  %_secret___v125_x14 = alloca i32
-  %_secret___v126_x6 = alloca i32
-  %_secret___v127_x7 = alloca i32
-  %_secret___v128_x8 = alloca i32
-  %_secret___v129_x9 = alloca i32
-  %_public___v130_i = alloca i32
-  store i1 true, i1* %_secret___rnset
-  store i32 1634760805, i32* %_secret___v114_x0
-  store i32 857760878, i32* %_secret___v115_x5
-  store i32 2036477234, i32* %_secret___v116_x10
-  store i32 1797285236, i32* %_secret___v117_x15
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i8 0
-  %_secret_arrviewdyn = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret_arrviewdyn
-  %_secret_ldedviewptr6 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep7 = getelementptr inbounds i8, i8* %_secret_ldedviewptr6, i8 0
-  %_secret_arrviewdyn8 = alloca i8*
-  store i8* %_secret_source_gep7, i8** %_secret_arrviewdyn8
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrviewdyn8
-  %_secret_calltmp = call i32 @_load32_le(i8* %_secret_dynarrarg)
-  store i32 %_secret_calltmp, i32* %_secret___v118_x1
-  %_secret_ldedviewptr9 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep10 = getelementptr inbounds i8, i8* %_secret_ldedviewptr9, i8 4
-  %_secret_arrviewdyn11 = alloca i8*
-  store i8* %_secret_source_gep10, i8** %_secret_arrviewdyn11
-  %_secret_ldedviewptr12 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep13 = getelementptr inbounds i8, i8* %_secret_ldedviewptr12, i8 4
-  %_secret_arrviewdyn14 = alloca i8*
-  store i8* %_secret_source_gep13, i8** %_secret_arrviewdyn14
-  %_secret_dynarrarg15 = load i8*, i8** %_secret_arrviewdyn14
-  %_secret_calltmp16 = call i32 @_load32_le(i8* %_secret_dynarrarg15)
-  store i32 %_secret_calltmp16, i32* %_secret___v119_x2
-  %_secret_ldedviewptr17 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep18 = getelementptr inbounds i8, i8* %_secret_ldedviewptr17, i8 8
-  %_secret_arrviewdyn19 = alloca i8*
-  store i8* %_secret_source_gep18, i8** %_secret_arrviewdyn19
-  %_secret_ldedviewptr20 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep21 = getelementptr inbounds i8, i8* %_secret_ldedviewptr20, i8 8
-  %_secret_arrviewdyn22 = alloca i8*
-  store i8* %_secret_source_gep21, i8** %_secret_arrviewdyn22
-  %_secret_dynarrarg23 = load i8*, i8** %_secret_arrviewdyn22
-  %_secret_calltmp24 = call i32 @_load32_le(i8* %_secret_dynarrarg23)
-  store i32 %_secret_calltmp24, i32* %_secret___v120_x3
-  %_secret_ldedviewptr25 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep26 = getelementptr inbounds i8, i8* %_secret_ldedviewptr25, i8 12
-  %_secret_arrviewdyn27 = alloca i8*
-  store i8* %_secret_source_gep26, i8** %_secret_arrviewdyn27
-  %_secret_ldedviewptr28 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep29 = getelementptr inbounds i8, i8* %_secret_ldedviewptr28, i8 12
-  %_secret_arrviewdyn30 = alloca i8*
-  store i8* %_secret_source_gep29, i8** %_secret_arrviewdyn30
-  %_secret_dynarrarg31 = load i8*, i8** %_secret_arrviewdyn30
-  %_secret_calltmp32 = call i32 @_load32_le(i8* %_secret_dynarrarg31)
-  store i32 %_secret_calltmp32, i32* %_secret___v121_x4
-  %_secret_ldedviewptr33 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep34 = getelementptr inbounds i8, i8* %_secret_ldedviewptr33, i8 16
-  %_secret_arrviewdyn35 = alloca i8*
-  store i8* %_secret_source_gep34, i8** %_secret_arrviewdyn35
-  %_secret_ldedviewptr36 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep37 = getelementptr inbounds i8, i8* %_secret_ldedviewptr36, i8 16
-  %_secret_arrviewdyn38 = alloca i8*
-  store i8* %_secret_source_gep37, i8** %_secret_arrviewdyn38
-  %_secret_dynarrarg39 = load i8*, i8** %_secret_arrviewdyn38
-  %_secret_calltmp40 = call i32 @_load32_le(i8* %_secret_dynarrarg39)
-  store i32 %_secret_calltmp40, i32* %_secret___v122_x11
-  %_secret_ldedviewptr41 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep42 = getelementptr inbounds i8, i8* %_secret_ldedviewptr41, i8 20
-  %_secret_arrviewdyn43 = alloca i8*
-  store i8* %_secret_source_gep42, i8** %_secret_arrviewdyn43
-  %_secret_ldedviewptr44 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep45 = getelementptr inbounds i8, i8* %_secret_ldedviewptr44, i8 20
-  %_secret_arrviewdyn46 = alloca i8*
-  store i8* %_secret_source_gep45, i8** %_secret_arrviewdyn46
-  %_secret_dynarrarg47 = load i8*, i8** %_secret_arrviewdyn46
-  %_secret_calltmp48 = call i32 @_load32_le(i8* %_secret_dynarrarg47)
-  store i32 %_secret_calltmp48, i32* %_secret___v123_x12
-  %_secret_ldedviewptr49 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep50 = getelementptr inbounds i8, i8* %_secret_ldedviewptr49, i8 24
-  %_secret_arrviewdyn51 = alloca i8*
-  store i8* %_secret_source_gep50, i8** %_secret_arrviewdyn51
-  %_secret_ldedviewptr52 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep53 = getelementptr inbounds i8, i8* %_secret_ldedviewptr52, i8 24
-  %_secret_arrviewdyn54 = alloca i8*
-  store i8* %_secret_source_gep53, i8** %_secret_arrviewdyn54
-  %_secret_dynarrarg55 = load i8*, i8** %_secret_arrviewdyn54
-  %_secret_calltmp56 = call i32 @_load32_le(i8* %_secret_dynarrarg55)
-  store i32 %_secret_calltmp56, i32* %_secret___v124_x13
-  %_secret_ldedviewptr57 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep58 = getelementptr inbounds i8, i8* %_secret_ldedviewptr57, i8 28
-  %_secret_arrviewdyn59 = alloca i8*
-  store i8* %_secret_source_gep58, i8** %_secret_arrviewdyn59
-  %_secret_ldedviewptr60 = load i8*, i8** %_secret_arrarg4
-  %_secret_source_gep61 = getelementptr inbounds i8, i8* %_secret_ldedviewptr60, i8 28
-  %_secret_arrviewdyn62 = alloca i8*
-  store i8* %_secret_source_gep61, i8** %_secret_arrviewdyn62
-  %_secret_dynarrarg63 = load i8*, i8** %_secret_arrviewdyn62
-  %_secret_calltmp64 = call i32 @_load32_le(i8* %_secret_dynarrarg63)
-  store i32 %_secret_calltmp64, i32* %_secret___v125_x14
-  %_secret_ldedviewptr65 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep66 = getelementptr inbounds i8, i8* %_secret_ldedviewptr65, i8 0
-  %_secret_arrviewdyn67 = alloca i8*
-  store i8* %_secret_source_gep66, i8** %_secret_arrviewdyn67
-  %_secret_ldedviewptr68 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep69 = getelementptr inbounds i8, i8* %_secret_ldedviewptr68, i8 0
-  %_secret_arrviewdyn70 = alloca i8*
-  store i8* %_secret_source_gep69, i8** %_secret_arrviewdyn70
-  %_secret_dynarrarg71 = load i8*, i8** %_secret_arrviewdyn70
-  %_secret_calltmp72 = call i32 @_load32_le(i8* %_secret_dynarrarg71)
-  store i32 %_secret_calltmp72, i32* %_secret___v126_x6
-  %_secret_ldedviewptr73 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep74 = getelementptr inbounds i8, i8* %_secret_ldedviewptr73, i8 4
-  %_secret_arrviewdyn75 = alloca i8*
-  store i8* %_secret_source_gep74, i8** %_secret_arrviewdyn75
-  %_secret_ldedviewptr76 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep77 = getelementptr inbounds i8, i8* %_secret_ldedviewptr76, i8 4
-  %_secret_arrviewdyn78 = alloca i8*
-  store i8* %_secret_source_gep77, i8** %_secret_arrviewdyn78
-  %_secret_dynarrarg79 = load i8*, i8** %_secret_arrviewdyn78
-  %_secret_calltmp80 = call i32 @_load32_le(i8* %_secret_dynarrarg79)
-  store i32 %_secret_calltmp80, i32* %_secret___v127_x7
-  %_secret_ldedviewptr81 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep82 = getelementptr inbounds i8, i8* %_secret_ldedviewptr81, i8 8
-  %_secret_arrviewdyn83 = alloca i8*
-  store i8* %_secret_source_gep82, i8** %_secret_arrviewdyn83
-  %_secret_ldedviewptr84 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep85 = getelementptr inbounds i8, i8* %_secret_ldedviewptr84, i8 8
-  %_secret_arrviewdyn86 = alloca i8*
-  store i8* %_secret_source_gep85, i8** %_secret_arrviewdyn86
-  %_secret_dynarrarg87 = load i8*, i8** %_secret_arrviewdyn86
-  %_secret_calltmp88 = call i32 @_load32_le(i8* %_secret_dynarrarg87)
-  store i32 %_secret_calltmp88, i32* %_secret___v128_x8
-  %_secret_ldedviewptr89 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep90 = getelementptr inbounds i8, i8* %_secret_ldedviewptr89, i8 12
-  %_secret_arrviewdyn91 = alloca i8*
-  store i8* %_secret_source_gep90, i8** %_secret_arrviewdyn91
-  %_secret_ldedviewptr92 = load i8*, i8** %_secret_arrarg2
-  %_secret_source_gep93 = getelementptr inbounds i8, i8* %_secret_ldedviewptr92, i8 12
-  %_secret_arrviewdyn94 = alloca i8*
-  store i8* %_secret_source_gep93, i8** %_secret_arrviewdyn94
-  %_secret_dynarrarg95 = load i8*, i8** %_secret_arrviewdyn94
-  %_secret_calltmp96 = call i32 @_load32_le(i8* %_secret_dynarrarg95)
-  store i32 %_secret_calltmp96, i32* %_secret___v129_x9
-  store i32 0, i32* %_public___v130_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %entry
-  %_public_lval = load i32, i32* %_public___v130_i
-  %_public_ulttmp = icmp ult i32 %_public_lval, 10
-  br i1 %_public_ulttmp, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_secret_lval = load i32, i32* %_secret___v121_x4
-  %_secret_lval97 = load i32, i32* %_secret___v114_x0
-  %_secret_lval98 = load i32, i32* %_secret___v123_x12
-  %_secret_addtmp = add i32 %_secret_lval97, %_secret_lval98
-  %_secret_rotltmp = call i32 @__rotl32(i32 %_secret_addtmp, i32 7)
-  %_secret_xortmp = xor i32 %_secret_lval, %_secret_rotltmp
-  store i32 %_secret_xortmp, i32* %_secret___v121_x4
-  %_secret_lval99 = load i32, i32* %_secret___v128_x8
-  %_secret_lval100 = load i32, i32* %_secret___v121_x4
-  %_secret_lval101 = load i32, i32* %_secret___v114_x0
-  %_secret_addtmp102 = add i32 %_secret_lval100, %_secret_lval101
-  %_secret_rotltmp103 = call i32 @__rotl32(i32 %_secret_addtmp102, i32 9)
-  %_secret_xortmp104 = xor i32 %_secret_lval99, %_secret_rotltmp103
-  store i32 %_secret_xortmp104, i32* %_secret___v128_x8
-  %_secret_lval105 = load i32, i32* %_secret___v123_x12
-  %_secret_lval106 = load i32, i32* %_secret___v128_x8
-  %_secret_lval107 = load i32, i32* %_secret___v121_x4
-  %_secret_addtmp108 = add i32 %_secret_lval106, %_secret_lval107
-  %_secret_rotltmp109 = call i32 @__rotl32(i32 %_secret_addtmp108, i32 13)
-  %_secret_xortmp110 = xor i32 %_secret_lval105, %_secret_rotltmp109
-  store i32 %_secret_xortmp110, i32* %_secret___v123_x12
-  %_secret_lval111 = load i32, i32* %_secret___v114_x0
-  %_secret_lval112 = load i32, i32* %_secret___v123_x12
-  %_secret_lval113 = load i32, i32* %_secret___v128_x8
-  %_secret_addtmp114 = add i32 %_secret_lval112, %_secret_lval113
-  %_secret_rotltmp115 = call i32 @__rotl32(i32 %_secret_addtmp114, i32 18)
-  %_secret_xortmp116 = xor i32 %_secret_lval111, %_secret_rotltmp115
-  store i32 %_secret_xortmp116, i32* %_secret___v114_x0
-  %_secret_lval117 = load i32, i32* %_secret___v129_x9
-  %_secret_lval118 = load i32, i32* %_secret___v115_x5
-  %_secret_lval119 = load i32, i32* %_secret___v118_x1
-  %_secret_addtmp120 = add i32 %_secret_lval118, %_secret_lval119
-  %_secret_rotltmp121 = call i32 @__rotl32(i32 %_secret_addtmp120, i32 7)
-  %_secret_xortmp122 = xor i32 %_secret_lval117, %_secret_rotltmp121
-  store i32 %_secret_xortmp122, i32* %_secret___v129_x9
-  %_secret_lval123 = load i32, i32* %_secret___v124_x13
-  %_secret_lval124 = load i32, i32* %_secret___v129_x9
-  %_secret_lval125 = load i32, i32* %_secret___v115_x5
-  %_secret_addtmp126 = add i32 %_secret_lval124, %_secret_lval125
-  %_secret_rotltmp127 = call i32 @__rotl32(i32 %_secret_addtmp126, i32 9)
-  %_secret_xortmp128 = xor i32 %_secret_lval123, %_secret_rotltmp127
-  store i32 %_secret_xortmp128, i32* %_secret___v124_x13
-  %_secret_lval129 = load i32, i32* %_secret___v118_x1
-  %_secret_lval130 = load i32, i32* %_secret___v124_x13
-  %_secret_lval131 = load i32, i32* %_secret___v129_x9
-  %_secret_addtmp132 = add i32 %_secret_lval130, %_secret_lval131
-  %_secret_rotltmp133 = call i32 @__rotl32(i32 %_secret_addtmp132, i32 13)
-  %_secret_xortmp134 = xor i32 %_secret_lval129, %_secret_rotltmp133
-  store i32 %_secret_xortmp134, i32* %_secret___v118_x1
-  %_secret_lval135 = load i32, i32* %_secret___v115_x5
-  %_secret_lval136 = load i32, i32* %_secret___v118_x1
-  %_secret_lval137 = load i32, i32* %_secret___v124_x13
-  %_secret_addtmp138 = add i32 %_secret_lval136, %_secret_lval137
-  %_secret_rotltmp139 = call i32 @__rotl32(i32 %_secret_addtmp138, i32 18)
-  %_secret_xortmp140 = xor i32 %_secret_lval135, %_secret_rotltmp139
-  store i32 %_secret_xortmp140, i32* %_secret___v115_x5
-  %_secret_lval141 = load i32, i32* %_secret___v125_x14
-  %_secret_lval142 = load i32, i32* %_secret___v116_x10
-  %_secret_lval143 = load i32, i32* %_secret___v126_x6
-  %_secret_addtmp144 = add i32 %_secret_lval142, %_secret_lval143
-  %_secret_rotltmp145 = call i32 @__rotl32(i32 %_secret_addtmp144, i32 7)
-  %_secret_xortmp146 = xor i32 %_secret_lval141, %_secret_rotltmp145
-  store i32 %_secret_xortmp146, i32* %_secret___v125_x14
-  %_secret_lval147 = load i32, i32* %_secret___v119_x2
-  %_secret_lval148 = load i32, i32* %_secret___v125_x14
-  %_secret_lval149 = load i32, i32* %_secret___v116_x10
-  %_secret_addtmp150 = add i32 %_secret_lval148, %_secret_lval149
-  %_secret_rotltmp151 = call i32 @__rotl32(i32 %_secret_addtmp150, i32 9)
-  %_secret_xortmp152 = xor i32 %_secret_lval147, %_secret_rotltmp151
-  store i32 %_secret_xortmp152, i32* %_secret___v119_x2
-  %_secret_lval153 = load i32, i32* %_secret___v126_x6
-  %_secret_lval154 = load i32, i32* %_secret___v119_x2
-  %_secret_lval155 = load i32, i32* %_secret___v125_x14
-  %_secret_addtmp156 = add i32 %_secret_lval154, %_secret_lval155
-  %_secret_rotltmp157 = call i32 @__rotl32(i32 %_secret_addtmp156, i32 13)
-  %_secret_xortmp158 = xor i32 %_secret_lval153, %_secret_rotltmp157
-  store i32 %_secret_xortmp158, i32* %_secret___v126_x6
-  %_secret_lval159 = load i32, i32* %_secret___v116_x10
-  %_secret_lval160 = load i32, i32* %_secret___v126_x6
-  %_secret_lval161 = load i32, i32* %_secret___v119_x2
-  %_secret_addtmp162 = add i32 %_secret_lval160, %_secret_lval161
-  %_secret_rotltmp163 = call i32 @__rotl32(i32 %_secret_addtmp162, i32 18)
-  %_secret_xortmp164 = xor i32 %_secret_lval159, %_secret_rotltmp163
-  store i32 %_secret_xortmp164, i32* %_secret___v116_x10
-  %_secret_lval165 = load i32, i32* %_secret___v120_x3
-  %_secret_lval166 = load i32, i32* %_secret___v117_x15
-  %_secret_lval167 = load i32, i32* %_secret___v122_x11
-  %_secret_addtmp168 = add i32 %_secret_lval166, %_secret_lval167
-  %_secret_rotltmp169 = call i32 @__rotl32(i32 %_secret_addtmp168, i32 7)
-  %_secret_xortmp170 = xor i32 %_secret_lval165, %_secret_rotltmp169
-  store i32 %_secret_xortmp170, i32* %_secret___v120_x3
-  %_secret_lval171 = load i32, i32* %_secret___v127_x7
-  %_secret_lval172 = load i32, i32* %_secret___v120_x3
-  %_secret_lval173 = load i32, i32* %_secret___v117_x15
-  %_secret_addtmp174 = add i32 %_secret_lval172, %_secret_lval173
-  %_secret_rotltmp175 = call i32 @__rotl32(i32 %_secret_addtmp174, i32 9)
-  %_secret_xortmp176 = xor i32 %_secret_lval171, %_secret_rotltmp175
-  store i32 %_secret_xortmp176, i32* %_secret___v127_x7
-  %_secret_lval177 = load i32, i32* %_secret___v122_x11
-  %_secret_lval178 = load i32, i32* %_secret___v127_x7
-  %_secret_lval179 = load i32, i32* %_secret___v120_x3
-  %_secret_addtmp180 = add i32 %_secret_lval178, %_secret_lval179
-  %_secret_rotltmp181 = call i32 @__rotl32(i32 %_secret_addtmp180, i32 13)
-  %_secret_xortmp182 = xor i32 %_secret_lval177, %_secret_rotltmp181
-  store i32 %_secret_xortmp182, i32* %_secret___v122_x11
-  %_secret_lval183 = load i32, i32* %_secret___v117_x15
-  %_secret_lval184 = load i32, i32* %_secret___v122_x11
-  %_secret_lval185 = load i32, i32* %_secret___v127_x7
-  %_secret_addtmp186 = add i32 %_secret_lval184, %_secret_lval185
-  %_secret_rotltmp187 = call i32 @__rotl32(i32 %_secret_addtmp186, i32 18)
-  %_secret_xortmp188 = xor i32 %_secret_lval183, %_secret_rotltmp187
-  store i32 %_secret_xortmp188, i32* %_secret___v117_x15
-  %_secret_lval189 = load i32, i32* %_secret___v118_x1
-  %_secret_lval190 = load i32, i32* %_secret___v114_x0
-  %_secret_lval191 = load i32, i32* %_secret___v120_x3
-  %_secret_addtmp192 = add i32 %_secret_lval190, %_secret_lval191
-  %_secret_rotltmp193 = call i32 @__rotl32(i32 %_secret_addtmp192, i32 7)
-  %_secret_xortmp194 = xor i32 %_secret_lval189, %_secret_rotltmp193
-  store i32 %_secret_xortmp194, i32* %_secret___v118_x1
-  %_secret_lval195 = load i32, i32* %_secret___v119_x2
-  %_secret_lval196 = load i32, i32* %_secret___v118_x1
-  %_secret_lval197 = load i32, i32* %_secret___v114_x0
-  %_secret_addtmp198 = add i32 %_secret_lval196, %_secret_lval197
-  %_secret_rotltmp199 = call i32 @__rotl32(i32 %_secret_addtmp198, i32 9)
-  %_secret_xortmp200 = xor i32 %_secret_lval195, %_secret_rotltmp199
-  store i32 %_secret_xortmp200, i32* %_secret___v119_x2
-  %_secret_lval201 = load i32, i32* %_secret___v120_x3
-  %_secret_lval202 = load i32, i32* %_secret___v119_x2
-  %_secret_lval203 = load i32, i32* %_secret___v118_x1
-  %_secret_addtmp204 = add i32 %_secret_lval202, %_secret_lval203
-  %_secret_rotltmp205 = call i32 @__rotl32(i32 %_secret_addtmp204, i32 13)
-  %_secret_xortmp206 = xor i32 %_secret_lval201, %_secret_rotltmp205
-  store i32 %_secret_xortmp206, i32* %_secret___v120_x3
-  %_secret_lval207 = load i32, i32* %_secret___v114_x0
-  %_secret_lval208 = load i32, i32* %_secret___v120_x3
-  %_secret_lval209 = load i32, i32* %_secret___v119_x2
-  %_secret_addtmp210 = add i32 %_secret_lval208, %_secret_lval209
-  %_secret_rotltmp211 = call i32 @__rotl32(i32 %_secret_addtmp210, i32 18)
-  %_secret_xortmp212 = xor i32 %_secret_lval207, %_secret_rotltmp211
-  store i32 %_secret_xortmp212, i32* %_secret___v114_x0
-  %_secret_lval213 = load i32, i32* %_secret___v126_x6
-  %_secret_lval214 = load i32, i32* %_secret___v115_x5
-  %_secret_lval215 = load i32, i32* %_secret___v121_x4
-  %_secret_addtmp216 = add i32 %_secret_lval214, %_secret_lval215
-  %_secret_rotltmp217 = call i32 @__rotl32(i32 %_secret_addtmp216, i32 7)
-  %_secret_xortmp218 = xor i32 %_secret_lval213, %_secret_rotltmp217
-  store i32 %_secret_xortmp218, i32* %_secret___v126_x6
-  %_secret_lval219 = load i32, i32* %_secret___v127_x7
-  %_secret_lval220 = load i32, i32* %_secret___v126_x6
-  %_secret_lval221 = load i32, i32* %_secret___v115_x5
-  %_secret_addtmp222 = add i32 %_secret_lval220, %_secret_lval221
-  %_secret_rotltmp223 = call i32 @__rotl32(i32 %_secret_addtmp222, i32 9)
-  %_secret_xortmp224 = xor i32 %_secret_lval219, %_secret_rotltmp223
-  store i32 %_secret_xortmp224, i32* %_secret___v127_x7
-  %_secret_lval225 = load i32, i32* %_secret___v121_x4
-  %_secret_lval226 = load i32, i32* %_secret___v127_x7
-  %_secret_lval227 = load i32, i32* %_secret___v126_x6
-  %_secret_addtmp228 = add i32 %_secret_lval226, %_secret_lval227
-  %_secret_rotltmp229 = call i32 @__rotl32(i32 %_secret_addtmp228, i32 13)
-  %_secret_xortmp230 = xor i32 %_secret_lval225, %_secret_rotltmp229
-  store i32 %_secret_xortmp230, i32* %_secret___v121_x4
-  %_secret_lval231 = load i32, i32* %_secret___v115_x5
-  %_secret_lval232 = load i32, i32* %_secret___v121_x4
-  %_secret_lval233 = load i32, i32* %_secret___v127_x7
-  %_secret_addtmp234 = add i32 %_secret_lval232, %_secret_lval233
-  %_secret_rotltmp235 = call i32 @__rotl32(i32 %_secret_addtmp234, i32 18)
-  %_secret_xortmp236 = xor i32 %_secret_lval231, %_secret_rotltmp235
-  store i32 %_secret_xortmp236, i32* %_secret___v115_x5
-  %_secret_lval237 = load i32, i32* %_secret___v122_x11
-  %_secret_lval238 = load i32, i32* %_secret___v116_x10
-  %_secret_lval239 = load i32, i32* %_secret___v129_x9
-  %_secret_addtmp240 = add i32 %_secret_lval238, %_secret_lval239
-  %_secret_rotltmp241 = call i32 @__rotl32(i32 %_secret_addtmp240, i32 7)
-  %_secret_xortmp242 = xor i32 %_secret_lval237, %_secret_rotltmp241
-  store i32 %_secret_xortmp242, i32* %_secret___v122_x11
-  %_secret_lval243 = load i32, i32* %_secret___v128_x8
-  %_secret_lval244 = load i32, i32* %_secret___v122_x11
-  %_secret_lval245 = load i32, i32* %_secret___v116_x10
-  %_secret_addtmp246 = add i32 %_secret_lval244, %_secret_lval245
-  %_secret_rotltmp247 = call i32 @__rotl32(i32 %_secret_addtmp246, i32 9)
-  %_secret_xortmp248 = xor i32 %_secret_lval243, %_secret_rotltmp247
-  store i32 %_secret_xortmp248, i32* %_secret___v128_x8
-  %_secret_lval249 = load i32, i32* %_secret___v129_x9
-  %_secret_lval250 = load i32, i32* %_secret___v128_x8
-  %_secret_lval251 = load i32, i32* %_secret___v122_x11
-  %_secret_addtmp252 = add i32 %_secret_lval250, %_secret_lval251
-  %_secret_rotltmp253 = call i32 @__rotl32(i32 %_secret_addtmp252, i32 13)
-  %_secret_xortmp254 = xor i32 %_secret_lval249, %_secret_rotltmp253
-  store i32 %_secret_xortmp254, i32* %_secret___v129_x9
-  %_secret_lval255 = load i32, i32* %_secret___v116_x10
-  %_secret_lval256 = load i32, i32* %_secret___v129_x9
-  %_secret_lval257 = load i32, i32* %_secret___v128_x8
-  %_secret_addtmp258 = add i32 %_secret_lval256, %_secret_lval257
-  %_secret_rotltmp259 = call i32 @__rotl32(i32 %_secret_addtmp258, i32 18)
-  %_secret_xortmp260 = xor i32 %_secret_lval255, %_secret_rotltmp259
-  store i32 %_secret_xortmp260, i32* %_secret___v116_x10
-  %_secret_lval261 = load i32, i32* %_secret___v123_x12
-  %_secret_lval262 = load i32, i32* %_secret___v117_x15
-  %_secret_lval263 = load i32, i32* %_secret___v125_x14
-  %_secret_addtmp264 = add i32 %_secret_lval262, %_secret_lval263
-  %_secret_rotltmp265 = call i32 @__rotl32(i32 %_secret_addtmp264, i32 7)
-  %_secret_xortmp266 = xor i32 %_secret_lval261, %_secret_rotltmp265
-  store i32 %_secret_xortmp266, i32* %_secret___v123_x12
-  %_secret_lval267 = load i32, i32* %_secret___v124_x13
-  %_secret_lval268 = load i32, i32* %_secret___v123_x12
-  %_secret_lval269 = load i32, i32* %_secret___v117_x15
-  %_secret_addtmp270 = add i32 %_secret_lval268, %_secret_lval269
-  %_secret_rotltmp271 = call i32 @__rotl32(i32 %_secret_addtmp270, i32 9)
-  %_secret_xortmp272 = xor i32 %_secret_lval267, %_secret_rotltmp271
-  store i32 %_secret_xortmp272, i32* %_secret___v124_x13
-  %_secret_lval273 = load i32, i32* %_secret___v125_x14
-  %_secret_lval274 = load i32, i32* %_secret___v124_x13
-  %_secret_lval275 = load i32, i32* %_secret___v123_x12
-  %_secret_addtmp276 = add i32 %_secret_lval274, %_secret_lval275
-  %_secret_rotltmp277 = call i32 @__rotl32(i32 %_secret_addtmp276, i32 13)
-  %_secret_xortmp278 = xor i32 %_secret_lval273, %_secret_rotltmp277
-  store i32 %_secret_xortmp278, i32* %_secret___v125_x14
-  %_secret_lval279 = load i32, i32* %_secret___v117_x15
-  %_secret_lval280 = load i32, i32* %_secret___v125_x14
-  %_secret_lval281 = load i32, i32* %_secret___v124_x13
-  %_secret_addtmp282 = add i32 %_secret_lval280, %_secret_lval281
-  %_secret_rotltmp283 = call i32 @__rotl32(i32 %_secret_addtmp282, i32 18)
-  %_secret_xortmp284 = xor i32 %_secret_lval279, %_secret_rotltmp283
-  store i32 %_secret_xortmp284, i32* %_secret___v117_x15
-  %_public_lval285 = load i32, i32* %_public___v130_i
-  %_public_addtmp = add i32 %_public_lval285, 1
-  store i32 %_public_addtmp, i32* %_public___v130_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  %_secret_ldedviewptr286 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep287 = getelementptr inbounds i8, i8* %_secret_ldedviewptr286, i8 0
-  %_secret_arrviewdyn288 = alloca i8*
-  store i8* %_secret_source_gep287, i8** %_secret_arrviewdyn288
-  %_secret_ldedviewptr289 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep290 = getelementptr inbounds i8, i8* %_secret_ldedviewptr289, i8 0
-  %_secret_arrviewdyn291 = alloca i8*
-  store i8* %_secret_source_gep290, i8** %_secret_arrviewdyn291
-  %_secret_dynarrarg292 = load i8*, i8** %_secret_arrviewdyn291
-  %_secret_lval293 = load i32, i32* %_secret___v114_x0
-  call void @_store32_le(i8* %_secret_dynarrarg292, i32 %_secret_lval293)
-  %_secret_ldedviewptr294 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep295 = getelementptr inbounds i8, i8* %_secret_ldedviewptr294, i8 4
-  %_secret_arrviewdyn296 = alloca i8*
-  store i8* %_secret_source_gep295, i8** %_secret_arrviewdyn296
-  %_secret_ldedviewptr297 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep298 = getelementptr inbounds i8, i8* %_secret_ldedviewptr297, i8 4
-  %_secret_arrviewdyn299 = alloca i8*
-  store i8* %_secret_source_gep298, i8** %_secret_arrviewdyn299
-  %_secret_dynarrarg300 = load i8*, i8** %_secret_arrviewdyn299
-  %_secret_lval301 = load i32, i32* %_secret___v115_x5
-  call void @_store32_le(i8* %_secret_dynarrarg300, i32 %_secret_lval301)
-  %_secret_ldedviewptr302 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep303 = getelementptr inbounds i8, i8* %_secret_ldedviewptr302, i8 8
-  %_secret_arrviewdyn304 = alloca i8*
-  store i8* %_secret_source_gep303, i8** %_secret_arrviewdyn304
-  %_secret_ldedviewptr305 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep306 = getelementptr inbounds i8, i8* %_secret_ldedviewptr305, i8 8
-  %_secret_arrviewdyn307 = alloca i8*
-  store i8* %_secret_source_gep306, i8** %_secret_arrviewdyn307
-  %_secret_dynarrarg308 = load i8*, i8** %_secret_arrviewdyn307
-  %_secret_lval309 = load i32, i32* %_secret___v116_x10
-  call void @_store32_le(i8* %_secret_dynarrarg308, i32 %_secret_lval309)
-  %_secret_ldedviewptr310 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep311 = getelementptr inbounds i8, i8* %_secret_ldedviewptr310, i8 12
-  %_secret_arrviewdyn312 = alloca i8*
-  store i8* %_secret_source_gep311, i8** %_secret_arrviewdyn312
-  %_secret_ldedviewptr313 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep314 = getelementptr inbounds i8, i8* %_secret_ldedviewptr313, i8 12
-  %_secret_arrviewdyn315 = alloca i8*
-  store i8* %_secret_source_gep314, i8** %_secret_arrviewdyn315
-  %_secret_dynarrarg316 = load i8*, i8** %_secret_arrviewdyn315
-  %_secret_lval317 = load i32, i32* %_secret___v117_x15
-  call void @_store32_le(i8* %_secret_dynarrarg316, i32 %_secret_lval317)
-  %_secret_ldedviewptr318 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep319 = getelementptr inbounds i8, i8* %_secret_ldedviewptr318, i8 16
-  %_secret_arrviewdyn320 = alloca i8*
-  store i8* %_secret_source_gep319, i8** %_secret_arrviewdyn320
-  %_secret_ldedviewptr321 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep322 = getelementptr inbounds i8, i8* %_secret_ldedviewptr321, i8 16
-  %_secret_arrviewdyn323 = alloca i8*
-  store i8* %_secret_source_gep322, i8** %_secret_arrviewdyn323
-  %_secret_dynarrarg324 = load i8*, i8** %_secret_arrviewdyn323
-  %_secret_lval325 = load i32, i32* %_secret___v126_x6
-  call void @_store32_le(i8* %_secret_dynarrarg324, i32 %_secret_lval325)
-  %_secret_ldedviewptr326 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep327 = getelementptr inbounds i8, i8* %_secret_ldedviewptr326, i8 20
-  %_secret_arrviewdyn328 = alloca i8*
-  store i8* %_secret_source_gep327, i8** %_secret_arrviewdyn328
-  %_secret_ldedviewptr329 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep330 = getelementptr inbounds i8, i8* %_secret_ldedviewptr329, i8 20
-  %_secret_arrviewdyn331 = alloca i8*
-  store i8* %_secret_source_gep330, i8** %_secret_arrviewdyn331
-  %_secret_dynarrarg332 = load i8*, i8** %_secret_arrviewdyn331
-  %_secret_lval333 = load i32, i32* %_secret___v127_x7
-  call void @_store32_le(i8* %_secret_dynarrarg332, i32 %_secret_lval333)
-  %_secret_ldedviewptr334 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep335 = getelementptr inbounds i8, i8* %_secret_ldedviewptr334, i8 24
-  %_secret_arrviewdyn336 = alloca i8*
-  store i8* %_secret_source_gep335, i8** %_secret_arrviewdyn336
-  %_secret_ldedviewptr337 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep338 = getelementptr inbounds i8, i8* %_secret_ldedviewptr337, i8 24
-  %_secret_arrviewdyn339 = alloca i8*
-  store i8* %_secret_source_gep338, i8** %_secret_arrviewdyn339
-  %_secret_dynarrarg340 = load i8*, i8** %_secret_arrviewdyn339
-  %_secret_lval341 = load i32, i32* %_secret___v128_x8
-  call void @_store32_le(i8* %_secret_dynarrarg340, i32 %_secret_lval341)
-  %_secret_ldedviewptr342 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep343 = getelementptr inbounds i8, i8* %_secret_ldedviewptr342, i8 28
-  %_secret_arrviewdyn344 = alloca i8*
-  store i8* %_secret_source_gep343, i8** %_secret_arrviewdyn344
-  %_secret_ldedviewptr345 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep346 = getelementptr inbounds i8, i8* %_secret_ldedviewptr345, i8 28
-  %_secret_arrviewdyn347 = alloca i8*
-  store i8* %_secret_source_gep346, i8** %_secret_arrviewdyn347
-  %_secret_dynarrarg348 = load i8*, i8** %_secret_arrviewdyn347
-  %_secret_lval349 = load i32, i32* %_secret___v129_x9
-  call void @_store32_le(i8* %_secret_dynarrarg348, i32 %_secret_lval349)
-  ret void
+  %__rval = alloca i32
+  store i32 0, i32* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v53_subkey = alloca i8, i64 32
+  call void @fact.memset.i8(i8* %__v53_subkey, i8 0, i64 32)
+  %0 = getelementptr i8, i8* %__v50_n, i64 0
+  call void @_crypto_core_hsalsa20(i8* %__v53_subkey, i8* %0, i8* %__v52_k)
+  %__v54_tmp = getelementptr i8, i8* %__v50_n, i64 16
+  %__v55_ret = call i32 @_crypto_stream_salsa20_xor_ic(i8* %__v48_c, i64 %__v217___v48_c_len, i8* %__v49_m, i64 %__v218___v49_m_len, i8* %__v54_tmp, i64 %__v51_ic, i8* %__v53_subkey)
+  call void @"__memzero[8]/secret"(i8* %__v53_subkey, i64 32)
+  ret i32 %__v55_ret
 }
 
-define internal i32 @_crypto_stream_xsalsa20(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_public_arrarg3, i8* %_secret_arrarg5) {
+define internal i32 @_crypto_stream_xsalsa20_xor(i8* %__v44_c, i64 %__v215___v44_c_len, i8* %__v45_m, i64 %__v216___v45_m_len, i8* %__v46_n, i8* %__v47_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg3, i8** %_public_arrarg
-  %_secret_arrarg4 = alloca i8*
-  store i8* %_secret_arrarg5, i8** %_secret_arrarg4
-  %_public___rval = alloca i32
-  %_secret___rnset = alloca i1
-  %_public___v132_ret = alloca i32
-  store i32 0, i32* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret___v131_subkey = alloca [32 x i8]
-  %_secret_arrtoptr = bitcast [32 x i8]* %_secret___v131_subkey to i8*
-  %_public_ldedviewptr = load i8*, i8** %_public_arrarg
-  %_public_source_gep = getelementptr inbounds i8, i8* %_public_ldedviewptr, i8 0
-  %_public_arrviewdyn = alloca i8*
-  store i8* %_public_source_gep, i8** %_public_arrviewdyn
-  %_public_ldedviewptr6 = load i8*, i8** %_public_arrarg
-  %_public_source_gep7 = getelementptr inbounds i8, i8* %_public_ldedviewptr6, i8 0
-  %_public_arrviewdyn8 = alloca i8*
-  store i8* %_public_source_gep7, i8** %_public_arrviewdyn8
-  %_secret_dynarrarg = load i8*, i8** %_public_arrviewdyn8
-  %_secret_dynarrarg9 = load i8*, i8** %_secret_arrarg4
-  call void @_crypto_core_hsalsa20(i8* %_secret_arrtoptr, i8* %_secret_dynarrarg, i8* %_secret_dynarrarg9)
-  %_secret_dynarrarg10 = load i8*, i8** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___c_len
-  %_public_ldedviewptr11 = load i8*, i8** %_public_arrarg
-  %_public_source_gep12 = getelementptr inbounds i8, i8* %_public_ldedviewptr11, i8 16
-  %_public_arrviewdyn13 = alloca i8*
-  store i8* %_public_source_gep12, i8** %_public_arrviewdyn13
-  %_public_ldedviewptr14 = load i8*, i8** %_public_arrarg
-  %_public_source_gep15 = getelementptr inbounds i8, i8* %_public_ldedviewptr14, i8 16
-  %_public_arrviewdyn16 = alloca i8*
-  store i8* %_public_source_gep15, i8** %_public_arrviewdyn16
-  %_public_dynarrarg = load i8*, i8** %_public_arrviewdyn16
-  %_secret_arrtoptr17 = bitcast [32 x i8]* %_secret___v131_subkey to i8*
-  %_public_calltmp = call i32 @_crypto_stream_salsa20(i8* %_secret_dynarrarg10, i32 %_public_lval, i8* %_public_dynarrarg, i8* %_secret_arrtoptr17)
-  store i32 %_public_calltmp, i32* %_public___v132_ret
-  %_secret_arrtoptr18 = bitcast [32 x i8]* %_secret___v131_subkey to i8*
-  call void @_fact_memzero(i8* %_secret_arrtoptr18, i32 32)
-  %_public_lval19 = load i32, i32* %_public___v132_ret
-  store i32 %_public_lval19, i32* %_public___rval
-  %_public_lval20 = load i32, i32* %_public___rval
-  ret i32 %_public_lval20
+  %__rval = alloca i32
+  store i32 0, i32* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v201__crypto_stream_xsalsa20_xor_ic = call i32 @_crypto_stream_xsalsa20_xor_ic(i8* %__v44_c, i64 %__v215___v44_c_len, i8* %__v45_m, i64 %__v216___v45_m_len, i8* %__v46_n, i64 0, i8* %__v47_k)
+  ret i32 %__v201__crypto_stream_xsalsa20_xor_ic
 }
 
-define internal i32 @_crypto_stream_xsalsa20_xor_ic(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_secret_arrarg4, i32 %_public___m_len5, i8* %_public_arrarg6, i64 %_public_ic7, i8* %_secret_arrarg9) {
+define internal i1 @_crypto_secretbox_xsalsa20poly1305(i8* %__v36_c, i64 %__v213___v36_c_len, i8* %__v37_m, i64 %__v214___v37_m_len, i8* %__v38_n, i8* %__v39_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_secret_arrarg3 = alloca i8*
-  store i8* %_secret_arrarg4, i8** %_secret_arrarg3
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len5, i32* %_public___m_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg6, i8** %_public_arrarg
-  %_public_ic = alloca i64
-  store i64 %_public_ic7, i64* %_public_ic
-  %_secret_arrarg8 = alloca i8*
-  store i8* %_secret_arrarg9, i8** %_secret_arrarg8
-  %_public___rval = alloca i32
-  %_secret___rnset = alloca i1
-  %_public___v135_ret = alloca i32
-  store i32 0, i32* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret___v133_subkey = alloca [32 x i8]
-  %_secret_arrtoptr = bitcast [32 x i8]* %_secret___v133_subkey to i8*
-  %_public_ldedviewptr = load i8*, i8** %_public_arrarg
-  %_public_source_gep = getelementptr inbounds i8, i8* %_public_ldedviewptr, i8 0
-  %_public_arrviewdyn = alloca i8*
-  store i8* %_public_source_gep, i8** %_public_arrviewdyn
-  %_public_ldedviewptr10 = load i8*, i8** %_public_arrarg
-  %_public_source_gep11 = getelementptr inbounds i8, i8* %_public_ldedviewptr10, i8 0
-  %_public_arrviewdyn12 = alloca i8*
-  store i8* %_public_source_gep11, i8** %_public_arrviewdyn12
-  %_secret_dynarrarg = load i8*, i8** %_public_arrviewdyn12
-  %_secret_dynarrarg13 = load i8*, i8** %_secret_arrarg8
-  call void @_crypto_core_hsalsa20(i8* %_secret_arrtoptr, i8* %_secret_dynarrarg, i8* %_secret_dynarrarg13)
-  %_public_ldedviewptr14 = load i8*, i8** %_public_arrarg
-  %_public_source_gep15 = getelementptr inbounds i8, i8* %_public_ldedviewptr14, i8 16
-  %_public___v134_tmp = alloca i8*
-  store i8* %_public_source_gep15, i8** %_public___v134_tmp
-  %_secret_dynarrarg17 = load i8*, i8** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___c_len
-  %_secret_dynarrarg18 = load i8*, i8** %_secret_arrarg3
-  %_public_lval19 = load i32, i32* %_public___m_len
-  %_secret_dynarrarg20 = load i8*, i8** %_public___v134_tmp
-  %_public_lval21 = load i64, i64* %_public_ic
-  %_secret_arrtoptr22 = bitcast [32 x i8]* %_secret___v133_subkey to i8*
-  %_public_calltmp = call i32 @_crypto_stream_salsa20_xor_ic(i8* %_secret_dynarrarg17, i32 %_public_lval, i8* %_secret_dynarrarg18, i32 %_public_lval19, i8* %_secret_dynarrarg20, i64 %_public_lval21, i8* %_secret_arrtoptr22)
-  store i32 %_public_calltmp, i32* %_public___v135_ret
-  %_secret_arrtoptr23 = bitcast [32 x i8]* %_secret___v133_subkey to i8*
-  call void @_fact_memzero(i8* %_secret_arrtoptr23, i32 32)
-  %_public_lval24 = load i32, i32* %_public___v135_ret
-  store i32 %_public_lval24, i32* %_public___rval
-  %_public_lval25 = load i32, i32* %_public___rval
-  ret i32 %_public_lval25
+  %__rval = alloca i1
+  store i1 false, i1* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = icmp ult i64 %__v214___v37_m_len, 32
+  br i1 %0, label %1, label %2
+
+; <label>:1:                                      ; preds = %entry
+  ret i1 false
+
+; <label>:2:                                      ; preds = %entry
+  br label %3
+
+; <label>:3:                                      ; preds = %2
+  %4 = call i32 @_crypto_stream_xsalsa20_xor(i8* %__v36_c, i64 %__v213___v36_c_len, i8* %__v37_m, i64 %__v214___v37_m_len, i8* %__v38_n, i8* %__v39_k)
+  %__v40_cview = getelementptr i8, i8* %__v36_c, i64 16
+  %__v236_lexpr = sub i64 %__v213___v36_c_len, 32
+  %__v41_mview = getelementptr i8, i8* %__v36_c, i64 32
+  %__v42_kview = getelementptr i8, i8* %__v36_c, i64 0
+  %5 = call i32 @_crypto_onetimeauth_poly1305(i8* %__v40_cview, i8* %__v41_mview, i64 %__v236_lexpr, i8* %__v42_kview)
+  br label %6
+
+; <label>:6:                                      ; preds = %10, %3
+  %__v237_lexpr = phi i64 [ 0, %3 ], [ %11, %10 ]
+  %7 = icmp ult i64 %__v237_lexpr, 16
+  br i1 %7, label %8, label %12
+
+; <label>:8:                                      ; preds = %6
+  %9 = getelementptr i8, i8* %__v36_c, i64 %__v237_lexpr
+  store i8 0, i8* %9
+  br label %10
+
+; <label>:10:                                     ; preds = %8
+  %11 = add i64 %__v237_lexpr, 1
+  br label %6
+
+; <label>:12:                                     ; preds = %6
+  ret i1 true
 }
 
-define internal i32 @_crypto_stream_xsalsa20_xor(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_secret_arrarg4, i32 %_public___m_len5, i8* %_public_arrarg6, i8* %_secret_arrarg8) {
+define i1 @_crypto_secretbox(i8* %__v32_c, i64 %__v211___v32_c_len, i8* %__v33_m, i64 %__v212___v33_m_len, i8* %__v34_n, i8* %__v35_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_secret_arrarg3 = alloca i8*
-  store i8* %_secret_arrarg4, i8** %_secret_arrarg3
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len5, i32* %_public___m_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg6, i8** %_public_arrarg
-  %_secret_arrarg7 = alloca i8*
-  store i8* %_secret_arrarg8, i8** %_secret_arrarg7
-  %_public___rval = alloca i32
-  %_secret___rnset = alloca i1
-  store i32 0, i32* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___c_len
-  %_secret_dynarrarg9 = load i8*, i8** %_secret_arrarg3
-  %_public_lval10 = load i32, i32* %_public___m_len
-  %_public_dynarrarg = load i8*, i8** %_public_arrarg
-  %_secret_dynarrarg11 = load i8*, i8** %_secret_arrarg7
-  %_public_calltmp = call i32 @_crypto_stream_xsalsa20_xor_ic(i8* %_secret_dynarrarg, i32 %_public_lval, i8* %_secret_dynarrarg9, i32 %_public_lval10, i8* %_public_dynarrarg, i64 0, i8* %_secret_dynarrarg11)
-  store i32 %_public_calltmp, i32* %_public___rval
-  %_public_lval12 = load i32, i32* %_public___rval
-  ret i32 %_public_lval12
+  %__rval = alloca i1
+  store i1 false, i1* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v200__crypto_secretbox_xsalsa20poly1305 = call i1 @_crypto_secretbox_xsalsa20poly1305(i8* %__v32_c, i64 %__v211___v32_c_len, i8* %__v33_m, i64 %__v212___v33_m_len, i8* %__v34_n, i8* %__v35_k)
+  ret i1 %__v200__crypto_secretbox_xsalsa20poly1305
 }
 
-define internal i1 @_crypto_secretbox_xsalsa20poly1305(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_secret_arrarg4, i32 %_public___m_len5, i8* %_public_arrarg6, i8* %_secret_arrarg8) {
+define internal i32 @_crypto_stream_salsa20(i8* %__v18_c, i64 %__v210___v18_c_len, i8* %__v19_n, i8* %__v20_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_secret_arrarg3 = alloca i8*
-  store i8* %_secret_arrarg4, i8** %_secret_arrarg3
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len5, i32* %_public___m_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg6, i8** %_public_arrarg
-  %_secret_arrarg7 = alloca i8*
-  store i8* %_secret_arrarg8, i8** %_secret_arrarg7
-  %_public___rval = alloca i1
-  %_secret___rnset = alloca i1
-  %_public___v138___v137_len = alloca i32
-  %_public___v141_i = alloca i32
-  store i1 false, i1* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_public_lval = load i32, i32* %_public___m_len
-  %_public_ulttmp = icmp ult i32 %_public_lval, 32
-  %_public_branchcompare = icmp eq i1 %_public_ulttmp, true
-  br i1 %_public_branchcompare, label %thenbranch, label %elsebranch
+  %__rval = alloca i32
+  store i32 0, i32* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = icmp eq i64 %__v210___v18_c_len, 0
+  br i1 %0, label %1, label %2
 
-thenbranch:                                       ; preds = %entry
-  store i1 false, i1* %_public___rval
-  %_public_lval9 = load i1, i1* %_public___rval
-  ret i1 %_public_lval9
+; <label>:1:                                      ; preds = %entry
+  ret i32 0
 
-elsebranch:                                       ; preds = %entry
-  br label %branchmerge
+; <label>:2:                                      ; preds = %entry
+  br label %3
 
-branchmerge:                                      ; preds = %elsebranch
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg
-  %_public_lval10 = load i32, i32* %_public___c_len
-  %_secret_dynarrarg11 = load i8*, i8** %_secret_arrarg3
-  %_public_lval12 = load i32, i32* %_public___m_len
-  %_public_dynarrarg = load i8*, i8** %_public_arrarg
-  %_secret_dynarrarg13 = load i8*, i8** %_secret_arrarg7
-  %0 = call i32 @_crypto_stream_xsalsa20_xor(i8* %_secret_dynarrarg, i32 %_public_lval10, i8* %_secret_dynarrarg11, i32 %_public_lval12, i8* %_public_dynarrarg, i8* %_secret_dynarrarg13)
-  %_secret_ldedviewptr = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep = getelementptr inbounds i8, i8* %_secret_ldedviewptr, i8 16
-  %_secret___v136_cview = alloca i8*
-  store i8* %_secret_source_gep, i8** %_secret___v136_cview
-  %_public_lval14 = load i32, i32* %_public___c_len
-  %_public_subtmp = sub i32 %_public_lval14, 32
-  store i32 %_public_subtmp, i32* %_public___v138___v137_len
-  %_secret_ldedviewptr15 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep16 = getelementptr inbounds i8, i8* %_secret_ldedviewptr15, i8 32
-  %_secret___v139_mview = alloca i8*
-  store i8* %_secret_source_gep16, i8** %_secret___v139_mview
-  %_secret_ldedviewptr17 = load i8*, i8** %_secret_arrarg
-  %_secret_source_gep18 = getelementptr inbounds i8, i8* %_secret_ldedviewptr17, i8 0
-  %_secret___v140_kview = alloca i8*
-  store i8* %_secret_source_gep18, i8** %_secret___v140_kview
-  %_secret_dynarrarg19 = load i8*, i8** %_secret___v136_cview
-  %_secret_dynarrarg20 = load i8*, i8** %_secret___v139_mview
-  %_public_lval21 = load i32, i32* %_public___v138___v137_len
-  %_secret_dynarrarg22 = load i8*, i8** %_secret___v140_kview
-  %1 = call i32 @_crypto_onetimeauth_poly1305(i8* %_secret_dynarrarg19, i8* %_secret_dynarrarg20, i32 %_public_lval21, i8* %_secret_dynarrarg22)
-  store i32 0, i32* %_public___v141_i
-  br label %loop_check
+; <label>:3:                                      ; preds = %2
+  %__v21_kcopy = alloca i8, i64 32
+  call void @fact.memcpy.i8(i8* %__v21_kcopy, i8* %__v20_k, i64 32)
+  %__v22_input = alloca i8, i64 16
+  call void @fact.memset.i8(i8* %__v22_input, i8 0, i64 16)
+  br label %4
 
-loop_check:                                       ; preds = %loop_body, %branchmerge
-  %_public_lval23 = load i32, i32* %_public___v141_i
-  %_public_slttmp = icmp slt i32 %_public_lval23, 16
-  br i1 %_public_slttmp, label %loop_body, label %loop_end
+; <label>:4:                                      ; preds = %10, %3
+  %__v23_i = phi i32 [ 0, %3 ], [ %11, %10 ]
+  %5 = icmp ult i32 %__v23_i, 8
+  br i1 %5, label %6, label %12
 
-loop_body:                                        ; preds = %loop_check
-  %_public_lval24 = load i32, i32* %_public___v141_i
-  %_secret_dyn = load i8*, i8** %_secret_arrarg
-  %_secret_ptr = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_lval24
-  store i8 0, i8* %_secret_ptr
-  %_public_lval25 = load i32, i32* %_public___v141_i
-  %_public_addtmp = add i32 %_public_lval25, 1
-  store i32 %_public_addtmp, i32* %_public___v141_i
-  br label %loop_check
+; <label>:6:                                      ; preds = %4
+  %__v228_lexpr = zext i32 %__v23_i to i64
+  %__v227_lexpr = zext i32 %__v23_i to i64
+  %7 = getelementptr i8, i8* %__v22_input, i64 %__v227_lexpr
+  %8 = getelementptr i8, i8* %__v19_n, i64 %__v228_lexpr
+  %9 = load i8, i8* %8
+  store i8 %9, i8* %7
+  br label %10
 
-loop_end:                                         ; preds = %loop_check
-  store i1 true, i1* %_public___rval
-  %_public_lval26 = load i1, i1* %_public___rval
-  ret i1 %_public_lval26
+; <label>:10:                                     ; preds = %6
+  %11 = add i32 %__v23_i, 1
+  br label %4
+
+; <label>:12:                                     ; preds = %4
+  %13 = lshr i64 %__v210___v18_c_len, 6
+  %__v24_ctimes = trunc i64 %13 to i32
+  br label %14
+
+; <label>:14:                                     ; preds = %19, %12
+  %__v25_j = phi i32 [ 0, %12 ], [ %20, %19 ]
+  %15 = icmp ult i32 %__v25_j, %__v24_ctimes
+  br i1 %15, label %16, label %21
+
+; <label>:16:                                     ; preds = %14
+  %17 = mul i32 %__v25_j, 64
+  %__v229_lexpr = zext i32 %17 to i64
+  %18 = getelementptr i8, i8* %__v18_c, i64 %__v229_lexpr
+  call void @_crypto_core_salsa20(i8* %18, i8* %__v22_input, i8* %__v21_kcopy)
+  %__v26_u = alloca i32
+  store i32 1, i32* %__v26_u
+  br label %25
+
+; <label>:19:                                     ; preds = %40
+  %20 = add i32 %__v25_j, 1
+  br label %14
+
+; <label>:21:                                     ; preds = %14
+  %__v28_block = alloca i8, i64 64
+  call void @fact.memset.i8(i8* %__v28_block, i8 0, i64 64)
+  %22 = mul i32 %__v24_ctimes, 64
+  %23 = zext i32 %22 to i64
+  %24 = icmp ult i64 %23, %__v210___v18_c_len
+  br i1 %24, label %41, label %46
+
+; <label>:25:                                     ; preds = %38, %16
+  %__v27_i = phi i32 [ 8, %16 ], [ %39, %38 ]
+  %26 = icmp ult i32 %__v27_i, 16
+  br i1 %26, label %27, label %40
+
+; <label>:27:                                     ; preds = %25
+  %__v230_lexpr = zext i32 %__v27_i to i64
+  %28 = load i32, i32* %__v26_u
+  %29 = getelementptr i8, i8* %__v22_input, i64 %__v230_lexpr
+  %30 = load i8, i8* %29
+  %31 = zext i8 %30 to i32
+  %32 = add i32 %28, %31
+  store i32 %32, i32* %__v26_u
+  %__v231_lexpr = zext i32 %__v27_i to i64
+  %33 = getelementptr i8, i8* %__v22_input, i64 %__v231_lexpr
+  %34 = load i32, i32* %__v26_u
+  %35 = trunc i32 %34 to i8
+  store i8 %35, i8* %33
+  %36 = load i32, i32* %__v26_u
+  %37 = lshr i32 %36, 8
+  store i32 %37, i32* %__v26_u
+  br label %38
+
+; <label>:38:                                     ; preds = %27
+  %39 = add i32 %__v27_i, 1
+  br label %25
+
+; <label>:40:                                     ; preds = %25
+  br label %19
+
+; <label>:41:                                     ; preds = %21
+  call void @_crypto_core_salsa20(i8* %__v28_block, i8* %__v22_input, i8* %__v21_kcopy)
+  %42 = mul i32 %__v24_ctimes, 64
+  %43 = zext i32 %42 to i64
+  %44 = sub i64 %__v210___v18_c_len, %43
+  %__v29_remain = trunc i64 %44 to i32
+  %__v233_lexpr = zext i32 %__v29_remain to i64
+  %45 = mul i32 %__v24_ctimes, 64
+  %__v232_lexpr = zext i32 %45 to i64
+  %__v30_cview = getelementptr i8, i8* %__v18_c, i64 %__v232_lexpr
+  br label %48
+
+; <label>:46:                                     ; preds = %21
+  br label %47
+
+; <label>:47:                                     ; preds = %46, %56
+  call void @"__memzero[8]/secret"(i8* %__v28_block, i64 64)
+  call void @"__memzero[8]/secret"(i8* %__v21_kcopy, i64 32)
+  ret i32 0
+
+; <label>:48:                                     ; preds = %54, %41
+  %__v31_i = phi i32 [ 0, %41 ], [ %55, %54 ]
+  %49 = icmp ult i32 %__v31_i, %__v29_remain
+  br i1 %49, label %50, label %56
+
+; <label>:50:                                     ; preds = %48
+  %__v235_lexpr = zext i32 %__v31_i to i64
+  %__v234_lexpr = zext i32 %__v31_i to i64
+  %51 = getelementptr i8, i8* %__v30_cview, i64 %__v234_lexpr
+  %52 = getelementptr i8, i8* %__v28_block, i64 %__v235_lexpr
+  %53 = load i8, i8* %52
+  store i8 %53, i8* %51
+  br label %54
+
+; <label>:54:                                     ; preds = %50
+  %55 = add i32 %__v31_i, 1
+  br label %48
+
+; <label>:56:                                     ; preds = %48
+  br label %47
 }
 
-define internal i1 @_crypto_secretbox_xsalsa20poly1305_open(i8* %_secret_arrarg1, i32 %_public___m_len2, i8* %_public_arrarg3, i32 %_public___c_len4, i8* %_public_arrarg6, i8* %_secret_arrarg8) {
+define internal i32 @_crypto_stream_xsalsa20(i8* %__v13_c, i64 %__v209___v13_c_len, i8* %__v14_n, i8* %__v15_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len2, i32* %_public___m_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg3, i8** %_public_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len4, i32* %_public___c_len
-  %_public_arrarg5 = alloca i8*
-  store i8* %_public_arrarg6, i8** %_public_arrarg5
-  %_secret_arrarg7 = alloca i8*
-  store i8* %_secret_arrarg8, i8** %_secret_arrarg7
-  %_public___rval = alloca i1
-  %_secret___rnset = alloca i1
-  %_public___v145___v144_len = alloca i32
-  %_public___v147_i = alloca i32
-  store i1 false, i1* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_public_lval = load i32, i32* %_public___c_len
-  %_public_ulttmp = icmp ult i32 %_public_lval, 32
-  %_public_branchcompare = icmp eq i1 %_public_ulttmp, true
-  br i1 %_public_branchcompare, label %thenbranch, label %elsebranch
-
-thenbranch:                                       ; preds = %entry
-  store i1 false, i1* %_public___rval
-  %_public_lval9 = load i1, i1* %_public___rval
-  ret i1 %_public_lval9
-
-elsebranch:                                       ; preds = %entry
-  br label %branchmerge
-
-branchmerge:                                      ; preds = %elsebranch
-  %_secret___v142_subkey = alloca [32 x i8]
-  %_secret_arrtoptr = bitcast [32 x i8]* %_secret___v142_subkey to i8*
-  %_public_dynarrarg = load i8*, i8** %_public_arrarg5
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg7
-  %0 = call i32 @_crypto_stream_xsalsa20(i8* %_secret_arrtoptr, i32 32, i8* %_public_dynarrarg, i8* %_secret_dynarrarg)
-  %_public_ldedviewptr = load i8*, i8** %_public_arrarg
-  %_public_source_gep = getelementptr inbounds i8, i8* %_public_ldedviewptr, i8 16
-  %_public___v143_tmp1 = alloca i8*
-  store i8* %_public_source_gep, i8** %_public___v143_tmp1
-  %_public_lval10 = load i32, i32* %_public___c_len
-  %_public_subtmp = sub i32 %_public_lval10, 32
-  store i32 %_public_subtmp, i32* %_public___v145___v144_len
-  %_public_ldedviewptr11 = load i8*, i8** %_public_arrarg
-  %_public_source_gep12 = getelementptr inbounds i8, i8* %_public_ldedviewptr11, i8 32
-  %_public___v146_cview = alloca i8*
-  store i8* %_public_source_gep12, i8** %_public___v146_cview
-  %_public_dynarrarg13 = load i8*, i8** %_public___v143_tmp1
-  %_public_dynarrarg14 = load i8*, i8** %_public___v146_cview
-  %_public_lval15 = load i32, i32* %_public___v145___v144_len
-  %_secret_arrtoptr16 = bitcast [32 x i8]* %_secret___v142_subkey to i8*
-  %_public_calltmp = call i1 @_crypto_onetimeauth_poly1305_verify(i8* %_public_dynarrarg13, i8* %_public_dynarrarg14, i32 %_public_lval15, i8* %_secret_arrtoptr16)
-  %_public_lnottmp = xor i1 %_public_calltmp, true
-  %_public_branchcompare17 = icmp eq i1 %_public_lnottmp, true
-  br i1 %_public_branchcompare17, label %thenbranch18, label %elsebranch20
-
-thenbranch18:                                     ; preds = %branchmerge
-  store i1 false, i1* %_public___rval
-  %_public_lval19 = load i1, i1* %_public___rval
-  ret i1 %_public_lval19
-
-elsebranch20:                                     ; preds = %branchmerge
-  br label %branchmerge21
-
-branchmerge21:                                    ; preds = %elsebranch20
-  %_secret_dynarrarg22 = load i8*, i8** %_secret_arrarg
-  %_public_lval23 = load i32, i32* %_public___m_len
-  %_secret_dynarrarg24 = load i8*, i8** %_public_arrarg
-  %_public_lval25 = load i32, i32* %_public___c_len
-  %_public_dynarrarg26 = load i8*, i8** %_public_arrarg5
-  %_secret_dynarrarg27 = load i8*, i8** %_secret_arrarg7
-  %1 = call i32 @_crypto_stream_xsalsa20_xor(i8* %_secret_dynarrarg22, i32 %_public_lval23, i8* %_secret_dynarrarg24, i32 %_public_lval25, i8* %_public_dynarrarg26, i8* %_secret_dynarrarg27)
-  store i32 0, i32* %_public___v147_i
-  br label %loop_check
-
-loop_check:                                       ; preds = %loop_body, %branchmerge21
-  %_public_lval28 = load i32, i32* %_public___v147_i
-  %_public_ulttmp29 = icmp ult i32 %_public_lval28, 32
-  br i1 %_public_ulttmp29, label %loop_body, label %loop_end
-
-loop_body:                                        ; preds = %loop_check
-  %_public_lval30 = load i32, i32* %_public___v147_i
-  %_secret_dyn = load i8*, i8** %_secret_arrarg
-  %_secret_ptr = getelementptr inbounds i8, i8* %_secret_dyn, i32 %_public_lval30
-  store i8 0, i8* %_secret_ptr
-  %_public_lval31 = load i32, i32* %_public___v147_i
-  %_public_addtmp = add i32 %_public_lval31, 1
-  store i32 %_public_addtmp, i32* %_public___v147_i
-  br label %loop_check
-
-loop_end:                                         ; preds = %loop_check
-  store i1 true, i1* %_public___rval
-  %_public_lval32 = load i1, i1* %_public___rval
-  ret i1 %_public_lval32
+  %__rval = alloca i32
+  store i32 0, i32* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v16_subkey = alloca i8, i64 32
+  call void @fact.memset.i8(i8* %__v16_subkey, i8 0, i64 32)
+  %0 = getelementptr i8, i8* %__v14_n, i64 0
+  call void @_crypto_core_hsalsa20(i8* %__v16_subkey, i8* %0, i8* %__v15_k)
+  %1 = getelementptr i8, i8* %__v14_n, i64 16
+  %__v17_ret = call i32 @_crypto_stream_salsa20(i8* %__v13_c, i64 %__v209___v13_c_len, i8* %1, i8* %__v16_subkey)
+  call void @"__memzero[8]/secret"(i8* %__v16_subkey, i64 32)
+  ret i32 %__v17_ret
 }
 
-define i1 @_crypto_secretbox(i8* %_secret_arrarg1, i32 %_public___c_len2, i8* %_secret_arrarg4, i32 %_public___m_len5, i8* %_public_arrarg6, i8* %_secret_arrarg8) {
+define internal i1 @_crypto_secretbox_xsalsa20poly1305_open(i8* %__v5_m, i64 %__v207___v5_m_len, i8* %__v6_c, i64 %__v208___v6_c_len, i8* %__v7_n, i8* %__v8_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len2, i32* %_public___c_len
-  %_secret_arrarg3 = alloca i8*
-  store i8* %_secret_arrarg4, i8** %_secret_arrarg3
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len5, i32* %_public___m_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg6, i8** %_public_arrarg
-  %_secret_arrarg7 = alloca i8*
-  store i8* %_secret_arrarg8, i8** %_secret_arrarg7
-  %_public___rval = alloca i1
-  %_secret___rnset = alloca i1
-  store i1 false, i1* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___c_len
-  %_secret_dynarrarg9 = load i8*, i8** %_secret_arrarg3
-  %_public_lval10 = load i32, i32* %_public___m_len
-  %_public_dynarrarg = load i8*, i8** %_public_arrarg
-  %_secret_dynarrarg11 = load i8*, i8** %_secret_arrarg7
-  %_public_calltmp = call i1 @_crypto_secretbox_xsalsa20poly1305(i8* %_secret_dynarrarg, i32 %_public_lval, i8* %_secret_dynarrarg9, i32 %_public_lval10, i8* %_public_dynarrarg, i8* %_secret_dynarrarg11)
-  store i1 %_public_calltmp, i1* %_public___rval
-  %_public_lval12 = load i1, i1* %_public___rval
-  ret i1 %_public_lval12
+  %__rval = alloca i1
+  store i1 false, i1* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %0 = icmp ult i64 %__v208___v6_c_len, 32
+  br i1 %0, label %1, label %2
+
+; <label>:1:                                      ; preds = %entry
+  ret i1 false
+
+; <label>:2:                                      ; preds = %entry
+  br label %3
+
+; <label>:3:                                      ; preds = %2
+  %__v9_subkey = alloca i8, i64 32
+  call void @fact.memset.i8(i8* %__v9_subkey, i8 0, i64 32)
+  %4 = call i32 @_crypto_stream_xsalsa20(i8* %__v9_subkey, i64 32, i8* %__v7_n, i8* %__v8_k)
+  %__v10_tmp1 = getelementptr i8, i8* %__v6_c, i64 16
+  %__v225_lexpr = sub i64 %__v208___v6_c_len, 32
+  %__v11_cview = getelementptr i8, i8* %__v6_c, i64 32
+  %__v199__crypto_onetimeauth_poly1305_verify = call i1 @_crypto_onetimeauth_poly1305_verify(i8* %__v10_tmp1, i8* %__v11_cview, i64 %__v225_lexpr, i8* %__v9_subkey)
+  %5 = xor i1 %__v199__crypto_onetimeauth_poly1305_verify, true
+  br i1 %5, label %6, label %7
+
+; <label>:6:                                      ; preds = %3
+  ret i1 false
+
+; <label>:7:                                      ; preds = %3
+  br label %8
+
+; <label>:8:                                      ; preds = %7
+  %9 = call i32 @_crypto_stream_xsalsa20_xor(i8* %__v5_m, i64 %__v207___v5_m_len, i8* %__v6_c, i64 %__v208___v6_c_len, i8* %__v7_n, i8* %__v8_k)
+  br label %10
+
+; <label>:10:                                     ; preds = %14, %8
+  %__v12_i = phi i32 [ 0, %8 ], [ %15, %14 ]
+  %11 = icmp ult i32 %__v12_i, 32
+  br i1 %11, label %12, label %16
+
+; <label>:12:                                     ; preds = %10
+  %__v226_lexpr = zext i32 %__v12_i to i64
+  %13 = getelementptr i8, i8* %__v5_m, i64 %__v226_lexpr
+  store i8 0, i8* %13
+  br label %14
+
+; <label>:14:                                     ; preds = %12
+  %15 = add i32 %__v12_i, 1
+  br label %10
+
+; <label>:16:                                     ; preds = %10
+  ret i1 true
 }
 
-define i1 @_crypto_secretbox_open(i8* %_secret_arrarg1, i32 %_public___m_len2, i8* %_public_arrarg3, i32 %_public___c_len4, i8* %_public_arrarg6, i8* %_secret_arrarg8) {
+define i1 @_crypto_secretbox_open(i8* %__v1_m, i64 %__v205___v1_m_len, i8* %__v2_c, i64 %__v206___v2_c_len, i8* %__v3_n, i8* %__v4_k) {
 entry:
-  %_secret_arrarg = alloca i8*
-  store i8* %_secret_arrarg1, i8** %_secret_arrarg
-  %_public___m_len = alloca i32
-  store i32 %_public___m_len2, i32* %_public___m_len
-  %_public_arrarg = alloca i8*
-  store i8* %_public_arrarg3, i8** %_public_arrarg
-  %_public___c_len = alloca i32
-  store i32 %_public___c_len4, i32* %_public___c_len
-  %_public_arrarg5 = alloca i8*
-  store i8* %_public_arrarg6, i8** %_public_arrarg5
-  %_secret_arrarg7 = alloca i8*
-  store i8* %_secret_arrarg8, i8** %_secret_arrarg7
-  %_public___rval = alloca i1
-  %_secret___rnset = alloca i1
-  store i1 false, i1* %_public___rval
-  store i1 true, i1* %_secret___rnset
-  %_secret_dynarrarg = load i8*, i8** %_secret_arrarg
-  %_public_lval = load i32, i32* %_public___m_len
-  %_public_dynarrarg = load i8*, i8** %_public_arrarg
-  %_public_lval9 = load i32, i32* %_public___c_len
-  %_public_dynarrarg10 = load i8*, i8** %_public_arrarg5
-  %_secret_dynarrarg11 = load i8*, i8** %_secret_arrarg7
-  %_public_calltmp = call i1 @_crypto_secretbox_xsalsa20poly1305_open(i8* %_secret_dynarrarg, i32 %_public_lval, i8* %_public_dynarrarg, i32 %_public_lval9, i8* %_public_dynarrarg10, i8* %_secret_dynarrarg11)
-  store i1 %_public_calltmp, i1* %_public___rval
-  %_public_lval12 = load i1, i1* %_public___rval
-  ret i1 %_public_lval12
+  %__rval = alloca i1
+  store i1 false, i1* %__rval
+  %__rctx = alloca i1
+  store i1 true, i1* %__rctx
+  %__v198__crypto_secretbox_xsalsa20poly1305_open = call i1 @_crypto_secretbox_xsalsa20poly1305_open(i8* %__v1_m, i64 %__v205___v1_m_len, i8* %__v2_c, i64 %__v206___v2_c_len, i8* %__v3_n, i8* %__v4_k)
+  ret i1 %__v198__crypto_secretbox_xsalsa20poly1305_open
 }
 
-attributes #0 = { argmemonly nounwind }
-attributes #1 = { noinline }
-attributes #2 = { alwaysinline }
-attributes #3 = { alwaysinline readonly }
+attributes #0 = { alwaysinline }
+attributes #1 = { argmemonly nounwind }

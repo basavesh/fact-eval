@@ -1,5 +1,5 @@
-#ifndef __CRYPTO_SECRETBOX_CREF_O2_H
-#define __CRYPTO_SECRETBOX_CREF_O2_H
+#ifndef __CRYPTO_SECRETBOX_CREF_O2_FPIC_H
+#define __CRYPTO_SECRETBOX_CREF_O2_FPIC_H
 
 struct poly1305_state_internal_t;
 // struct poly1305_state_internal_t {
@@ -72,4 +72,4 @@ struct poly1305_state_internal_t;
 
 
 
-#endif /* __CRYPTO_SECRETBOX_CREF_O2_H */
+#endif /* __CRYPTO_SECRETBOX_CREF_O2_FPIC_H */

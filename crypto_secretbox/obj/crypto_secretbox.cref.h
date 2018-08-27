@@ -1,23 +1,52 @@
-#ifndef __CRYPTO_SECRETBOX.CREF_H
-#define __CRYPTO_SECRETBOX.CREF_H
+#ifndef __CRYPTO_SECRETBOX_CREF_H
+#define __CRYPTO_SECRETBOX_CREF_H
 
 struct poly1305_state_internal_t;
 // struct poly1305_state_internal_t {
-//   /*secret*/ uint64_t r[3];
-//   /*secret*/ uint64_t h[3];
-//   /*secret*/ uint64_t pad[2];
+//   const /*secret*/ uint64_t r;
+//   const /*secret*/ uint64_t h;
+//   const /*secret*/ uint64_t pad;
 //   /*public*/ uint64_t leftover;
-//   /*secret*/ uint8_t buffer[16];
+//   const /*secret*/ uint8_t buffer;
 //   /*secret*/ uint8_t final;
 // };
 
-/* _fact_memzero is an internal function */
 
-/* _fact_memzero64 is an internal function */
+/*public*/ uint8_t _crypto_secretbox_open(
+  /*secret*/ uint8_t __v1_m[],
+  /*public*/ uint64_t __v205___v1_m_len,
+  const /*public*/ uint8_t __v2_c[],
+  /*public*/ uint64_t __v206___v2_c_len,
+  const /*public*/ uint8_t __v3_n[24],
+  const /*secret*/ uint8_t __v4_k[32]);
+
+/* _crypto_secretbox_xsalsa20poly1305_open is an internal function */
+
+/* _crypto_stream_xsalsa20 is an internal function */
+
+/* _crypto_stream_salsa20 is an internal function */
+
+/*public*/ uint8_t _crypto_secretbox(
+  /*secret*/ uint8_t __v32_c[],
+  /*public*/ uint64_t __v211___v32_c_len,
+  const /*secret*/ uint8_t __v33_m[],
+  /*public*/ uint64_t __v212___v33_m_len,
+  const /*public*/ uint8_t __v34_n[24],
+  const /*secret*/ uint8_t __v35_k[32]);
+
+/* _crypto_secretbox_xsalsa20poly1305 is an internal function */
+
+/* _crypto_stream_xsalsa20_xor is an internal function */
+
+/* _crypto_stream_xsalsa20_xor_ic is an internal function */
+
+/* _crypto_stream_salsa20_xor_ic is an internal function */
+
+/* _crypto_onetimeauth_poly1305_verify is an internal function */
 
 /* _crypto_verify_16 is an internal function */
 
-/* _poly1305_blocks is an internal function */
+/* _crypto_onetimeauth_poly1305 is an internal function */
 
 /* _poly1305_init is an internal function */
 
@@ -25,44 +54,22 @@ struct poly1305_state_internal_t;
 
 /* _poly1305_finish is an internal function */
 
-/* _crypto_onetimeauth_poly1305 is an internal function */
-
-/* _crypto_onetimeauth_poly1305_verify is an internal function */
+/* _poly1305_blocks is an internal function */
 
 /* _crypto_core_salsa20 is an internal function */
 
-/* _crypto_stream_salsa20 is an internal function */
-
-/* _crypto_stream_salsa20_xor_ic is an internal function */
-
 /* _crypto_core_hsalsa20 is an internal function */
 
-/* _crypto_stream_xsalsa20 is an internal function */
 
-/* _crypto_stream_xsalsa20_xor_ic is an internal function */
 
-/* _crypto_stream_xsalsa20_xor is an internal function */
 
-/* _crypto_secretbox_xsalsa20poly1305 is an internal function */
 
-/* _crypto_secretbox_xsalsa20poly1305_open is an internal function */
 
-/*public*/
-uint8_t _crypto_secretbox(
-  /*secret*/ uint8_t c[],
-  /*public*/ uint32_t __c_len,
-  /*secret*/ const uint8_t m[],
-  /*public*/ uint32_t __m_len,
-  /*public*/ const uint8_t n[24],
-  /*secret*/ const uint8_t k[32]);
 
-/*public*/
-uint8_t _crypto_secretbox_open(
-  /*secret*/ uint8_t m[],
-  /*public*/ uint32_t __m_len,
-  /*public*/ const uint8_t c[],
-  /*public*/ uint32_t __c_len,
-  /*public*/ const uint8_t n[24],
-  /*secret*/ const uint8_t k[32]);
 
-#endif /* __CRYPTO_SECRETBOX.CREF_H */
+
+
+
+
+
+#endif /* __CRYPTO_SECRETBOX_CREF_H */
