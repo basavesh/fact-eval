@@ -1292,7 +1292,7 @@ entry:
   %11 = load i64, i64* %__v95_mindex
   %12 = sub i64 %__v223___v94_m_len, %11
   %13 = icmp uge i64 %12, 16
-  br i1 %13, label %48, label %55
+  br i1 %13, label %48, label %53
 
 ; <label>:14:                                     ; preds = %3
   store i64 %__v223___v94_m_len, i64* %__v96_want
@@ -1359,67 +1359,64 @@ entry:
 ; <label>:48:                                     ; preds = %10
   %49 = load i64, i64* %__v95_mindex
   %50 = sub i64 %__v223___v94_m_len, %49
-  %51 = trunc i64 %50 to i32
-  %52 = and i32 %51, -16
-  %__v262_lexpr = zext i32 %52 to i64
+  %__v262_lexpr = and i64 %50, -16
   %__v261_lexpr = load i64, i64* %__v95_mindex
   %__v101_mview = getelementptr i8, i8* %__v94_m, i64 %__v261_lexpr
   call void @_poly1305_blocks(%poly1305_state_internal_t* %__v93_state, i8* %__v101_mview, i64 %__v262_lexpr)
-  %53 = load i64, i64* %__v95_mindex
-  %54 = add i64 %53, %__v262_lexpr
-  store i64 %54, i64* %__v95_mindex
-  br label %56
+  %51 = load i64, i64* %__v95_mindex
+  %52 = add i64 %51, %__v262_lexpr
+  store i64 %52, i64* %__v95_mindex
+  br label %54
 
-; <label>:55:                                     ; preds = %10
-  br label %56
+; <label>:53:                                     ; preds = %10
+  br label %54
 
-; <label>:56:                                     ; preds = %55, %48
-  %57 = load i64, i64* %__v95_mindex
-  %58 = icmp ult i64 %57, %__v223___v94_m_len
-  br i1 %58, label %59, label %61
+; <label>:54:                                     ; preds = %53, %48
+  %55 = load i64, i64* %__v95_mindex
+  %56 = icmp ult i64 %55, %__v223___v94_m_len
+  br i1 %56, label %57, label %59
 
-; <label>:59:                                     ; preds = %56
-  %60 = load i64, i64* %__v95_mindex
-  %__v102_remaining = sub i64 %__v223___v94_m_len, %60
-  br label %63
+; <label>:57:                                     ; preds = %54
+  %58 = load i64, i64* %__v95_mindex
+  %__v102_remaining = sub i64 %__v223___v94_m_len, %58
+  br label %61
 
-; <label>:61:                                     ; preds = %56
-  br label %62
+; <label>:59:                                     ; preds = %54
+  br label %60
 
-; <label>:62:                                     ; preds = %61, %75
+; <label>:60:                                     ; preds = %59, %72
   ret void
 
-; <label>:63:                                     ; preds = %73, %59
-  %__v103_i = phi i64 [ 0, %59 ], [ %74, %73 ]
-  %64 = icmp ult i64 %__v103_i, %__v102_remaining
-  br i1 %64, label %65, label %75
+; <label>:61:                                     ; preds = %70, %57
+  %__v103_i = phi i64 [ 0, %57 ], [ %71, %70 ]
+  %62 = icmp ult i64 %__v103_i, %__v102_remaining
+  br i1 %62, label %63, label %72
 
-; <label>:65:                                     ; preds = %63
-  %66 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
-  %67 = load i64, i64* %66
-  %__v104_index = add i64 %67, %__v103_i
+; <label>:63:                                     ; preds = %61
+  %64 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %__v104__leftover = load i64, i64* %64
   %__v105__mindex = load i64, i64* %__v95_mindex
   %__v264_lexpr = add i64 %__v105__mindex, %__v103_i
-  %__v263_lexpr = add i64 %__v104_index, %__v103_i
-  %68 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
-  %69 = bitcast [16 x i8]* %68 to i8*
-  %70 = getelementptr i8, i8* %69, i64 %__v263_lexpr
-  %71 = getelementptr i8, i8* %__v94_m, i64 %__v264_lexpr
-  %72 = load i8, i8* %71
-  store i8 %72, i8* %70
-  br label %73
+  %__v263_lexpr = add i64 %__v104__leftover, %__v103_i
+  %65 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
+  %66 = bitcast [16 x i8]* %65 to i8*
+  %67 = getelementptr i8, i8* %66, i64 %__v263_lexpr
+  %68 = getelementptr i8, i8* %__v94_m, i64 %__v264_lexpr
+  %69 = load i8, i8* %68
+  store i8 %69, i8* %67
+  br label %70
 
-; <label>:73:                                     ; preds = %65
-  %74 = add i64 %__v103_i, 1
-  br label %63
+; <label>:70:                                     ; preds = %63
+  %71 = add i64 %__v103_i, 1
+  br label %61
 
-; <label>:75:                                     ; preds = %63
-  %76 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
-  %77 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
-  %78 = load i64, i64* %77
-  %79 = add i64 %78, %__v102_remaining
-  store i64 %79, i64* %76
-  br label %62
+; <label>:72:                                     ; preds = %61
+  %73 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %74 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
+  %75 = load i64, i64* %74
+  %76 = add i64 %75, %__v102_remaining
+  store i64 %76, i64* %73
+  br label %60
 }
 
 define internal void @_poly1305_init(%poly1305_state_internal_t* %__v89_state, i8* %__v90_key) {

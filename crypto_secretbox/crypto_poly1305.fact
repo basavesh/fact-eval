@@ -118,7 +118,7 @@ void _poly1305_update(
 
   /* process full blocks */
   if (len m - mindex >= 16) {
-    public uint64 want = ((len m - mindex) & ~(uint32(16 - 1))); // XXX wat
+    public uint64 want = ((len m - mindex) & ~(uint64(16 - 1))); // XXX wat
 
     public uint64 _mindex = mindex;
     assume(_mindex < _mindex + want);
@@ -132,11 +132,11 @@ void _poly1305_update(
   if (mindex < len m) {
     public uint64 remaining = len m - mindex;
     for (uint64 i from 0 to remaining) {
-      public uint64 index = state.leftover + i;
+      public uint64 _leftover = state.leftover;
       public uint64 _mindex = mindex;
-      assume(index + i < len state.buffer);
+      assume(_leftover + i < len state.buffer);
       assume(_mindex + i < len m);
-      state.buffer[index + i] = m[_mindex + i];
+      state.buffer[_leftover + i] = m[_mindex + i];
     }
     state.leftover += remaining;
   }

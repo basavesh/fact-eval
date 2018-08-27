@@ -273,8 +273,8 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	cmpq	$16, %r13
 	jb	.LBB2_1
 # %bb.2:
-	movl	%r13d, %r12d
-	andl	$-16, %r12d
+	movq	%r13, %r12
+	andq	$-16, %r12
 	leaq	8(%rsp), %rdi
 	movq	%r15, %rsi
 	movq	%r12, %rdx
@@ -317,11 +317,11 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movzbl	-1(%rdx,%rsi), %ebx
 	addq	%rsp, %rax
 	addq	$8, %rax
-	movb	%bl, 72(%rax,%rsi,2)
+	movb	%bl, 72(%rsi,%rax)
 	movzbl	(%rdx,%rsi), %eax
 	movq	72(%rsp), %rbx
 	addq	%rcx, %rbx
-	movb	%al, 74(%rbx,%rsi,2)
+	movb	%al, 73(%rsi,%rbx)
 	addq	$2, %rsi
 	movq	72(%rsp), %rax
 	cmpq	%rsi, %rdi
@@ -331,7 +331,7 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	je	.LBB2_11
 .LBB2_10:                               # %.lr.ph.i4.epil
 	addq	%rsi, %r12
-	leaq	(%rax,%rsi,2), %rax
+	addq	%rsi, %rax
 	movb	(%r15,%r12), %cl
 	movb	%cl, 80(%rsp,%rax)
 	movq	72(%rsp), %rax

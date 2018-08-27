@@ -1018,14 +1018,11 @@ _poly1305_update:                       # @_poly1305_update
 .LBB3_14:
 	movq	-40(%rbp), %rax         # 8-byte Reload
 	subq	-16(%rbp), %rax
-	movl	%eax, %ecx
-	andl	$-16, %ecx
-	movl	%ecx, %ecx
-	movl	%ecx, %eax
-	movq	-24(%rbp), %rdx         # 8-byte Reload
-	addq	-16(%rbp), %rdx
+	andq	$-16, %rax
+	movq	-24(%rbp), %rcx         # 8-byte Reload
+	addq	-16(%rbp), %rcx
 	movq	-32(%rbp), %rdi         # 8-byte Reload
-	movq	%rdx, %rsi
+	movq	%rcx, %rsi
 	movq	%rax, %rdx
 	movq	%rax, -80(%rbp)         # 8-byte Spill
 	callq	_poly1305_blocks
@@ -1060,16 +1057,15 @@ _poly1305_update:                       # @_poly1305_update
 	movq	%rax, -104(%rbp)        # 8-byte Spill
 	jae	.LBB3_23
 # %bb.21:                               #   in Loop: Header=BB3_20 Depth=1
-	movq	-104(%rbp), %rax        # 8-byte Reload
-	movq	-32(%rbp), %rcx         # 8-byte Reload
-	addq	64(%rcx), %rax
+	movq	-32(%rbp), %rax         # 8-byte Reload
+	movq	64(%rax), %rcx
 	movq	-104(%rbp), %rdx        # 8-byte Reload
 	addq	-16(%rbp), %rdx
 	movq	-104(%rbp), %rsi        # 8-byte Reload
-	addq	%rsi, %rax
+	addq	%rsi, %rcx
 	movq	-24(%rbp), %rdi         # 8-byte Reload
 	movb	(%rdi,%rdx), %r8b
-	movb	%r8b, 72(%rcx,%rax)
+	movb	%r8b, 72(%rax,%rcx)
 # %bb.22:                               #   in Loop: Header=BB3_20 Depth=1
 	movq	-104(%rbp), %rax        # 8-byte Reload
 	addq	$1, %rax
