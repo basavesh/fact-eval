@@ -1,7 +1,13 @@
+#ifndef __CURVE25519_C64_O2_H
+#define __CURVE25519_C64_O2_H
+
+
+
+
 /*public*/ int32_t curve25519_donna(
-  /*secret*/ uint8_t[32] __v1_mypublic,
-  const /*secret*/ uint8_t[32] __v2__secret,
-  const /*secret*/ uint8_t[32] __v3_basepoint);
+  /*secret*/ uint8_t __v1_mypublic[32],
+  const /*secret*/ uint8_t __v2__secret[32],
+  const /*secret*/ uint8_t __v3_basepoint[32]);
 
 /* fexpand is an internal function */
 
@@ -28,3 +34,5 @@
 /* fmul is an internal function */
 
 /* swap_conditional is an internal function */
+
+#endif /* __CURVE25519_C64_O2_H */
