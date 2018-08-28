@@ -245,6 +245,14 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
             || !ossl_assert(md_size <= EVP_MAX_MD_SIZE))
         return 0;
 
+    header_length = 13;
+    if (is_sslv3) {
+        header_length = mac_secret_length + sslv3_pad_length + 8 /* sequence
+                                                                  * number */  +
+            1 /* record type */  +
+            2 /* record length */ ;
+    }
+
     start = OPENSSL_rdtsc();
 #if 1
     memset(mac_out, 0, sizeof(mac_out));
@@ -265,6 +273,7 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         sha_type,
         // inputs
         header,
+        header_length,
         data,
         data_plus_mac_plus_padding_size,
         data_plus_mac_size,
@@ -274,13 +283,6 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
     if (ret == 0)
       return 0; // "Should never happen"
 #else
-    header_length = 13;
-    if (is_sslv3) {
-        header_length = mac_secret_length + sslv3_pad_length + 8 /* sequence
-                                                                  * number */  +
-            1 /* record type */  +
-            2 /* record length */ ;
-    }
 
     /*
      * variance_blocks is the number of blocks of the hash that we have to
