@@ -1,36 +1,33 @@
-#ifndef __S3_CBC.O2_H
-#define __S3_CBC.O2_H
-
-/* _fact_memzero is an internal function */
-
-/* _fact_memzero64 is an internal function */
-
-/* _memcpy is an internal function */
-
-/* _crypto_verify_16 is an internal function */
+#ifndef __S3_CBC_O2_H
+#define __S3_CBC_O2_H
 
 
 
 
+/*secret*/ int32_t __ssl3_cbc_digest_record(
+  /*secret*/ uint8_t __v1_md_state[216],
+  /*secret*/ uint8_t __v2_mac_out[64],
+  /*secret*/ uint8_t __v3_hmac_pad[128],
+  /*public*/ uint64_t __v4_md_size,
+  /*public*/ uint64_t __v5_md_block_size,
+  /*public*/ uint64_t __v6_log_md_block_size,
+  /*public*/ uint64_t __v7_sslv3_pad_length,
+  /*public*/ uint64_t __v8_md_length_size,
+  /*public*/ uint8_t __v9_length_is_big_endian,
+  /*public*/ int32_t __v10_sha_type,
+  const /*secret*/ uint8_t __v11_header[],
+  /*public*/ uint64_t __v57___v11_header_len,
+  const /*secret*/ uint8_t __v12_data[],
+  /*public*/ uint64_t __v58___v12_data_len,
+  /*secret*/ uint64_t __v13_data_plus_mac_size,
+  const /*secret*/ uint8_t __v14_mac_secret[],
+  /*public*/ uint64_t __v59___v14_mac_secret_len,
+  /*public*/ uint8_t __v15_is_sslv3);
 
-/*secret*/
-int32_t __ssl3_cbc_digest_record(
-  /*secret*/ uint8_t md_state[216],
-  /*secret*/ uint8_t mac_out[64],
-  /*secret*/ uint8_t hmac_pad[128],
-  /*public*/ uint64_t md_size,
-  /*public*/ uint64_t md_block_size,
-  /*public*/ uint64_t log_md_block_size,
-  /*public*/ uint64_t sslv3_pad_length,
-  /*public*/ uint64_t md_length_size,
-  /*public*/ uint8_t length_is_big_endian,
-  /*public*/ int32_t sha_type,
-  /*secret*/ const uint8_t header[13],
-  /*secret*/ const uint8_t data[],
-  /*public*/ uint32_t __data_len,
-  /*secret*/ uint64_t data_plus_mac_size,
-  /*secret*/ const uint8_t mac_secret[],
-  /*public*/ uint32_t __mac_secret_len,
-  /*public*/ uint8_t is_sslv3);
 
-#endif /* __S3_CBC.O2_H */
+
+
+
+
+
+#endif /* __S3_CBC_O2_H */
