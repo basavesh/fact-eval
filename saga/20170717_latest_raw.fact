@@ -236,17 +236,17 @@ _aesni_cbc_hmac_sha1_cipher(
     secret mut uint32 c = _out[outp + j];
     secret mut uint32 mask = uint32(int32(j - inp_len) >> (4 * 8 - 8)); // the `4` is sizeof(j)
     c &= mask;
-    c |= 0x80 & (~mask) & ~((inp_len - j) >> (4 * 8 - 8)); // the `4` is sizeof(j)
+    c |= 0x80 & (~mask) & ~uint32(int32(inp_len - j) >> (4 * 8 - 8)); // the `4` is sizeof(j)
     assume(p_res < len key.md.data);
     key.md.data[p_res] = uint8(c);
     p_res += 1;
 
     if (p_res == SHA_CBLOCK) {
       /* j is not incremented yet */
-      mask = uint32(0 - ((inp_len + 7 - j) >> (4 * 8 - 1))); // the `4` is sizeof(j)
+      mask = 0 - (uint32(inp_len + 7 - j) >> (4 * 8 - 1)); // the `4` is sizeof(j)
       pmac_oreq(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen & mask);
       sha1_block_data_order(key.md.h0, key.md.data, 1);
-      mask &= 0 - ((j - inp_len - 72) >> (4 * 8 - 1)); // the `4` is sizeof(j)
+      mask &= 0 - (uint32(j - inp_len - 72) >> (4 * 8 - 1)); // the `4` is sizeof(j)
       pmac_oreq(view(pmac, 0 , 4), key.md.h0 & mask);
       pmac_oreq(view(pmac, 4 , 4), key.md.h1 & mask);
       pmac_oreq(view(pmac, 8 , 4), key.md.h2 & mask);
@@ -263,10 +263,10 @@ _aesni_cbc_hmac_sha1_cipher(
   }
 
   if (p_res > SHA_CBLOCK - 8) {
-    secret mut uint32 mask = uint32(0 - ((inp_len + 8 - j) >> (4 * 8 - 1))); // the `4` is sizeof(j)
+    secret mut uint32 mask = 0 - (uint32(inp_len + 8 - j) >> (4 * 8 - 1)); // the `4` is sizeof(j)
     pmac_oreq(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen & mask);
     sha1_block_data_order(key.md.h0, key.md.data, 1);
-    mask &= 0 - ((j - inp_len - 72) >> (4 * 8 - 1)); // the `4` is sizeof(j)
+    mask &= 0 - (uint32(j - inp_len - 72) >> (4 * 8 - 1)); // the `4` is sizeof(j)
     pmac_oreq(view(pmac, 0 , 4), key.md.h0 & mask);
     pmac_oreq(view(pmac, 4 , 4), key.md.h1 & mask);
     pmac_oreq(view(pmac, 8 , 4), key.md.h2 & mask);
@@ -279,7 +279,7 @@ _aesni_cbc_hmac_sha1_cipher(
   // NOTE: block is purely because I don't want to rename `mask`
   store_le(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen);
   sha1_block_data_order(key.md.h0, key.md.data, 1);
-  secret uint32 mask_ = uint32(0 - ((j - inp_len - 72) >> (4 * 8 - 1))); // the `4` is sizeof(j)
+  secret uint32 mask_ = 0 - (uint32(j - inp_len - 72) >> (4 * 8 - 1)); // the `4` is sizeof(j)
   pmac_oreq(view(pmac, 0 , 4), key.md.h0 & mask_);
   pmac_oreq(view(pmac, 4 , 4), key.md.h1 & mask_);
   pmac_oreq(view(pmac, 8 , 4), key.md.h2 & mask_);
@@ -332,7 +332,7 @@ _aesni_cbc_hmac_sha1_cipher(
   }
   maxpad -= SHA_DIGEST_LENGTH;
 
-  s_res = (0 - (((0 - s_res)) >> (4 * 8 - 1))); // the `4` is sizeof(s_res)
+  s_res = 0 - ((0 - s_res) >> (4 * 8 - 1)); // the `4` is sizeof(s_res)
   ret &= int32(~s_res);
   /* end post-lucky-13 section */
   return ret;
