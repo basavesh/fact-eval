@@ -148,7 +148,7 @@ _aesni_cbc_hmac_sha1_cipher(
 
   public mut uint32 inp = 0;
   public mut uint32 outp = 0;
-  public mut uint32 _len = len _out;
+  public mut uint32 _len = uint32(len _out);
   assume(inp + _len == len _in);
   assume(outp + _len == len _out);
   assume(inp + _len >= inp);
