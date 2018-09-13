@@ -398,9 +398,9 @@ entry:
   %136 = and i32 128, %135
   %137 = load i64, i64* %__v20_inp_len
   %138 = sub i64 %137, %__v25_j
-  %139 = lshr i64 %138, 24
-  %140 = xor i64 %139, -1
-  %141 = trunc i64 %140 to i32
+  %139 = trunc i64 %138 to i32
+  %140 = ashr i32 %139, 24
+  %141 = xor i32 %140, -1
   %142 = and i32 %136, %141
   %143 = or i32 %133, %142
   store i32 %143, i32* %__v26_c
@@ -437,9 +437,9 @@ entry:
   %163 = load i64, i64* %__v20_inp_len
   %164 = add i64 %163, 7
   %165 = sub i64 %164, %__v25_j
-  %166 = lshr i64 %165, 31
-  %167 = sub i64 0, %166
-  %168 = trunc i64 %167 to i32
+  %166 = trunc i64 %165 to i32
+  %167 = lshr i32 %166, 31
+  %168 = sub i32 0, %167
   store i32 %168, i32* %__v27_mask
   %169 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %170 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %169, i32 0, i32 7
@@ -459,9 +459,9 @@ entry:
   %182 = load i64, i64* %__v20_inp_len
   %183 = sub i64 %__v25_j, %182
   %184 = sub i64 %183, 72
-  %185 = lshr i64 %184, 31
-  %186 = sub i64 0, %185
-  %187 = trunc i64 %186 to i32
+  %185 = trunc i64 %184 to i32
+  %186 = lshr i32 %185, 31
+  %187 = sub i32 0, %186
   %188 = and i32 %181, %187
   store i32 %188, i32* %__v27_mask
   %189 = getelementptr i8, i8* %__v23_pmac, i64 0
@@ -539,9 +539,9 @@ entry:
   %238 = load i32, i32* %__v28_j
   %239 = zext i32 %238 to i64
   %240 = sub i64 %237, %239
-  %241 = lshr i64 %240, 31
-  %242 = sub i64 0, %241
-  %243 = trunc i64 %242 to i32
+  %241 = trunc i64 %240 to i32
+  %242 = lshr i32 %241, 31
+  %243 = sub i32 0, %242
   %__v30_mask = alloca i32
   store i32 %243, i32* %__v30_mask
   %244 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -564,9 +564,9 @@ entry:
   %259 = load i64, i64* %__v20_inp_len
   %260 = sub i64 %258, %259
   %261 = sub i64 %260, 72
-  %262 = lshr i64 %261, 31
-  %263 = sub i64 0, %262
-  %264 = trunc i64 %263 to i32
+  %262 = trunc i64 %261 to i32
+  %263 = lshr i32 %262, 31
+  %264 = sub i32 0, %263
   %265 = and i32 %256, %264
   store i32 %265, i32* %__v30_mask
   %266 = getelementptr i8, i8* %__v23_pmac, i64 0
@@ -634,9 +634,9 @@ entry:
   %315 = load i64, i64* %__v20_inp_len
   %316 = sub i64 %314, %315
   %317 = sub i64 %316, 72
-  %318 = lshr i64 %317, 31
-  %319 = sub i64 0, %318
-  %__v31_mask_ = trunc i64 %319 to i32
+  %318 = trunc i64 %317 to i32
+  %319 = lshr i32 %318, 31
+  %__v31_mask_ = sub i32 0, %319
   %320 = getelementptr i8, i8* %__v23_pmac, i64 0
   %321 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %322 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %321, i32 0, i32 0

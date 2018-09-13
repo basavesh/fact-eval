@@ -337,9 +337,9 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	andl	$128, %r8d
 	movq	(%rax), %r10
 	subq	%rcx, %r10
-	shrq	$24, %r10
-	xorq	$-1, %r10
 	movl	%r10d, %r11d
+	sarl	$24, %r11d
+	xorl	$-1, %r11d
 	andl	%r11d, %r8d
 	orl	%r8d, %esi
 	movl	%esi, (%rdi)
@@ -377,73 +377,71 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 .LBB0_17:                               #   in Loop: Header=BB0_13 Depth=1
 	movl	$1, %edx
 	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movq	-248(%rbp), %rsi        # 8-byte Reload
-	movq	(%rsi), %rdi
-	addq	$7, %rdi
-	movq	-320(%rbp), %r8         # 8-byte Reload
-	subq	%r8, %rdi
-	shrq	$31, %rdi
-	subq	%rdi, %rcx
-	movl	%ecx, %eax
-	movq	-328(%rbp), %rcx        # 8-byte Reload
-	movl	%eax, (%rcx)
-	movq	-288(%rbp), %rdi        # 8-byte Reload
-	movl	(%rdi), %eax
-	andl	(%rcx), %eax
+	movq	-248(%rbp), %rcx        # 8-byte Reload
+	movq	(%rcx), %rsi
+	addq	$7, %rsi
+	movq	-320(%rbp), %rdi        # 8-byte Reload
+	subq	%rdi, %rsi
+	movl	%esi, %r8d
+	shrl	$31, %r8d
+	subl	%r8d, %eax
+	movq	-328(%rbp), %rsi        # 8-byte Reload
+	movl	%eax, (%rsi)
+	movq	-288(%rbp), %r9         # 8-byte Reload
+	movl	(%r9), %eax
+	andl	(%rsi), %eax
 	movb	$1, -46(%rbp)
-	movq	-208(%rbp), %r9         # 8-byte Reload
-	orl	524(%r9), %eax
-	movl	%eax, 524(%r9)
-	addq	$436, %r9               # imm = 0x1B4
 	movq	-208(%rbp), %r10        # 8-byte Reload
+	orl	524(%r10), %eax
+	movl	%eax, 524(%r10)
 	addq	$436, %r10              # imm = 0x1B4
-	addq	$28, %r10
-	movq	%r9, %rdi
-	movq	%r10, %rsi
+	movq	-208(%rbp), %r11        # 8-byte Reload
+	addq	$436, %r11              # imm = 0x1B4
+	addq	$28, %r11
+	movq	%r10, %rdi
+	movq	%r11, %rsi
 	callq	sha1_block_data_order
 	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movq	-328(%rbp), %rsi        # 8-byte Reload
-	movl	(%rsi), %eax
-	movq	-320(%rbp), %rdi        # 8-byte Reload
-	movq	-248(%rbp), %r8         # 8-byte Reload
-	subq	(%r8), %rdi
-	subq	$72, %rdi
-	shrq	$31, %rdi
-	subq	%rdi, %rcx
-	movl	%ecx, %edx
-	andl	%edx, %eax
-	movl	%eax, (%rsi)
-	movq	-208(%rbp), %rcx        # 8-byte Reload
-	movl	436(%rcx), %eax
-	andl	(%rsi), %eax
+	movq	-328(%rbp), %rcx        # 8-byte Reload
+	movl	(%rcx), %edx
+	movq	-320(%rbp), %rsi        # 8-byte Reload
+	movq	-248(%rbp), %rdi        # 8-byte Reload
+	subq	(%rdi), %rsi
+	subq	$72, %rsi
+	movl	%esi, %r8d
+	shrl	$31, %r8d
+	subl	%r8d, %eax
+	andl	%eax, %edx
+	movl	%edx, (%rcx)
+	movq	-208(%rbp), %rsi        # 8-byte Reload
+	movl	436(%rsi), %eax
+	andl	(%rcx), %eax
 	movb	$1, -47(%rbp)
-	movq	-296(%rbp), %rdi        # 8-byte Reload
-	orl	(%rdi), %eax
-	movl	%eax, (%rdi)
-	movl	440(%rcx), %eax
-	andl	(%rsi), %eax
+	movq	-296(%rbp), %r9         # 8-byte Reload
+	orl	(%r9), %eax
+	movl	%eax, (%r9)
+	movl	440(%rsi), %eax
+	andl	(%rcx), %eax
 	movb	$1, -48(%rbp)
-	orl	4(%rdi), %eax
-	movl	%eax, 4(%rdi)
-	movl	444(%rcx), %eax
-	andl	(%rsi), %eax
+	orl	4(%r9), %eax
+	movl	%eax, 4(%r9)
+	movl	444(%rsi), %eax
+	andl	(%rcx), %eax
 	movb	$1, -49(%rbp)
-	orl	8(%rdi), %eax
-	movl	%eax, 8(%rdi)
-	movl	448(%rcx), %eax
-	andl	(%rsi), %eax
+	orl	8(%r9), %eax
+	movl	%eax, 8(%r9)
+	movl	448(%rsi), %eax
+	andl	(%rcx), %eax
 	movb	$1, -50(%rbp)
-	orl	12(%rdi), %eax
-	movl	%eax, 12(%rdi)
-	movl	452(%rcx), %eax
-	andl	(%rsi), %eax
+	orl	12(%r9), %eax
+	movl	%eax, 12(%r9)
+	movl	452(%rsi), %eax
+	andl	(%rcx), %eax
 	movb	$1, -51(%rbp)
-	orl	16(%rdi), %eax
-	movl	%eax, 16(%rdi)
-	movq	-304(%rbp), %r9         # 8-byte Reload
-	movl	$0, (%r9)
+	orl	16(%r9), %eax
+	movl	%eax, 16(%r9)
+	movq	-304(%rbp), %r10        # 8-byte Reload
+	movl	$0, (%r10)
 	jmp	.LBB0_19
 .LBB0_18:                               #   in Loop: Header=BB0_13 Depth=1
 	jmp	.LBB0_19
@@ -474,87 +472,83 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 # %bb.24:
 	movl	$1, %edx
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	movq	(%rax), %rcx
-	addq	$8, %rcx
+	movl	(%rax), %ecx
+	addl	$8, %ecx
 	movq	-336(%rbp), %rsi        # 8-byte Reload
 	movl	(%rsi), %edi
-	movl	%edi, %r8d
-	subq	%r8, %rcx
-	shrq	$31, %rcx
-	movl	%ecx, %edi
-	negl	%edi
-	movq	%rsp, %rcx
-	addq	$-16, %rcx
-	movq	%rcx, %rsp
-	movl	%edi, (%rcx)
-	movq	-288(%rbp), %r8         # 8-byte Reload
-	movl	(%r8), %edi
-	andl	(%rcx), %edi
+	subl	%edi, %ecx
+	sarl	$31, %ecx
+	movq	%rsp, %r8
+	addq	$-16, %r8
+	movq	%r8, %rsp
+	movl	%ecx, (%r8)
+	movq	-288(%rbp), %r9         # 8-byte Reload
+	movl	(%r9), %ecx
+	andl	(%r8), %ecx
 	movb	$1, -52(%rbp)
-	movq	-208(%rbp), %r9         # 8-byte Reload
-	orl	524(%r9), %edi
-	movl	%edi, 524(%r9)
-	addq	$436, %r9               # imm = 0x1B4
 	movq	-208(%rbp), %r10        # 8-byte Reload
+	orl	524(%r10), %ecx
+	movl	%ecx, 524(%r10)
 	addq	$436, %r10              # imm = 0x1B4
-	addq	$28, %r10
-	movq	%r9, %rdi
-	movq	%r10, %rsi
-	movq	%rcx, -360(%rbp)        # 8-byte Spill
+	movq	-208(%rbp), %r11        # 8-byte Reload
+	addq	$436, %r11              # imm = 0x1B4
+	addq	$28, %r11
+	movq	%r10, %rdi
+	movq	%r11, %rsi
+	movq	%r8, -360(%rbp)         # 8-byte Spill
 	callq	sha1_block_data_order
-	xorl	%esi, %esi
+	xorl	%ecx, %ecx
 	movl	$64, %edx
                                         # kill: def %rdx killed %edx
-	xorl	%r11d, %r11d
-	movl	%r11d, %eax
-	movq	-360(%rbp), %rcx        # 8-byte Reload
-	movl	(%rcx), %r11d
-	movq	-336(%rbp), %rdi        # 8-byte Reload
-	movl	(%rdi), %ebx
-	movl	%ebx, %r8d
-	movq	-248(%rbp), %r9         # 8-byte Reload
-	subq	(%r9), %r8
-	subq	$72, %r8
-	shrq	$31, %r8
-	subq	%r8, %rax
-	movl	%eax, %ebx
-	andl	%ebx, %r11d
-	movl	%r11d, (%rcx)
-	movq	-208(%rbp), %rax        # 8-byte Reload
-	movl	436(%rax), %r11d
-	andl	(%rcx), %r11d
+	movq	-360(%rbp), %rax        # 8-byte Reload
+	movl	(%rax), %ebx
+	movq	-336(%rbp), %rsi        # 8-byte Reload
+	movl	(%rsi), %r14d
+	movl	%r14d, %edi
+	movq	-248(%rbp), %r8         # 8-byte Reload
+	subq	(%r8), %rdi
+	subq	$72, %rdi
+	movl	%edi, %r14d
+	shrl	$31, %r14d
+	movl	%ecx, %r15d
+	subl	%r14d, %r15d
+	andl	%r15d, %ebx
+	movl	%ebx, (%rax)
+	movq	-208(%rbp), %rdi        # 8-byte Reload
+	movl	436(%rdi), %ebx
+	andl	(%rax), %ebx
 	movb	$1, -53(%rbp)
-	movq	-296(%rbp), %r8         # 8-byte Reload
-	orl	(%r8), %r11d
-	movl	%r11d, (%r8)
-	movl	440(%rax), %r11d
-	andl	(%rcx), %r11d
+	movq	-296(%rbp), %r9         # 8-byte Reload
+	orl	(%r9), %ebx
+	movl	%ebx, (%r9)
+	movl	440(%rdi), %ebx
+	andl	(%rax), %ebx
 	movb	$1, -54(%rbp)
-	orl	4(%r8), %r11d
-	movl	%r11d, 4(%r8)
-	movl	444(%rax), %r11d
-	andl	(%rcx), %r11d
+	orl	4(%r9), %ebx
+	movl	%ebx, 4(%r9)
+	movl	444(%rdi), %ebx
+	andl	(%rax), %ebx
 	movb	$1, -55(%rbp)
-	orl	8(%r8), %r11d
-	movl	%r11d, 8(%r8)
-	movl	448(%rax), %r11d
-	andl	(%rcx), %r11d
+	orl	8(%r9), %ebx
+	movl	%ebx, 8(%r9)
+	movl	448(%rdi), %ebx
+	andl	(%rax), %ebx
 	movb	$1, -56(%rbp)
-	orl	12(%r8), %r11d
-	movl	%r11d, 12(%r8)
-	movl	452(%rax), %r11d
-	andl	(%rcx), %r11d
+	orl	12(%r9), %ebx
+	movl	%ebx, 12(%r9)
+	movl	452(%rdi), %ebx
+	andl	(%rax), %ebx
 	movb	$1, -57(%rbp)
-	orl	16(%r8), %r11d
-	movl	%r11d, 16(%r8)
-	addq	$436, %rax              # imm = 0x1B4
-	addq	$28, %rax
-	movq	%rax, %rdi
+	orl	16(%r9), %ebx
+	movl	%ebx, 16(%r9)
+	addq	$436, %rdi              # imm = 0x1B4
+	addq	$28, %rdi
+	movl	%ecx, %esi
 	callq	memset
 	movq	-336(%rbp), %rax        # 8-byte Reload
-	movl	(%rax), %esi
-	addl	$64, %esi
-	movl	%esi, (%rax)
+	movl	(%rax), %ecx
+	addl	$64, %ecx
+	movl	%ecx, (%rax)
 	jmp	.LBB0_26
 .LBB0_25:
 	jmp	.LBB0_26
@@ -577,41 +571,38 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	callq	sha1_block_data_order
 	movq	-336(%rbp), %rcx        # 8-byte Reload
 	movl	(%rcx), %eax
-	movl	%eax, %esi
-	movq	-248(%rbp), %rdi        # 8-byte Reload
-	movq	(%rdi), %r8
-	subq	%r8, %rsi
-	addq	$-72, %rsi
-	shrq	$31, %rsi
-	movl	%esi, %eax
-	negl	%eax
-	movq	-208(%rbp), %rsi        # 8-byte Reload
-	movl	436(%rsi), %edx
+	movq	-248(%rbp), %rsi        # 8-byte Reload
+	movl	(%rsi), %edx
+	subl	%edx, %eax
+	addl	$-72, %eax
+	sarl	$31, %eax
+	movq	-208(%rbp), %rdi        # 8-byte Reload
+	movl	436(%rdi), %edx
 	andl	%eax, %edx
 	movb	$1, -58(%rbp)
 	movq	-296(%rbp), %r8         # 8-byte Reload
 	movl	(%r8), %r9d
 	orl	%edx, %r9d
 	movl	%r9d, (%r8)
-	movl	440(%rsi), %edx
+	movl	440(%rdi), %edx
 	andl	%eax, %edx
 	movb	$1, -59(%rbp)
 	movl	4(%r8), %r9d
 	orl	%edx, %r9d
 	movl	%r9d, 4(%r8)
-	movl	444(%rsi), %edx
+	movl	444(%rdi), %edx
 	andl	%eax, %edx
 	movb	$1, -60(%rbp)
 	movl	8(%r8), %r9d
 	orl	%edx, %r9d
 	movl	%r9d, 8(%r8)
-	movl	448(%rsi), %edx
+	movl	448(%rdi), %edx
 	andl	%eax, %edx
 	movb	$1, -61(%rbp)
 	movl	12(%r8), %r9d
 	orl	%edx, %r9d
 	movl	%r9d, 12(%r8)
-	movl	452(%rsi), %edx
+	movl	452(%rdi), %edx
 	andl	%eax, %edx
 	movb	$1, -62(%rbp)
 	movl	16(%r8), %eax
@@ -700,12 +691,12 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	-160(%rbp), %r11
 	addq	$20, %r11
 	movq	%r11, -160(%rbp)
-	vmovups	340(%rsi), %ymm0
-	vmovups	372(%rsi), %ymm1
-	vmovups	404(%rsi), %ymm2
-	vmovups	%ymm2, 500(%rsi)
-	vmovups	%ymm1, 468(%rsi)
-	vmovups	%ymm0, 436(%rsi)
+	vmovups	340(%rdi), %ymm0
+	vmovups	372(%rdi), %ymm1
+	vmovups	404(%rdi), %ymm2
+	vmovups	%ymm2, 500(%rdi)
+	vmovups	%ymm1, 468(%rdi)
+	vmovups	%ymm0, 436(%rdi)
 	movl	$20, %eax
 	movl	%eax, %edx
 	movq	-368(%rbp), %rdi        # 8-byte Reload
