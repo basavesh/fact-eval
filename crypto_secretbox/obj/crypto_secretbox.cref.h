@@ -3,11 +3,11 @@
 
 struct poly1305_state_internal_t;
 // struct poly1305_state_internal_t {
-//   const /*secret*/ uint64_t r;
-//   const /*secret*/ uint64_t h;
-//   const /*secret*/ uint64_t pad;
+//   /*secret*/ uint64_t r;
+//   /*secret*/ uint64_t h;
+//   /*secret*/ uint64_t pad;
 //   /*public*/ uint64_t leftover;
-//   const /*secret*/ uint8_t buffer;
+//   /*secret*/ uint8_t buffer;
 //   /*secret*/ uint8_t final;
 // };
 

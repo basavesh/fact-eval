@@ -29,12 +29,12 @@ swap_conditional:                       # @swap_conditional
 	movl	%eax, %ecx
 	movl	%ecx, %r8d
 	movq	-16(%rsp), %r9          # 8-byte Reload
-	movq	(%r9,%rdi,8), %rdi
+	movq	(%r9,%r8,8), %r8
 	movb	-25(%rsp), %r10b        # 1-byte Reload
 	andb	$1, %r10b
 	testb	$1, %r10b
-	cmoveq	(%rsi,%r8,8), %rdi
-	movq	%rdi, (%rsi,%r8,8)
+	cmoveq	(%rsi,%rdi,8), %r8
+	movq	%r8, (%rsi,%rdi,8)
 	movl	%eax, %ecx
 	movl	%ecx, %edi
 	movb	-25(%rsp), %r10b        # 1-byte Reload
@@ -1017,8 +1017,8 @@ fmonty:                                 # @fmonty
 	movl	%ecx, %edx
 	movl	%eax, %ecx
 	movl	%ecx, %esi
-	movq	256(%rsp,%rdx,8), %rdx
-	movq	%rdx, 416(%rsp,%rsi,8)
+	movq	256(%rsp,%rsi,8), %rsi
+	movq	%rsi, 416(%rsp,%rdx,8)
 # %bb.3:                                #   in Loop: Header=BB6_1 Depth=1
 	movl	8(%rsp), %eax           # 4-byte Reload
 	addl	$1, %eax
@@ -1189,8 +1189,8 @@ cmult:                                  # @cmult
 	movl	%eax, %ecx
 	movl	%ecx, %esi
 	movq	-424(%rbp), %rdi        # 8-byte Reload
-	movq	(%rdi,%rdx,8), %rdx
-	movq	%rdx, -88(%rbp,%rsi,8)
+	movq	(%rdi,%rsi,8), %rsi
+	movq	%rsi, -88(%rbp,%rdx,8)
 # %bb.3:                                #   in Loop: Header=BB7_1 Depth=1
 	movl	-480(%rbp), %eax        # 4-byte Reload
 	addl	$1, %eax
@@ -1337,16 +1337,16 @@ cmult:                                  # @cmult
 	movl	%ecx, %edx
 	movl	%eax, %ecx
 	movl	%ecx, %esi
-	movq	-168(%rbp,%rdx,8), %rdx
+	movq	-168(%rbp,%rsi,8), %rsi
 	movq	-376(%rbp), %rdi        # 8-byte Reload
-	movq	%rdx, (%rdi,%rsi,8)
+	movq	%rsi, (%rdi,%rdx,8)
 	movl	%eax, %ecx
 	movl	%ecx, %edx
 	movl	%eax, %ecx
 	movl	%ecx, %esi
-	movq	-208(%rbp,%rdx,8), %rdx
+	movq	-208(%rbp,%rsi,8), %rsi
 	movq	-384(%rbp), %r8         # 8-byte Reload
-	movq	%rdx, (%r8,%rsi,8)
+	movq	%rsi, (%r8,%rdx,8)
 # %bb.18:                               #   in Loop: Header=BB7_16 Depth=1
 	movl	-524(%rbp), %eax        # 4-byte Reload
 	addl	$1, %eax

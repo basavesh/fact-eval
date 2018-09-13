@@ -1511,10 +1511,10 @@ _poly1305_update:                       # @_poly1305_update
 # %bb.21:                               #   in Loop: Header=BB4_20 Depth=1
 	movq	-32(%rbp), %rax         # 8-byte Reload
 	movq	64(%rax), %rcx
-	movq	-104(%rbp), %rdx        # 8-byte Reload
-	addq	-16(%rbp), %rdx
+	movq	-16(%rbp), %rdx
 	movq	-104(%rbp), %rsi        # 8-byte Reload
 	addq	%rsi, %rcx
+	addq	%rsi, %rdx
 	movq	-24(%rbp), %rdi         # 8-byte Reload
 	movb	(%rdi,%rdx), %r8b
 	movb	%r8b, 72(%rax,%rcx)
@@ -1700,9 +1700,9 @@ _crypto_verify_16:                      # @_crypto_verify_16
 	movl	%ecx, %edx
 	movl	%edx, %edi
 	movq	-16(%rsp), %r8          # 8-byte Reload
-	movb	(%r8,%rdi), %r9b
-	movq	-24(%rsp), %rdi         # 8-byte Reload
-	cmpb	(%rdi,%rsi), %r9b
+	movb	(%r8,%rsi), %r9b
+	movq	-24(%rsp), %rsi         # 8-byte Reload
+	cmpb	(%rsi,%rdi), %r9b
 	setne	%r9b
 	movb	%r9b, %r10b
 	andb	$1, %r10b
@@ -1862,9 +1862,9 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movl	%eax, %ecx
 	movl	%ecx, %esi
 	movq	-32(%rbp), %rdi         # 8-byte Reload
-	movb	(%rdi,%rdx), %r8b
-	movq	-72(%rbp), %rdx         # 8-byte Reload
-	movb	%r8b, (%rdx,%rsi)
+	movb	(%rdi,%rsi), %r8b
+	movq	-72(%rbp), %rsi         # 8-byte Reload
+	movb	%r8b, (%rsi,%rdx)
 # %bb.6:                                #   in Loop: Header=BB9_4 Depth=1
 	movl	-96(%rbp), %eax         # 4-byte Reload
 	addl	$1, %eax
@@ -1969,9 +1969,9 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movq	-152(%rbp), %r8         # 8-byte Reload
 	movb	(%r8,%rsi), %r9b
 	movq	-128(%rbp), %rsi        # 8-byte Reload
-	xorb	(%rsi,%rdx), %r9b
-	movq	-160(%rbp), %rdx        # 8-byte Reload
-	movb	%r9b, (%rdx,%rdi)
+	xorb	(%rsi,%rdi), %r9b
+	movq	-160(%rbp), %rdi        # 8-byte Reload
+	movb	%r9b, (%rdi,%rdx)
 # %bb.18:                               #   in Loop: Header=BB9_16 Depth=2
 	movl	-168(%rbp), %eax        # 4-byte Reload
 	addl	$1, %eax
@@ -2324,9 +2324,9 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	movl	%eax, %ecx
 	movl	%ecx, %esi
 	movq	-16(%rbp), %rdi         # 8-byte Reload
-	movb	(%rdi,%rdx), %r8b
-	movq	-56(%rbp), %rdx         # 8-byte Reload
-	movb	%r8b, (%rdx,%rsi)
+	movb	(%rdi,%rsi), %r8b
+	movq	-56(%rbp), %rsi         # 8-byte Reload
+	movb	%r8b, (%rsi,%rdx)
 # %bb.6:                                #   in Loop: Header=BB14_4 Depth=1
 	movl	-68(%rbp), %eax         # 4-byte Reload
 	addl	$1, %eax
@@ -2480,9 +2480,9 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	movl	%eax, %ecx
 	movl	%ecx, %esi
 	movq	-112(%rbp), %rdi        # 8-byte Reload
-	movb	(%rdi,%rdx), %r8b
-	movq	-128(%rbp), %rdx        # 8-byte Reload
-	movb	%r8b, (%rdx,%rsi)
+	movb	(%rdi,%rsi), %r8b
+	movq	-128(%rbp), %rsi        # 8-byte Reload
+	movb	%r8b, (%rsi,%rdx)
 # %bb.21:                               #   in Loop: Header=BB14_19 Depth=1
 	movl	-160(%rbp), %eax        # 4-byte Reload
 	addl	$1, %eax

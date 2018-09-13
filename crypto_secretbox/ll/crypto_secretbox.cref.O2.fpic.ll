@@ -82,53 +82,53 @@ entry:
   %__v184_x15 = alloca i32
   store i32 1797285236, i32* %__v184_x15
   %0 = getelementptr i8, i8* %__v180_k, i64 0
-  %"__v283___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
+  %"__v271___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
   %__v185_x1 = alloca i32
-  store i32 %"__v283___load[32]/secret_le", i32* %__v185_x1
+  store i32 %"__v271___load[32]/secret_le", i32* %__v185_x1
   %1 = getelementptr i8, i8* %__v180_k, i64 4
-  %"__v284___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
+  %"__v272___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
   %__v186_x2 = alloca i32
-  store i32 %"__v284___load[32]/secret_le", i32* %__v186_x2
+  store i32 %"__v272___load[32]/secret_le", i32* %__v186_x2
   %2 = getelementptr i8, i8* %__v180_k, i64 8
-  %"__v285___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
+  %"__v273___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
   %__v187_x3 = alloca i32
-  store i32 %"__v285___load[32]/secret_le", i32* %__v187_x3
+  store i32 %"__v273___load[32]/secret_le", i32* %__v187_x3
   %3 = getelementptr i8, i8* %__v180_k, i64 12
-  %"__v286___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
+  %"__v274___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
   %__v188_x4 = alloca i32
-  store i32 %"__v286___load[32]/secret_le", i32* %__v188_x4
+  store i32 %"__v274___load[32]/secret_le", i32* %__v188_x4
   %4 = getelementptr i8, i8* %__v180_k, i64 16
-  %"__v287___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
+  %"__v275___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
   %__v189_x11 = alloca i32
-  store i32 %"__v287___load[32]/secret_le", i32* %__v189_x11
+  store i32 %"__v275___load[32]/secret_le", i32* %__v189_x11
   %5 = getelementptr i8, i8* %__v180_k, i64 20
-  %"__v288___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
+  %"__v276___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
   %__v190_x12 = alloca i32
-  store i32 %"__v288___load[32]/secret_le", i32* %__v190_x12
+  store i32 %"__v276___load[32]/secret_le", i32* %__v190_x12
   %6 = getelementptr i8, i8* %__v180_k, i64 24
-  %"__v289___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
+  %"__v277___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
   %__v191_x13 = alloca i32
-  store i32 %"__v289___load[32]/secret_le", i32* %__v191_x13
+  store i32 %"__v277___load[32]/secret_le", i32* %__v191_x13
   %7 = getelementptr i8, i8* %__v180_k, i64 28
-  %"__v290___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
+  %"__v278___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
   %__v192_x14 = alloca i32
-  store i32 %"__v290___load[32]/secret_le", i32* %__v192_x14
+  store i32 %"__v278___load[32]/secret_le", i32* %__v192_x14
   %8 = getelementptr i8, i8* %__v179_input, i64 0
-  %"__v291___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
+  %"__v279___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
   %__v193_x6 = alloca i32
-  store i32 %"__v291___load[32]/secret_le", i32* %__v193_x6
+  store i32 %"__v279___load[32]/secret_le", i32* %__v193_x6
   %9 = getelementptr i8, i8* %__v179_input, i64 4
-  %"__v292___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
+  %"__v280___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
   %__v194_x7 = alloca i32
-  store i32 %"__v292___load[32]/secret_le", i32* %__v194_x7
+  store i32 %"__v280___load[32]/secret_le", i32* %__v194_x7
   %10 = getelementptr i8, i8* %__v179_input, i64 8
-  %"__v293___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
+  %"__v281___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
   %__v195_x8 = alloca i32
-  store i32 %"__v293___load[32]/secret_le", i32* %__v195_x8
+  store i32 %"__v281___load[32]/secret_le", i32* %__v195_x8
   %11 = getelementptr i8, i8* %__v179_input, i64 12
-  %"__v294___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
+  %"__v282___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
   %__v196_x9 = alloca i32
-  store i32 %"__v294___load[32]/secret_le", i32* %__v196_x9
+  store i32 %"__v282___load[32]/secret_le", i32* %__v196_x9
   br label %12
 
 ; <label>:12:                                     ; preds = %207, %entry
@@ -422,37 +422,37 @@ entry:
   %__v151_j10 = load i32, i32* %__v147_x10
   %__v152_j15 = load i32, i32* %__v148_x15
   %0 = getelementptr i8, i8* %__v144_k, i64 0
-  %"__v271___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
+  %"__v259___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
   %__v153_x1 = alloca i32
-  store i32 %"__v271___load[32]/secret_le", i32* %__v153_x1
+  store i32 %"__v259___load[32]/secret_le", i32* %__v153_x1
   %1 = getelementptr i8, i8* %__v144_k, i64 4
-  %"__v272___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
+  %"__v260___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
   %__v154_x2 = alloca i32
-  store i32 %"__v272___load[32]/secret_le", i32* %__v154_x2
+  store i32 %"__v260___load[32]/secret_le", i32* %__v154_x2
   %2 = getelementptr i8, i8* %__v144_k, i64 8
-  %"__v273___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
+  %"__v261___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
   %__v155_x3 = alloca i32
-  store i32 %"__v273___load[32]/secret_le", i32* %__v155_x3
+  store i32 %"__v261___load[32]/secret_le", i32* %__v155_x3
   %3 = getelementptr i8, i8* %__v144_k, i64 12
-  %"__v274___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
+  %"__v262___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
   %__v156_x4 = alloca i32
-  store i32 %"__v274___load[32]/secret_le", i32* %__v156_x4
+  store i32 %"__v262___load[32]/secret_le", i32* %__v156_x4
   %4 = getelementptr i8, i8* %__v144_k, i64 16
-  %"__v275___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
+  %"__v263___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
   %__v157_x11 = alloca i32
-  store i32 %"__v275___load[32]/secret_le", i32* %__v157_x11
+  store i32 %"__v263___load[32]/secret_le", i32* %__v157_x11
   %5 = getelementptr i8, i8* %__v144_k, i64 20
-  %"__v276___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
+  %"__v264___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
   %__v158_x12 = alloca i32
-  store i32 %"__v276___load[32]/secret_le", i32* %__v158_x12
+  store i32 %"__v264___load[32]/secret_le", i32* %__v158_x12
   %6 = getelementptr i8, i8* %__v144_k, i64 24
-  %"__v277___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
+  %"__v265___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
   %__v159_x13 = alloca i32
-  store i32 %"__v277___load[32]/secret_le", i32* %__v159_x13
+  store i32 %"__v265___load[32]/secret_le", i32* %__v159_x13
   %7 = getelementptr i8, i8* %__v144_k, i64 28
-  %"__v278___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
+  %"__v266___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
   %__v160_x14 = alloca i32
-  store i32 %"__v278___load[32]/secret_le", i32* %__v160_x14
+  store i32 %"__v266___load[32]/secret_le", i32* %__v160_x14
   %__v161_j1 = load i32, i32* %__v153_x1
   %__v162_j2 = load i32, i32* %__v154_x2
   %__v163_j3 = load i32, i32* %__v155_x3
@@ -462,21 +462,21 @@ entry:
   %__v167_j13 = load i32, i32* %__v159_x13
   %__v168_j14 = load i32, i32* %__v160_x14
   %8 = getelementptr i8, i8* %__v143_input, i64 0
-  %"__v279___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
+  %"__v267___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
   %__v169_x6 = alloca i32
-  store i32 %"__v279___load[32]/secret_le", i32* %__v169_x6
+  store i32 %"__v267___load[32]/secret_le", i32* %__v169_x6
   %9 = getelementptr i8, i8* %__v143_input, i64 4
-  %"__v280___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
+  %"__v268___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
   %__v170_x7 = alloca i32
-  store i32 %"__v280___load[32]/secret_le", i32* %__v170_x7
+  store i32 %"__v268___load[32]/secret_le", i32* %__v170_x7
   %10 = getelementptr i8, i8* %__v143_input, i64 8
-  %"__v281___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
+  %"__v269___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
   %__v171_x8 = alloca i32
-  store i32 %"__v281___load[32]/secret_le", i32* %__v171_x8
+  store i32 %"__v269___load[32]/secret_le", i32* %__v171_x8
   %11 = getelementptr i8, i8* %__v143_input, i64 12
-  %"__v282___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
+  %"__v270___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
   %__v172_x9 = alloca i32
-  store i32 %"__v282___load[32]/secret_le", i32* %__v172_x9
+  store i32 %"__v270___load[32]/secret_le", i32* %__v172_x9
   %__v173_j6 = load i32, i32* %__v169_x6
   %__v174_j7 = load i32, i32* %__v170_x7
   %__v175_j8 = load i32, i32* %__v171_x8
@@ -836,15 +836,15 @@ entry:
   br i1 %25, label %26, label %126
 
 ; <label>:26:                                     ; preds = %24
-  %__v268_lexpr = mul i64 %__v135_bindex, 16
-  %__v267_lexpr = mul i64 %__v135_bindex, 16
-  %27 = getelementptr i8, i8* %__v122_m, i64 %__v268_lexpr
+  %__v255_lexpr = mul i64 %__v135_bindex, 16
+  %__v256_lexpr = mul i64 %__v135_bindex, 16
+  %27 = getelementptr i8, i8* %__v122_m, i64 %__v256_lexpr
   %__v136_t0 = call i64 @"__load[64]/secret_le"(i8* %27)
   %28 = mul i64 %__v135_bindex, 16
-  %__v270_lexpr = add i64 %28, 8
+  %__v257_lexpr = add i64 %28, 8
   %29 = mul i64 %__v135_bindex, 16
-  %__v269_lexpr = add i64 %29, 8
-  %30 = getelementptr i8, i8* %__v122_m, i64 %__v270_lexpr
+  %__v258_lexpr = add i64 %29, 8
+  %30 = getelementptr i8, i8* %__v122_m, i64 %__v258_lexpr
   %__v137_t1 = call i64 @"__load[64]/secret_le"(i8* %30)
   %31 = load i64, i64* %__v129_h0
   %32 = and i64 %__v136_t0, 17592186044415
@@ -1004,12 +1004,12 @@ entry:
 
 ; <label>:3:                                      ; preds = %entry
   %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 3
-  %__v265_lexpr = load i64, i64* %4
+  %__v108_start = load i64, i64* %4
   %5 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
   %6 = bitcast [16 x i8]* %5 to i8*
-  %7 = getelementptr i8, i8* %6, i64 %__v265_lexpr
+  %7 = getelementptr i8, i8* %6, i64 %__v108_start
   store i8 1, i8* %7
-  %8 = add i64 %__v265_lexpr, 1
+  %8 = add i64 %__v108_start, 1
   br label %169
 
 ; <label>:9:                                      ; preds = %entry
@@ -1240,19 +1240,19 @@ entry:
   ret void
 
 ; <label>:169:                                    ; preds = %175, %3
-  %__v266_lexpr = phi i64 [ %8, %3 ], [ %176, %175 ]
-  %170 = icmp ult i64 %__v266_lexpr, 16
+  %__v109_i = phi i64 [ %8, %3 ], [ %176, %175 ]
+  %170 = icmp ult i64 %__v109_i, 16
   br i1 %170, label %171, label %177
 
 ; <label>:171:                                    ; preds = %169
   %172 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
   %173 = bitcast [16 x i8]* %172 to i8*
-  %174 = getelementptr i8, i8* %173, i64 %__v266_lexpr
+  %174 = getelementptr i8, i8* %173, i64 %__v109_i
   store i8 0, i8* %174
   br label %175
 
 ; <label>:175:                                    ; preds = %171
-  %176 = add i64 %__v266_lexpr, 1
+  %176 = add i64 %__v109_i, 1
   br label %169
 
 ; <label>:177:                                    ; preds = %169
@@ -1306,24 +1306,24 @@ entry:
   br label %18
 
 ; <label>:18:                                     ; preds = %28, %16
-  %__v260_lexpr = phi i64 [ 0, %16 ], [ %29, %28 ]
-  %19 = icmp ult i64 %__v260_lexpr, %17
+  %__v97_i = phi i64 [ 0, %16 ], [ %29, %28 ]
+  %19 = icmp ult i64 %__v97_i, %17
   br i1 %19, label %20, label %30
 
 ; <label>:20:                                     ; preds = %18
   %21 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
   %22 = load i64, i64* %21
-  %__v259_lexpr = add i64 %22, %__v260_lexpr
+  %__v98_index = add i64 %22, %__v97_i
   %23 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
   %24 = bitcast [16 x i8]* %23 to i8*
-  %25 = getelementptr i8, i8* %24, i64 %__v259_lexpr
-  %26 = getelementptr i8, i8* %__v94_m, i64 %__v260_lexpr
+  %25 = getelementptr i8, i8* %24, i64 %__v98_index
+  %26 = getelementptr i8, i8* %__v94_m, i64 %__v97_i
   %27 = load i8, i8* %26
   store i8 %27, i8* %25
   br label %28
 
 ; <label>:28:                                     ; preds = %20
-  %29 = add i64 %__v260_lexpr, 1
+  %29 = add i64 %__v97_i, 1
   br label %18
 
 ; <label>:30:                                     ; preds = %18
@@ -1359,12 +1359,12 @@ entry:
 ; <label>:48:                                     ; preds = %10
   %49 = load i64, i64* %__v95_mindex
   %50 = sub i64 %__v223___v94_m_len, %49
-  %__v262_lexpr = and i64 %50, -16
-  %__v261_lexpr = load i64, i64* %__v95_mindex
-  %__v101_mview = getelementptr i8, i8* %__v94_m, i64 %__v261_lexpr
-  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v93_state, i8* %__v101_mview, i64 %__v262_lexpr)
+  %__v99_want = and i64 %50, -16
+  %__v100__mindex = load i64, i64* %__v95_mindex
+  %__v101_mview = getelementptr i8, i8* %__v94_m, i64 %__v100__mindex
+  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v93_state, i8* %__v101_mview, i64 %__v99_want)
   %51 = load i64, i64* %__v95_mindex
-  %52 = add i64 %51, %__v262_lexpr
+  %52 = add i64 %51, %__v99_want
   store i64 %52, i64* %__v95_mindex
   br label %54
 
@@ -1396,12 +1396,12 @@ entry:
   %64 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 3
   %__v104__leftover = load i64, i64* %64
   %__v105__mindex = load i64, i64* %__v95_mindex
-  %__v264_lexpr = add i64 %__v105__mindex, %__v103_i
-  %__v263_lexpr = add i64 %__v104__leftover, %__v103_i
+  %__v253_lexpr = add i64 %__v104__leftover, %__v103_i
+  %__v254_lexpr = add i64 %__v105__mindex, %__v103_i
   %65 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v93_state, i32 0, i32 4
   %66 = bitcast [16 x i8]* %65 to i8*
-  %67 = getelementptr i8, i8* %66, i64 %__v263_lexpr
-  %68 = getelementptr i8, i8* %__v94_m, i64 %__v264_lexpr
+  %67 = getelementptr i8, i8* %66, i64 %__v253_lexpr
+  %68 = getelementptr i8, i8* %__v94_m, i64 %__v254_lexpr
   %69 = load i8, i8* %68
   store i8 %69, i8* %67
   br label %70
@@ -1550,11 +1550,11 @@ entry:
 
 ; <label>:2:                                      ; preds = %0
   %__m3 = load i1, i1* %__rctx
-  %__v258_lexpr = zext i32 %__v84_i to i64
-  %__v257_lexpr = zext i32 %__v84_i to i64
-  %3 = getelementptr i8, i8* %__v82_x, i64 %__v257_lexpr
+  %__v251_lexpr = zext i32 %__v84_i to i64
+  %__v252_lexpr = zext i32 %__v84_i to i64
+  %3 = getelementptr i8, i8* %__v82_x, i64 %__v251_lexpr
   %4 = load i8, i8* %3
-  %5 = getelementptr i8, i8* %__v83_y, i64 %__v258_lexpr
+  %5 = getelementptr i8, i8* %__v83_y, i64 %__v252_lexpr
   %6 = load i8, i8* %5
   %__m4 = icmp ne i8 %4, %6
   %7 = and i1 true, %__m4
@@ -1643,10 +1643,10 @@ entry:
   br i1 %5, label %6, label %12
 
 ; <label>:6:                                      ; preds = %4
-  %__v239_lexpr = zext i32 %__v64_i to i64
+  %__v237_lexpr = zext i32 %__v64_i to i64
   %__v238_lexpr = zext i32 %__v64_i to i64
-  %7 = getelementptr i8, i8* %__v63_input, i64 %__v238_lexpr
-  %8 = getelementptr i8, i8* %__v58_n, i64 %__v239_lexpr
+  %7 = getelementptr i8, i8* %__v63_input, i64 %__v237_lexpr
+  %8 = getelementptr i8, i8* %__v58_n, i64 %__v238_lexpr
   %9 = load i8, i8* %8
   store i8 %9, i8* %7
   br label %10
@@ -1664,8 +1664,8 @@ entry:
   br i1 %14, label %15, label %23
 
 ; <label>:15:                                     ; preds = %13
-  %__v240_lexpr = zext i32 %__v65_i to i64
-  %16 = getelementptr i8, i8* %__v63_input, i64 %__v240_lexpr
+  %__v239_lexpr = zext i32 %__v65_i to i64
+  %16 = getelementptr i8, i8* %__v63_input, i64 %__v239_lexpr
   %17 = load i64, i64* %__v61_ic
   %18 = trunc i64 %17 to i8
   store i8 %18, i8* %16
@@ -1691,10 +1691,10 @@ entry:
 
 ; <label>:26:                                     ; preds = %24
   call void @_crypto_core_salsa20(i8* %__v67_block, i8* %__v63_input, i8* %__v62_kcopy)
+  %__v240_lexpr = mul i64 %__v68_j, 64
+  %__v69_cview = getelementptr i8, i8* %__v56_c, i64 %__v240_lexpr
   %__v241_lexpr = mul i64 %__v68_j, 64
-  %__v69_cview = getelementptr i8, i8* %__v56_c, i64 %__v241_lexpr
-  %__v242_lexpr = mul i64 %__v68_j, 64
-  %__v70_mview = getelementptr i8, i8* %__v57_m, i64 %__v242_lexpr
+  %__v70_mview = getelementptr i8, i8* %__v57_m, i64 %__v241_lexpr
   br label %32
 
 ; <label>:27:                                     ; preds = %59
@@ -1712,13 +1712,13 @@ entry:
   br i1 %33, label %34, label %43
 
 ; <label>:34:                                     ; preds = %32
-  %__v245_lexpr = zext i32 %__v71_i to i64
-  %__v244_lexpr = zext i32 %__v71_i to i64
+  %__v242_lexpr = zext i32 %__v71_i to i64
   %__v243_lexpr = zext i32 %__v71_i to i64
-  %35 = getelementptr i8, i8* %__v69_cview, i64 %__v243_lexpr
-  %36 = getelementptr i8, i8* %__v70_mview, i64 %__v244_lexpr
+  %__v244_lexpr = zext i32 %__v71_i to i64
+  %35 = getelementptr i8, i8* %__v69_cview, i64 %__v242_lexpr
+  %36 = getelementptr i8, i8* %__v70_mview, i64 %__v243_lexpr
   %37 = load i8, i8* %36
-  %38 = getelementptr i8, i8* %__v67_block, i64 %__v245_lexpr
+  %38 = getelementptr i8, i8* %__v67_block, i64 %__v244_lexpr
   %39 = load i8, i8* %38
   %40 = xor i8 %37, %39
   store i8 %40, i8* %35
@@ -1739,15 +1739,15 @@ entry:
   br i1 %45, label %46, label %59
 
 ; <label>:46:                                     ; preds = %44
-  %__v246_lexpr = zext i32 %__v73_i to i64
+  %__v245_lexpr = zext i32 %__v73_i to i64
   %47 = load i32, i32* %__v72_u
-  %48 = getelementptr i8, i8* %__v63_input, i64 %__v246_lexpr
+  %48 = getelementptr i8, i8* %__v63_input, i64 %__v245_lexpr
   %49 = load i8, i8* %48
   %50 = zext i8 %49 to i32
   %51 = add i32 %47, %50
   store i32 %51, i32* %__v72_u
-  %__v247_lexpr = zext i32 %__v73_i to i64
-  %52 = getelementptr i8, i8* %__v63_input, i64 %__v247_lexpr
+  %__v246_lexpr = zext i32 %__v73_i to i64
+  %52 = getelementptr i8, i8* %__v63_input, i64 %__v246_lexpr
   %53 = load i32, i32* %__v72_u
   %54 = trunc i32 %53 to i8
   store i8 %54, i8* %52
@@ -1765,12 +1765,12 @@ entry:
 
 ; <label>:60:                                     ; preds = %29
   %61 = mul i64 %__v66_mtimes, 64
-  %__v251_lexpr = sub i64 %__v220___v57_m_len, %61
+  %__v74_remain = sub i64 %__v220___v57_m_len, %61
   call void @_crypto_core_salsa20(i8* %__v67_block, i8* %__v63_input, i8* %__v62_kcopy)
+  %__v247_lexpr = mul i64 %__v66_mtimes, 64
+  %__v75_cview = getelementptr i8, i8* %__v56_c, i64 %__v247_lexpr
   %__v248_lexpr = mul i64 %__v66_mtimes, 64
-  %__v75_cview = getelementptr i8, i8* %__v56_c, i64 %__v248_lexpr
-  %__v250_lexpr = mul i64 %__v66_mtimes, 64
-  %__v76_mview = getelementptr i8, i8* %__v57_m, i64 %__v250_lexpr
+  %__v76_mview = getelementptr i8, i8* %__v57_m, i64 %__v248_lexpr
   br label %64
 
 ; <label>:62:                                     ; preds = %29
@@ -1782,22 +1782,22 @@ entry:
   ret i32 0
 
 ; <label>:64:                                     ; preds = %73, %60
-  %__v252_lexpr = phi i64 [ 0, %60 ], [ %74, %73 ]
-  %65 = icmp ult i64 %__v252_lexpr, %__v251_lexpr
+  %__v77_i = phi i64 [ 0, %60 ], [ %74, %73 ]
+  %65 = icmp ult i64 %__v77_i, %__v74_remain
   br i1 %65, label %66, label %75
 
 ; <label>:66:                                     ; preds = %64
-  %67 = getelementptr i8, i8* %__v75_cview, i64 %__v252_lexpr
-  %68 = getelementptr i8, i8* %__v76_mview, i64 %__v252_lexpr
+  %67 = getelementptr i8, i8* %__v75_cview, i64 %__v77_i
+  %68 = getelementptr i8, i8* %__v76_mview, i64 %__v77_i
   %69 = load i8, i8* %68
-  %70 = getelementptr i8, i8* %__v67_block, i64 %__v252_lexpr
+  %70 = getelementptr i8, i8* %__v67_block, i64 %__v77_i
   %71 = load i8, i8* %70
   %72 = xor i8 %69, %71
   store i8 %72, i8* %67
   br label %73
 
 ; <label>:73:                                     ; preds = %66
-  %74 = add i64 %__v252_lexpr, 1
+  %74 = add i64 %__v77_i, 1
   br label %64
 
 ; <label>:75:                                     ; preds = %64
@@ -1855,17 +1855,17 @@ entry:
   br label %6
 
 ; <label>:6:                                      ; preds = %10, %3
-  %__v237_lexpr = phi i64 [ 0, %3 ], [ %11, %10 ]
-  %7 = icmp ult i64 %__v237_lexpr, 16
+  %__v43_i = phi i64 [ 0, %3 ], [ %11, %10 ]
+  %7 = icmp ult i64 %__v43_i, 16
   br i1 %7, label %8, label %12
 
 ; <label>:8:                                      ; preds = %6
-  %9 = getelementptr i8, i8* %__v36_c, i64 %__v237_lexpr
+  %9 = getelementptr i8, i8* %__v36_c, i64 %__v43_i
   store i8 0, i8* %9
   br label %10
 
 ; <label>:10:                                     ; preds = %8
-  %11 = add i64 %__v237_lexpr, 1
+  %11 = add i64 %__v43_i, 1
   br label %6
 
 ; <label>:12:                                     ; preds = %6
@@ -1910,8 +1910,8 @@ entry:
   br i1 %5, label %6, label %12
 
 ; <label>:6:                                      ; preds = %4
-  %__v228_lexpr = zext i32 %__v23_i to i64
   %__v227_lexpr = zext i32 %__v23_i to i64
+  %__v228_lexpr = zext i32 %__v23_i to i64
   %7 = getelementptr i8, i8* %__v22_input, i64 %__v227_lexpr
   %8 = getelementptr i8, i8* %__v19_n, i64 %__v228_lexpr
   %9 = load i8, i8* %8
@@ -1989,9 +1989,9 @@ entry:
   %43 = zext i32 %42 to i64
   %44 = sub i64 %__v210___v18_c_len, %43
   %__v29_remain = trunc i64 %44 to i32
-  %__v233_lexpr = zext i32 %__v29_remain to i64
   %45 = mul i32 %__v24_ctimes, 64
   %__v232_lexpr = zext i32 %45 to i64
+  %__v233_lexpr = zext i32 %__v29_remain to i64
   %__v30_cview = getelementptr i8, i8* %__v18_c, i64 %__v232_lexpr
   br label %48
 
@@ -2009,8 +2009,8 @@ entry:
   br i1 %49, label %50, label %56
 
 ; <label>:50:                                     ; preds = %48
-  %__v235_lexpr = zext i32 %__v31_i to i64
   %__v234_lexpr = zext i32 %__v31_i to i64
+  %__v235_lexpr = zext i32 %__v31_i to i64
   %51 = getelementptr i8, i8* %__v30_cview, i64 %__v234_lexpr
   %52 = getelementptr i8, i8* %__v28_block, i64 %__v235_lexpr
   %53 = load i8, i8* %52

@@ -16,12 +16,12 @@
   /*public*/ uint8_t __v9_length_is_big_endian,
   /*public*/ int32_t __v10_sha_type,
   const /*secret*/ uint8_t __v11_header[],
-  /*public*/ uint64_t __v57___v11_header_len,
+  /*public*/ uint64_t __v59___v11_header_len,
   const /*secret*/ uint8_t __v12_data[],
-  /*public*/ uint64_t __v58___v12_data_len,
+  /*public*/ uint64_t __v60___v12_data_len,
   /*secret*/ uint64_t __v13_data_plus_mac_size,
   const /*secret*/ uint8_t __v14_mac_secret[],
-  /*public*/ uint64_t __v59___v14_mac_secret_len,
+  /*public*/ uint64_t __v61___v14_mac_secret_len,
   /*public*/ uint8_t __v15_is_sslv3);
 
 

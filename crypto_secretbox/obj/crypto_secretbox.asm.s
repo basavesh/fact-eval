@@ -1059,10 +1059,10 @@ _poly1305_update:                       # @_poly1305_update
 # %bb.21:                               #   in Loop: Header=BB3_20 Depth=1
 	movq	-32(%rbp), %rax         # 8-byte Reload
 	movq	64(%rax), %rcx
-	movq	-104(%rbp), %rdx        # 8-byte Reload
-	addq	-16(%rbp), %rdx
+	movq	-16(%rbp), %rdx
 	movq	-104(%rbp), %rsi        # 8-byte Reload
 	addq	%rsi, %rcx
+	addq	%rsi, %rdx
 	movq	-24(%rbp), %rdi         # 8-byte Reload
 	movb	(%rdi,%rdx), %r8b
 	movb	%r8b, 72(%rax,%rcx)
@@ -1248,9 +1248,9 @@ _crypto_verify_16:                      # @_crypto_verify_16
 	movl	%ecx, %edx
 	movl	%edx, %edi
 	movq	-16(%rsp), %r8          # 8-byte Reload
-	movb	(%r8,%rdi), %r9b
-	movq	-24(%rsp), %rdi         # 8-byte Reload
-	cmpb	(%rdi,%rsi), %r9b
+	movb	(%r8,%rsi), %r9b
+	movq	-24(%rsp), %rsi         # 8-byte Reload
+	cmpb	(%rsi,%rdi), %r9b
 	setne	%r9b
 	movb	%r9b, %r10b
 	andb	$1, %r10b

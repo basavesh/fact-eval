@@ -100,9 +100,10 @@ export secret int32 __ssl3_cbc_digest_record(
       _md_transform(sha_type, md_state, first_block);
       public uint64 loopbound = k / md_block_size - 1;
       for (uint64 i from 1 to loopbound) {
-        assume(md_block_size * i - overhang <= md_block_size * i - overhang + md_block_size);
-        assume(md_block_size * i - overhang + md_block_size <= len data);
-        _md_transform(sha_type, md_state, view(data, md_block_size * i - overhang, md_block_size));
+        public uint64 idx = md_block_size * i - overhang;
+        assume(idx <= idx + md_block_size);
+        assume(idx + md_block_size <= len data);
+        _md_transform(sha_type, md_state, view(data, idx, md_block_size));
       }
     } else {
       memcpy(view(first_block, 0, 13), view(header, 0, 13));
@@ -110,9 +111,10 @@ export secret int32 __ssl3_cbc_digest_record(
       memcpy(view(first_block, 13, cpylen), view(data, 0, cpylen));
       _md_transform(sha_type, md_state, first_block);
       for (uint64 i from 1 to k / md_block_size) {
-        assume(md_block_size * i - 13 <= md_block_size * i - 13 + md_block_size);
-        assume(md_block_size * i - 13 + md_block_size <= len data);
-        _md_transform(sha_type, md_state, view(data, md_block_size * i - 13, md_block_size));
+        public uint64 idx = md_block_size * i - 13;
+        assume(idx <= idx + md_block_size);
+        assume(idx + md_block_size <= len data);
+        _md_transform(sha_type, md_state, view(data, idx, md_block_size));
       }
     }
   }

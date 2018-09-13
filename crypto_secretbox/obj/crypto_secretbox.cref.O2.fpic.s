@@ -446,8 +446,8 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	testq	%r8, %r8
 	je	.LBB3_11
 .LBB3_10:                               # %.lr.ph.i4.epil
-	addq	%rsi, %r12
 	addq	%rsi, %rax
+	addq	%rsi, %r12
 	movb	(%r15,%r12), %cl
 	movb	%cl, 80(%rsp,%rax)
 	movq	72(%rsp), %rax

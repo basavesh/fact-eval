@@ -17,8 +17,8 @@ entry:
   %__v119_lexpr = zext i32 %__v103_i to i64
   %3 = getelementptr i64, i64* %__v100_a, i64 %__v119_lexpr
   %__v104_x = load i64, i64* %3
-  %__v121_lexpr = zext i32 %__v103_i to i64
   %__v120_lexpr = zext i32 %__v103_i to i64
+  %__v121_lexpr = zext i32 %__v103_i to i64
   %4 = getelementptr i64, i64* %__v100_a, i64 %__v120_lexpr
   %5 = getelementptr i64, i64* %__v101_b, i64 %__v121_lexpr
   %6 = load i64, i64* %5
@@ -931,8 +931,8 @@ entry:
   br i1 %1, label %2, label %8
 
 ; <label>:2:                                      ; preds = %0
-  %__v118_lexpr = zext i32 %__v58_i to i64
   %__v117_lexpr = zext i32 %__v58_i to i64
+  %__v118_lexpr = zext i32 %__v58_i to i64
   %3 = getelementptr i64, i64* %__v51_origxprime, i64 %__v117_lexpr
   %4 = getelementptr i64, i64* %__v55_xxprime, i64 %__v118_lexpr
   %5 = load i64, i64* %4
@@ -1017,8 +1017,8 @@ entry:
   br i1 %5, label %6, label %12
 
 ; <label>:6:                                      ; preds = %4
-  %__v111_lexpr = zext i32 %__v35_i to i64
   %__v110_lexpr = zext i32 %__v35_i to i64
+  %__v111_lexpr = zext i32 %__v35_i to i64
   %7 = getelementptr i64, i64* %__v27_a, i64 %__v110_lexpr
   %8 = getelementptr i64, i64* %__v26_q, i64 %__v111_lexpr
   %9 = load i64, i64* %8
@@ -1101,14 +1101,14 @@ entry:
   br i1 %38, label %39, label %48
 
 ; <label>:39:                                     ; preds = %37
-  %__v114_lexpr = zext i32 %__v40_i to i64
   %__v113_lexpr = zext i32 %__v40_i to i64
+  %__v114_lexpr = zext i32 %__v40_i to i64
   %40 = getelementptr i64, i64* %__v23_resultx, i64 %__v113_lexpr
   %41 = getelementptr i64, i64* %__v29_c, i64 %__v114_lexpr
   %42 = load i64, i64* %41
   store i64 %42, i64* %40
-  %__v116_lexpr = zext i32 %__v40_i to i64
   %__v115_lexpr = zext i32 %__v40_i to i64
+  %__v116_lexpr = zext i32 %__v40_i to i64
   %43 = getelementptr i64, i64* %__v24_resultz, i64 %__v115_lexpr
   %44 = getelementptr i64, i64* %__v30_d, i64 %__v116_lexpr
   %45 = load i64, i64* %44
