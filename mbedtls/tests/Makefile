@@ -23,20 +23,12 @@ build/Makefile:
 build/library/libmbedcrypto.a: build/Makefile
 	+$(MAKE) -C build
 
-../bignum.o: ../bignum.fact
-	+$(MAKE) -C ../
-
-../bignum.fpic.o: ../bignum.fact
-	+$(MAKE) -C ../
-
-../bignum.h: ../bignum.fact
-	+$(MAKE) -C ../
-
-build/libmbed_bench.a: build/library/libmbedcrypto.a bignum_fact.o ../bignum.o
+build/libmbed_bench.a: build/library/libmbedcrypto.a bignum_fact.o
 	cp $< $@
 	ar r $@ _f_bignum.o bignum_fact.o
 
-bignum_fact.o: ../bignum.h
+bignum_fact.o: bignum_fact.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 mbedtls_testbench: CFLAGS += -fpic
 mbedtls_testbench: LDFLAGS += -Lbuild
@@ -46,5 +38,5 @@ mbedtls_testbench: mbedtls_testbench.c build/libmbed_bench.a
 
 .PHONY: clean
 clean:
-	rm -rf build bignum_fact.o mbedtls_testbench mbedtls_testbench.o
+	rm -rf build mbedtls_testbench mbedtls_testbench.o
 	+$(MAKE) -C ../ clean

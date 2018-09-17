@@ -1,1 +1,1 @@
-../bignum.h
+../obj/bignum.h
