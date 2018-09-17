@@ -248,5 +248,3 @@ secret int32 _f_mpi_exp_mod(
 
     return ret;
 }
-
-// vim: syntax=cpp
