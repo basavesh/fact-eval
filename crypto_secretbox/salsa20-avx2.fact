@@ -58,7 +58,7 @@ _crypto_stream_salsa20(
   memzero(c);
   _salsa20_encrypt_bytes(ctx, c, c);
 
-  memzero(ctx);
+  smemzero(ctx);
   return 0;
 }
 
@@ -81,6 +81,6 @@ _crypto_stream_salsa20_xor_ic(
   _salsa_ivsetup(ctx, n, ic_bytes);
   _salsa20_encrypt_bytes(ctx, m, c);
 
-  memzero(ctx);
+  smemzero(ctx);
   return 0;
 }

@@ -616,7 +616,7 @@ _poly1305_finish:                       # @_poly1305_finish
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	subq	$72, %rsp
+	subq	$40, %rsp
 	.cfi_offset %rbx, -56
 	.cfi_offset %r12, -48
 	.cfi_offset %r13, -40
@@ -637,246 +637,212 @@ _poly1305_finish:                       # @_poly1305_finish
 .LBB2_2:
 	jmp	.LBB2_3
 .LBB2_3:
-	xorl	%eax, %eax
-	movl	$16, %ecx
-	movl	%ecx, %edx
-	movl	$24, %ecx
-	movl	%ecx, %esi
-	movabsq	$4398046511103, %rdi    # imm = 0x3FFFFFFFFFF
-	movabsq	$17592186044415, %r8    # imm = 0xFFFFFFFFFFF
-	movq	-56(%rbp), %r9          # 8-byte Reload
-	movq	24(%r9), %r10
+	movabsq	$4398046511103, %rax    # imm = 0x3FFFFFFFFFF
+	movabsq	$17592186044415, %rcx   # imm = 0xFFFFFFFFFFF
+	movq	-56(%rbp), %rdx         # 8-byte Reload
+	movq	24(%rdx), %rsi
+	movq	%rsp, %rdi
+	movq	%rdi, %r8
+	addq	$-16, %r8
+	movq	%r8, %rsp
+	movq	%rsi, -16(%rdi)
+	movq	32(%rdx), %rsi
+	movq	%rsp, %r9
+	movq	%r9, %r10
+	addq	$-16, %r10
+	movq	%r10, %rsp
+	movq	%rsi, -16(%r9)
+	movq	40(%rdx), %rsi
 	movq	%rsp, %r11
 	movq	%r11, %rbx
 	addq	$-16, %rbx
 	movq	%rbx, %rsp
-	movq	%r10, -16(%r11)
-	movq	32(%r9), %r10
+	movq	%rsi, -16(%r11)
+	movq	-16(%r9), %rsi
+	shrq	$44, %rsi
 	movq	%rsp, %r14
 	movq	%r14, %r15
 	addq	$-16, %r15
 	movq	%r15, %rsp
-	movq	%r10, -16(%r14)
-	movq	40(%r9), %r10
-	movq	%rsp, %r12
-	movq	%r12, %r13
+	movq	%rsi, -16(%r14)
+	movl	-12(%r9), %r12d
+	andl	$4095, %r12d            # imm = 0xFFF
+	movl	%r12d, -12(%r9)
+	movq	-16(%r11), %rsi
+	movq	-16(%r14), %r13
+	addq	%r13, %rsi
+	movq	%rsi, -16(%r11)
+	movq	-16(%r11), %rsi
+	shrq	$42, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%r11), %r12d
+	andl	$1023, %r12d            # imm = 0x3FF
+	movl	%r12d, -12(%r11)
+	movq	-16(%rdi), %rsi
+	movq	-16(%r14), %r13
+	leaq	(%r13,%r13,4), %r13
+	addq	%r13, %rsi
+	movq	%rsi, -16(%rdi)
+	movq	-16(%rdi), %rsi
+	shrq	$44, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%rdi), %r12d
+	andl	$4095, %r12d            # imm = 0xFFF
+	movl	%r12d, -12(%rdi)
+	movq	-16(%r9), %rsi
+	movq	-16(%r14), %r13
+	addq	%r13, %rsi
+	movq	%rsi, -16(%r9)
+	movq	-16(%r9), %rsi
+	shrq	$44, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%r9), %r12d
+	andl	$4095, %r12d            # imm = 0xFFF
+	movl	%r12d, -12(%r9)
+	movq	-16(%r11), %rsi
+	movq	-16(%r14), %r13
+	addq	%r13, %rsi
+	movq	%rsi, -16(%r11)
+	movq	-16(%r11), %rsi
+	shrq	$42, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%r11), %r12d
+	andl	$1023, %r12d            # imm = 0x3FF
+	movl	%r12d, -12(%r11)
+	movq	-16(%rdi), %rsi
+	movq	-16(%r14), %r13
+	leaq	(%r13,%r13,4), %r13
+	addq	%r13, %rsi
+	movq	%rsi, -16(%rdi)
+	movq	-16(%rdi), %rsi
+	shrq	$44, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%rdi), %r12d
+	andl	$4095, %r12d            # imm = 0xFFF
+	movl	%r12d, -12(%rdi)
+	movq	-16(%r9), %rsi
+	movq	-16(%r14), %r13
+	addq	%r13, %rsi
+	movq	%rsi, -16(%r9)
+	movq	-16(%rdi), %rsi
+	addq	$5, %rsi
+	movq	%rsp, %rdi
+	movq	%rdi, %r13
 	addq	$-16, %r13
 	movq	%r13, %rsp
-	movq	%r10, -16(%r12)
-	movq	-16(%r14), %r10
-	shrq	$44, %r10
-	movq	%rsp, %r9
-	movq	%r9, %rcx
-	addq	$-16, %rcx
-	movq	%rcx, %rsp
-	movq	%r10, -16(%r9)
-	movl	-12(%r14), %r10d
-	andl	$4095, %r10d            # imm = 0xFFF
-	movl	%r10d, -12(%r14)
-	movq	-16(%r12), %r10
-	movq	%rcx, -80(%rbp)         # 8-byte Spill
-	movq	-16(%r9), %rcx
-	addq	%rcx, %r10
-	movq	%r10, -16(%r12)
-	movq	-16(%r12), %rcx
-	shrq	$42, %rcx
-	movq	%rcx, -16(%r9)
-	movl	-12(%r12), %r10d
-	andl	$1023, %r10d            # imm = 0x3FF
-	movl	%r10d, -12(%r12)
-	movq	-16(%r11), %rcx
-	movq	-16(%r9), %r10
-	leaq	(%r10,%r10,4), %r10
-	addq	%r10, %rcx
-	movq	%rcx, -16(%r11)
-	movq	-16(%r11), %rcx
-	shrq	$44, %rcx
-	movq	%rcx, -16(%r9)
-	movl	-12(%r11), %r10d
-	andl	$4095, %r10d            # imm = 0xFFF
-	movl	%r10d, -12(%r11)
-	movq	-16(%r14), %rcx
-	movq	-16(%r9), %r10
-	addq	%r10, %rcx
-	movq	%rcx, -16(%r14)
-	movq	-16(%r14), %rcx
-	shrq	$44, %rcx
-	movq	%rcx, -16(%r9)
-	movl	-12(%r14), %r10d
-	andl	$4095, %r10d            # imm = 0xFFF
-	movl	%r10d, -12(%r14)
-	movq	-16(%r12), %rcx
-	movq	-16(%r9), %r10
-	addq	%r10, %rcx
-	movq	%rcx, -16(%r12)
-	movq	-16(%r12), %rcx
-	shrq	$42, %rcx
-	movq	%rcx, -16(%r9)
-	movl	-12(%r12), %r10d
-	andl	$1023, %r10d            # imm = 0x3FF
-	movl	%r10d, -12(%r12)
-	movq	-16(%r11), %rcx
-	movq	-16(%r9), %r10
-	leaq	(%r10,%r10,4), %r10
-	addq	%r10, %rcx
-	movq	%rcx, -16(%r11)
-	movq	-16(%r11), %rcx
-	shrq	$44, %rcx
-	movq	%rcx, -16(%r9)
-	movl	-12(%r11), %r10d
-	andl	$4095, %r10d            # imm = 0xFFF
-	movl	%r10d, -12(%r11)
-	movq	-16(%r14), %rcx
-	movq	-16(%r9), %r10
-	addq	%r10, %rcx
-	movq	%rcx, -16(%r14)
-	movq	-16(%r11), %rcx
-	addq	$5, %rcx
-	movq	%rsp, %r10
-	movq	%r10, %r11
-	addq	$-16, %r11
-	movq	%r11, %rsp
-	movq	%rcx, -16(%r10)
-	movq	-16(%r10), %rcx
-	shrq	$44, %rcx
-	movq	%rcx, -16(%r9)
-	movl	-12(%r10), %ecx
-	andl	$4095, %ecx             # imm = 0xFFF
-	movl	%ecx, -12(%r10)
-	movq	-16(%r14), %r10
-	movq	-16(%r9), %r14
-	addq	%r14, %r10
-	movq	%rsp, %r14
-	movq	%r14, %rcx
-	addq	$-16, %rcx
-	movq	%rcx, %rsp
-	movq	%r10, -16(%r14)
-	movq	-16(%r14), %r10
-	shrq	$44, %r10
-	movq	%r10, -16(%r9)
-	movl	-12(%r14), %r10d
-	andl	$4095, %r10d            # imm = 0xFFF
-	movl	%r10d, -12(%r14)
-	movq	-16(%r12), %r14
-	movq	-16(%r9), %r9
-	addq	%r9, %r14
-	movabsq	$-4398046511104, %r9    # imm = 0xFFFFFC0000000000
-	addq	%r9, %r14
-	movq	%rsp, %r9
+	movq	%rsi, -16(%rdi)
+	movq	-16(%rdi), %rsi
+	shrq	$44, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%rdi), %r12d
+	andl	$4095, %r12d            # imm = 0xFFF
+	movl	%r12d, -12(%rdi)
+	movq	-16(%r9), %rsi
+	movq	-16(%r14), %rdi
+	addq	%rdi, %rsi
+	movq	%rsp, %rdi
+	movq	%rdi, %r9
 	addq	$-16, %r9
 	movq	%r9, %rsp
-	movq	%r14, (%r9)
-	movq	(%r9), %r14
-	shrq	$63, %r14
-	subq	$1, %r14
-	movq	-80(%rbp), %r12         # 8-byte Reload
-	movq	%r14, (%r12)
-	movq	(%r11), %r14
-	andq	(%r12), %r14
-	movq	%r14, (%r11)
-	movq	(%rcx), %r14
-	andq	(%r12), %r14
-	movq	%r14, (%rcx)
-	movq	(%r9), %r14
-	andq	(%r12), %r14
-	movq	%r14, (%r9)
-	movq	(%r12), %r14
-	xorq	$-1, %r14
-	movq	%r14, (%r12)
-	movq	(%rbx), %r14
-	andq	(%r12), %r14
-	orq	(%r11), %r14
-	movq	%r14, (%rbx)
-	movq	(%r15), %r11
-	andq	(%r12), %r11
-	orq	(%rcx), %r11
-	movq	%r11, (%r15)
-	movq	(%r13), %rcx
-	andq	(%r12), %rcx
-	orq	(%r9), %rcx
-	movq	%rcx, (%r13)
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	movq	48(%rcx), %r9
-	movq	56(%rcx), %r11
-	movq	(%rbx), %r14
-	movq	%r9, %rcx
-	andq	%r8, %rcx
-	addq	%rcx, %r14
-	movq	%r14, (%rbx)
-	movq	(%rbx), %rcx
-	shrq	$44, %rcx
-	movq	%rcx, (%r12)
-	movq	%r8, %rcx
-	andq	(%rbx), %rcx
-	movq	%rcx, (%rbx)
-	movq	(%r15), %rcx
+	movq	%rsi, -16(%rdi)
+	movq	-16(%rdi), %rsi
+	shrq	$44, %rsi
+	movq	%rsi, -16(%r14)
+	movl	-12(%rdi), %r12d
+	andl	$4095, %r12d            # imm = 0xFFF
+	movl	%r12d, -12(%rdi)
+	movq	-16(%r11), %rsi
+	movq	-16(%r14), %rdi
+	addq	%rdi, %rsi
+	movabsq	$-4398046511104, %rdi   # imm = 0xFFFFFC0000000000
+	addq	%rdi, %rsi
+	movq	%rsp, %rdi
+	addq	$-16, %rdi
+	movq	%rdi, %rsp
+	movq	%rsi, (%rdi)
+	movq	(%rdi), %rsi
+	shrq	$63, %rsi
+	subq	$1, %rsi
+	movq	%rsi, (%r15)
+	movq	(%r13), %rsi
+	andq	(%r15), %rsi
+	movq	%rsi, (%r13)
+	movq	(%r9), %rsi
+	andq	(%r15), %rsi
+	movq	%rsi, (%r9)
+	movq	(%rdi), %rsi
+	andq	(%r15), %rsi
+	movq	%rsi, (%rdi)
+	movq	(%r15), %rsi
+	xorq	$-1, %rsi
+	movq	%rsi, (%r15)
+	movq	(%r8), %rsi
+	andq	(%r15), %rsi
+	orq	(%r13), %rsi
+	movq	%rsi, (%r8)
+	movq	(%r10), %rsi
+	andq	(%r15), %rsi
+	orq	(%r9), %rsi
+	movq	%rsi, (%r10)
+	movq	(%rbx), %rsi
+	andq	(%r15), %rsi
+	orq	(%rdi), %rsi
+	movq	%rsi, (%rbx)
+	movq	48(%rdx), %rsi
+	movq	56(%rdx), %rdi
+	movq	(%r8), %r9
+	movq	%rsi, %r11
+	andq	%rcx, %r11
+	addq	%r11, %r9
+	movq	%r9, (%r8)
+	movq	(%r8), %r9
 	shrq	$44, %r9
-	movq	%r11, %r14
-	shlq	$20, %r14
-	orq	%r14, %r9
-	andq	%r8, %r9
-	addq	(%r12), %r9
-	addq	%r9, %rcx
-	movq	%rcx, (%r15)
-	movq	(%r15), %rcx
-	shrq	$44, %rcx
-	movq	%rcx, (%r12)
-	andq	(%r15), %r8
-	movq	%r8, (%r15)
-	movq	(%r13), %rcx
-	shrq	$24, %r11
-	andq	%rdi, %r11
-	addq	(%r12), %r11
-	addq	%r11, %rcx
-	movq	%rcx, (%r13)
-	andq	(%r13), %rdi
-	movq	%rdi, (%r13)
+	movq	%r9, (%r15)
+	movq	%rcx, %r9
+	andq	(%r8), %r9
+	movq	%r9, (%r8)
+	movq	(%r10), %r9
+	shrq	$44, %rsi
+	movq	%rdi, %r11
+	shlq	$20, %r11
+	orq	%r11, %rsi
+	andq	%rcx, %rsi
+	addq	(%r15), %rsi
+	addq	%rsi, %r9
+	movq	%r9, (%r10)
+	movq	(%r10), %rsi
+	shrq	$44, %rsi
+	movq	%rsi, (%r15)
+	andq	(%r10), %rcx
+	movq	%rcx, (%r10)
 	movq	(%rbx), %rcx
-	movq	(%r15), %rdi
-	shlq	$44, %rdi
-	orq	%rdi, %rcx
+	shrq	$24, %rdi
+	andq	%rax, %rdi
+	addq	(%r15), %rdi
+	addq	%rdi, %rcx
 	movq	%rcx, (%rbx)
-	movq	(%r15), %rcx
-	shrq	$20, %rcx
-	movq	(%r13), %rdi
-	shlq	$24, %rdi
-	orq	%rdi, %rcx
-	movq	%rcx, (%r15)
+	andq	(%rbx), %rax
+	movq	%rax, (%rbx)
+	movq	(%r8), %rax
+	movq	(%r10), %rcx
+	shlq	$44, %rcx
+	orq	%rcx, %rax
+	movq	%rax, (%r8)
+	movq	(%r10), %rax
+	shrq	$20, %rax
 	movq	(%rbx), %rcx
-	movq	-64(%rbp), %rdi         # 8-byte Reload
-	movq	%rcx, (%rdi)
-	movq	(%r15), %rcx
-	movq	%rcx, 8(%rdi)
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	movq	%rcx, %rdi
-	movq	%rsi, -88(%rbp)         # 8-byte Spill
-	movl	%eax, %esi
-	movq	-88(%rbp), %rcx         # 8-byte Reload
-	movq	%rdx, -96(%rbp)         # 8-byte Spill
-	movq	%rcx, %rdx
-	movl	%eax, -100(%rbp)        # 4-byte Spill
-	callq	memset
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	addq	$24, %rcx
-	movq	%rcx, %rdi
-	movl	-100(%rbp), %esi        # 4-byte Reload
-	movq	-88(%rbp), %rdx         # 8-byte Reload
-	callq	memset
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	addq	$48, %rcx
-	movq	%rcx, %rdi
-	movl	-100(%rbp), %esi        # 4-byte Reload
-	movq	-96(%rbp), %rdx         # 8-byte Reload
-	callq	memset
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	movq	$0, 64(%rcx)
-	addq	$72, %rcx
-	movq	%rcx, %rdi
-	movl	-100(%rbp), %esi        # 4-byte Reload
-	movq	-96(%rbp), %rdx         # 8-byte Reload
-	callq	memset
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	movb	$0, 88(%rcx)
+	shlq	$24, %rcx
+	orq	%rcx, %rax
+	movq	%rax, (%r10)
+	movq	(%r8), %rax
+	movq	-64(%rbp), %rcx         # 8-byte Reload
+	movq	%rax, (%rcx)
+	movq	(%r10), %rax
+	movq	%rax, 8(%rcx)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovups	%ymm0, 64(%rdx)
+	vmovups	%ymm0, 32(%rdx)
+	vmovups	%ymm0, (%rdx)
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
@@ -884,29 +850,30 @@ _poly1305_finish:                       # @_poly1305_finish
 	popq	%r14
 	popq	%r15
 	popq	%rbp
+	vzeroupper
 	retq
 .LBB2_4:                                # =>This Inner Loop Header: Depth=1
 	movq	-72(%rbp), %rax         # 8-byte Reload
 	cmpq	$16, %rax
-	movq	%rax, -112(%rbp)        # 8-byte Spill
+	movq	%rax, -80(%rbp)         # 8-byte Spill
 	jae	.LBB2_7
 # %bb.5:                                #   in Loop: Header=BB2_4 Depth=1
 	movq	-56(%rbp), %rax         # 8-byte Reload
-	movq	-112(%rbp), %rcx        # 8-byte Reload
+	movq	-80(%rbp), %rcx         # 8-byte Reload
 	movb	$0, 72(%rax,%rcx)
 # %bb.6:                                #   in Loop: Header=BB2_4 Depth=1
-	movq	-112(%rbp), %rax        # 8-byte Reload
+	movq	-80(%rbp), %rax         # 8-byte Reload
 	addq	$1, %rax
 	movq	%rax, -72(%rbp)         # 8-byte Spill
 	jmp	.LBB2_4
 .LBB2_7:
-	movl	$16, %eax
-	movl	%eax, %edx
-	movq	-56(%rbp), %rcx         # 8-byte Reload
-	movb	$1, 88(%rcx)
-	addq	$72, %rcx
+	movq	-56(%rbp), %rax         # 8-byte Reload
+	movb	$1, 88(%rax)
+	addq	$72, %rax
+	movl	$16, %ecx
+	movl	%ecx, %edx
 	movq	-56(%rbp), %rdi         # 8-byte Reload
-	movq	%rcx, %rsi
+	movq	%rax, %rsi
 	callq	_poly1305_blocks
 	jmp	.LBB2_3
 .Lfunc_end2:
@@ -1005,15 +972,15 @@ _poly1305_update:                       # @_poly1305_update
 .LBB3_12:
 	jmp	.LBB3_13
 .LBB3_13:
-	movl	$16, %eax
-	movl	%eax, %edx
-	movq	-32(%rbp), %rcx         # 8-byte Reload
-	addq	$72, %rcx
+	movq	-32(%rbp), %rax         # 8-byte Reload
+	addq	$72, %rax
+	movl	$16, %ecx
+	movl	%ecx, %edx
 	movq	-32(%rbp), %rdi         # 8-byte Reload
-	movq	%rcx, %rsi
+	movq	%rax, %rsi
 	callq	_poly1305_blocks
-	movq	-32(%rbp), %rcx         # 8-byte Reload
-	movq	$0, 64(%rcx)
+	movq	-32(%rbp), %rax         # 8-byte Reload
+	movq	$0, 64(%rax)
 	jmp	.LBB3_3
 .LBB3_14:
 	movq	-40(%rbp), %rax         # 8-byte Reload
@@ -1123,99 +1090,61 @@ _poly1305_init:                         # @_poly1305_init
 _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	.cfi_startproc
 # %bb.0:                                # %entry
-	pushq	%r15
-	.cfi_def_cfa_offset 16
-	pushq	%r14
-	.cfi_def_cfa_offset 24
-	pushq	%r12
-	.cfi_def_cfa_offset 32
-	pushq	%rbx
-	.cfi_def_cfa_offset 40
-	subq	$280, %rsp              # imm = 0x118
-	.cfi_def_cfa_offset 320
-	.cfi_offset %rbx, -40
-	.cfi_offset %r12, -32
-	.cfi_offset %r14, -24
-	.cfi_offset %r15, -16
-	leaq	176(%rsp), %rax
-	leaq	96(%rsp), %r8
-	xorl	%r9d, %r9d
-	movl	$16, %r10d
-	movl	%r10d, %r11d
-	leaq	112(%rsp), %rbx
-	movl	$24, %r10d
-	movl	%r10d, %r14d
-	leaq	128(%rsp), %r15
-	leaq	152(%rsp), %r12
-	movl	$0, 276(%rsp)
-	movb	$1, 275(%rsp)
-	movq	%rdi, 88(%rsp)          # 8-byte Spill
-	movq	%r12, %rdi
-	movq	%rsi, 80(%rsp)          # 8-byte Spill
-	movl	%r9d, %esi
-	movq	%rdx, 72(%rsp)          # 8-byte Spill
-	movq	%r14, %rdx
-	movq	%rbx, 64(%rsp)          # 8-byte Spill
-	movq	%r14, 56(%rsp)          # 8-byte Spill
-	movq	%r15, 48(%rsp)          # 8-byte Spill
-	movq	%rcx, 40(%rsp)          # 8-byte Spill
-	movq	%rax, 32(%rsp)          # 8-byte Spill
-	movq	%r8, 24(%rsp)           # 8-byte Spill
-	movl	%r9d, 20(%rsp)          # 4-byte Spill
-	movq	%r11, 8(%rsp)           # 8-byte Spill
-	callq	memset
-	movq	152(%rsp), %rax
-	movq	%rax, 176(%rsp)
-	movq	160(%rsp), %rax
+	subq	$216, %rsp
+	.cfi_def_cfa_offset 224
+	leaq	48(%rsp), %rax
+	leaq	64(%rsp), %r8
+	leaq	88(%rsp), %r9
+	movl	$0, 212(%rsp)
+	movb	$1, 211(%rsp)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovdqu	%xmm0, (%r9)
+	movq	$0, 16(%r9)
+	movq	88(%rsp), %r9
+	movq	%r9, 112(%rsp)
+	movq	96(%rsp), %r9
+	movq	%r9, 120(%rsp)
+	movq	104(%rsp), %r9
+	movq	%r9, 128(%rsp)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovdqu	%xmm0, (%r8)
+	movq	$0, 16(%r8)
+	movq	64(%rsp), %r8
+	movq	%r8, 136(%rsp)
+	movq	72(%rsp), %r8
+	movq	%r8, 144(%rsp)
+	movq	80(%rsp), %r8
+	movq	%r8, 152(%rsp)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovdqu	%xmm0, (%rax)
+	movq	48(%rsp), %rax
+	movq	%rax, 160(%rsp)
+	movq	56(%rsp), %rax
+	movq	%rax, 168(%rsp)
+	movq	$0, 176(%rsp)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovdqa	%xmm0, 32(%rsp)
+	movq	32(%rsp), %rax
 	movq	%rax, 184(%rsp)
-	movq	168(%rsp), %rax
+	movq	40(%rsp), %rax
 	movq	%rax, 192(%rsp)
-	movq	48(%rsp), %rax          # 8-byte Reload
+	movb	$0, 200(%rsp)
+	leaq	112(%rsp), %rax
+	movq	%rdi, 24(%rsp)          # 8-byte Spill
 	movq	%rax, %rdi
-	movl	20(%rsp), %esi          # 4-byte Reload
-	movq	56(%rsp), %rdx          # 8-byte Reload
-	callq	memset
-	movq	128(%rsp), %rax
-	movq	%rax, 200(%rsp)
-	movq	136(%rsp), %rax
-	movq	%rax, 208(%rsp)
-	movq	144(%rsp), %rax
-	movq	%rax, 216(%rsp)
-	movq	64(%rsp), %rax          # 8-byte Reload
-	movq	%rax, %rdi
-	movl	20(%rsp), %esi          # 4-byte Reload
-	movq	8(%rsp), %rdx           # 8-byte Reload
-	callq	memset
-	movq	112(%rsp), %rax
-	movq	%rax, 224(%rsp)
-	movq	120(%rsp), %rax
-	movq	%rax, 232(%rsp)
-	movq	$0, 240(%rsp)
-	movq	24(%rsp), %rdi          # 8-byte Reload
-	movl	20(%rsp), %esi          # 4-byte Reload
-	movq	8(%rsp), %rdx           # 8-byte Reload
-	callq	memset
-	movq	96(%rsp), %rax
-	movq	%rax, 248(%rsp)
-	movq	104(%rsp), %rax
-	movq	%rax, 256(%rsp)
-	movb	$0, 264(%rsp)
-	movq	32(%rsp), %rdi          # 8-byte Reload
-	movq	40(%rsp), %rsi          # 8-byte Reload
+	movq	%rsi, 16(%rsp)          # 8-byte Spill
+	movq	%rcx, %rsi
+	movq	%rdx, 8(%rsp)           # 8-byte Spill
 	callq	_poly1305_init
-	leaq	176(%rsp), %rdi
-	movq	80(%rsp), %rsi          # 8-byte Reload
-	movq	72(%rsp), %rdx          # 8-byte Reload
+	leaq	112(%rsp), %rdi
+	movq	16(%rsp), %rsi          # 8-byte Reload
+	movq	8(%rsp), %rdx           # 8-byte Reload
 	callq	_poly1305_update
-	leaq	176(%rsp), %rdi
-	movq	88(%rsp), %rsi          # 8-byte Reload
+	leaq	112(%rsp), %rdi
+	movq	24(%rsp), %rsi          # 8-byte Reload
 	callq	_poly1305_finish
 	xorl	%eax, %eax
-	addq	$280, %rsp              # imm = 0x118
-	popq	%rbx
-	popq	%r12
-	popq	%r14
-	popq	%r15
+	addq	$216, %rsp
 	retq
 .Lfunc_end5:
 	.size	_crypto_onetimeauth_poly1305, .Lfunc_end5-_crypto_onetimeauth_poly1305
@@ -2888,12 +2817,10 @@ u0:                                     # @u0
 	movq	%rcx, -320(%rbp)        # 8-byte Spill
 	jmp	.LBB8_12
 .LBB8_14:
-	xorl	%esi, %esi
-	movl	$64, %eax
-	movl	%eax, %edx
-	movq	-312(%rbp), %rdi        # 8-byte Reload
-	vzeroupper
-	callq	memset
+	vxorps	%xmm0, %xmm0, %xmm0
+	movq	-312(%rbp), %rax        # 8-byte Reload
+	vmovups	%ymm0, 32(%rax)
+	vmovups	%ymm0, (%rax)
 .LBB8_15:                               # %_u0.exit
 	movq	-240(%rbp), %rax        # 8-byte Reload
 	movq	%rax, %rsp
@@ -2904,6 +2831,7 @@ u0:                                     # @u0
 	popq	%r14
 	popq	%r15
 	popq	%rbp
+	vzeroupper
 	retq
 .Lfunc_end8:
 	.size	u0, .Lfunc_end8-u0
@@ -3000,7 +2928,7 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$96, %rsp
+	subq	$80, %rsp
 	movq	16(%rbp), %rax
 	movl	$0, -4(%rbp)
 	movb	$1, -5(%rbp)
@@ -3021,26 +2949,25 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 .LBB12_2:
 	jmp	.LBB12_3
 .LBB12_3:
-	xorl	%esi, %esi
-	movl	$64, %eax
-	movl	%eax, %edx
-	movq	%rsp, %rcx
-	movq	%rcx, %rdi
-	addq	$-16, %rdi
-	movq	%rdi, %rsp
-	movq	$0, -16(%rcx)
-	movq	-24(%rbp), %r8          # 8-byte Reload
-	movq	%r8, -16(%rcx)
-	movq	%rsp, %rcx
-	addq	$-64, %rcx
+	movq	%rsp, %rax
+	movq	%rax, %rcx
+	addq	$-16, %rcx
 	movq	%rcx, %rsp
-	movq	%rcx, %r9
-	movq	%rdi, -72(%rbp)         # 8-byte Spill
-	movq	%r9, %rdi
-	movq	%rcx, -80(%rbp)         # 8-byte Spill
-	callq	memset
-	movq	-80(%rbp), %rdi         # 8-byte Reload
+	movq	$0, -16(%rax)
+	movq	-24(%rbp), %rdx         # 8-byte Reload
+	movq	%rdx, -16(%rax)
+	movq	%rsp, %rax
+	addq	$-64, %rax
+	movq	%rax, %rsp
+	movq	%rax, %rsi
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovups	%ymm0, 32(%rsi)
+	vmovups	%ymm0, (%rsi)
+	movq	%rax, %rdi
 	movq	-16(%rbp), %rsi         # 8-byte Reload
+	movq	%rcx, -72(%rbp)         # 8-byte Spill
+	movq	%rax, -80(%rbp)         # 8-byte Spill
+	vzeroupper
 	callq	_salsa_keysetup
 	movq	-80(%rbp), %rdi         # 8-byte Reload
 	movq	-32(%rbp), %rsi         # 8-byte Reload
@@ -3053,16 +2980,13 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movq	-56(%rbp), %r8          # 8-byte Reload
 	callq	_salsa20_encrypt_bytes
 	xorl	%eax, %eax
-	movl	$64, %r10d
-	movl	%r10d, %edx
 	movq	-80(%rbp), %rcx         # 8-byte Reload
-	movq	%rcx, %rdi
-	movl	%eax, %esi
-	movl	%eax, -84(%rbp)         # 4-byte Spill
-	callq	memset
-	movl	-84(%rbp), %eax         # 4-byte Reload
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovups	%ymm0, 32(%rcx)
+	vmovups	%ymm0, (%rcx)
 	movq	%rbp, %rsp
 	popq	%rbp
+	vzeroupper
 	retq
 .Lfunc_end12:
 	.size	_crypto_stream_salsa20_xor_ic, .Lfunc_end12-_crypto_stream_salsa20_xor_ic
@@ -3073,60 +2997,47 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	.cfi_startproc
 # %bb.0:                                # %entry
-	pushq	%r14
+	pushq	%rbp
 	.cfi_def_cfa_offset 16
-	pushq	%rbx
-	.cfi_def_cfa_offset 24
-	subq	$136, %rsp
-	.cfi_def_cfa_offset 160
-	.cfi_offset %rbx, -24
-	.cfi_offset %r14, -16
-	movq	160(%rsp), %rax
-	leaq	99(%rsp), %r10
-	xorl	%r11d, %r11d
-	movl	$32, %ebx
-	movl	%ebx, %r14d
-	movl	$0, 132(%rsp)
-	movb	$1, 131(%rsp)
-	movq	%rdi, 88(%rsp)          # 8-byte Spill
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	andq	$-32, %rsp
+	subq	$128, %rsp
+	movq	16(%rbp), %rax
+	movl	$0, 108(%rsp)
+	movb	$1, 107(%rsp)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 64(%rsp)
+	leaq	64(%rsp), %r10
+	movq	%rdi, 56(%rsp)          # 8-byte Spill
 	movq	%r10, %rdi
-	movq	%rsi, 80(%rsp)          # 8-byte Spill
-	movl	%r11d, %esi
-	movq	%rdx, 72(%rsp)          # 8-byte Spill
-	movq	%r14, %rdx
-	movq	%rax, 64(%rsp)          # 8-byte Spill
-	movq	%r9, 56(%rsp)           # 8-byte Spill
-	movq	%r8, 48(%rsp)           # 8-byte Spill
-	movq	%rcx, 40(%rsp)          # 8-byte Spill
-	movq	%r10, 32(%rsp)          # 8-byte Spill
-	callq	memset
-	movq	32(%rsp), %rdi          # 8-byte Reload
-	movq	48(%rsp), %rsi          # 8-byte Reload
-	movq	64(%rsp), %rdx          # 8-byte Reload
+	movq	%rsi, 48(%rsp)          # 8-byte Spill
+	movq	%r8, %rsi
+	movq	%rdx, 40(%rsp)          # 8-byte Spill
+	movq	%rax, %rdx
+	movq	%rcx, 32(%rsp)          # 8-byte Spill
+	movq	%r9, 24(%rsp)           # 8-byte Spill
+	movq	%r8, 16(%rsp)           # 8-byte Spill
+	vzeroupper
 	callq	_crypto_core_hsalsa20
-	leaq	99(%rsp), %rax
-	movq	48(%rsp), %rcx          # 8-byte Reload
-	addq	$16, %rcx
-	movq	88(%rsp), %rdi          # 8-byte Reload
-	movq	80(%rsp), %rsi          # 8-byte Reload
-	movq	72(%rsp), %rdx          # 8-byte Reload
-	movq	40(%rsp), %r8           # 8-byte Reload
-	movq	%rcx, 24(%rsp)          # 8-byte Spill
-	movq	%r8, %rcx
-	movq	24(%rsp), %r8           # 8-byte Reload
-	movq	56(%rsp), %r9           # 8-byte Reload
-	movq	%rax, (%rsp)
+	movq	16(%rsp), %rax          # 8-byte Reload
+	addq	$16, %rax
+	movq	%rsp, %rcx
+	leaq	64(%rsp), %rdx
+	movq	%rdx, (%rcx)
+	movq	56(%rsp), %rdi          # 8-byte Reload
+	movq	48(%rsp), %rsi          # 8-byte Reload
+	movq	40(%rsp), %rdx          # 8-byte Reload
+	movq	32(%rsp), %rcx          # 8-byte Reload
+	movq	%rax, %r8
+	movq	24(%rsp), %r9           # 8-byte Reload
 	callq	_crypto_stream_salsa20_xor_ic
-	leaq	99(%rsp), %rdi
-	xorl	%esi, %esi
-	movl	$32, %r11d
-	movl	%r11d, %edx
-	movl	%eax, 20(%rsp)          # 4-byte Spill
-	callq	memset
-	movl	20(%rsp), %eax          # 4-byte Reload
-	addq	$136, %rsp
-	popq	%rbx
-	popq	%r14
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 64(%rsp)
+	movq	%rbp, %rsp
+	popq	%rbp
+	vzeroupper
 	retq
 .Lfunc_end13:
 	.size	_crypto_stream_xsalsa20_xor_ic, .Lfunc_end13-_crypto_stream_xsalsa20_xor_ic
@@ -3139,14 +3050,12 @@ _crypto_stream_xsalsa20_xor:            # @_crypto_stream_xsalsa20_xor
 # %bb.0:                                # %entry
 	subq	$24, %rsp
 	.cfi_def_cfa_offset 32
-	xorl	%eax, %eax
-	movl	%eax, %r10d
 	movl	$0, 20(%rsp)
 	movb	$1, 19(%rsp)
-	movq	%r9, 8(%rsp)            # 8-byte Spill
-	movq	%r10, %r9
-	movq	8(%rsp), %r10           # 8-byte Reload
-	movq	%r10, (%rsp)
+	movq	%rsp, %rax
+	movq	%r9, (%rax)
+	xorl	%r10d, %r10d
+	movl	%r10d, %r9d
 	callq	_crypto_stream_xsalsa20_xor_ic
 	addq	$24, %rsp
 	retq
@@ -3286,17 +3195,17 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 .LBB18_2:
 	jmp	.LBB18_3
 .LBB18_3:
-	xorl	%esi, %esi
-	movl	$64, %eax
-	movl	%eax, %edx
-	movq	%rsp, %rcx
-	addq	$-64, %rcx
-	movq	%rcx, %rsp
-	movq	%rcx, %rdi
-	movq	%rcx, -48(%rbp)         # 8-byte Spill
-	callq	memset
-	movq	-48(%rbp), %rdi         # 8-byte Reload
+	movq	%rsp, %rax
+	addq	$-64, %rax
+	movq	%rax, %rsp
+	movq	%rax, %rcx
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovups	%ymm0, 32(%rcx)
+	vmovups	%ymm0, (%rcx)
+	movq	%rax, %rdi
 	movq	-40(%rbp), %rsi         # 8-byte Reload
+	movq	%rax, -48(%rbp)         # 8-byte Spill
+	vzeroupper
 	callq	_salsa_keysetup
 	movq	-48(%rbp), %rdi         # 8-byte Reload
 	movq	-16(%rbp), %rsi         # 8-byte Reload
@@ -3310,18 +3219,16 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	movq	-24(%rbp), %rdx         # 8-byte Reload
 	movq	-32(%rbp), %rcx         # 8-byte Reload
 	movq	-24(%rbp), %r8          # 8-byte Reload
+	movq	%rax, -56(%rbp)         # 8-byte Spill
 	callq	_salsa20_encrypt_bytes
 	xorl	%eax, %eax
-	movl	$64, %r9d
-	movl	%r9d, %edx
 	movq	-48(%rbp), %rcx         # 8-byte Reload
-	movq	%rcx, %rdi
-	movl	%eax, %esi
-	movl	%eax, -52(%rbp)         # 4-byte Spill
-	callq	memset
-	movl	-52(%rbp), %eax         # 4-byte Reload
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovups	%ymm0, 32(%rcx)
+	vmovups	%ymm0, (%rcx)
 	movq	%rbp, %rsp
 	popq	%rbp
+	vzeroupper
 	retq
 .Lfunc_end18:
 	.size	_crypto_stream_salsa20, .Lfunc_end18-_crypto_stream_salsa20
@@ -3332,42 +3239,38 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	.cfi_startproc
 # %bb.0:                                # %entry
-	subq	$88, %rsp
-	.cfi_def_cfa_offset 96
-	leaq	51(%rsp), %rax
-	xorl	%r8d, %r8d
-	movl	$32, %r9d
-	movl	%r9d, %r10d
-	movl	$0, 84(%rsp)
-	movb	$1, 83(%rsp)
-	movq	%rdi, 40(%rsp)          # 8-byte Spill
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset %rbp, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register %rbp
+	andq	$-32, %rsp
+	subq	$96, %rsp
+	movl	$0, 76(%rsp)
+	movb	$1, 75(%rsp)
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 32(%rsp)
+	leaq	32(%rsp), %rax
+	movq	%rdi, 24(%rsp)          # 8-byte Spill
 	movq	%rax, %rdi
-	movq	%rsi, 32(%rsp)          # 8-byte Spill
-	movl	%r8d, %esi
-	movq	%rdx, 24(%rsp)          # 8-byte Spill
-	movq	%r10, %rdx
-	movq	%rcx, 16(%rsp)          # 8-byte Spill
-	movq	%rax, 8(%rsp)           # 8-byte Spill
-	callq	memset
-	movq	8(%rsp), %rdi           # 8-byte Reload
-	movq	24(%rsp), %rsi          # 8-byte Reload
-	movq	16(%rsp), %rdx          # 8-byte Reload
+	movq	%rsi, 16(%rsp)          # 8-byte Spill
+	movq	%rdx, %rsi
+	movq	%rdx, 8(%rsp)           # 8-byte Spill
+	movq	%rcx, %rdx
+	vzeroupper
 	callq	_crypto_core_hsalsa20
-	leaq	51(%rsp), %rcx
-	movq	24(%rsp), %rax          # 8-byte Reload
+	movq	8(%rsp), %rax           # 8-byte Reload
 	addq	$16, %rax
-	movq	40(%rsp), %rdi          # 8-byte Reload
-	movq	32(%rsp), %rsi          # 8-byte Reload
+	leaq	32(%rsp), %rcx
+	movq	24(%rsp), %rdi          # 8-byte Reload
+	movq	16(%rsp), %rsi          # 8-byte Reload
 	movq	%rax, %rdx
 	callq	_crypto_stream_salsa20
-	leaq	51(%rsp), %rdi
-	xorl	%esi, %esi
-	movl	$32, %r8d
-	movl	%r8d, %edx
-	movl	%eax, 4(%rsp)           # 4-byte Spill
-	callq	memset
-	movl	4(%rsp), %eax           # 4-byte Reload
-	addq	$88, %rsp
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 32(%rsp)
+	movq	%rbp, %rsp
+	popq	%rbp
+	vzeroupper
 	retq
 .Lfunc_end19:
 	.size	_crypto_stream_xsalsa20, .Lfunc_end19-_crypto_stream_xsalsa20
@@ -3383,7 +3286,7 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$96, %rsp
+	subq	$80, %rsp
 	movb	$0, -1(%rbp)
 	movb	$1, -2(%rbp)
 	cmpq	$32, %rcx
@@ -3404,21 +3307,18 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 .LBB20_2:
 	jmp	.LBB20_3
 .LBB20_3:
-	movl	$32, %eax
-	movl	%eax, %ecx
-	xorl	%esi, %esi
-	movq	%rsp, %rdx
-	addq	$-32, %rdx
-	movq	%rdx, %rsp
-	movq	%rdx, %rdi
-	movq	%rdx, -64(%rbp)         # 8-byte Spill
-	movq	%rcx, %rdx
-	movq	%rcx, -72(%rbp)         # 8-byte Spill
-	callq	memset
-	movq	-64(%rbp), %rdi         # 8-byte Reload
-	movq	-72(%rbp), %rsi         # 8-byte Reload
+	movq	%rsp, %rax
+	addq	$-32, %rax
+	movq	%rax, %rsp
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovups	%ymm0, (%rax)
+	movl	$32, %ecx
+	movl	%ecx, %esi
+	movq	%rax, %rdi
 	movq	-16(%rbp), %rdx         # 8-byte Reload
 	movq	-56(%rbp), %rcx         # 8-byte Reload
+	movq	%rax, -64(%rbp)         # 8-byte Spill
+	vzeroupper
 	callq	_crypto_stream_xsalsa20
 	movq	-32(%rbp), %rcx         # 8-byte Reload
 	addq	$16, %rcx
@@ -3428,7 +3328,7 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	addq	$32, %rsi
 	movq	%rcx, %rdi
 	movq	-64(%rbp), %rcx         # 8-byte Reload
-	movl	%eax, -76(%rbp)         # 4-byte Spill
+	movl	%eax, -68(%rbp)         # 4-byte Spill
 	callq	_crypto_onetimeauth_poly1305_verify
 	xorb	$-1, %al
 	testb	$1, %al
@@ -3452,23 +3352,23 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	movq	-56(%rbp), %r9          # 8-byte Reload
 	callq	_crypto_stream_xsalsa20_xor
 	xorl	%r10d, %r10d
-	movl	%eax, -80(%rbp)         # 4-byte Spill
-	movl	%r10d, -84(%rbp)        # 4-byte Spill
+	movl	%eax, -72(%rbp)         # 4-byte Spill
+	movl	%r10d, -76(%rbp)        # 4-byte Spill
 .LBB20_7:                               # =>This Inner Loop Header: Depth=1
-	movl	-84(%rbp), %eax         # 4-byte Reload
+	movl	-76(%rbp), %eax         # 4-byte Reload
 	cmpl	$32, %eax
-	movl	%eax, -88(%rbp)         # 4-byte Spill
+	movl	%eax, -80(%rbp)         # 4-byte Spill
 	jae	.LBB20_10
 # %bb.8:                                #   in Loop: Header=BB20_7 Depth=1
-	movl	-88(%rbp), %eax         # 4-byte Reload
+	movl	-80(%rbp), %eax         # 4-byte Reload
 	movl	%eax, %ecx
 	movl	%ecx, %edx
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	movb	$0, (%rsi,%rdx)
 # %bb.9:                                #   in Loop: Header=BB20_7 Depth=1
-	movl	-88(%rbp), %eax         # 4-byte Reload
+	movl	-80(%rbp), %eax         # 4-byte Reload
 	addl	$1, %eax
-	movl	%eax, -84(%rbp)         # 4-byte Spill
+	movl	%eax, -76(%rbp)         # 4-byte Spill
 	jmp	.LBB20_7
 .LBB20_10:
 	movb	$1, %al
@@ -3497,6 +3397,28 @@ _crypto_secretbox_open:                 # @_crypto_secretbox_open
 .Lfunc_end21:
 	.size	_crypto_secretbox_open, .Lfunc_end21-_crypto_secretbox_open
 	.cfi_endproc
+                                        # -- End function
+	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
+	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
+	.weak	__llvm_retpoline_r11
+	.p2align	4, 0x90
+	.type	__llvm_retpoline_r11,@function
+__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
+# %bb.0:                                # %entry
+	callq	.LBB22_2
+.LBB22_1:                               # Block address taken
+                                        # %entry
+                                        # =>This Inner Loop Header: Depth=1
+	pause
+	lfence
+	jmp	.LBB22_1
+	.p2align	4, 0x90
+.LBB22_2:                               # Block address taken
+                                        # %entry
+	movq	%r11, (%rsp)
+	retq
+.Lfunc_end22:
+	.size	__llvm_retpoline_r11, .Lfunc_end22-__llvm_retpoline_r11
                                         # -- End function
 
 	.section	".note.GNU-stack","",@progbits

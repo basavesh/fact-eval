@@ -882,5 +882,27 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	.size	_aesni_cbc_hmac_sha1_cipher, .Lfunc_end2-_aesni_cbc_hmac_sha1_cipher
 	.cfi_endproc
                                         # -- End function
+	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
+	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
+	.weak	__llvm_retpoline_r11
+	.p2align	4, 0x90
+	.type	__llvm_retpoline_r11,@function
+__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
+# %bb.0:                                # %entry
+	callq	.LBB3_2
+.LBB3_1:                                # Block address taken
+                                        # %entry
+                                        # =>This Inner Loop Header: Depth=1
+	pause
+	lfence
+	jmp	.LBB3_1
+	.p2align	4, 0x90
+.LBB3_2:                                # Block address taken
+                                        # %entry
+	movq	%r11, (%rsp)
+	retq
+.Lfunc_end3:
+	.size	__llvm_retpoline_r11, .Lfunc_end3-__llvm_retpoline_r11
+                                        # -- End function
 
 	.section	".note.GNU-stack","",@progbits

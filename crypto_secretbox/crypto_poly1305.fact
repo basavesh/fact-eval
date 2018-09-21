@@ -224,12 +224,7 @@ void _poly1305_finish(
   store_le(view(mac, 8, 8), h1);
 
   /* zero out the state */
-  memzero(state.r);
-  memzero(state.h);
-  memzero(state.pad);
-  state.leftover = 0;
-  memzero(state.buffer);
-  state.final = 0;
+  smemzero(state);
 }
 
 public int32 _crypto_onetimeauth_poly1305( // crypto_onetimeauth_poly1305_donna from poly1305_donna.c

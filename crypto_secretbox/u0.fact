@@ -500,7 +500,7 @@ void _u0(
     for (uint64 i from 0 to bytes) {
       c[i] = m[i] ^ partialblock[i];
     }
-    memzero(partialblock);
+    smemzero(partialblock);
   }
 }
 

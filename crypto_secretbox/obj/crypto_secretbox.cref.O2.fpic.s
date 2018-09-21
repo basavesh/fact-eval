@@ -355,50 +355,52 @@ _poly1305_blocks:                       # @_poly1305_blocks
 _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 # %bb.0:
 	pushq	%rbp
+	movq	%rsp, %rbp
 	pushq	%r15
 	pushq	%r14
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	subq	$104, %rsp
+	andq	$-32, %rsp
+	subq	$128, %rsp
 	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%xmm0, 80(%rsp)
+	vmovups	%xmm0, 72(%rsp)
 	movq	(%rcx), %rax
-	movq	8(%rcx), %rbx
-	movabsq	$17575274610687, %rbp   # imm = 0xFFC0FFFFFFF
-	andq	%rax, %rbp
-	movq	%rbp, 8(%rsp)
+	movq	8(%rcx), %r8
+	movabsq	$17575274610687, %rbx   # imm = 0xFFC0FFFFFFF
+	andq	%rax, %rbx
+	movq	%rbx, (%rsp)
 	movabsq	$17592186044415, %r14   # imm = 0xFFFFFFFFFFF
-	shrdq	$44, %rbx, %rax
-	leaq	-4128768(%r14), %rbp
-	andq	%rax, %rbp
-	movq	%rbp, 16(%rsp)
-	shrq	$24, %rbx
+	shrdq	$44, %r8, %rax
+	leaq	-4128768(%r14), %rbx
+	andq	%rax, %rbx
+	movq	%rbx, 8(%rsp)
+	shrq	$24, %r8
 	movabsq	$68719475727, %rax      # imm = 0xFFFFFFC0F
-	andq	%rbx, %rax
-	movq	%rax, 24(%rsp)
+	andq	%r8, %rax
+	movq	%rax, 16(%rsp)
 	movq	%rdx, %r13
-	movq	%rsi, %r15
-	vmovups	%xmm0, 32(%rsp)
-	movq	$0, 48(%rsp)
+	movq	%rsi, %rbx
+	vmovups	%xmm0, 24(%rsp)
+	movq	$0, 40(%rsp)
 	vmovups	16(%rcx), %xmm0
-	vmovups	%xmm0, 56(%rsp)
-	movq	$0, 72(%rsp)
-	movb	$0, 96(%rsp)
-	movq	%rdi, %rbp
+	vmovups	%xmm0, 48(%rsp)
+	movq	$0, 64(%rsp)
+	movb	$0, 88(%rsp)
+	movq	%rdi, %r15
 	cmpq	$16, %r13
 	jb	.LBB3_1
 # %bb.2:
 	movq	%r13, %r12
 	andq	$-16, %r12
-	leaq	8(%rsp), %rdi
-	movq	%r15, %rsi
+	movq	%rsp, %rdi
+	movq	%rbx, %rsi
 	movq	%r12, %rdx
 	callq	_poly1305_blocks
 	cmpq	%r13, %r12
 	jb	.LBB3_4
 .LBB3_12:                               # %_poly1305_update.exitthread-pre-split
-	movq	72(%rsp), %rax
+	movq	64(%rsp), %rax
 	jmp	.LBB3_13
 .LBB3_1:
 	xorl	%r12d, %r12d
@@ -406,7 +408,7 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	jae	.LBB3_12
 .LBB3_4:
 	movq	%r13, %r9
-	movq	72(%rsp), %rax
+	movq	64(%rsp), %rax
 	subq	%r12, %r9
 	je	.LBB3_11
 # %bb.5:                                # %.lr.ph.i4.preheader
@@ -416,6 +418,7 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	cmpq	%r12, %r13
 	jne	.LBB3_7
 # %bb.6:
+	movq	%rbx, %r10
 	xorl	%esi, %esi
 	testq	%r8, %r8
 	jne	.LBB3_10
@@ -423,23 +426,23 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 .LBB3_7:                                # %.lr.ph.i4.preheader.new
 	movq	%r9, %rdi
 	subq	%r8, %rdi
-	leaq	(%r15,%r12), %rdx
+	movq	%rbx, %r10
+	leaq	(%rbx,%r12), %rdx
 	addq	$1, %rdx
 	xorl	%esi, %esi
-	leaq	8(%rsp), %rcx
+	movq	%rsp, %rcx
 	.p2align	4, 0x90
 .LBB3_8:                                # %.lr.ph.i4
                                         # =>This Inner Loop Header: Depth=1
 	movzbl	-1(%rdx,%rsi), %ebx
-	addq	%rsp, %rax
-	addq	$8, %rax
+	leaq	(%rsp,%rax), %rax
 	movb	%bl, 72(%rsi,%rax)
 	movzbl	(%rdx,%rsi), %eax
-	movq	72(%rsp), %rbx
+	movq	64(%rsp), %rbx
 	addq	%rcx, %rbx
 	movb	%al, 73(%rsi,%rbx)
 	addq	$2, %rsi
-	movq	72(%rsp), %rax
+	movq	64(%rsp), %rax
 	cmpq	%rsi, %rdi
 	jne	.LBB3_8
 # %bb.9:                                # %._crit_edge.i5.loopexit.unr-lcssa
@@ -448,89 +451,89 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 .LBB3_10:                               # %.lr.ph.i4.epil
 	addq	%rsi, %rax
 	addq	%rsi, %r12
-	movb	(%r15,%r12), %cl
-	movb	%cl, 80(%rsp,%rax)
-	movq	72(%rsp), %rax
+	movb	(%r10,%r12), %cl
+	movb	%cl, 72(%rsp,%rax)
+	movq	64(%rsp), %rax
 .LBB3_11:                               # %._crit_edge.i5
 	addq	%r9, %rax
-	movq	%rax, 72(%rsp)
+	movq	%rax, 64(%rsp)
 .LBB3_13:                               # %_poly1305_update.exit
-	movq	%rbp, %r12
+	movq	%r15, %r12
 	testq	%rax, %rax
 	je	.LBB3_17
 # %bb.14:
-	movb	$1, 80(%rsp,%rax)
-	leaq	80(%rsp), %r15
+	movb	$1, 72(%rsp,%rax)
+	leaq	72(%rsp), %r15
 	leaq	1(%rax), %rcx
 	cmpq	$15, %rcx
 	ja	.LBB3_16
 # %bb.15:                               # %.lr.ph.i
 	leaq	(%rsp,%rcx), %rdi
-	addq	$80, %rdi
+	addq	$72, %rdi
 	movl	$15, %edx
 	subq	%rax, %rdx
 	xorl	%esi, %esi
 	callq	memset@PLT
 .LBB3_16:                               # %._crit_edge.i
-	movb	$1, 96(%rsp)
-	leaq	8(%rsp), %rdi
+	movb	$1, 88(%rsp)
+	movq	%rsp, %rdi
 	movl	$16, %edx
 	movq	%r15, %rsi
 	callq	_poly1305_blocks
 .LBB3_17:                               # %_poly1305_finish.exit
-	movq	40(%rsp), %rcx
-	movq	56(%rsp), %r8
+	movq	32(%rsp), %rcx
+	movq	48(%rsp), %r8
 	movq	%rcx, %rdx
 	shrq	$44, %rdx
-	addq	48(%rsp), %rdx
+	addq	40(%rsp), %rdx
 	movabsq	$4398046511103, %rdi    # imm = 0x3FFFFFFFFFF
 	andq	%rdx, %rdi
 	shrq	$42, %rdx
-	leaq	(%rdx,%rdx,4), %rbp
-	addq	32(%rsp), %rbp
+	leaq	(%rdx,%rdx,4), %rax
+	addq	24(%rsp), %rax
 	andq	%r14, %rcx
-	movq	%rbp, %rbx
+	movq	%rax, %rbx
 	shrq	$44, %rbx
 	addq	%rcx, %rbx
-	andq	%r14, %rbp
-	movq	%rbx, %rsi
-	shrq	$44, %rsi
-	addq	%rdi, %rsi
+	andq	%r14, %rax
+	movq	%rbx, %r10
+	shrq	$44, %r10
+	addq	%rdi, %r10
 	andq	%r14, %rbx
-	movq	%rsi, %rdx
+	movq	%r10, %rdx
 	shrq	$42, %rdx
 	negl	%edx
 	andl	$5, %edx
-	addq	%rbp, %rdx
+	addq	%rax, %rdx
 	movq	%rdx, %rcx
 	shrq	$44, %rcx
 	addq	%rbx, %rcx
 	andq	%r14, %rdx
 	leaq	5(%rdx), %r9
-	movq	%r9, %rbp
-	shrq	$44, %rbp
-	addq	%rcx, %rbp
-	movq	%rbp, %rax
+	movq	%r9, %rax
 	shrq	$44, %rax
-	movabsq	$-4398046511104, %rdi   # imm = 0xFFFFFC0000000000
-	orq	%rsi, %rdi
-	addq	%rax, %rdi
-	movq	%rdi, %rax
-	shrq	$63, %rax
-	addq	$-1, %rax
+	addq	%rcx, %rax
 	movq	%rax, %rbx
-	andq	%r14, %rbx
-	andq	%rbx, %r9
-	andq	%rbp, %rbx
-	andq	%rdi, %rax
+	shrq	$44, %rbx
+	movabsq	$-4398046511104, %rdi   # imm = 0xFFFFFC0000000000
+	orq	%r10, %rdi
+	addq	%rbx, %rdi
+	movq	%rdi, %rbx
+	shrq	$63, %rbx
+	addq	$-1, %rbx
+	movq	%rbx, %rsi
+	andq	%r14, %rsi
+	andq	%rsi, %r9
+	andq	%rax, %rsi
+	andq	%rdi, %rbx
 	sarq	$63, %rdi
 	andq	%rdi, %rdx
 	orq	%r9, %rdx
 	andq	%rdi, %rcx
-	orq	%rbx, %rcx
-	andq	%rsi, %rdi
-	orq	%rax, %rdi
-	movq	64(%rsp), %rsi
+	orq	%rsi, %rcx
+	andq	%r10, %rdi
+	orq	%rbx, %rdi
+	movq	56(%rsp), %rsi
 	movq	%r8, %rax
 	andq	%r14, %rax
 	addq	%rdx, %rax
@@ -538,10 +541,10 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	shrq	$44, %rdx
 	andq	%r14, %rax
 	shrq	$44, %r8
-	movq	%rsi, %rbp
-	shlq	$20, %rbp
+	movq	%rsi, %rbx
+	shlq	$20, %rbx
 	addq	$-1048575, %r14         # imm = 0xFFF00001
-	andq	%rbp, %r14
+	andq	%rbx, %r14
 	orq	%r8, %r14
 	addq	%rcx, %r14
 	addq	%rdx, %r14
@@ -559,13 +562,18 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	orq	%r14, %rsi
 	movq	%rcx, (%r12)
 	movq	%rsi, 8(%r12)
-	addq	$104, %rsp
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 64(%rsp)
+	vmovaps	%ymm0, 32(%rsp)
+	vmovaps	%ymm0, (%rsp)
+	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
 	popq	%r13
 	popq	%r14
 	popq	%r15
 	popq	%rbp
+	vzeroupper
 	retq
 .Lfunc_end3:
 	.size	_crypto_onetimeauth_poly1305, .Lfunc_end3-_crypto_onetimeauth_poly1305
@@ -882,7 +890,12 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 .Lfunc_end4:
 	.size	_crypto_stream_salsa20_xor_ic, .Lfunc_end4-_crypto_stream_salsa20_xor_ic
                                         # -- End function
-	.globl	_crypto_secretbox       # -- Begin function _crypto_secretbox
+	.section	.rodata.cst32,"aM",@progbits,32
+	.p2align	5               # -- Begin function _crypto_secretbox
+.LCPI5_0:
+	.zero	32
+	.text
+	.globl	_crypto_secretbox
 	.p2align	4, 0x90
 	.type	_crypto_secretbox,@function
 _crypto_secretbox:                      # @_crypto_secretbox
@@ -921,11 +934,14 @@ _crypto_secretbox:                      # @_crypto_secretbox
 	movq	%rbx, %rcx
 	movq	%rsp, %r8
 	callq	_crypto_stream_salsa20_xor_ic
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, (%rsp)
 	leaq	16(%r15), %rdi
 	addq	$-32, %r14
 	leaq	32(%r15), %rsi
 	movq	%r14, %rdx
 	movq	%r15, %rcx
+	vzeroupper
 	callq	_crypto_onetimeauth_poly1305
 	vxorps	%xmm0, %xmm0, %xmm0
 	vmovups	%xmm0, (%r15)
@@ -943,12 +959,7 @@ _crypto_secretbox:                      # @_crypto_secretbox
 .Lfunc_end5:
 	.size	_crypto_secretbox, .Lfunc_end5-_crypto_secretbox
                                         # -- End function
-	.section	.rodata.cst32,"aM",@progbits,32
-	.p2align	5               # -- Begin function _crypto_secretbox_xsalsa20poly1305_open
-.LCPI6_0:
-	.zero	32
-	.text
-	.p2align	4, 0x90
+	.p2align	4, 0x90         # -- Begin function _crypto_secretbox_xsalsa20poly1305_open
 	.type	_crypto_secretbox_xsalsa20poly1305_open,@function
 _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_open
 # %bb.0:                                # %entry
@@ -1003,6 +1014,11 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	vmovaps	128(%rbx), %ymm0
 	vmovups	%ymm0, -32(%r14)
 	movq	56(%rbx), %r14          # 8-byte Reload
+	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 160(%rbx)
+	vmovaps	%ymm0, 128(%rbx)
+	vmovaps	%ymm0, 64(%rbx)
+	vmovaps	%ymm0, 96(%rbx)
 	leaq	-32(%r14), %rdx
 	leaq	32(%r12), %rsi
 	vxorps	%xmm0, %xmm0, %xmm0
@@ -1064,6 +1080,7 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	movq	%r15, %r8
 	callq	_crypto_stream_salsa20_xor_ic
 	vxorps	%xmm0, %xmm0, %xmm0
+	vmovaps	%ymm0, 64(%rbx)
 	vmovups	%ymm0, (%r14)
 	movb	$1, %r13b
 .LBB6_6:                                # %.loopexit
@@ -1092,6 +1109,28 @@ _crypto_secretbox_open:                 # @_crypto_secretbox_open
 	jmp	_crypto_secretbox_xsalsa20poly1305_open # TAILCALL
 .Lfunc_end7:
 	.size	_crypto_secretbox_open, .Lfunc_end7-_crypto_secretbox_open
+                                        # -- End function
+	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
+	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
+	.weak	__llvm_retpoline_r11
+	.p2align	4, 0x90
+	.type	__llvm_retpoline_r11,@function
+__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
+# %bb.0:                                # %entry
+	callq	.LBB8_2
+.LBB8_1:                                # Block address taken
+                                        # %entry
+                                        # =>This Inner Loop Header: Depth=1
+	pause
+	lfence
+	jmp	.LBB8_1
+	.p2align	4, 0x90
+.LBB8_2:                                # Block address taken
+                                        # %entry
+	movq	%r11, (%rsp)
+	retq
+.Lfunc_end8:
+	.size	__llvm_retpoline_r11, .Lfunc_end8-__llvm_retpoline_r11
                                         # -- End function
 
 	.section	".note.GNU-stack","",@progbits

@@ -528,5 +528,27 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	.size	__ssl3_cbc_digest_record, .Lfunc_end0-__ssl3_cbc_digest_record
 	.cfi_endproc
                                         # -- End function
+	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
+	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
+	.weak	__llvm_retpoline_r11
+	.p2align	4, 0x90
+	.type	__llvm_retpoline_r11,@function
+__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
+# %bb.0:                                # %entry
+	callq	.LBB1_2
+.LBB1_1:                                # Block address taken
+                                        # %entry
+                                        # =>This Inner Loop Header: Depth=1
+	pause
+	lfence
+	jmp	.LBB1_1
+	.p2align	4, 0x90
+.LBB1_2:                                # Block address taken
+                                        # %entry
+	movq	%r11, (%rsp)
+	retq
+.Lfunc_end1:
+	.size	__llvm_retpoline_r11, .Lfunc_end1-__llvm_retpoline_r11
+                                        # -- End function
 
 	.section	".note.GNU-stack","",@progbits

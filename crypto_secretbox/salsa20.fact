@@ -130,8 +130,8 @@ public int32 _crypto_stream_salsa20( // stream_ref in salsa20_ref.c
       cview[i] = block[i];
     }
   }
-  memzero(block);
-  memzero(kcopy);
+  smemzero(block);
+  smemzero(kcopy);
 
   return 0;
 }
@@ -181,7 +181,7 @@ public int32 _crypto_stream_salsa20_xor_ic( // stream_ref_xor_ic in salsa20_ref.
       cview[i] = mview[i] ^ block[i];
     }
   }
-  memzero(block);
-  memzero(kcopy);
+  smemzero(block);
+  smemzero(kcopy);
   return 0;
 }

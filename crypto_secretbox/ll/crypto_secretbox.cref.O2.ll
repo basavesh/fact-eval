@@ -4,9 +4,9 @@ source_filename = "Module"
 %poly1305_state_internal_t = type { [3 x i64], [3 x i64], [2 x i64], i64, [16 x i8], i8 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memzero[8]/secret"(i8* %dst, i64 %len) #0 {
+define internal void @"__smemzero[8]/secret"(i8* %dst, i64 %len) #0 {
 entry:
-  call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
+  call void @fact.smemset.i8(i8* %dst, i8 0, i64 %len)
   ret void
 }
 
@@ -14,10 +14,10 @@ entry:
 declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #1
 
 ; Function Attrs: alwaysinline
-define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
+define internal void @fact.smemset.i8(i8* %dst, i8 %n, i64 %len) #0 {
 entry:
   %0 = mul i64 %len, 1
-  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 false)
+  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 true)
   ret void
 }
 
@@ -38,18 +38,10 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memzero[64]/secret"(i64* %dst, i64 %len) #0 {
+define internal void @"__smemzero/poly1305_state_internal_t"(%poly1305_state_internal_t* %dst) #0 {
 entry:
-  call void @fact.memset.i64(i64* %dst, i8 0, i64 %len)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @fact.memset.i64(i64* %dst, i8 %n, i64 %len) #0 {
-entry:
-  %0 = bitcast i64* %dst to i8*
-  %1 = mul i64 %len, 8
-  call void @llvm.memset.p0i8.i64(i8* %0, i8 %n, i64 %1, i32 8, i1 false)
+  %0 = bitcast %poly1305_state_internal_t* %dst to i8*
+  call void @fact.smemset.i8(i8* %0, i8 0, i64 ptrtoint (%poly1305_state_internal_t* getelementptr (%poly1305_state_internal_t, %poly1305_state_internal_t* null, i32 1) to i64))
   ret void
 }
 
@@ -1010,12 +1002,12 @@ entry:
   %7 = getelementptr i8, i8* %6, i64 %__v108_start
   store i8 1, i8* %7
   %8 = add i64 %__v108_start, 1
-  br label %169
+  br label %159
 
 ; <label>:9:                                      ; preds = %entry
   br label %10
 
-; <label>:10:                                     ; preds = %9, %177
+; <label>:10:                                     ; preds = %9, %167
   %11 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
   %12 = bitcast [3 x i64]* %11 to i64*
   %13 = getelementptr i64, i64* %12, i64 0
@@ -1221,46 +1213,31 @@ entry:
   %157 = getelementptr i8, i8* %__v107_mac, i64 8
   %158 = load i64, i64* %__v113_h1
   call void @"__store[64]/secret_le"(i8* %157, i64 %158)
-  %159 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 0
-  %160 = bitcast [3 x i64]* %159 to i64*
-  call void @"__memzero[64]/secret"(i64* %160, i64 3)
-  %161 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
-  %162 = bitcast [3 x i64]* %161 to i64*
-  call void @"__memzero[64]/secret"(i64* %162, i64 3)
-  %163 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 2
-  %164 = bitcast [2 x i64]* %163 to i64*
-  call void @"__memzero[64]/secret"(i64* %164, i64 2)
-  %165 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 3
-  store i64 0, i64* %165
-  %166 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
-  %167 = bitcast [16 x i8]* %166 to i8*
-  call void @"__memzero[8]/secret"(i8* %167, i64 16)
-  %168 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
-  store i8 0, i8* %168
+  call void @"__smemzero/poly1305_state_internal_t"(%poly1305_state_internal_t* %__v106_state)
   ret void
 
-; <label>:169:                                    ; preds = %175, %3
-  %__v109_i = phi i64 [ %8, %3 ], [ %176, %175 ]
-  %170 = icmp ult i64 %__v109_i, 16
-  br i1 %170, label %171, label %177
+; <label>:159:                                    ; preds = %165, %3
+  %__v109_i = phi i64 [ %8, %3 ], [ %166, %165 ]
+  %160 = icmp ult i64 %__v109_i, 16
+  br i1 %160, label %161, label %167
 
-; <label>:171:                                    ; preds = %169
-  %172 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
-  %173 = bitcast [16 x i8]* %172 to i8*
-  %174 = getelementptr i8, i8* %173, i64 %__v109_i
-  store i8 0, i8* %174
-  br label %175
+; <label>:161:                                    ; preds = %159
+  %162 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %163 = bitcast [16 x i8]* %162 to i8*
+  %164 = getelementptr i8, i8* %163, i64 %__v109_i
+  store i8 0, i8* %164
+  br label %165
 
-; <label>:175:                                    ; preds = %171
-  %176 = add i64 %__v109_i, 1
-  br label %169
+; <label>:165:                                    ; preds = %161
+  %166 = add i64 %__v109_i, 1
+  br label %159
 
-; <label>:177:                                    ; preds = %169
-  %178 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
-  store i8 1, i8* %178
-  %179 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
-  %180 = bitcast [16 x i8]* %179 to i8*
-  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v106_state, i8* %180, i64 16)
+; <label>:167:                                    ; preds = %159
+  %168 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
+  store i8 1, i8* %168
+  %169 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %170 = bitcast [16 x i8]* %169 to i8*
+  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v106_state, i8* %170, i64 16)
   br label %10
 }
 
@@ -1514,6 +1491,15 @@ entry:
   ret i32 0
 }
 
+; Function Attrs: alwaysinline
+define internal void @fact.memset.i64(i64* %dst, i8 %n, i64 %len) #0 {
+entry:
+  %0 = bitcast i64* %dst to i8*
+  %1 = mul i64 %len, 8
+  call void @llvm.memset.p0i8.i64(i8* %0, i8 %n, i64 %1, i32 8, i1 false)
+  ret void
+}
+
 ; Function Attrs: argmemonly nounwind
 declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #1
 
@@ -1524,6 +1510,14 @@ entry:
   %1 = bitcast i64* %src to i8*
   %2 = mul i64 %len, 8
   call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 %2, i32 8, i1 false)
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
+entry:
+  %0 = mul i64 %len, 1
+  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 false)
   ret void
 }
 
@@ -1777,8 +1771,8 @@ entry:
   br label %63
 
 ; <label>:63:                                     ; preds = %62, %75
-  call void @"__memzero[8]/secret"(i8* %__v67_block, i64 64)
-  call void @"__memzero[8]/secret"(i8* %__v62_kcopy, i64 32)
+  call void @"__smemzero[8]/secret"(i8* %__v67_block, i64 64)
+  call void @"__smemzero[8]/secret"(i8* %__v62_kcopy, i64 32)
   ret i32 0
 
 ; <label>:64:                                     ; preds = %73, %60
@@ -1816,7 +1810,7 @@ entry:
   call void @_crypto_core_hsalsa20(i8* %__v53_subkey, i8* %0, i8* %__v52_k)
   %__v54_tmp = getelementptr i8, i8* %__v50_n, i64 16
   %__v55_ret = call i32 @_crypto_stream_salsa20_xor_ic(i8* %__v48_c, i64 %__v217___v48_c_len, i8* %__v49_m, i64 %__v218___v49_m_len, i8* %__v54_tmp, i64 %__v51_ic, i8* %__v53_subkey)
-  call void @"__memzero[8]/secret"(i8* %__v53_subkey, i64 32)
+  call void @"__smemzero[8]/secret"(i8* %__v53_subkey, i64 32)
   ret i32 %__v55_ret
 }
 
@@ -1999,8 +1993,8 @@ entry:
   br label %47
 
 ; <label>:47:                                     ; preds = %46, %56
-  call void @"__memzero[8]/secret"(i8* %__v28_block, i64 64)
-  call void @"__memzero[8]/secret"(i8* %__v21_kcopy, i64 32)
+  call void @"__smemzero[8]/secret"(i8* %__v28_block, i64 64)
+  call void @"__smemzero[8]/secret"(i8* %__v21_kcopy, i64 32)
   ret i32 0
 
 ; <label>:48:                                     ; preds = %54, %41
@@ -2037,7 +2031,7 @@ entry:
   call void @_crypto_core_hsalsa20(i8* %__v16_subkey, i8* %0, i8* %__v15_k)
   %1 = getelementptr i8, i8* %__v14_n, i64 16
   %__v17_ret = call i32 @_crypto_stream_salsa20(i8* %__v13_c, i64 %__v209___v13_c_len, i8* %1, i8* %__v16_subkey)
-  call void @"__memzero[8]/secret"(i8* %__v16_subkey, i64 32)
+  call void @"__smemzero[8]/secret"(i8* %__v16_subkey, i64 32)
   ret i32 %__v17_ret
 }
 
