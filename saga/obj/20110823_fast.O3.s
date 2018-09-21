@@ -142,10 +142,10 @@ SHA1_Final_secret:                      # @SHA1_Final_secret
 	vmovups	(%r12), %xmm0
 	vmovups	%xmm0, (%rbx)
 .LBB0_7:                                # %.us-lcssa.us
+	movl	$0, 92(%rbx)
 	vxorps	%xmm0, %xmm0, %xmm0
 	vmovups	%ymm0, 32(%r15)
 	vmovups	%ymm0, (%r15)
-	movl	$0, 64(%r15)
 	movl	(%rbx), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
@@ -757,10 +757,10 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	%r13, %rdi
 	movq	%r12, %rsi
 	callq	sha1_block_data_order
+	movl	$0, 528(%rbx)
 	vxorps	%xmm0, %xmm0, %xmm0
 	vmovups	%ymm0, 32(%r12)
 	vmovups	%ymm0, (%r12)
-	movl	$0, 64(%r12)
 	movl	436(%rbx), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx

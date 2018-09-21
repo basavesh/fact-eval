@@ -33,14 +33,29 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memzero[8]/secret"(i8* %dst, i64 %len) #0 {
+define internal void @"__smemzero[8]/secret"(i8* %dst, i64 %len) #0 {
 entry:
-  call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
+  call void @fact.smemset.i8(i8* %dst, i8 0, i64 %len)
   ret void
 }
 
 ; Function Attrs: argmemonly nounwind
 declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #1
+
+; Function Attrs: alwaysinline
+define internal void @fact.smemset.i8(i8* %dst, i8 %n, i64 %len) #0 {
+entry:
+  %0 = mul i64 %len, 1
+  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 true)
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal void @"__memzero[8]/secret"(i8* %dst, i64 %len) #0 {
+entry:
+  call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
+  ret void
+}
 
 ; Function Attrs: alwaysinline
 define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
@@ -215,7 +230,7 @@ entry:
   store i32 0, i32* %52
   %53 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %__v89_ctx, i32 0, i32 3
   %54 = bitcast [64 x i8]* %53 to i8*
-  call void @"__memzero[8]/secret"(i8* %54, i64 64)
+  call void @"__smemzero[8]/secret"(i8* %54, i64 64)
   call void @SHA1_MAKE_STRING(%SHA_CTX* %__v89_ctx, i8* %__v88_out)
   ret void
 }
@@ -372,7 +387,7 @@ entry:
   store i32 0, i32* %91
   %92 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %__v80_ctx, i32 0, i32 3
   %93 = bitcast [64 x i8]* %92 to i8*
-  call void @"__memzero[8]/secret"(i8* %93, i64 64)
+  call void @"__smemzero[8]/secret"(i8* %93, i64 64)
   call void @SHA1_MAKE_STRING(%SHA_CTX* %__v80_ctx, i8* %__v79_out)
   ret void
 }
@@ -462,7 +477,7 @@ entry:
   store i32 0, i32* %26
   %27 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %__v60_ctx, i32 0, i32 3
   %28 = bitcast [64 x i8]* %27 to i8*
-  call void @"__memzero[8]/secret"(i8* %28, i64 64)
+  call void @"__smemzero[8]/secret"(i8* %28, i64 64)
   call void @SHA1_MAKE_STRING(%SHA_CTX* %__v60_ctx, i8* %__v63_out)
   ret void
 

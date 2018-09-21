@@ -1,8 +1,8 @@
 	.text
 	.file	"Module"
-	.p2align	4, 0x90         # -- Begin function __memzero[8]/secret
-	.type	"__memzero[8]/secret",@function
-"__memzero[8]/secret":                  # @"__memzero[8]/secret"
+	.p2align	4, 0x90         # -- Begin function __smemzero[8]/secret
+	.type	"__smemzero[8]/secret",@function
+"__smemzero[8]/secret":                 # @"__smemzero[8]/secret"
 	.cfi_startproc
 # %bb.0:                                # %entry
 	subq	$24, %rsp
@@ -16,7 +16,7 @@
 	addq	$24, %rsp
 	retq
 .Lfunc_end0:
-	.size	"__memzero[8]/secret", .Lfunc_end0-"__memzero[8]/secret"
+	.size	"__smemzero[8]/secret", .Lfunc_end0-"__smemzero[8]/secret"
 	.cfi_endproc
                                         # -- End function
 	.p2align	4, 0x90         # -- Begin function SHA1_MAKE_STRING
@@ -654,7 +654,7 @@ SHA1_Update_Final_secret:               # @SHA1_Update_Final_secret
 	movl	$64, %ecx
 	movl	%ecx, %esi
 	movq	%rax, %rdi
-	callq	"__memzero[8]/secret"
+	callq	"__smemzero[8]/secret"
 	movq	-56(%rbp), %rdi         # 8-byte Reload
 	movq	-64(%rbp), %rsi         # 8-byte Reload
 	callq	SHA1_MAKE_STRING

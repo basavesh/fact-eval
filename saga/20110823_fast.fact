@@ -207,7 +207,7 @@ SHA1_Final_public(
 
   sha1_block_data_order(ctx, ctx.data, 1);
   ctx.num = 0;
-  memzero(ctx.data);
+  smemzero(ctx.data);
 
   SHA1_MAKE_STRING(ctx, out);
 }
@@ -256,7 +256,7 @@ SHA1_Final_secret(
   }
 
   ctx.num = 0;
-  memzero(ctx.data);
+  smemzero(ctx.data);
 
   SHA1_MAKE_STRING(ctx, out);
 }
@@ -314,7 +314,7 @@ SHA1_Update_Final_secret(
   }
 
   ctx.num = 0;
-  memzero(ctx.data);
+  smemzero(ctx.data);
 
   SHA1_MAKE_STRING(ctx, out);
 }
