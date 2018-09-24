@@ -104,18 +104,6 @@ store16_be(secret mut uint8[2] buf, secret uint16 n) {
   buf[1] = uint8(n);
 }
 
-// XXX store_le should be able to be used (properly!) within a secret context
-inline
-void
-cond_store(
-    secret mut uint8[4] pmac,
-    secret uint32 val,
-    secret bool mask) {
-  secret uint32 pmac_val = load_le(pmac);
-  secret uint32 sval = mask ? val : pmac_val;
-  store_le(pmac, sval);
-}
-
 /**
  * Implementer's notes:
  *   Assuming only decrypt path
@@ -231,14 +219,17 @@ _aesni_cbc_hmac_sha1_cipher(
     if (p_res == SHA_CBLOCK) {
       /* j is not incremented yet */
       secret bool m1 = inp_len + 7 < j;
-      cond_store(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen, m1);
+      if (m1) {
+        store_le(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen);
+      }
       sha1_block_data_order(key.md, key.md.data, 1);
-      secret bool m2 = m1 && (j < inp_len + 72);
-      cond_store(view(pmac, 0 , 4), key.md.h[0], m2);
-      cond_store(view(pmac, 4 , 4), key.md.h[1], m2);
-      cond_store(view(pmac, 8 , 4), key.md.h[2], m2);
-      cond_store(view(pmac, 12, 4), key.md.h[3], m2);
-      cond_store(view(pmac, 16, 4), key.md.h[4], m2);
+      if (m1 && (j < inp_len + 72)) {
+        store_le(view(pmac, 0 , 4), key.md.h[0]);
+        store_le(view(pmac, 4 , 4), key.md.h[1]);
+        store_le(view(pmac, 8 , 4), key.md.h[2]);
+        store_le(view(pmac, 12, 4), key.md.h[3]);
+        store_le(view(pmac, 16, 4), key.md.h[4]);
+      }
       p_res = 0;
     }
   }
@@ -251,14 +242,17 @@ _aesni_cbc_hmac_sha1_cipher(
 
   if (p_res > SHA_CBLOCK - 8) {
     secret bool m1 = inp_len + 8 < j;
-    cond_store(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen, m1);
+    if (m1) {
+      store_le(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen);
+    }
     sha1_block_data_order(key.md, key.md.data, 1);
-    secret bool m2 = m1 && (j < inp_len + 73);
-    cond_store(view(pmac, 0 , 4), key.md.h[0], m2);
-    cond_store(view(pmac, 4 , 4), key.md.h[1], m2);
-    cond_store(view(pmac, 8 , 4), key.md.h[2], m2);
-    cond_store(view(pmac, 12, 4), key.md.h[3], m2);
-    cond_store(view(pmac, 16, 4), key.md.h[4], m2);
+    if (m1 && (j < inp_len + 73)) {
+      store_le(view(pmac, 0 , 4), key.md.h[0]);
+      store_le(view(pmac, 4 , 4), key.md.h[1]);
+      store_le(view(pmac, 8 , 4), key.md.h[2]);
+      store_le(view(pmac, 12, 4), key.md.h[3]);
+      store_le(view(pmac, 16, 4), key.md.h[4]);
+    }
 
     memzero(key.md.data);
     j += 64;
@@ -266,12 +260,13 @@ _aesni_cbc_hmac_sha1_cipher(
   // NOTE: block is purely because I don't want to rename `mask`
   store_le(view(key.md.data, 4*(SHA_LBLOCK - 1), 4), bitlen);
   sha1_block_data_order(key.md, key.md.data, 1);
-  secret bool m2 = j < inp_len + 73;
-  cond_store(view(pmac, 0 , 4), key.md.h[0], m2);
-  cond_store(view(pmac, 4 , 4), key.md.h[1], m2);
-  cond_store(view(pmac, 8 , 4), key.md.h[2], m2);
-  cond_store(view(pmac, 12, 4), key.md.h[3], m2);
-  cond_store(view(pmac, 16, 4), key.md.h[4], m2);
+  if(j < inp_len + 73) {
+    store_le(view(pmac, 0 , 4), key.md.h[0]);
+    store_le(view(pmac, 4 , 4), key.md.h[1]);
+    store_le(view(pmac, 8 , 4), key.md.h[2]);
+    store_le(view(pmac, 12, 4), key.md.h[3]);
+    store_le(view(pmac, 16, 4), key.md.h[4]);
+  }
 
   store_le(view(pmac, 0 , 4), bswap4(load_le(view(pmac, 0 , 4))));
   store_le(view(pmac, 4 , 4), bswap4(load_le(view(pmac, 4 , 4))));

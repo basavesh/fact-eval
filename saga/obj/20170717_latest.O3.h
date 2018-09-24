@@ -39,9 +39,9 @@ struct evp_cipher_ctx_st;
   /*secret*/ uint8_t __v1_iv[16],
   struct EVP_AES_HMAC_SHA1 * __v2_key,
   /*secret*/ uint8_t __v3__out[],
-  /*public*/ uint64_t __v77___v3__out_len,
+  /*public*/ uint64_t __v69___v3__out_len,
   const /*secret*/ uint8_t __v4__in[],
-  /*public*/ uint64_t __v78___v4__in_len,
+  /*public*/ uint64_t __v70___v4__in_len,
   /*public*/ uint64_t __v5_plen,
   /*public*/ uint16_t __v6_tls_ver);
 
@@ -51,8 +51,6 @@ struct evp_cipher_ctx_st;
 
 
 
-/* cond_store is an internal function */
-
 /* bswap4 is an internal function */
 
 
@@ -60,6 +58,8 @@ struct evp_cipher_ctx_st;
 
 
 /* load16_be is an internal function */
+
+
 
 
 
