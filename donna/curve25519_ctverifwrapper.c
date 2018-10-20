@@ -1,32 +1,17 @@
-#include "ct-verif.h"
+#include "ctverif.h"
 #include <stdint.h>
-#include "curve25519.h"
+#include "curve25519-c64.h"
 
-int _curve25519_donna_wrapper(
-  /*secret*/ uint8_t mypublic[],
-  /*public*/ uint32_t __mypublic_len,
-  /*secret*/ const uint8_t _secret[],
-  /*public*/ uint32_t ___secret_len,
-  /*secret*/ const uint8_t basepoint[],
-  /*public*/ uint32_t __basepoint_len)
-{
-    // addresses are always public
-    public_in(__SMACK_value(mypublic));
-    public_in(__SMACK_value(_secret));
-    public_in(__SMACK_value(basepoint));
+/*public*/ int32_t curve25519_donna_wrapper(
+  /*secret*/ uint8_t __v1_mypublic[32],
+  const /*secret*/ uint8_t __v2__secret[32],
+  const /*secret*/ uint8_t __v3_basepoint[32]) {
 
-    // public values
-    public_in(__SMACK_value(__mypublic_len));
-    public_in(__SMACK_value(___secret_len));
-    public_in(__SMACK_value(__basepoint_len));
+    public_in(__SMACK_value(__v1_mypublic));
+    public_in(__SMACK_value(__v2__secret));
+    public_in(__SMACK_value(__v3_basepoint));
 
-    // no public array contents
-
-    return _curve25519_donna(
-        mypublic, 
-        __mypublic_len, 
-        _secret,
-        ___secret_len,
-        basepoint,
-        __basepoint_len);
+    return curve25519_donna(__v1_mypublic,__v2__secret,__v3_basepoint);
 }
+    
+
