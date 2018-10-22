@@ -16,3 +16,6 @@ generate:
 	$(FACTC) $(_FACT_OPTS) -fpic bignum.fact -o bignum.fpic.o
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
+
+ctverify:
+	$(VERIFSH) _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c obj/bignum.h ll/bignum.ll
