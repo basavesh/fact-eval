@@ -11,3 +11,7 @@ generate:
 	$(FACTC) -llvm-out -generate-header -opt O3 20110823_fast.fact -o 20110823_fast.O3.o
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
+
+ctverify:
+	$(VERIFSH) _aesni_cbc_hmac_sha1_cipher_wrapper 20170717_latest_ctverifwrapper.c obj/20170717_latest.h ll/20170717_latest.ll 20170717_latest_stub.c
+
