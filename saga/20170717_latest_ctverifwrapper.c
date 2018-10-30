@@ -22,11 +22,13 @@ typedef struct SHAstate_st {
 struct EVP_AES_HMAC_SHA1 {
     AES_KEY ks;
     SHA_CTX head, tail, md;
-    /*pub*/ size_t payload_length;      /* AAD length in decrypt case */
-    union {
-        unsigned int tls_ver;
-        /*sec*/ unsigned char tls_aad[16]; /* 13 used */
-    } aux;
+    ///*pub*/ size_t payload_length;      /* AAD length in decrypt case */
+    /*pub*/ uint64_t payload_length;      /* AAD length in decrypt case */
+    //union {
+    //    unsigned int tls_ver;
+    //    /*sec*/ unsigned char tls_aad[16]; /* 13 used */
+        /*sec*/ uint8_t tls_aad[16]; /* 13 used */
+    //} aux;
 };
 
 /*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher_wrapper(
@@ -68,6 +70,44 @@ struct EVP_AES_HMAC_SHA1 {
 
     // TODO: declassify
 
+    // TODO: assumes in fact code? how do we handle if two branches have different assumes?
+/*
+FaCT        || C
+iv          == __v1_iv
+    len iv  == 16
+key         == __v2_key
+_out        == __v3__out
+len _out    == __v69___v3__out_len
+_in         == __v4__in
+len _in     == __v70___v4__in_len
+plen        == __v5_plen
+tls_ver     == __v6_tls_ver
+
+Assumes in FaCT code...
+assume(len _in >= len iv);
+assume(len _in == len _out);
+assume(plen >= 2 && plen < 16);
+assume(inp + _len == len _in);
+assume(outp + _len == len _out);
+assume(inp + _len >= inp);
+assume(outp + _len >= inp);
+assume(j <= _len);
+assume(p_res < len key.md.data);
+assume(p_outp + j < len _out);
+assume(i < len pmac);
+*/
+    assume(__v70___v4__in_len >= 16);
+    assume(__v70___v4__in_len == __v69___v3__out_len);
+    assume(__v5_plen >= 2 && __v5_plen < 16);
+    //assume(inp + _len == __v70___v4__in_len);
+    //assume(outp + _len == __v69___v3__out_len);
+    //assume(inp + _len >= inp);
+    //assume(outp + _len >= inp);
+    //assume(j <= _len);
+    //assume(p_res < len key.md.data);
+    //assume(p_outp + j < __v69___v3__out_len);
+    //assume(i < len pmac);
+   
     return _aesni_cbc_hmac_sha1_cipher(
         __v1_iv,
         __v2_key,
