@@ -1,7 +1,6 @@
 #include "ctverif.h"
 #include <stdint.h>
 #include <stddef.h>
-#include "20170717_latest.h"
 
 # define AES_MAXNR 14
 struct aes_key_st {
@@ -22,14 +21,22 @@ typedef struct SHAstate_st {
 struct EVP_AES_HMAC_SHA1 {
     AES_KEY ks;
     SHA_CTX head, tail, md;
-    ///*pub*/ size_t payload_length;      /* AAD length in decrypt case */
-    /*pub*/ uint64_t payload_length;      /* AAD length in decrypt case */
-    //union {
-    //    unsigned int tls_ver;
-    //    /*sec*/ unsigned char tls_aad[16]; /* 13 used */
-        /*sec*/ uint8_t tls_aad[16]; /* 13 used */
-    //} aux;
+    /*pub*/ size_t payload_length;      /* AAD length in decrypt case */
+    union {
+        unsigned int tls_ver;
+        /*sec*/ unsigned char tls_aad[16]; /* 13 used */
+    } aux;
 };
+
+/*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher(
+  /*secret*/ uint8_t __v1_iv[16],
+  struct EVP_AES_HMAC_SHA1 * __v2_key,
+  /*secret*/ uint8_t __v3__out[],
+  /*public*/ uint64_t __v85___v3__out_len,
+  const /*secret*/ uint8_t __v4__in[],
+  /*public*/ uint64_t __v86___v4__in_len,
+  /*public*/ uint64_t __v5_plen,
+  /*public*/ uint16_t __v6_tls_ver);
 
 /*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher_wrapper(
   /*secret*/ uint8_t __v1_iv[16],

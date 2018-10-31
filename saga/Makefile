@@ -13,5 +13,8 @@ generate:
 	mv *.bc *.ll ll/
 
 ctverify:
-	$(VERIFSH) _aesni_cbc_hmac_sha1_cipher_wrapper 20170717_latest_ctverifwrapper.c obj/20170717_latest.h ll/20170717_latest.ll 20170717_latest_stub.c
+	# TODO: In VERIFSH, fail if ctverif doesn't succeed
+	$(VERIFSH) _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20170717_latest.ll
+	$(VERIFSH) _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20170717_latest_raw.ll
+	$(VERIFSH) _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20110823_fast.ll
 
