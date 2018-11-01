@@ -48,36 +48,8 @@ struct EVP_AES_HMAC_SHA1 {
   /*public*/ uint64_t __v5_plen,
   /*public*/ uint32_t __v6_tls_ver) { //actually a uint16_t, but that gives ctverif errors
 
-    // disjoint regs: __v1_iv, __v2_key, __v3__out, __v4__in
-    __disjoint_regions(__v1_iv,16,__v2_key,1);
-    __disjoint_regions(__v1_iv,16,__v3__out,__v69___v3__out_len);
-    __disjoint_regions(__v1_iv,16,__v4__in,__v70___v4__in_len);
-    __disjoint_regions(__v2_key,1,__v3__out,__v69___v3__out_len);
-    __disjoint_regions(__v2_key,1,__v4__in,__v70___v4__in_len);
-    __disjoint_regions(__v3__out,__v69___v3__out_len,__v4__in,__v70___v4__in_len);
-
-    // pointers are public
-    public_in(__SMACK_value(__v1_iv));
-    public_in(__SMACK_value(__v2_key));
-    public_in(__SMACK_value(__v3__out));
-    public_in(__SMACK_value(__v4__in));
-
-    // public vals are public
-    public_in(__SMACK_value(__v69___v3__out_len));
-    public_in(__SMACK_value(__v70___v4__in_len));
-    public_in(__SMACK_value(__v5_plen));
-    public_in(__SMACK_value(__v6_tls_ver));
-
-    // struct fields --- pointers and public vals are public
-    public_in(__SMACK_value(__v2_key->ks.rounds));
-    public_in(__SMACK_value(__v2_key->head.num));
-    public_in(__SMACK_value(__v2_key->tail.num));
-    public_in(__SMACK_value(__v2_key->md.num));
-    public_in(__SMACK_value(__v2_key->payload_length));
-
-    // TODO: declassify
-
-    // TODO: assumes in fact code? how do we handle if two branches have different assumes?
+    // assumes in fact code
+    // TODO: how do we handle if two branches have different assumes?
 /*
 FaCT        || C
 iv          == __v1_iv
@@ -114,7 +86,43 @@ assume(i < len pmac);
     //assume(p_res < len key.md.data);
     //assume(p_outp + j < __v69___v3__out_len);
     //assume(i < len pmac);
-   
+
+    // disjoint regs: __v1_iv, __v2_key, __v3__out, __v4__in
+    __disjoint_regions(__v1_iv,16,__v2_key,1);
+    __disjoint_regions(__v1_iv,16,__v3__out,__v69___v3__out_len);
+    __disjoint_regions(__v1_iv,16,__v4__in,__v70___v4__in_len);
+    __disjoint_regions(__v2_key,1,__v3__out,__v69___v3__out_len);
+    __disjoint_regions(__v2_key,1,__v4__in,__v70___v4__in_len);
+    __disjoint_regions(__v3__out,__v69___v3__out_len,__v4__in,__v70___v4__in_len);
+
+    // pointers are public
+    public_in(__SMACK_value(__v1_iv));
+    public_in(__SMACK_value(__v2_key));
+    public_in(__SMACK_value(__v3__out));
+    public_in(__SMACK_value(__v4__in));
+
+    // public vals are public
+    public_in(__SMACK_value(__v69___v3__out_len));
+    public_in(__SMACK_value(__v70___v4__in_len));
+    public_in(__SMACK_value(__v5_plen));
+    public_in(__SMACK_value(__v6_tls_ver));
+
+    // struct fields --- pointers and public vals are public
+    public_in(__SMACK_value(__v2_key->ks.rounds));
+    public_in(__SMACK_value(__v2_key->head.num));
+    public_in(__SMACK_value(__v2_key->tail.num));
+    public_in(__SMACK_value(__v2_key->md.num));
+    public_in(__SMACK_value(__v2_key->payload_length));
+
+    /* declassify
+     * TODO: There is not a great way of doing this, because ctverif has some limitations...
+     * a) __SMACK_values does not handle non-constant size expressions, so we're assuming length == 400 (smaller lengths make it immediately ctverify because of early returns)
+     * b) declassification is only for outputs, i.e. "a secret is being written here, but it's okay". However we want to declassify a local variable that's derived from an input. Since the variable is not an output, the closest thing we can do is say that the secret input it's derived from is public.
+    */
+    //assume(__v69___v3__out_len == 400);
+    //public_in(__SMACK_values(&__v3__out[399], 1));
+    //declassified_out(__SMACK_return_value());
+  
     return _aesni_cbc_hmac_sha1_cipher(
         __v1_iv,
         __v2_key,
