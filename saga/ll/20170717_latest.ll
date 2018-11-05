@@ -6,7 +6,7 @@ source_filename = "Module"
 %AES_KEY = type { [60 x i32], i32 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memcpy[8]/secret"(i8* %dst, i8* %src, i64 %len) #0 {
+define internal void @"__memcpy[8]_secret"(i8* %dst, i8* %src, i64 %len) #0 {
 entry:
   call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
   ret void
@@ -24,7 +24,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memcpy/SHA_CTX"(%SHA_CTX* %dst, %SHA_CTX* %src) #0 {
+define internal void @__memcpy_SHA_CTX(%SHA_CTX* %dst, %SHA_CTX* %src) #0 {
 entry:
   %0 = bitcast %SHA_CTX* %dst to i8*
   %1 = bitcast %SHA_CTX* %src to i8*
@@ -33,7 +33,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__store[32]/secret/oblivious_le"(i8* %dst, i32 %value, i1 %fctx) #0 {
+define internal void @"__store[32]_secret_oblivious_le"(i8* %dst, i32 %value, i1 %fctx) #0 {
 entry:
   %0 = bitcast i8* %dst to i32*
   %1 = load i32, i32* %0
@@ -50,7 +50,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memzero[8]/secret"(i8* %dst, i64 %len) #0 {
+define internal void @"__memzero[8]_secret"(i8* %dst, i64 %len) #0 {
 entry:
   call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
   ret void
@@ -68,7 +68,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__store[32]/secret_le"(i8* %dst, i32 %value) #0 {
+define internal void @"__store[32]_secret_le"(i8* %dst, i32 %value) #0 {
 entry:
   %0 = bitcast i8* %dst to i32*
   store i32 %value, i32* %0
@@ -76,7 +76,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal i32 @"__load[32]/secret_le"(i8* %src) #0 {
+define internal i32 @"__load[32]_secret_le"(i8* %src) #0 {
 entry:
   %0 = bitcast i8* %src to i32*
   %1 = load i32, i32* %0
@@ -232,7 +232,7 @@ entry:
   call void @store16_be(i8* %40, i16 %42)
   %43 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %44 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 1
-  call void @"__memcpy/SHA_CTX"(%SHA_CTX* %43, %SHA_CTX* %44)
+  call void @__memcpy_SHA_CTX(%SHA_CTX* %43, %SHA_CTX* %44)
   %45 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %46 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %45, i32 0, i32 0
   %47 = bitcast [5 x i32]* %46 to i32*
@@ -256,7 +256,7 @@ entry:
 
 ; <label>:58:                                     ; preds = %57
   %59 = getelementptr i8, i8* %__v4__in, i64 0
-  call void @"__memcpy[8]/secret"(i8* %__v1_iv, i8* %59, i64 16)
+  call void @"__memcpy[8]_secret"(i8* %__v1_iv, i8* %59, i64 16)
   %60 = load i32, i32* %__v13_inp
   %61 = add i32 %60, 16
   store i32 %61, i32* %__v13_inp
@@ -379,7 +379,7 @@ entry:
   %134 = bitcast [64 x i8]* %133 to i8*
   %135 = getelementptr i8, i8* %134, i64 60
   %136 = and i1 true, %__m17
-  call void @"__store[32]/secret/oblivious_le"(i8* %135, i32 %__v22_bitlen, i1 %136)
+  call void @"__store[32]_secret_oblivious_le"(i8* %135, i32 %__v22_bitlen, i1 %136)
   %__m18 = xor i1 %__m17, true
   %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %138 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -397,7 +397,7 @@ entry:
   %148 = getelementptr i32, i32* %147, i64 0
   %149 = load i32, i32* %148
   %150 = and i1 true, %__m19
-  call void @"__store[32]/secret/oblivious_le"(i8* %144, i32 %149, i1 %150)
+  call void @"__store[32]_secret_oblivious_le"(i8* %144, i32 %149, i1 %150)
   %151 = getelementptr i8, i8* %__v23_pmac, i64 4
   %152 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %153 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %152, i32 0, i32 0
@@ -405,7 +405,7 @@ entry:
   %155 = getelementptr i32, i32* %154, i64 1
   %156 = load i32, i32* %155
   %157 = and i1 true, %__m19
-  call void @"__store[32]/secret/oblivious_le"(i8* %151, i32 %156, i1 %157)
+  call void @"__store[32]_secret_oblivious_le"(i8* %151, i32 %156, i1 %157)
   %158 = getelementptr i8, i8* %__v23_pmac, i64 8
   %159 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %160 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %159, i32 0, i32 0
@@ -413,7 +413,7 @@ entry:
   %162 = getelementptr i32, i32* %161, i64 2
   %163 = load i32, i32* %162
   %164 = and i1 true, %__m19
-  call void @"__store[32]/secret/oblivious_le"(i8* %158, i32 %163, i1 %164)
+  call void @"__store[32]_secret_oblivious_le"(i8* %158, i32 %163, i1 %164)
   %165 = getelementptr i8, i8* %__v23_pmac, i64 12
   %166 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %167 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %166, i32 0, i32 0
@@ -421,7 +421,7 @@ entry:
   %169 = getelementptr i32, i32* %168, i64 3
   %170 = load i32, i32* %169
   %171 = and i1 true, %__m19
-  call void @"__store[32]/secret/oblivious_le"(i8* %165, i32 %170, i1 %171)
+  call void @"__store[32]_secret_oblivious_le"(i8* %165, i32 %170, i1 %171)
   %172 = getelementptr i8, i8* %__v23_pmac, i64 16
   %173 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %174 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %173, i32 0, i32 0
@@ -429,7 +429,7 @@ entry:
   %176 = getelementptr i32, i32* %175, i64 4
   %177 = load i32, i32* %176
   %178 = and i1 true, %__m19
-  call void @"__store[32]/secret/oblivious_le"(i8* %172, i32 %177, i1 %178)
+  call void @"__store[32]_secret_oblivious_le"(i8* %172, i32 %177, i1 %178)
   %__m20 = xor i1 %__m19, true
   store i32 0, i32* %__v24_p_res
   br label %180
@@ -476,7 +476,7 @@ entry:
   %201 = bitcast [64 x i8]* %200 to i8*
   %202 = getelementptr i8, i8* %201, i64 60
   %203 = and i1 true, %__m13
-  call void @"__store[32]/secret/oblivious_le"(i8* %202, i32 %__v22_bitlen, i1 %203)
+  call void @"__store[32]_secret_oblivious_le"(i8* %202, i32 %__v22_bitlen, i1 %203)
   %__m14 = xor i1 %__m13, true
   %204 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %205 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -495,7 +495,7 @@ entry:
   %216 = getelementptr i32, i32* %215, i64 0
   %217 = load i32, i32* %216
   %218 = and i1 true, %__m15
-  call void @"__store[32]/secret/oblivious_le"(i8* %212, i32 %217, i1 %218)
+  call void @"__store[32]_secret_oblivious_le"(i8* %212, i32 %217, i1 %218)
   %219 = getelementptr i8, i8* %__v23_pmac, i64 4
   %220 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %221 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %220, i32 0, i32 0
@@ -503,7 +503,7 @@ entry:
   %223 = getelementptr i32, i32* %222, i64 1
   %224 = load i32, i32* %223
   %225 = and i1 true, %__m15
-  call void @"__store[32]/secret/oblivious_le"(i8* %219, i32 %224, i1 %225)
+  call void @"__store[32]_secret_oblivious_le"(i8* %219, i32 %224, i1 %225)
   %226 = getelementptr i8, i8* %__v23_pmac, i64 8
   %227 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %228 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %227, i32 0, i32 0
@@ -511,7 +511,7 @@ entry:
   %230 = getelementptr i32, i32* %229, i64 2
   %231 = load i32, i32* %230
   %232 = and i1 true, %__m15
-  call void @"__store[32]/secret/oblivious_le"(i8* %226, i32 %231, i1 %232)
+  call void @"__store[32]_secret_oblivious_le"(i8* %226, i32 %231, i1 %232)
   %233 = getelementptr i8, i8* %__v23_pmac, i64 12
   %234 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %235 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %234, i32 0, i32 0
@@ -519,7 +519,7 @@ entry:
   %237 = getelementptr i32, i32* %236, i64 3
   %238 = load i32, i32* %237
   %239 = and i1 true, %__m15
-  call void @"__store[32]/secret/oblivious_le"(i8* %233, i32 %238, i1 %239)
+  call void @"__store[32]_secret_oblivious_le"(i8* %233, i32 %238, i1 %239)
   %240 = getelementptr i8, i8* %__v23_pmac, i64 16
   %241 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %242 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %241, i32 0, i32 0
@@ -527,12 +527,12 @@ entry:
   %244 = getelementptr i32, i32* %243, i64 4
   %245 = load i32, i32* %244
   %246 = and i1 true, %__m15
-  call void @"__store[32]/secret/oblivious_le"(i8* %240, i32 %245, i1 %246)
+  call void @"__store[32]_secret_oblivious_le"(i8* %240, i32 %245, i1 %246)
   %__m16 = xor i1 %__m15, true
   %247 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %248 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %247, i32 0, i32 3
   %249 = bitcast [64 x i8]* %248 to i8*
-  call void @"__memzero[8]/secret"(i8* %249, i64 64)
+  call void @"__memzero[8]_secret"(i8* %249, i64 64)
   %250 = load i32, i32* %__v27_j
   %251 = add i32 %250, 64
   store i32 %251, i32* %__v27_j
@@ -546,7 +546,7 @@ entry:
   %255 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %254, i32 0, i32 3
   %256 = bitcast [64 x i8]* %255 to i8*
   %257 = getelementptr i8, i8* %256, i64 60
-  call void @"__store[32]/secret_le"(i8* %257, i32 %__v22_bitlen)
+  call void @"__store[32]_secret_le"(i8* %257, i32 %__v22_bitlen)
   %258 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %259 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %260 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %259, i32 0, i32 3
@@ -563,7 +563,7 @@ entry:
   %269 = getelementptr i32, i32* %268, i64 0
   %270 = load i32, i32* %269
   %271 = and i1 true, %__m3
-  call void @"__store[32]/secret/oblivious_le"(i8* %265, i32 %270, i1 %271)
+  call void @"__store[32]_secret_oblivious_le"(i8* %265, i32 %270, i1 %271)
   %272 = getelementptr i8, i8* %__v23_pmac, i64 4
   %273 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %274 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %273, i32 0, i32 0
@@ -571,7 +571,7 @@ entry:
   %276 = getelementptr i32, i32* %275, i64 1
   %277 = load i32, i32* %276
   %278 = and i1 true, %__m3
-  call void @"__store[32]/secret/oblivious_le"(i8* %272, i32 %277, i1 %278)
+  call void @"__store[32]_secret_oblivious_le"(i8* %272, i32 %277, i1 %278)
   %279 = getelementptr i8, i8* %__v23_pmac, i64 8
   %280 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %281 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %280, i32 0, i32 0
@@ -579,7 +579,7 @@ entry:
   %283 = getelementptr i32, i32* %282, i64 2
   %284 = load i32, i32* %283
   %285 = and i1 true, %__m3
-  call void @"__store[32]/secret/oblivious_le"(i8* %279, i32 %284, i1 %285)
+  call void @"__store[32]_secret_oblivious_le"(i8* %279, i32 %284, i1 %285)
   %286 = getelementptr i8, i8* %__v23_pmac, i64 12
   %287 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %288 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %287, i32 0, i32 0
@@ -587,7 +587,7 @@ entry:
   %290 = getelementptr i32, i32* %289, i64 3
   %291 = load i32, i32* %290
   %292 = and i1 true, %__m3
-  call void @"__store[32]/secret/oblivious_le"(i8* %286, i32 %291, i1 %292)
+  call void @"__store[32]_secret_oblivious_le"(i8* %286, i32 %291, i1 %292)
   %293 = getelementptr i8, i8* %__v23_pmac, i64 16
   %294 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %295 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %294, i32 0, i32 0
@@ -595,39 +595,39 @@ entry:
   %297 = getelementptr i32, i32* %296, i64 4
   %298 = load i32, i32* %297
   %299 = and i1 true, %__m3
-  call void @"__store[32]/secret/oblivious_le"(i8* %293, i32 %298, i1 %299)
+  call void @"__store[32]_secret_oblivious_le"(i8* %293, i32 %298, i1 %299)
   %__m4 = xor i1 %__m3, true
   %300 = getelementptr i8, i8* %__v23_pmac, i64 0
-  %__v59_load_le = call i32 @"__load[32]/secret_le"(i8* %300)
+  %__v59_load_le = call i32 @"__load[32]_secret_le"(i8* %300)
   %__v60_bswap4 = call i32 @bswap4(i32 %__v59_load_le)
   %301 = getelementptr i8, i8* %__v23_pmac, i64 0
-  call void @"__store[32]/secret_le"(i8* %301, i32 %__v60_bswap4)
+  call void @"__store[32]_secret_le"(i8* %301, i32 %__v60_bswap4)
   %302 = getelementptr i8, i8* %__v23_pmac, i64 4
-  %__v61_load_le = call i32 @"__load[32]/secret_le"(i8* %302)
+  %__v61_load_le = call i32 @"__load[32]_secret_le"(i8* %302)
   %__v62_bswap4 = call i32 @bswap4(i32 %__v61_load_le)
   %303 = getelementptr i8, i8* %__v23_pmac, i64 4
-  call void @"__store[32]/secret_le"(i8* %303, i32 %__v62_bswap4)
+  call void @"__store[32]_secret_le"(i8* %303, i32 %__v62_bswap4)
   %304 = getelementptr i8, i8* %__v23_pmac, i64 8
-  %__v63_load_le = call i32 @"__load[32]/secret_le"(i8* %304)
+  %__v63_load_le = call i32 @"__load[32]_secret_le"(i8* %304)
   %__v64_bswap4 = call i32 @bswap4(i32 %__v63_load_le)
   %305 = getelementptr i8, i8* %__v23_pmac, i64 8
-  call void @"__store[32]/secret_le"(i8* %305, i32 %__v64_bswap4)
+  call void @"__store[32]_secret_le"(i8* %305, i32 %__v64_bswap4)
   %306 = getelementptr i8, i8* %__v23_pmac, i64 12
-  %__v65_load_le = call i32 @"__load[32]/secret_le"(i8* %306)
+  %__v65_load_le = call i32 @"__load[32]_secret_le"(i8* %306)
   %__v66_bswap4 = call i32 @bswap4(i32 %__v65_load_le)
   %307 = getelementptr i8, i8* %__v23_pmac, i64 12
-  call void @"__store[32]/secret_le"(i8* %307, i32 %__v66_bswap4)
+  call void @"__store[32]_secret_le"(i8* %307, i32 %__v66_bswap4)
   %308 = getelementptr i8, i8* %__v23_pmac, i64 16
-  %__v67_load_le = call i32 @"__load[32]/secret_le"(i8* %308)
+  %__v67_load_le = call i32 @"__load[32]_secret_le"(i8* %308)
   %__v68_bswap4 = call i32 @bswap4(i32 %__v67_load_le)
   %309 = getelementptr i8, i8* %__v23_pmac, i64 16
-  call void @"__store[32]/secret_le"(i8* %309, i32 %__v68_bswap4)
+  call void @"__store[32]_secret_le"(i8* %309, i32 %__v68_bswap4)
   %310 = load i32, i32* %__v15__len
   %311 = add i32 %310, 20
   store i32 %311, i32* %__v15__len
   %312 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %313 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 2
-  call void @"__memcpy/SHA_CTX"(%SHA_CTX* %312, %SHA_CTX* %313)
+  call void @__memcpy_SHA_CTX(%SHA_CTX* %312, %SHA_CTX* %313)
   %314 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
   %315 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %314, i32 0, i32 0
   %316 = bitcast [5 x i32]* %315 to i32*

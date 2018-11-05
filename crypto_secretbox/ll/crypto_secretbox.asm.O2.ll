@@ -4,7 +4,7 @@ source_filename = "Module"
 %poly1305_state_internal_t = type { [3 x i64], [3 x i64], [2 x i64], i64, [16 x i8], i8 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__smemzero[8]/secret"(i8* %dst, i64 %len) #0 {
+define internal void @"__smemzero[8]_secret"(i8* %dst, i64 %len) #0 {
 entry:
   call void @fact.smemset.i8(i8* %dst, i8 0, i64 %len)
   ret void
@@ -22,7 +22,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memzero[8]/secret"(i8* %dst, i64 %len) #0 {
+define internal void @"__memzero[8]_secret"(i8* %dst, i64 %len) #0 {
 entry:
   call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
   ret void
@@ -37,7 +37,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__smemzero[32]/secret"(i32* %dst, i64 %len) #0 {
+define internal void @"__smemzero[32]_secret"(i32* %dst, i64 %len) #0 {
 entry:
   call void @fact.smemset.i32(i32* %dst, i8 0, i64 %len)
   ret void
@@ -53,7 +53,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal i32 @"__load[32]/secret_le"(i8* %src) #0 {
+define internal i32 @"__load[32]_secret_le"(i8* %src) #0 {
 entry:
   %0 = bitcast i8* %src to i32*
   %1 = load i32, i32* %0
@@ -61,7 +61,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__store[64]/public_le"(i8* %dst, i64 %value) #0 {
+define internal void @"__store[64]_public_le"(i8* %dst, i64 %value) #0 {
 entry:
   %0 = bitcast i8* %dst to i64*
   store i64 %value, i64* %0
@@ -69,7 +69,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal i32 @"__load[32]/public_le"(i8* %src) #0 {
+define internal i32 @"__load[32]_public_le"(i8* %src) #0 {
 entry:
   %0 = bitcast i8* %src to i32*
   %1 = load i32, i32* %0
@@ -77,7 +77,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal <4 x i32> @"__load[32]<4>/secret_le"(i32* %src) #0 {
+define internal <4 x i32> @"__load[32]<4>_secret_le"(i32* %src) #0 {
 entry:
   %0 = bitcast i32* %src to <4 x i32>*
   %1 = load <4 x i32>, <4 x i32>* %0
@@ -85,7 +85,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__store[32]/secret_le"(i8* %dst, i32 %value) #0 {
+define internal void @"__store[32]_secret_le"(i8* %dst, i32 %value) #0 {
 entry:
   %0 = bitcast i8* %dst to i32*
   store i32 %value, i32* %0
@@ -93,7 +93,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal i64 @"__load[64]/secret_le"(i8* %src) #0 {
+define internal i64 @"__load[64]_secret_le"(i8* %src) #0 {
 entry:
   %0 = bitcast i8* %src to i64*
   %1 = load i64, i64* %0
@@ -101,7 +101,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__store[64]/secret_le"(i8* %dst, i64 %value) #0 {
+define internal void @"__store[64]_secret_le"(i8* %dst, i64 %value) #0 {
 entry:
   %0 = bitcast i8* %dst to i64*
   store i64 %value, i64* %0
@@ -109,7 +109,7 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__smemzero/poly1305_state_internal_t"(%poly1305_state_internal_t* %dst) #0 {
+define internal void @__smemzero_poly1305_state_internal_t(%poly1305_state_internal_t* %dst) #0 {
 entry:
   %0 = bitcast %poly1305_state_internal_t* %dst to i8*
   call void @fact.smemset.i8(i8* %0, i8 0, i64 ptrtoint (%poly1305_state_internal_t* getelementptr (%poly1305_state_internal_t, %poly1305_state_internal_t* null, i32 1) to i64))
@@ -129,53 +129,53 @@ entry:
   %__v245_x15 = alloca i32
   store i32 1797285236, i32* %__v245_x15
   %0 = getelementptr i8, i8* %__v241_k, i64 0
-  %"__v437___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %0)
+  %"__v437___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %0)
   %__v246_x1 = alloca i32
-  store i32 %"__v437___load[32]/secret_le", i32* %__v246_x1
+  store i32 %"__v437___load[32]_secret_le", i32* %__v246_x1
   %1 = getelementptr i8, i8* %__v241_k, i64 4
-  %"__v438___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %1)
+  %"__v438___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %1)
   %__v247_x2 = alloca i32
-  store i32 %"__v438___load[32]/secret_le", i32* %__v247_x2
+  store i32 %"__v438___load[32]_secret_le", i32* %__v247_x2
   %2 = getelementptr i8, i8* %__v241_k, i64 8
-  %"__v439___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %2)
+  %"__v439___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %2)
   %__v248_x3 = alloca i32
-  store i32 %"__v439___load[32]/secret_le", i32* %__v248_x3
+  store i32 %"__v439___load[32]_secret_le", i32* %__v248_x3
   %3 = getelementptr i8, i8* %__v241_k, i64 12
-  %"__v440___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %3)
+  %"__v440___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %3)
   %__v249_x4 = alloca i32
-  store i32 %"__v440___load[32]/secret_le", i32* %__v249_x4
+  store i32 %"__v440___load[32]_secret_le", i32* %__v249_x4
   %4 = getelementptr i8, i8* %__v241_k, i64 16
-  %"__v441___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %4)
+  %"__v441___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %4)
   %__v250_x11 = alloca i32
-  store i32 %"__v441___load[32]/secret_le", i32* %__v250_x11
+  store i32 %"__v441___load[32]_secret_le", i32* %__v250_x11
   %5 = getelementptr i8, i8* %__v241_k, i64 20
-  %"__v442___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %5)
+  %"__v442___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %5)
   %__v251_x12 = alloca i32
-  store i32 %"__v442___load[32]/secret_le", i32* %__v251_x12
+  store i32 %"__v442___load[32]_secret_le", i32* %__v251_x12
   %6 = getelementptr i8, i8* %__v241_k, i64 24
-  %"__v443___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %6)
+  %"__v443___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %6)
   %__v252_x13 = alloca i32
-  store i32 %"__v443___load[32]/secret_le", i32* %__v252_x13
+  store i32 %"__v443___load[32]_secret_le", i32* %__v252_x13
   %7 = getelementptr i8, i8* %__v241_k, i64 28
-  %"__v444___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %7)
+  %"__v444___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %7)
   %__v253_x14 = alloca i32
-  store i32 %"__v444___load[32]/secret_le", i32* %__v253_x14
+  store i32 %"__v444___load[32]_secret_le", i32* %__v253_x14
   %8 = getelementptr i8, i8* %__v240_input, i64 0
-  %"__v445___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %8)
+  %"__v445___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %8)
   %__v254_x6 = alloca i32
-  store i32 %"__v445___load[32]/secret_le", i32* %__v254_x6
+  store i32 %"__v445___load[32]_secret_le", i32* %__v254_x6
   %9 = getelementptr i8, i8* %__v240_input, i64 4
-  %"__v446___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %9)
+  %"__v446___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %9)
   %__v255_x7 = alloca i32
-  store i32 %"__v446___load[32]/secret_le", i32* %__v255_x7
+  store i32 %"__v446___load[32]_secret_le", i32* %__v255_x7
   %10 = getelementptr i8, i8* %__v240_input, i64 8
-  %"__v447___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %10)
+  %"__v447___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %10)
   %__v256_x8 = alloca i32
-  store i32 %"__v447___load[32]/secret_le", i32* %__v256_x8
+  store i32 %"__v447___load[32]_secret_le", i32* %__v256_x8
   %11 = getelementptr i8, i8* %__v240_input, i64 12
-  %"__v448___load[32]/secret_le" = call i32 @"__load[32]/secret_le"(i8* %11)
+  %"__v448___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %11)
   %__v257_x9 = alloca i32
-  store i32 %"__v448___load[32]/secret_le", i32* %__v257_x9
+  store i32 %"__v448___load[32]_secret_le", i32* %__v257_x9
   br label %12
 
 ; <label>:12:                                     ; preds = %207, %entry
@@ -417,28 +417,28 @@ entry:
 ; <label>:209:                                    ; preds = %12
   %210 = getelementptr i8, i8* %__v239_out, i64 0
   %211 = load i32, i32* %__v242_x0
-  call void @"__store[32]/secret_le"(i8* %210, i32 %211)
+  call void @"__store[32]_secret_le"(i8* %210, i32 %211)
   %212 = getelementptr i8, i8* %__v239_out, i64 4
   %213 = load i32, i32* %__v243_x5
-  call void @"__store[32]/secret_le"(i8* %212, i32 %213)
+  call void @"__store[32]_secret_le"(i8* %212, i32 %213)
   %214 = getelementptr i8, i8* %__v239_out, i64 8
   %215 = load i32, i32* %__v244_x10
-  call void @"__store[32]/secret_le"(i8* %214, i32 %215)
+  call void @"__store[32]_secret_le"(i8* %214, i32 %215)
   %216 = getelementptr i8, i8* %__v239_out, i64 12
   %217 = load i32, i32* %__v245_x15
-  call void @"__store[32]/secret_le"(i8* %216, i32 %217)
+  call void @"__store[32]_secret_le"(i8* %216, i32 %217)
   %218 = getelementptr i8, i8* %__v239_out, i64 16
   %219 = load i32, i32* %__v254_x6
-  call void @"__store[32]/secret_le"(i8* %218, i32 %219)
+  call void @"__store[32]_secret_le"(i8* %218, i32 %219)
   %220 = getelementptr i8, i8* %__v239_out, i64 20
   %221 = load i32, i32* %__v255_x7
-  call void @"__store[32]/secret_le"(i8* %220, i32 %221)
+  call void @"__store[32]_secret_le"(i8* %220, i32 %221)
   %222 = getelementptr i8, i8* %__v239_out, i64 24
   %223 = load i32, i32* %__v256_x8
-  call void @"__store[32]/secret_le"(i8* %222, i32 %223)
+  call void @"__store[32]_secret_le"(i8* %222, i32 %223)
   %224 = getelementptr i8, i8* %__v239_out, i64 28
   %225 = load i32, i32* %__v257_x9
-  call void @"__store[32]/secret_le"(i8* %224, i32 %225)
+  call void @"__store[32]_secret_le"(i8* %224, i32 %225)
   ret void
 }
 
@@ -504,13 +504,13 @@ entry:
   %__v433_lexpr = mul i64 %__v232_bindex, 16
   %__v434_lexpr = mul i64 %__v232_bindex, 16
   %27 = getelementptr i8, i8* %__v219_m, i64 %__v434_lexpr
-  %__v233_t0 = call i64 @"__load[64]/secret_le"(i8* %27)
+  %__v233_t0 = call i64 @"__load[64]_secret_le"(i8* %27)
   %28 = mul i64 %__v232_bindex, 16
   %__v435_lexpr = add i64 %28, 8
   %29 = mul i64 %__v232_bindex, 16
   %__v436_lexpr = add i64 %29, 8
   %30 = getelementptr i8, i8* %__v219_m, i64 %__v436_lexpr
-  %__v234_t1 = call i64 @"__load[64]/secret_le"(i8* %30)
+  %__v234_t1 = call i64 @"__load[64]_secret_le"(i8* %30)
   %31 = load i64, i64* %__v226_h0
   %32 = and i64 %__v233_t0, 17592186044415
   %33 = add i64 %31, %32
@@ -882,11 +882,11 @@ entry:
   store i64 %154, i64* %__v210_h1
   %155 = getelementptr i8, i8* %__v204_mac, i64 0
   %156 = load i64, i64* %__v209_h0
-  call void @"__store[64]/secret_le"(i8* %155, i64 %156)
+  call void @"__store[64]_secret_le"(i8* %155, i64 %156)
   %157 = getelementptr i8, i8* %__v204_mac, i64 8
   %158 = load i64, i64* %__v210_h1
-  call void @"__store[64]/secret_le"(i8* %157, i64 %158)
-  call void @"__smemzero/poly1305_state_internal_t"(%poly1305_state_internal_t* %__v203_state)
+  call void @"__store[64]_secret_le"(i8* %157, i64 %158)
+  call void @__smemzero_poly1305_state_internal_t(%poly1305_state_internal_t* %__v203_state)
   ret void
 
 ; <label>:159:                                    ; preds = %165, %3
@@ -1074,9 +1074,9 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %0 = getelementptr i8, i8* %__v187_key, i64 0
-  %__v188_t0 = call i64 @"__load[64]/secret_le"(i8* %0)
+  %__v188_t0 = call i64 @"__load[64]_secret_le"(i8* %0)
   %1 = getelementptr i8, i8* %__v187_key, i64 8
-  %__v189_t1 = call i64 @"__load[64]/secret_le"(i8* %1)
+  %__v189_t1 = call i64 @"__load[64]_secret_le"(i8* %1)
   %2 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v186_state, i32 0, i32 0
   %3 = bitcast [3 x i64]* %2 to i64*
   %4 = getelementptr i64, i64* %3, i64 0
@@ -1109,13 +1109,13 @@ entry:
   %26 = getelementptr i64, i64* %25, i64 2
   store i64 0, i64* %26
   %27 = getelementptr i8, i8* %__v187_key, i64 16
-  %__v302_load_le = call i64 @"__load[64]/secret_le"(i8* %27)
+  %__v302_load_le = call i64 @"__load[64]_secret_le"(i8* %27)
   %28 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v186_state, i32 0, i32 2
   %29 = bitcast [2 x i64]* %28 to i64*
   %30 = getelementptr i64, i64* %29, i64 0
   store i64 %__v302_load_le, i64* %30
   %31 = getelementptr i8, i8* %__v187_key, i64 24
-  %__v303_load_le = call i64 @"__load[64]/secret_le"(i8* %31)
+  %__v303_load_le = call i64 @"__load[64]_secret_le"(i8* %31)
   %32 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v186_state, i32 0, i32 2
   %33 = bitcast [2 x i64]* %32 to i64*
   %34 = getelementptr i64, i64* %33, i64 1
@@ -1282,21 +1282,21 @@ entry:
 
 ; <label>:1:                                      ; preds = %entry
   %2 = getelementptr i32, i32* %__v131_x, i64 0
-  %"__v423___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %2)
+  %"__v423___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %2)
   %__v135_diag0 = alloca <4 x i32>
-  store <4 x i32> %"__v423___load[32]<4>/secret_le", <4 x i32>* %__v135_diag0
+  store <4 x i32> %"__v423___load[32]<4>_secret_le", <4 x i32>* %__v135_diag0
   %3 = getelementptr i32, i32* %__v131_x, i64 4
-  %"__v424___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %3)
+  %"__v424___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %3)
   %__v136_diag1 = alloca <4 x i32>
-  store <4 x i32> %"__v424___load[32]<4>/secret_le", <4 x i32>* %__v136_diag1
+  store <4 x i32> %"__v424___load[32]<4>_secret_le", <4 x i32>* %__v136_diag1
   %4 = getelementptr i32, i32* %__v131_x, i64 8
-  %"__v425___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %4)
+  %"__v425___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %4)
   %__v137_diag2 = alloca <4 x i32>
-  store <4 x i32> %"__v425___load[32]<4>/secret_le", <4 x i32>* %__v137_diag2
+  store <4 x i32> %"__v425___load[32]<4>_secret_le", <4 x i32>* %__v137_diag2
   %5 = getelementptr i32, i32* %__v131_x, i64 12
-  %"__v426___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %5)
+  %"__v426___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %5)
   %__v138_diag3 = alloca <4 x i32>
-  store <4 x i32> %"__v426___load[32]<4>/secret_le", <4 x i32>* %__v138_diag3
+  store <4 x i32> %"__v426___load[32]<4>_secret_le", <4 x i32>* %__v138_diag3
   %6 = load <4 x i32>, <4 x i32>* %__v136_diag1
   %__v139_a0 = alloca <4 x i32>
   store <4 x i32> %6, <4 x i32>* %__v139_a0
@@ -1726,22 +1726,22 @@ entry:
 
 ; <label>:278:                                    ; preds = %9
   %279 = getelementptr i32, i32* %__v131_x, i64 0
-  %__v297_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %279)
+  %__v297_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %279)
   %280 = load <4 x i32>, <4 x i32>* %__v135_diag0
   %281 = add <4 x i32> %280, %__v297_load_le
   store <4 x i32> %281, <4 x i32>* %__v135_diag0
   %282 = getelementptr i32, i32* %__v131_x, i64 4
-  %__v298_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %282)
+  %__v298_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %282)
   %283 = load <4 x i32>, <4 x i32>* %__v136_diag1
   %284 = add <4 x i32> %283, %__v298_load_le
   store <4 x i32> %284, <4 x i32>* %__v136_diag1
   %285 = getelementptr i32, i32* %__v131_x, i64 8
-  %__v299_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %285)
+  %__v299_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %285)
   %286 = load <4 x i32>, <4 x i32>* %__v137_diag2
   %287 = add <4 x i32> %286, %__v299_load_le
   store <4 x i32> %287, <4 x i32>* %__v137_diag2
   %288 = getelementptr i32, i32* %__v131_x, i64 12
-  %__v300_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %288)
+  %__v300_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %288)
   %289 = load <4 x i32>, <4 x i32>* %__v138_diag3
   %290 = add <4 x i32> %289, %__v300_load_le
   store <4 x i32> %290, <4 x i32>* %__v138_diag3
@@ -1771,13 +1771,13 @@ entry:
   %303 = shufflevector <4 x i32> %302, <4 x i32> undef, <4 x i32> <i32 1, i32 2, i32 3, i32 0>
   store <4 x i32> %303, <4 x i32>* %__v138_diag3
   %304 = getelementptr i8, i8* %__v157_partialblock, i64 0
-  call void @"__store[32]/secret_le"(i8* %304, i32 %__v158_inA)
+  call void @"__store[32]_secret_le"(i8* %304, i32 %__v158_inA)
   %305 = getelementptr i8, i8* %__v157_partialblock, i64 48
-  call void @"__store[32]/secret_le"(i8* %305, i32 %__v159_inB)
+  call void @"__store[32]_secret_le"(i8* %305, i32 %__v159_inB)
   %306 = getelementptr i8, i8* %__v157_partialblock, i64 32
-  call void @"__store[32]/secret_le"(i8* %306, i32 %__v160_inC)
+  call void @"__store[32]_secret_le"(i8* %306, i32 %__v160_inC)
   %307 = getelementptr i8, i8* %__v157_partialblock, i64 16
-  call void @"__store[32]/secret_le"(i8* %307, i32 %__v161_inD)
+  call void @"__store[32]_secret_le"(i8* %307, i32 %__v161_inD)
   br label %309
 
 ; <label>:308:                                    ; preds = %278
@@ -1808,13 +1808,13 @@ entry:
   %322 = shufflevector <4 x i32> %321, <4 x i32> undef, <4 x i32> <i32 1, i32 2, i32 3, i32 0>
   store <4 x i32> %322, <4 x i32>* %__v138_diag3
   %323 = getelementptr i8, i8* %__v157_partialblock, i64 20
-  call void @"__store[32]/secret_le"(i8* %323, i32 %__v162_inA)
+  call void @"__store[32]_secret_le"(i8* %323, i32 %__v162_inA)
   %324 = getelementptr i8, i8* %__v157_partialblock, i64 4
-  call void @"__store[32]/secret_le"(i8* %324, i32 %__v163_inB)
+  call void @"__store[32]_secret_le"(i8* %324, i32 %__v163_inB)
   %325 = getelementptr i8, i8* %__v157_partialblock, i64 52
-  call void @"__store[32]/secret_le"(i8* %325, i32 %__v164_inC)
+  call void @"__store[32]_secret_le"(i8* %325, i32 %__v164_inC)
   %326 = getelementptr i8, i8* %__v157_partialblock, i64 36
-  call void @"__store[32]/secret_le"(i8* %326, i32 %__v165_inD)
+  call void @"__store[32]_secret_le"(i8* %326, i32 %__v165_inD)
   br label %328
 
 ; <label>:327:                                    ; preds = %309
@@ -1845,13 +1845,13 @@ entry:
   %341 = shufflevector <4 x i32> %340, <4 x i32> undef, <4 x i32> <i32 1, i32 2, i32 3, i32 0>
   store <4 x i32> %341, <4 x i32>* %__v138_diag3
   %342 = getelementptr i8, i8* %__v157_partialblock, i64 40
-  call void @"__store[32]/secret_le"(i8* %342, i32 %__v166_inA)
+  call void @"__store[32]_secret_le"(i8* %342, i32 %__v166_inA)
   %343 = getelementptr i8, i8* %__v157_partialblock, i64 24
-  call void @"__store[32]/secret_le"(i8* %343, i32 %__v167_inB)
+  call void @"__store[32]_secret_le"(i8* %343, i32 %__v167_inB)
   %344 = getelementptr i8, i8* %__v157_partialblock, i64 8
-  call void @"__store[32]/secret_le"(i8* %344, i32 %__v168_inC)
+  call void @"__store[32]_secret_le"(i8* %344, i32 %__v168_inC)
   %345 = getelementptr i8, i8* %__v157_partialblock, i64 56
-  call void @"__store[32]/secret_le"(i8* %345, i32 %__v169_inD)
+  call void @"__store[32]_secret_le"(i8* %345, i32 %__v169_inD)
   br label %347
 
 ; <label>:346:                                    ; preds = %328
@@ -1882,13 +1882,13 @@ entry:
   %360 = shufflevector <4 x i32> %359, <4 x i32> undef, <4 x i32> <i32 1, i32 2, i32 3, i32 0>
   store <4 x i32> %360, <4 x i32>* %__v138_diag3
   %361 = getelementptr i8, i8* %__v157_partialblock, i64 60
-  call void @"__store[32]/secret_le"(i8* %361, i32 %__v170_inA)
+  call void @"__store[32]_secret_le"(i8* %361, i32 %__v170_inA)
   %362 = getelementptr i8, i8* %__v157_partialblock, i64 44
-  call void @"__store[32]/secret_le"(i8* %362, i32 %__v171_inB)
+  call void @"__store[32]_secret_le"(i8* %362, i32 %__v171_inB)
   %363 = getelementptr i8, i8* %__v157_partialblock, i64 28
-  call void @"__store[32]/secret_le"(i8* %363, i32 %__v172_inC)
+  call void @"__store[32]_secret_le"(i8* %363, i32 %__v172_inC)
   %364 = getelementptr i8, i8* %__v157_partialblock, i64 12
-  call void @"__store[32]/secret_le"(i8* %364, i32 %__v173_inD)
+  call void @"__store[32]_secret_le"(i8* %364, i32 %__v173_inD)
   br label %366
 
 ; <label>:365:                                    ; preds = %347
@@ -1917,7 +1917,7 @@ entry:
   br label %367
 
 ; <label>:378:                                    ; preds = %367
-  call void @"__smemzero[8]/secret"(i8* %__v157_partialblock, i64 64)
+  call void @"__smemzero[8]_secret"(i8* %__v157_partialblock, i64 64)
   br label %8
 }
 
@@ -1939,21 +1939,21 @@ entry:
 ; <label>:2:                                      ; preds = %0
   %__v74_j = mul i64 %__v73__j, 64
   %3 = getelementptr i32, i32* %__v68_x, i64 0
-  %"__v339___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %3)
+  %"__v339___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %3)
   %__v75_diag0 = alloca <4 x i32>
-  store <4 x i32> %"__v339___load[32]<4>/secret_le", <4 x i32>* %__v75_diag0
+  store <4 x i32> %"__v339___load[32]<4>_secret_le", <4 x i32>* %__v75_diag0
   %4 = getelementptr i32, i32* %__v68_x, i64 4
-  %"__v340___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %4)
+  %"__v340___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %4)
   %__v76_diag1 = alloca <4 x i32>
-  store <4 x i32> %"__v340___load[32]<4>/secret_le", <4 x i32>* %__v76_diag1
+  store <4 x i32> %"__v340___load[32]<4>_secret_le", <4 x i32>* %__v76_diag1
   %5 = getelementptr i32, i32* %__v68_x, i64 8
-  %"__v341___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %5)
+  %"__v341___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %5)
   %__v77_diag2 = alloca <4 x i32>
-  store <4 x i32> %"__v341___load[32]<4>/secret_le", <4 x i32>* %__v77_diag2
+  store <4 x i32> %"__v341___load[32]<4>_secret_le", <4 x i32>* %__v77_diag2
   %6 = getelementptr i32, i32* %__v68_x, i64 12
-  %"__v342___load[32]<4>/secret_le" = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %6)
+  %"__v342___load[32]<4>_secret_le" = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %6)
   %__v78_diag3 = alloca <4 x i32>
-  store <4 x i32> %"__v342___load[32]<4>/secret_le", <4 x i32>* %__v78_diag3
+  store <4 x i32> %"__v342___load[32]<4>_secret_le", <4 x i32>* %__v78_diag3
   %7 = load <4 x i32>, <4 x i32>* %__v76_diag1
   %__v79_a0 = alloca <4 x i32>
   store <4 x i32> %7, <4 x i32>* %__v79_a0
@@ -2386,22 +2386,22 @@ entry:
 
 ; <label>:282:                                    ; preds = %13
   %283 = getelementptr i32, i32* %__v68_x, i64 0
-  %__v277_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %283)
+  %__v277_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %283)
   %284 = load <4 x i32>, <4 x i32>* %__v75_diag0
   %285 = add <4 x i32> %284, %__v277_load_le
   store <4 x i32> %285, <4 x i32>* %__v75_diag0
   %286 = getelementptr i32, i32* %__v68_x, i64 4
-  %__v278_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %286)
+  %__v278_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %286)
   %287 = load <4 x i32>, <4 x i32>* %__v76_diag1
   %288 = add <4 x i32> %287, %__v278_load_le
   store <4 x i32> %288, <4 x i32>* %__v76_diag1
   %289 = getelementptr i32, i32* %__v68_x, i64 8
-  %__v279_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %289)
+  %__v279_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %289)
   %290 = load <4 x i32>, <4 x i32>* %__v77_diag2
   %291 = add <4 x i32> %290, %__v279_load_le
   store <4 x i32> %291, <4 x i32>* %__v77_diag2
   %292 = getelementptr i32, i32* %__v68_x, i64 12
-  %__v280_load_le = call <4 x i32> @"__load[32]<4>/secret_le"(i32* %292)
+  %__v280_load_le = call <4 x i32> @"__load[32]<4>_secret_le"(i32* %292)
   %293 = load <4 x i32>, <4 x i32>* %__v78_diag3
   %294 = add <4 x i32> %293, %__v280_load_le
   store <4 x i32> %294, <4 x i32>* %__v78_diag3
@@ -2440,7 +2440,7 @@ entry:
   %__v344_lexpr = add i64 %__v74_j, 0
   %__v345_lexpr = add i64 %__v74_j, 0
   %312 = getelementptr i8, i8* %__v69_m, i64 %__v345_lexpr
-  %__v281_load_le = call i32 @"__load[32]/secret_le"(i8* %312)
+  %__v281_load_le = call i32 @"__load[32]_secret_le"(i8* %312)
   %313 = load i32, i32* %__v101_inA
   %314 = xor i32 %313, %__v281_load_le
   store i32 %314, i32* %__v101_inA
@@ -2448,7 +2448,7 @@ entry:
   %__v347_lexpr = add i64 %__v74_j, 48
   %__v348_lexpr = add i64 %__v74_j, 48
   %315 = getelementptr i8, i8* %__v69_m, i64 %__v348_lexpr
-  %__v282_load_le = call i32 @"__load[32]/secret_le"(i8* %315)
+  %__v282_load_le = call i32 @"__load[32]_secret_le"(i8* %315)
   %316 = load i32, i32* %__v102_inB
   %317 = xor i32 %316, %__v282_load_le
   store i32 %317, i32* %__v102_inB
@@ -2456,7 +2456,7 @@ entry:
   %__v350_lexpr = add i64 %__v74_j, 32
   %__v351_lexpr = add i64 %__v74_j, 32
   %318 = getelementptr i8, i8* %__v69_m, i64 %__v351_lexpr
-  %__v283_load_le = call i32 @"__load[32]/secret_le"(i8* %318)
+  %__v283_load_le = call i32 @"__load[32]_secret_le"(i8* %318)
   %319 = load i32, i32* %__v103_inC
   %320 = xor i32 %319, %__v283_load_le
   store i32 %320, i32* %__v103_inC
@@ -2464,7 +2464,7 @@ entry:
   %__v353_lexpr = add i64 %__v74_j, 16
   %__v354_lexpr = add i64 %__v74_j, 16
   %321 = getelementptr i8, i8* %__v69_m, i64 %__v354_lexpr
-  %__v284_load_le = call i32 @"__load[32]/secret_le"(i8* %321)
+  %__v284_load_le = call i32 @"__load[32]_secret_le"(i8* %321)
   %322 = load i32, i32* %__v104_inD
   %323 = xor i32 %322, %__v284_load_le
   store i32 %323, i32* %__v104_inD
@@ -2472,22 +2472,22 @@ entry:
   %__v356_lexpr = add i64 %__v74_j, 0
   %324 = getelementptr i8, i8* %__v70_c, i64 %__v356_lexpr
   %325 = load i32, i32* %__v101_inA
-  call void @"__store[32]/secret_le"(i8* %324, i32 %325)
+  call void @"__store[32]_secret_le"(i8* %324, i32 %325)
   %__v357_lexpr = add i64 %__v74_j, 48
   %__v358_lexpr = add i64 %__v74_j, 48
   %326 = getelementptr i8, i8* %__v70_c, i64 %__v358_lexpr
   %327 = load i32, i32* %__v102_inB
-  call void @"__store[32]/secret_le"(i8* %326, i32 %327)
+  call void @"__store[32]_secret_le"(i8* %326, i32 %327)
   %__v359_lexpr = add i64 %__v74_j, 32
   %__v360_lexpr = add i64 %__v74_j, 32
   %328 = getelementptr i8, i8* %__v70_c, i64 %__v360_lexpr
   %329 = load i32, i32* %__v103_inC
-  call void @"__store[32]/secret_le"(i8* %328, i32 %329)
+  call void @"__store[32]_secret_le"(i8* %328, i32 %329)
   %__v361_lexpr = add i64 %__v74_j, 16
   %__v362_lexpr = add i64 %__v74_j, 16
   %330 = getelementptr i8, i8* %__v70_c, i64 %__v362_lexpr
   %331 = load i32, i32* %__v104_inD
-  call void @"__store[32]/secret_le"(i8* %330, i32 %331)
+  call void @"__store[32]_secret_le"(i8* %330, i32 %331)
   br label %333
 
 ; <label>:332:                                    ; preds = %282
@@ -2529,7 +2529,7 @@ entry:
   %__v364_lexpr = add i64 %__v74_j, 20
   %__v365_lexpr = add i64 %__v74_j, 20
   %351 = getelementptr i8, i8* %__v69_m, i64 %__v365_lexpr
-  %__v285_load_le = call i32 @"__load[32]/secret_le"(i8* %351)
+  %__v285_load_le = call i32 @"__load[32]_secret_le"(i8* %351)
   %352 = load i32, i32* %__v109_inA
   %353 = xor i32 %352, %__v285_load_le
   store i32 %353, i32* %__v109_inA
@@ -2537,7 +2537,7 @@ entry:
   %__v367_lexpr = add i64 %__v74_j, 4
   %__v368_lexpr = add i64 %__v74_j, 4
   %354 = getelementptr i8, i8* %__v69_m, i64 %__v368_lexpr
-  %__v286_load_le = call i32 @"__load[32]/secret_le"(i8* %354)
+  %__v286_load_le = call i32 @"__load[32]_secret_le"(i8* %354)
   %355 = load i32, i32* %__v110_inB
   %356 = xor i32 %355, %__v286_load_le
   store i32 %356, i32* %__v110_inB
@@ -2545,7 +2545,7 @@ entry:
   %__v370_lexpr = add i64 %__v74_j, 52
   %__v371_lexpr = add i64 %__v74_j, 52
   %357 = getelementptr i8, i8* %__v69_m, i64 %__v371_lexpr
-  %__v287_load_le = call i32 @"__load[32]/secret_le"(i8* %357)
+  %__v287_load_le = call i32 @"__load[32]_secret_le"(i8* %357)
   %358 = load i32, i32* %__v111_inC
   %359 = xor i32 %358, %__v287_load_le
   store i32 %359, i32* %__v111_inC
@@ -2553,7 +2553,7 @@ entry:
   %__v373_lexpr = add i64 %__v74_j, 36
   %__v374_lexpr = add i64 %__v74_j, 36
   %360 = getelementptr i8, i8* %__v69_m, i64 %__v374_lexpr
-  %__v288_load_le = call i32 @"__load[32]/secret_le"(i8* %360)
+  %__v288_load_le = call i32 @"__load[32]_secret_le"(i8* %360)
   %361 = load i32, i32* %__v112_inD
   %362 = xor i32 %361, %__v288_load_le
   store i32 %362, i32* %__v112_inD
@@ -2561,22 +2561,22 @@ entry:
   %__v376_lexpr = add i64 %__v74_j, 20
   %363 = getelementptr i8, i8* %__v70_c, i64 %__v376_lexpr
   %364 = load i32, i32* %__v109_inA
-  call void @"__store[32]/secret_le"(i8* %363, i32 %364)
+  call void @"__store[32]_secret_le"(i8* %363, i32 %364)
   %__v377_lexpr = add i64 %__v74_j, 4
   %__v378_lexpr = add i64 %__v74_j, 4
   %365 = getelementptr i8, i8* %__v70_c, i64 %__v378_lexpr
   %366 = load i32, i32* %__v110_inB
-  call void @"__store[32]/secret_le"(i8* %365, i32 %366)
+  call void @"__store[32]_secret_le"(i8* %365, i32 %366)
   %__v379_lexpr = add i64 %__v74_j, 52
   %__v380_lexpr = add i64 %__v74_j, 52
   %367 = getelementptr i8, i8* %__v70_c, i64 %__v380_lexpr
   %368 = load i32, i32* %__v111_inC
-  call void @"__store[32]/secret_le"(i8* %367, i32 %368)
+  call void @"__store[32]_secret_le"(i8* %367, i32 %368)
   %__v381_lexpr = add i64 %__v74_j, 36
   %__v382_lexpr = add i64 %__v74_j, 36
   %369 = getelementptr i8, i8* %__v70_c, i64 %__v382_lexpr
   %370 = load i32, i32* %__v112_inD
-  call void @"__store[32]/secret_le"(i8* %369, i32 %370)
+  call void @"__store[32]_secret_le"(i8* %369, i32 %370)
   br label %372
 
 ; <label>:371:                                    ; preds = %333
@@ -2618,7 +2618,7 @@ entry:
   %__v384_lexpr = add i64 %__v74_j, 40
   %__v385_lexpr = add i64 %__v74_j, 40
   %390 = getelementptr i8, i8* %__v69_m, i64 %__v385_lexpr
-  %__v289_load_le = call i32 @"__load[32]/secret_le"(i8* %390)
+  %__v289_load_le = call i32 @"__load[32]_secret_le"(i8* %390)
   %391 = load i32, i32* %__v117_inA
   %392 = xor i32 %391, %__v289_load_le
   store i32 %392, i32* %__v117_inA
@@ -2626,7 +2626,7 @@ entry:
   %__v387_lexpr = add i64 %__v74_j, 24
   %__v388_lexpr = add i64 %__v74_j, 24
   %393 = getelementptr i8, i8* %__v69_m, i64 %__v388_lexpr
-  %__v290_load_le = call i32 @"__load[32]/secret_le"(i8* %393)
+  %__v290_load_le = call i32 @"__load[32]_secret_le"(i8* %393)
   %394 = load i32, i32* %__v118_inB
   %395 = xor i32 %394, %__v290_load_le
   store i32 %395, i32* %__v118_inB
@@ -2634,7 +2634,7 @@ entry:
   %__v390_lexpr = add i64 %__v74_j, 8
   %__v391_lexpr = add i64 %__v74_j, 8
   %396 = getelementptr i8, i8* %__v69_m, i64 %__v391_lexpr
-  %__v291_load_le = call i32 @"__load[32]/secret_le"(i8* %396)
+  %__v291_load_le = call i32 @"__load[32]_secret_le"(i8* %396)
   %397 = load i32, i32* %__v119_inC
   %398 = xor i32 %397, %__v291_load_le
   store i32 %398, i32* %__v119_inC
@@ -2642,7 +2642,7 @@ entry:
   %__v393_lexpr = add i64 %__v74_j, 56
   %__v394_lexpr = add i64 %__v74_j, 56
   %399 = getelementptr i8, i8* %__v69_m, i64 %__v394_lexpr
-  %__v292_load_le = call i32 @"__load[32]/secret_le"(i8* %399)
+  %__v292_load_le = call i32 @"__load[32]_secret_le"(i8* %399)
   %400 = load i32, i32* %__v120_inD
   %401 = xor i32 %400, %__v292_load_le
   store i32 %401, i32* %__v120_inD
@@ -2650,22 +2650,22 @@ entry:
   %__v396_lexpr = add i64 %__v74_j, 40
   %402 = getelementptr i8, i8* %__v70_c, i64 %__v396_lexpr
   %403 = load i32, i32* %__v117_inA
-  call void @"__store[32]/secret_le"(i8* %402, i32 %403)
+  call void @"__store[32]_secret_le"(i8* %402, i32 %403)
   %__v397_lexpr = add i64 %__v74_j, 24
   %__v398_lexpr = add i64 %__v74_j, 24
   %404 = getelementptr i8, i8* %__v70_c, i64 %__v398_lexpr
   %405 = load i32, i32* %__v118_inB
-  call void @"__store[32]/secret_le"(i8* %404, i32 %405)
+  call void @"__store[32]_secret_le"(i8* %404, i32 %405)
   %__v399_lexpr = add i64 %__v74_j, 8
   %__v400_lexpr = add i64 %__v74_j, 8
   %406 = getelementptr i8, i8* %__v70_c, i64 %__v400_lexpr
   %407 = load i32, i32* %__v119_inC
-  call void @"__store[32]/secret_le"(i8* %406, i32 %407)
+  call void @"__store[32]_secret_le"(i8* %406, i32 %407)
   %__v401_lexpr = add i64 %__v74_j, 56
   %__v402_lexpr = add i64 %__v74_j, 56
   %408 = getelementptr i8, i8* %__v70_c, i64 %__v402_lexpr
   %409 = load i32, i32* %__v120_inD
-  call void @"__store[32]/secret_le"(i8* %408, i32 %409)
+  call void @"__store[32]_secret_le"(i8* %408, i32 %409)
   br label %411
 
 ; <label>:410:                                    ; preds = %372
@@ -2707,7 +2707,7 @@ entry:
   %__v404_lexpr = add i64 %__v74_j, 60
   %__v405_lexpr = add i64 %__v74_j, 60
   %429 = getelementptr i8, i8* %__v69_m, i64 %__v405_lexpr
-  %__v293_load_le = call i32 @"__load[32]/secret_le"(i8* %429)
+  %__v293_load_le = call i32 @"__load[32]_secret_le"(i8* %429)
   %430 = load i32, i32* %__v125_inA
   %431 = xor i32 %430, %__v293_load_le
   store i32 %431, i32* %__v125_inA
@@ -2715,7 +2715,7 @@ entry:
   %__v407_lexpr = add i64 %__v74_j, 44
   %__v408_lexpr = add i64 %__v74_j, 44
   %432 = getelementptr i8, i8* %__v69_m, i64 %__v408_lexpr
-  %__v294_load_le = call i32 @"__load[32]/secret_le"(i8* %432)
+  %__v294_load_le = call i32 @"__load[32]_secret_le"(i8* %432)
   %433 = load i32, i32* %__v126_inB
   %434 = xor i32 %433, %__v294_load_le
   store i32 %434, i32* %__v126_inB
@@ -2723,7 +2723,7 @@ entry:
   %__v410_lexpr = add i64 %__v74_j, 28
   %__v411_lexpr = add i64 %__v74_j, 28
   %435 = getelementptr i8, i8* %__v69_m, i64 %__v411_lexpr
-  %__v295_load_le = call i32 @"__load[32]/secret_le"(i8* %435)
+  %__v295_load_le = call i32 @"__load[32]_secret_le"(i8* %435)
   %436 = load i32, i32* %__v127_inC
   %437 = xor i32 %436, %__v295_load_le
   store i32 %437, i32* %__v127_inC
@@ -2731,7 +2731,7 @@ entry:
   %__v413_lexpr = add i64 %__v74_j, 12
   %__v414_lexpr = add i64 %__v74_j, 12
   %438 = getelementptr i8, i8* %__v69_m, i64 %__v414_lexpr
-  %__v296_load_le = call i32 @"__load[32]/secret_le"(i8* %438)
+  %__v296_load_le = call i32 @"__load[32]_secret_le"(i8* %438)
   %439 = load i32, i32* %__v128_inD
   %440 = xor i32 %439, %__v296_load_le
   store i32 %440, i32* %__v128_inD
@@ -2739,22 +2739,22 @@ entry:
   %__v416_lexpr = add i64 %__v74_j, 60
   %441 = getelementptr i8, i8* %__v70_c, i64 %__v416_lexpr
   %442 = load i32, i32* %__v125_inA
-  call void @"__store[32]/secret_le"(i8* %441, i32 %442)
+  call void @"__store[32]_secret_le"(i8* %441, i32 %442)
   %__v417_lexpr = add i64 %__v74_j, 44
   %__v418_lexpr = add i64 %__v74_j, 44
   %443 = getelementptr i8, i8* %__v70_c, i64 %__v418_lexpr
   %444 = load i32, i32* %__v126_inB
-  call void @"__store[32]/secret_le"(i8* %443, i32 %444)
+  call void @"__store[32]_secret_le"(i8* %443, i32 %444)
   %__v419_lexpr = add i64 %__v74_j, 28
   %__v420_lexpr = add i64 %__v74_j, 28
   %445 = getelementptr i8, i8* %__v70_c, i64 %__v420_lexpr
   %446 = load i32, i32* %__v127_inC
-  call void @"__store[32]/secret_le"(i8* %445, i32 %446)
+  call void @"__store[32]_secret_le"(i8* %445, i32 %446)
   %__v421_lexpr = add i64 %__v74_j, 12
   %__v422_lexpr = add i64 %__v74_j, 12
   %447 = getelementptr i8, i8* %__v70_c, i64 %__v422_lexpr
   %448 = load i32, i32* %__v128_inD
-  call void @"__store[32]/secret_le"(i8* %447, i32 %448)
+  call void @"__store[32]_secret_le"(i8* %447, i32 %448)
   br label %450
 
 ; <label>:449:                                    ; preds = %411
@@ -2825,19 +2825,19 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %0 = getelementptr i8, i8* %__v59_iv, i64 0
-  %__v273_load_le = call i32 @"__load[32]/secret_le"(i8* %0)
+  %__v273_load_le = call i32 @"__load[32]_secret_le"(i8* %0)
   %1 = getelementptr i32, i32* %__v58_ctx, i64 6
   store i32 %__v273_load_le, i32* %1
   %2 = getelementptr i8, i8* %__v59_iv, i64 4
-  %__v274_load_le = call i32 @"__load[32]/secret_le"(i8* %2)
+  %__v274_load_le = call i32 @"__load[32]_secret_le"(i8* %2)
   %3 = getelementptr i32, i32* %__v58_ctx, i64 11
   store i32 %__v274_load_le, i32* %3
   %4 = getelementptr i8, i8* %__v60_counter, i64 0
-  %__v275_load_le = call i32 @"__load[32]/public_le"(i8* %4)
+  %__v275_load_le = call i32 @"__load[32]_public_le"(i8* %4)
   %5 = getelementptr i32, i32* %__v58_ctx, i64 8
   store i32 %__v275_load_le, i32* %5
   %6 = getelementptr i8, i8* %__v60_counter, i64 4
-  %__v276_load_le = call i32 @"__load[32]/public_le"(i8* %6)
+  %__v276_load_le = call i32 @"__load[32]_public_le"(i8* %6)
   %7 = getelementptr i32, i32* %__v58_ctx, i64 13
   store i32 %__v276_load_le, i32* %7
   ret void
@@ -2881,35 +2881,35 @@ entry:
   %15 = getelementptr i32, i32* %__v57_TR, i64 15
   store i32 3, i32* %15
   %16 = getelementptr i8, i8* %__v56_k, i64 0
-  %__v265_load_le = call i32 @"__load[32]/secret_le"(i8* %16)
+  %__v265_load_le = call i32 @"__load[32]_secret_le"(i8* %16)
   %17 = getelementptr i32, i32* %__v55_ctx, i64 5
   store i32 %__v265_load_le, i32* %17
   %18 = getelementptr i8, i8* %__v56_k, i64 4
-  %__v266_load_le = call i32 @"__load[32]/secret_le"(i8* %18)
+  %__v266_load_le = call i32 @"__load[32]_secret_le"(i8* %18)
   %19 = getelementptr i32, i32* %__v55_ctx, i64 10
   store i32 %__v266_load_le, i32* %19
   %20 = getelementptr i8, i8* %__v56_k, i64 8
-  %__v267_load_le = call i32 @"__load[32]/secret_le"(i8* %20)
+  %__v267_load_le = call i32 @"__load[32]_secret_le"(i8* %20)
   %21 = getelementptr i32, i32* %__v55_ctx, i64 15
   store i32 %__v267_load_le, i32* %21
   %22 = getelementptr i8, i8* %__v56_k, i64 12
-  %__v268_load_le = call i32 @"__load[32]/secret_le"(i8* %22)
+  %__v268_load_le = call i32 @"__load[32]_secret_le"(i8* %22)
   %23 = getelementptr i32, i32* %__v55_ctx, i64 12
   store i32 %__v268_load_le, i32* %23
   %24 = getelementptr i8, i8* %__v56_k, i64 16
-  %__v269_load_le = call i32 @"__load[32]/secret_le"(i8* %24)
+  %__v269_load_le = call i32 @"__load[32]_secret_le"(i8* %24)
   %25 = getelementptr i32, i32* %__v55_ctx, i64 7
   store i32 %__v269_load_le, i32* %25
   %26 = getelementptr i8, i8* %__v56_k, i64 20
-  %__v270_load_le = call i32 @"__load[32]/secret_le"(i8* %26)
+  %__v270_load_le = call i32 @"__load[32]_secret_le"(i8* %26)
   %27 = getelementptr i32, i32* %__v55_ctx, i64 4
   store i32 %__v270_load_le, i32* %27
   %28 = getelementptr i8, i8* %__v56_k, i64 24
-  %__v271_load_le = call i32 @"__load[32]/secret_le"(i8* %28)
+  %__v271_load_le = call i32 @"__load[32]_secret_le"(i8* %28)
   %29 = getelementptr i32, i32* %__v55_ctx, i64 9
   store i32 %__v271_load_le, i32* %29
   %30 = getelementptr i8, i8* %__v56_k, i64 28
-  %__v272_load_le = call i32 @"__load[32]/secret_le"(i8* %30)
+  %__v272_load_le = call i32 @"__load[32]_secret_le"(i8* %30)
   %31 = getelementptr i32, i32* %__v55_ctx, i64 14
   store i32 %__v272_load_le, i32* %31
   %32 = getelementptr i32, i32* %__v55_ctx, i64 0
@@ -2941,13 +2941,13 @@ entry:
 ; <label>:3:                                      ; preds = %2
   %__v53_ic_bytes = alloca i8, i64 8
   call void @fact.memset.i8(i8* %__v53_ic_bytes, i8 0, i64 8)
-  call void @"__store[64]/public_le"(i8* %__v53_ic_bytes, i64 %__v51_ic_val)
+  call void @"__store[64]_public_le"(i8* %__v53_ic_bytes, i64 %__v51_ic_val)
   %__v54_ctx = alloca i32, i64 16
   call void @fact.memset.i32(i32* %__v54_ctx, i8 0, i64 16)
   call void @_salsa_keysetup(i32* %__v54_ctx, i8* %__v52_k)
   call void @_salsa_ivsetup(i32* %__v54_ctx, i8* %__v50_n, i8* %__v53_ic_bytes)
   call void @_salsa20_encrypt_bytes(i32* %__v54_ctx, i8* %__v49_m, i64 %__v319___v49_m_len, i8* %__v48_c, i64 %__v318___v48_c_len)
-  call void @"__smemzero[32]/secret"(i32* %__v54_ctx, i64 16)
+  call void @"__smemzero[32]_secret"(i32* %__v54_ctx, i64 16)
   ret i32 0
 }
 
@@ -2972,7 +2972,7 @@ entry:
   call void @_crypto_core_hsalsa20(i8* %__v45_subkey, i8* %0, i8* %__v44_k)
   %__v46_tmp = getelementptr i8, i8* %__v42_n, i64 16
   %__v47_ret = call i32 @_crypto_stream_salsa20_xor_ic(i8* %__v40_c, i64 %__v316___v40_c_len, i8* %__v41_m, i64 %__v317___v41_m_len, i8* %__v46_tmp, i64 %__v43_ic, i8* %__v45_subkey)
-  call void @"__smemzero[8]/secret"(i8* %__v45_subkey, i64 32)
+  call void @"__smemzero[8]_secret"(i8* %__v45_subkey, i64 32)
   ret i32 %__v47_ret
 }
 
@@ -3043,11 +3043,11 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %0 = getelementptr i8, i8* %__v23_iv, i64 0
-  %__v261_load_le = call i32 @"__load[32]/secret_le"(i8* %0)
+  %__v261_load_le = call i32 @"__load[32]_secret_le"(i8* %0)
   %1 = getelementptr i32, i32* %__v22_ctx, i64 6
   store i32 %__v261_load_le, i32* %1
   %2 = getelementptr i8, i8* %__v23_iv, i64 4
-  %__v262_load_le = call i32 @"__load[32]/secret_le"(i8* %2)
+  %__v262_load_le = call i32 @"__load[32]_secret_le"(i8* %2)
   %3 = getelementptr i32, i32* %__v22_ctx, i64 11
   store i32 %__v262_load_le, i32* %3
   %4 = getelementptr i32, i32* %__v22_ctx, i64 8
@@ -3077,9 +3077,9 @@ entry:
   call void @fact.memset.i32(i32* %__v21_ctx, i8 0, i64 16)
   call void @_salsa_keysetup(i32* %__v21_ctx, i8* %__v20_k)
   call void @_salsa_ivsetup_null(i32* %__v21_ctx, i8* %__v19_n)
-  call void @"__memzero[8]/secret"(i8* %__v18_c, i64 %__v309___v18_c_len)
+  call void @"__memzero[8]_secret"(i8* %__v18_c, i64 %__v309___v18_c_len)
   call void @_salsa20_encrypt_bytes(i32* %__v21_ctx, i8* %__v18_c, i64 %__v309___v18_c_len, i8* %__v18_c, i64 %__v309___v18_c_len)
-  call void @"__smemzero[32]/secret"(i32* %__v21_ctx, i64 16)
+  call void @"__smemzero[32]_secret"(i32* %__v21_ctx, i64 16)
   ret i32 0
 }
 
@@ -3095,7 +3095,7 @@ entry:
   call void @_crypto_core_hsalsa20(i8* %__v16_subkey, i8* %0, i8* %__v15_k)
   %1 = getelementptr i8, i8* %__v14_n, i64 16
   %__v17_ret = call i32 @_crypto_stream_salsa20(i8* %__v13_c, i64 %__v308___v13_c_len, i8* %1, i8* %__v16_subkey)
-  call void @"__smemzero[8]/secret"(i8* %__v16_subkey, i64 32)
+  call void @"__smemzero[8]_secret"(i8* %__v16_subkey, i64 32)
   ret i32 %__v17_ret
 }
 

@@ -2,7 +2,7 @@
 source_filename = "Module"
 
 ; Function Attrs: alwaysinline
-define internal void @"__memcpy[8]/secret"(i8* %dst, i8* %src, i64 %len) #0 {
+define internal void @"__memcpy[8]_secret"(i8* %dst, i8* %src, i64 %len) #0 {
 entry:
   call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
   ret void
@@ -98,7 +98,7 @@ entry:
 
 ; <label>:28:                                     ; preds = %27
   %29 = getelementptr i8, i8* %__v3_hmac_pad, i64 0
-  call void @"__memcpy[8]/secret"(i8* %29, i8* %__v14_mac_secret, i64 %__v61___v14_mac_secret_len)
+  call void @"__memcpy[8]_secret"(i8* %29, i8* %__v14_mac_secret, i64 %__v61___v14_mac_secret_len)
   br label %30
 
 ; <label>:30:                                     ; preds = %37, %28
@@ -199,11 +199,11 @@ entry:
 ; <label>:84:                                     ; preds = %75
   %85 = getelementptr i8, i8* %__v31_first_block, i64 0
   %86 = getelementptr i8, i8* %__v11_header, i64 0
-  call void @"__memcpy[8]/secret"(i8* %85, i8* %86, i64 13)
+  call void @"__memcpy[8]_secret"(i8* %85, i8* %86, i64 13)
   %__v40_cpylen = sub i64 %__v5_md_block_size, 13
   %87 = getelementptr i8, i8* %__v31_first_block, i64 13
   %88 = getelementptr i8, i8* %__v12_data, i64 0
-  call void @"__memcpy[8]/secret"(i8* %87, i8* %88, i64 %__v40_cpylen)
+  call void @"__memcpy[8]_secret"(i8* %87, i8* %88, i64 %__v40_cpylen)
   call void @_md_transform(i32 %__v10_sha_type, i8* %__v1_md_state, i8* %__v31_first_block)
   %89 = load i64, i64* %__v30_k
   %90 = udiv i64 %89, %__v5_md_block_size
@@ -223,11 +223,11 @@ entry:
   call void @_md_transform(i32 %__v10_sha_type, i8* %__v1_md_state, i8* %__v11_header)
   %95 = getelementptr i8, i8* %__v31_first_block, i64 0
   %96 = getelementptr i8, i8* %__v11_header, i64 %__v5_md_block_size
-  call void @"__memcpy[8]/secret"(i8* %95, i8* %96, i64 %__v35_overhang)
+  call void @"__memcpy[8]_secret"(i8* %95, i8* %96, i64 %__v35_overhang)
   %__v36_cpylen = sub i64 %__v5_md_block_size, %__v35_overhang
   %97 = getelementptr i8, i8* %__v31_first_block, i64 %__v35_overhang
   %98 = getelementptr i8, i8* %__v12_data, i64 0
-  call void @"__memcpy[8]/secret"(i8* %97, i8* %98, i64 %__v36_cpylen)
+  call void @"__memcpy[8]_secret"(i8* %97, i8* %98, i64 %__v36_cpylen)
   call void @_md_transform(i32 %__v10_sha_type, i8* %__v1_md_state, i8* %__v31_first_block)
   %99 = load i64, i64* %__v30_k
   %100 = udiv i64 %99, %__v5_md_block_size
