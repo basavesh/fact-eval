@@ -1,1 +1,6 @@
 *.pseudo.fact
+*/tests/setup
+*/tests/compile
+*/tests/bench
+*/tests/test
+benchmarks.log

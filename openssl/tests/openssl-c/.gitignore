@@ -182,3 +182,6 @@ pod2htmd.tmp
 # Windows manifest files
 *.manifest
 doc-nits
+
+/apps/client.time
+/apps/server.time
