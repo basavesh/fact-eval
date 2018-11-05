@@ -29,6 +29,14 @@ bench: test
 	@tail -n7 openssl-fact-nice/apps/benchmarks.log >> bench
 	@echo "output written to bench"
 
+recompile:
+	rm -f compile
+	make compile
+
+retest:
+	rm -f test
+	make test
+
 rebench:
 	rm -f bench
 	make bench

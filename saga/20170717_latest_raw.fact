@@ -69,7 +69,7 @@ struct EVP_AES_HMAC_SHA1 {
 // # define EVP_MAX_IV_LENGTH               16
 struct evp_cipher_ctx_st {
     secret uint8[40] unused1;
-    secret uint8[16] iv; // EVP_MAX_IV_LENGTH /* working iv */
+    public uint8[16] iv; // EVP_MAX_IV_LENGTH /* working iv */
     secret uint8[60] unused2;
     mut EVP_AES_HMAC_SHA1 key; /* per EVP data */
     // everything after is unused so we don't even bother
@@ -78,11 +78,11 @@ struct evp_cipher_ctx_st {
 extern
 void
 aesni_cbc_encrypt(
-    secret uint8[] input,
+    public uint8[] input,
     secret mut uint8[] out,
     public uint64 length,
     secret uint32[60] key, // actually struct AES_KEY
-    secret mut uint8[] iv,
+    public mut uint8[] iv,
     public int32 enc); // really a bool
 
 extern
@@ -136,10 +136,10 @@ export
 secret int32
 _aesni_cbc_hmac_sha1_cipher(
     //mut struct evp_cipher_ctx_st ctx,
-    secret mut uint8[16] iv,
+    public mut uint8[16] iv,
     mut EVP_AES_HMAC_SHA1 key,
     secret mut uint8[] _out,
-    secret uint8[] _in,
+    public uint8[] _in,
     public uint64 plen,
     public uint16 tls_ver) {
   assume(len _in >= len iv);
