@@ -26,7 +26,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	%rdx, %r15
 	movq	%rsi, -120(%rbp)        # 8-byte Spill
 	movq	%rdi, %rax
-	movzwl	24(%rbp), %ecx
+	movzwl	16(%rbp), %ecx
 	cmpl	$770, %ecx              # imm = 0x302
 	jb	.LBB0_4
 # %bb.1:
@@ -81,18 +81,17 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	%r14, %rcx
 	subq	%rax, %rcx
 	leaq	544(%rbx), %rsi
-	movq	16(%rbp), %rax
-	movb	%ch, 542(%rbx,%rax)  # NOREX
+	movb	%ch, 555(%rbx)  # NOREX
 	movq	%rcx, -56(%rbp)         # 8-byte Spill
-	movb	%cl, 543(%rbx,%rax)
-	movq	%rax, %rdx
+	movb	%cl, 556(%rbx)
 	leaq	436(%rbx), %r15
 	vmovups	244(%rbx), %ymm0
 	vmovdqu	276(%rbx), %ymm1
 	vmovups	308(%rbx), %ymm2
-	vmovups	%ymm2, 500(%rbx)
-	vmovdqu	%ymm1, 468(%rbx)
 	vmovups	%ymm0, 436(%rbx)
+	vmovdqu	%ymm1, 468(%rbx)
+	vmovups	%ymm2, 500(%rbx)
+	movl	$13, %edx
 	movq	%r15, %rdi
 	vzeroupper
 	callq	_sha1_update

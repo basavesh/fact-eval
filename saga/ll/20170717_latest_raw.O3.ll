@@ -164,7 +164,7 @@ entry:
 
 declare void @aesni_cbc_encrypt(i8*, i8*, i64, i32*, i8*, i32)
 
-define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %__v1_iv, %EVP_AES_HMAC_SHA1* %__v2_key, i8* %__v3__out, i64 %__v85___v3__out_len, i8* %__v4__in, i64 %__v86___v4__in_len, i64 %__v5_plen, i16 %__v6_tls_ver) {
+define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %__v1_iv, %EVP_AES_HMAC_SHA1* %__v2_key, i8* %__v3__out, i64 %__v85___v3__out_len, i8* %__v4__in, i64 %__v86___v4__in_len, i16 %__v5_tls_ver) {
 entry:
   %__rval = alloca i32
   store i32 0, i32* %__rval
@@ -178,7 +178,7 @@ entry:
   store i64 %__v85___v3__out_len, i64* %__v15__len
   %__v16_ret = alloca i32
   store i32 1, i32* %__v16_ret
-  %0 = zext i16 %__v6_tls_ver to i32
+  %0 = zext i16 %__v5_tls_ver to i32
   %1 = icmp uge i32 %0, 770
   br i1 %1, label %2, label %4
 
@@ -241,18 +241,16 @@ entry:
   %38 = sub i64 %33, %37
   %__v20_inp_len = alloca i64
   store i64 %38, i64* %__v20_inp_len
-  %__v96_lexpr = sub i64 %__v5_plen, 2
   %39 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
   %40 = bitcast [16 x i8]* %39 to i8*
-  %41 = getelementptr i8, i8* %40, i64 %__v96_lexpr
+  %41 = getelementptr i8, i8* %40, i64 11
   %42 = load i64, i64* %__v20_inp_len
   %43 = lshr i64 %42, 8
   %44 = trunc i64 %43 to i8
   store i8 %44, i8* %41
-  %__v97_lexpr = sub i64 %__v5_plen, 1
   %45 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
   %46 = bitcast [16 x i8]* %45 to i8*
-  %47 = getelementptr i8, i8* %46, i64 %__v97_lexpr
+  %47 = getelementptr i8, i8* %46, i64 12
   %48 = load i64, i64* %__v20_inp_len
   %49 = lshr i64 %48, 0
   %50 = trunc i64 %49 to i8
@@ -265,7 +263,7 @@ entry:
   %55 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
   %56 = bitcast [16 x i8]* %55 to i8*
   %57 = getelementptr i8, i8* %56, i64 0
-  call void @_sha1_update(i32* %54, i8* %57, i64 %__v5_plen)
+  call void @_sha1_update(i32* %54, i8* %57, i64 13)
   %58 = load i64, i64* %__v15__len
   %59 = sub i64 %58, 20
   store i64 %59, i64* %__v15__len

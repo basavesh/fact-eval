@@ -494,7 +494,6 @@ static int aesni_cbc_hmac_sha1_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
               len,
               in,
               len,
-              plen,
               key->aux.tls_aad[plen - 4] << 8 | key->aux.tls_aad[plen - 3]);
 #else
             size_t inp_len, mask, j, i;

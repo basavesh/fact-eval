@@ -46,8 +46,7 @@ struct evp_cipher_ctx_st;
   /*public*/ uint64_t __v85___v3__out_len,
   const /*public*/ uint8_t __v4__in[],
   /*public*/ uint64_t __v86___v4__in_len,
-  /*public*/ uint64_t __v5_plen,
-  /*public*/ uint16_t __v6_tls_ver);
+  /*public*/ uint16_t __v5_tls_ver);
 
 
 

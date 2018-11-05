@@ -894,7 +894,7 @@ entry:
 
 declare void @aesni_cbc_encrypt(i8*, i8*, i64, %AES_KEY*, i8*, i32)
 
-define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %__v1_iv, %EVP_AES_HMAC_SHA1* %__v2_key, i8* %__v3__out, i64 %__v102___v3__out_len, i8* %__v4__in, i64 %__v103___v4__in_len, i64 %__v5_plen, i16 %__v6_tls_ver) {
+define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %__v1_iv, %EVP_AES_HMAC_SHA1* %__v2_key, i8* %__v3__out, i64 %__v102___v3__out_len, i8* %__v4__in, i64 %__v103___v4__in_len, i16 %__v5_tls_ver) {
 entry:
   %__rval = alloca i32
   store i32 0, i32* %__rval
@@ -920,7 +920,7 @@ entry:
   %5 = trunc i64 %__v102___v3__out_len to i32
   %__v16__len = alloca i32
   store i32 %5, i32* %__v16__len
-  %6 = zext i16 %__v6_tls_ver to i32
+  %6 = zext i16 %__v5_tls_ver to i32
   %7 = icmp uge i32 %6, 770
   br i1 %7, label %8, label %11
 
@@ -975,10 +975,9 @@ entry:
   %38 = add i32 %37, 1
   %39 = add i32 %38, 20
   %__v20_inp_len = sub i32 %36, %39
-  %__v116_lexpr = sub i64 %__v5_plen, 2
   %40 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
   %41 = bitcast [16 x i8]* %40 to i8*
-  %42 = getelementptr i8, i8* %41, i64 %__v116_lexpr
+  %42 = getelementptr i8, i8* %41, i64 11
   %43 = trunc i32 %__v20_inp_len to i16
   call void @store16_be(i8* %42, i16 %43)
   %__v21_ctx_num = alloca i32
@@ -992,7 +991,7 @@ entry:
   %47 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
   %48 = bitcast [16 x i8]* %47 to i8*
   %49 = getelementptr i8, i8* %48, i64 0
-  call void @SHA1_Update_public(%SHA_CTX* %46, i8* %49, i64 %__v5_plen)
+  call void @SHA1_Update_public(%SHA_CTX* %46, i8* %49, i64 13)
   %50 = load i32, i32* %__v16__len
   %51 = icmp uge i32 %50, 340
   %52 = load i32, i32* %__v16__len

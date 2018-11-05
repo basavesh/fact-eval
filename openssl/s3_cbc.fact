@@ -20,8 +20,6 @@ export secret int32 __ssl3_cbc_digest_record(
   public uint64 sslv3_pad_length =      40;
   public uint64 md_length_size =        8;
 
-  assume(len data >= 13);
-
 
   // skipping the prequel stuff in the function since it doesn't really have any ct
 
@@ -40,6 +38,9 @@ export secret int32 __ssl3_cbc_digest_record(
     num_starting_blocks = num_blocks - variance_blocks;
     k = md_block_size * num_starting_blocks;
   }
+  assume(k == ((num_blocks > variance_blocks + 1) ? md_block_size * num_starting_blocks : 0));
+  assume(len data >= k);
+  assume(len header <= 2 * md_block_size);
 
   secret mut uint8[128] first_block = zeros(128); // `MAX_HASH_BLOCK_SIZE`
 
@@ -53,24 +54,19 @@ export secret int32 __ssl3_cbc_digest_record(
   length_bytes[md_length_size - 1] = uint8(bits);
 
   if (k > 0) {
-    assume(len data >= md_block_size);
     if ((len header) <= md_block_size) {
       // "Should never happen"
       return 0;
     }
     public uint64 overhang = (len header) - md_block_size;
-    assume(overhang < 128);
     SHA1_Transform(md_state, header);
     memcpy(view(first_block, 0, overhang), view(header, md_block_size, overhang));
     public uint64 cpylen = md_block_size - overhang;
-    assume(cpylen < md_block_size);
     memcpy(view(first_block, overhang, cpylen), view(data, 0, cpylen));
     SHA1_Transform(md_state, first_block);
     public uint64 loopbound = k / md_block_size - 1;
     for (uint64 i from 1 to loopbound) {
       public uint64 idx = md_block_size * i - overhang;
-      assume(idx <= idx + md_block_size);
-      assume(idx + md_block_size <= len data);
       SHA1_Transform(md_state, view(data, idx, md_block_size));
     }
   }

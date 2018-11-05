@@ -332,11 +332,11 @@ _aesni_cbc_hmac_sha1_cipher(
     mut EVP_AES_HMAC_SHA1 key,
     secret mut uint8[] _out,
     public uint8[] _in,
-    public uint64 plen,
     public uint16 tls_ver) {
   assume(len _in >= len iv);
   assume(len _in == len _out);
-  assume(plen >= 2 && plen < 16);
+
+  public uint64 plen = 13;
 
   public uint64 NO_PAYLOAD_LENGTH = uint64(-1);
   public uint32 AES_BLOCK_SIZE = 16;
