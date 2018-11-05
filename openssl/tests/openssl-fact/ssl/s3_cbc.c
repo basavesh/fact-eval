@@ -263,23 +263,12 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         md_state.c,
         mac_out,
         hmac_pad,
-        // parameters
-        md_size,
-        md_block_size,
-        log_md_block_size,
-        sslv3_pad_length,
-        md_length_size,
-        length_is_big_endian,
-        sha_type,
         // inputs
         header,
         header_length,
         data,
         data_plus_mac_plus_padding_size,
-        data_plus_mac_size,
-        mac_secret,
-        mac_secret_length,
-        is_sslv3);
+        data_plus_mac_size);
     if (ret == 0)
       return 0; // "Should never happen"
 #else
