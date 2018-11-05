@@ -36,12 +36,13 @@ mbedtls_testbench: LDLIBS += -lmbed_bench -lgmp -lm
 mbedtls_testbench: mbedtls_testbench.c build/libmbed_bench.a
 	$(CC) $(CFLAGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
 
-.PHONY: clean bench
-clean:
-	rm -rf build mbedtls_testbench mbedtls_testbench.o
-	+$(MAKE) -C ../ clean
-
 bench: mbedtls_testbench
 	echo >> benchmarks.log
 	date >> benchmarks.log
 	./mbedtls_testbench | tee -a benchmarks.log
+	@tail -n4 benchmarks.log > bench
+
+.PHONY: clean
+clean:
+	rm -rf build mbedtls_testbench mbedtls_testbench.o
+	+$(MAKE) -C ../ clean
