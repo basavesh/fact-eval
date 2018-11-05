@@ -223,7 +223,7 @@ store_limb(secret mut uint8[8] out, secret uint64 input) {
 
 /* Take a little-endian, 32-byte number and expand it into polynomial form */
 void
-fexpand(secret mut uint64[5] output, secret uint8[32] input) {
+fexpand(secret mut uint64[5] output, public uint8[32] input) {
   output[0] = load_limb(view(input, 0, 8)) & 0x7ffffffffffff;
   output[1] = (load_limb(view(input, 6, 8)) >> 3) & 0x7ffffffffffff;
   output[2] = (load_limb(view(input, 12, 8)) >> 6) & 0x7ffffffffffff;
@@ -459,7 +459,7 @@ crecip(secret mut uint64[5] out, secret uint64[5] z) {
 
 export
 public int32
-curve25519_donna(secret mut uint8[32] mypublic, secret uint8[32] _secret, secret uint8[32] basepoint) {
+curve25519_donna(secret mut uint8[32] mypublic, secret uint8[32] _secret, public uint8[32] basepoint) {
   secret mut uint64[5] bp = zeros(5);
   secret mut uint64[5] x = zeros(5);
   secret mut uint64[5] z = zeros(5);
