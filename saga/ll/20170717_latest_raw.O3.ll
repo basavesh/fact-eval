@@ -6,7 +6,7 @@ source_filename = "Module"
 %AES_KEY = type { [60 x i32], i32 }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memcpy[8]_secret"(i8* %dst, i8* %src, i64 %len) #0 {
+define internal void @"__memcpy[8]_public"(i8* %dst, i8* %src, i64 %len) #0 {
 entry:
   call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
   ret void
@@ -281,7 +281,7 @@ entry:
 
 ; <label>:64:                                     ; preds = %63
   %65 = getelementptr i8, i8* %__v4__in, i64 0
-  call void @"__memcpy[8]_secret"(i8* %__v1_iv, i8* %65, i64 16)
+  call void @"__memcpy[8]_public"(i8* %__v1_iv, i8* %65, i64 16)
   %66 = load i64, i64* %__v13_inp
   %67 = add i64 %66, 16
   store i64 %67, i64* %__v13_inp

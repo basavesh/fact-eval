@@ -29,18 +29,18 @@ struct EVP_AES_HMAC_SHA1;
 struct evp_cipher_ctx_st;
 // struct evp_cipher_ctx_st {
 //   /*secret*/ uint8_t unused1;
-//   /*secret*/ uint8_t iv;
+//   /*public*/ uint8_t iv;
 //   /*secret*/ uint8_t unused2;
 //   struct EVP_AES_HMAC_SHA1 * key;
 // };
 
 
 /*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher(
-  /*secret*/ uint8_t __v1_iv[16],
+  /*public*/ uint8_t __v1_iv[16],
   struct EVP_AES_HMAC_SHA1 * __v2_key,
   /*secret*/ uint8_t __v3__out[],
   /*public*/ uint64_t __v69___v3__out_len,
-  const /*secret*/ uint8_t __v4__in[],
+  const /*public*/ uint8_t __v4__in[],
   /*public*/ uint64_t __v70___v4__in_len,
   /*public*/ uint64_t __v5_plen,
   /*public*/ uint16_t __v6_tls_ver);

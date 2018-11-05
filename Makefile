@@ -4,6 +4,10 @@ default:
 
 DIRS=$(wildcard */tests/)
 BENCHES=$(addsuffix bench,$(DIRS))
+BASEDIRS=$(DIRS:/tests/=)
+
+generate:
+	@for x in $(BASEDIRS); do (cd $$x && make generate); done
 
 %/bench:
 	cd % && make bench

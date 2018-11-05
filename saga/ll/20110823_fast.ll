@@ -6,7 +6,7 @@ source_filename = "Module"
 %EVP_AES_HMAC_SHA1 = type { %AES_KEY, %SHA_CTX, %SHA_CTX, %SHA_CTX, i64, [16 x i8] }
 
 ; Function Attrs: alwaysinline
-define internal void @"__memcpy[8]_secret"(i8* %dst, i8* %src, i64 %len) #0 {
+define internal void @"__memcpy[8]_public"(i8* %dst, i8* %src, i64 %len) #0 {
 entry:
   call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
   ret void
@@ -29,6 +29,13 @@ entry:
   %0 = bitcast %SHA_CTX* %dst to i8*
   %1 = bitcast %SHA_CTX* %src to i8*
   call void @fact.memcpy.i8(i8* %0, i8* %1, i64 ptrtoint (%SHA_CTX* getelementptr (%SHA_CTX, %SHA_CTX* null, i32 1) to i64))
+  ret void
+}
+
+; Function Attrs: alwaysinline
+define internal void @"__memcpy[8]_secret"(i8* %dst, i8* %src, i64 %len) #0 {
+entry:
+  call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
   ret void
 }
 
@@ -1008,7 +1015,7 @@ entry:
 
 ; <label>:63:                                     ; preds = %62
   %64 = getelementptr i8, i8* %__v4__in, i64 0
-  call void @"__memcpy[8]_secret"(i8* %__v1_iv, i8* %64, i64 16)
+  call void @"__memcpy[8]_public"(i8* %__v1_iv, i8* %64, i64 16)
   %65 = load i32, i32* %__v14_inp
   %66 = add i32 %65, 16
   store i32 %66, i32* %__v14_inp
