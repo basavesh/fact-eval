@@ -29,23 +29,21 @@ struct EVP_AES_HMAC_SHA1 {
 };
 
 /*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher(
-  /*secret*/ uint8_t __v1_iv[16],
-  struct EVP_AES_HMAC_SHA1 * __v2_key,
-  /*secret*/ uint8_t __v3__out[],
-  /*public*/ uint64_t __v85___v3__out_len,
-  const /*secret*/ uint8_t __v4__in[],
-  /*public*/ uint64_t __v86___v4__in_len,
-  /*public*/ uint64_t __v5_plen,
-  /*public*/ uint16_t __v6_tls_ver);
-
-/*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher_wrapper(
-  /*secret*/ uint8_t __v1_iv[16],
+  /*public*/ uint8_t __v1_iv[16],
   struct EVP_AES_HMAC_SHA1 * __v2_key,
   /*secret*/ uint8_t __v3__out[],
   /*public*/ uint64_t __v69___v3__out_len,
-  const /*secret*/ uint8_t __v4__in[],
+  const /*public*/ uint8_t __v4__in[],
   /*public*/ uint64_t __v70___v4__in_len,
-  /*public*/ uint64_t __v5_plen,
+  /*public*/ uint16_t __v5_tls_ver);
+
+/*secret*/ int32_t _aesni_cbc_hmac_sha1_cipher_wrapper(
+  /*public*/ uint8_t __v1_iv[16], ///
+  struct EVP_AES_HMAC_SHA1 * __v2_key,
+  /*secret*/ uint8_t __v3__out[],
+  /*public*/ uint64_t __v69___v3__out_len,
+  const /*public*/ uint8_t __v4__in[], ///
+  /*public*/ uint64_t __v70___v4__in_len,
   /*public*/ uint32_t __v6_tls_ver) { //actually a uint16_t, but that gives ctverif errors
 
     // assumes in fact code
@@ -59,13 +57,11 @@ _out        == __v3__out
 len _out    == __v69___v3__out_len
 _in         == __v4__in
 len _in     == __v70___v4__in_len
-plen        == __v5_plen
 tls_ver     == __v6_tls_ver
 
 Assumes in FaCT code...
 assume(len _in >= len iv);
 assume(len _in == len _out);
-assume(plen >= 2 && plen < 16);
 assume(inp + _len == len _in);
 assume(outp + _len == len _out);
 assume(inp + _len >= inp);
@@ -77,7 +73,6 @@ assume(i < len pmac);
 */
     assume(__v70___v4__in_len >= 16);
     assume(__v70___v4__in_len == __v69___v3__out_len);
-    assume(__v5_plen >= 2 && __v5_plen < 16);
     //assume(inp + _len == __v70___v4__in_len);
     //assume(outp + _len == __v69___v3__out_len);
     //assume(inp + _len >= inp);
@@ -104,8 +99,10 @@ assume(i < len pmac);
     // public vals are public
     public_in(__SMACK_value(__v69___v3__out_len));
     public_in(__SMACK_value(__v70___v4__in_len));
-    public_in(__SMACK_value(__v5_plen));
     public_in(__SMACK_value(__v6_tls_ver));
+    public_in(__SMACK_values(__v1_iv, 16));
+    
+    assume(__v70___v4__in_len == 500); public_in(__SMACK_values(__v4__in,500));
 
     // struct fields --- pointers and public vals are public
     public_in(__SMACK_value(__v2_key->ks.rounds));
@@ -130,7 +127,6 @@ assume(i < len pmac);
         __v69___v3__out_len,
         __v4__in,
         __v70___v4__in_len,
-        __v5_plen,
         (uint16_t) __v6_tls_ver);
 }
 
