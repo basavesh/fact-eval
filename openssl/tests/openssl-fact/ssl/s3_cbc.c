@@ -254,7 +254,8 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
     }
 
     start = OPENSSL_rdtsc();
-#if 1
+//#if 1
+if (is_sslv3 && sha_type == NID_sha1) {
     memset(mac_out, 0, sizeof(mac_out));
     memset(hmac_pad, 0, md_block_size);
 
@@ -271,7 +272,8 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         data_plus_mac_size);
     if (ret == 0)
       return 0; // "Should never happen"
-#else
+//#else
+} else {
 
     /*
      * variance_blocks is the number of blocks of the hash that we have to
@@ -476,7 +478,8 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
         for (j = 0; j < md_size; j++)
             mac_out[j] |= block[j] & is_block_b;
     }
-#endif
+//#endif
+}
     final = OPENSSL_rdtsc();
     dprintf(3, "time taken: %u\n", final - start);
 
