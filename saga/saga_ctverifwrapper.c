@@ -101,8 +101,7 @@ assume(i < len pmac);
     public_in(__SMACK_value(__v70___v4__in_len));
     public_in(__SMACK_value(__v6_tls_ver));
     public_in(__SMACK_values(__v1_iv, 16));
-    
-    assume(__v70___v4__in_len == 500); public_in(__SMACK_values(__v4__in,500));
+    assume(__v70___v4__in_len == 500); public_in(__SMACK_values(__v4__in,500)); // ctverif doesn't handle variable lengths
 
     // struct fields --- pointers and public vals are public
     public_in(__SMACK_value(__v2_key->ks.rounds));
