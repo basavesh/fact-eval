@@ -1,0 +1,9 @@
+secret uint32 potential_ub(
+    secret uint32 val1,
+    secret uint32 val2) {
+  // if val1 is instead public, this will compile
+  if (val1 < 32) {
+    return val2 << val1;
+  }
+  return val2;
+}
