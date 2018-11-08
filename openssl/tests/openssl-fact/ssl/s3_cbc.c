@@ -163,7 +163,7 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
     size_t md_length_size = 8;
     char length_is_big_endian = 1;
     int ret;
-    uint32_t start, final;
+    //uint32_t start, final;
 
     /*
      * This is a, hopefully redundant, check that allows us to forget about
@@ -253,7 +253,7 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
             2 /* record length */ ;
     }
 
-    start = OPENSSL_rdtsc();
+    //start = OPENSSL_rdtsc();
 //#if 1
 if (is_sslv3 && sha_type == NID_sha1) {
     memset(mac_out, 0, sizeof(mac_out));
@@ -480,8 +480,8 @@ if (is_sslv3 && sha_type == NID_sha1) {
     }
 //#endif
 }
-    final = OPENSSL_rdtsc();
-    dprintf(3, "time taken: %u\n", final - start);
+    //final = OPENSSL_rdtsc();
+    //dprintf(3, "time taken: %u\n", final - start);
 
     md_ctx = EVP_MD_CTX_new();
     if (md_ctx == NULL)

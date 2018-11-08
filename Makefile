@@ -10,7 +10,7 @@ generate:
 	@for x in $(BASEDIRS); do (cd $$x && make generate); done
 
 %/bench:
-	cd % && make bench
+	cd $$(dirname $@) && make bench
 
 results: $(BENCHES)
 	@head -n -0 $^ | tee results

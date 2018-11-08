@@ -161,7 +161,7 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
     size_t md_length_size = 8;
     char length_is_big_endian = 1;
     int ret;
-    uint32_t start, final;
+    //uint32_t start, final;
 
     /*
      * This is a, hopefully redundant, check that allows us to forget about
@@ -240,7 +240,7 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
             || !ossl_assert(md_size <= EVP_MAX_MD_SIZE))
         return 0;
 
-    start = OPENSSL_rdtsc();
+    //start = OPENSSL_rdtsc();
 
     header_length = 13;
     if (is_sslv3) {
@@ -454,8 +454,8 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
             mac_out[j] |= block[j] & is_block_b;
     }
 
-    final = OPENSSL_rdtsc();
-    dprintf(3, "time taken: %u\n", final - start);
+    //final = OPENSSL_rdtsc();
+    //dprintf(3, "time taken: %u\n", final - start);
 
     md_ctx = EVP_MD_CTX_new();
     if (md_ctx == NULL)
