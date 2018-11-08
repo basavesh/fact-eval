@@ -1,0 +1,10 @@
+void potential_oob(
+    secret mut uint32[] buf,
+    public uint64 i,
+    secret uint64 secret_index) {
+  assume(secret_index < len buf);
+  // however, for this example, we are NOT assuming i < len buf !!
+  if (i < secret_index) {
+    buf[i] = 0;
+  }
+}
