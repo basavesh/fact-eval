@@ -1,0 +1,11 @@
+public uint32 addu(
+    public uint32 x,
+    public uint32 y) {
+  return x + y;
+}
+
+public int32 addi(
+    public int32 x,
+    public int32 y) {
+  return x + y;
+}

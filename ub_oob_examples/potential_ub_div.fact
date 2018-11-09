@@ -1,0 +1,11 @@
+secret int32 potential_ub(
+    secret bool cond,
+    public int32 val1,
+    public int32 val2) {
+  assume(!cond);
+  // if cond is public, this will compile
+  if (cond) {
+    return val1 / val2;
+  }
+  return val1;
+}
