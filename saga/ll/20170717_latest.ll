@@ -1,156 +1,41 @@
-; ModuleID = 'Module'
+; ModuleID = './20170717_latest.bc'
 source_filename = "Module"
+target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
 
 %SHA_CTX = type { [5 x i32], i32, i32, [64 x i8], i32 }
 %EVP_AES_HMAC_SHA1 = type { %AES_KEY, %SHA_CTX, %SHA_CTX, %SHA_CTX, i64, [16 x i8] }
 %AES_KEY = type { [60 x i32], i32 }
 
-; Function Attrs: alwaysinline
-define internal void @"__memcpy[8]_public"(i8* %dst, i8* %src, i64 %len) #0 {
-entry:
-  call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
-  ret void
-}
+; Function Attrs: argmemonly nounwind
+declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #0
 
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #1
-
-; Function Attrs: alwaysinline
-define internal void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %dst, i8* %src, i64 %0, i32 1, i1 false)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @__memcpy_SHA_CTX(%SHA_CTX* %dst, %SHA_CTX* %src) #0 {
-entry:
-  %0 = bitcast %SHA_CTX* %dst to i8*
-  %1 = bitcast %SHA_CTX* %src to i8*
-  call void @fact.memcpy.i8(i8* %0, i8* %1, i64 ptrtoint (%SHA_CTX* getelementptr (%SHA_CTX, %SHA_CTX* null, i32 1) to i64))
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @"__store[32]_secret_oblivious_le"(i8* %dst, i32 %value, i1 %fctx) #0 {
-entry:
-  %0 = bitcast i8* %dst to i32*
-  %1 = load i32, i32* %0
-  %2 = call i32 @fact.cmov.sel.i32(i1 %fctx, i32 %value, i32 %1)
-  store i32 %2, i32* %0
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i32 @fact.cmov.sel.i32(i1 %cond, i32 %x, i32 %y) #0 {
-entry:
-  %0 = select i1 %cond, i32 %x, i32 %y
-  ret i32 %0
-}
-
-; Function Attrs: alwaysinline
-define internal void @"__memzero[8]_secret"(i8* %dst, i64 %len) #0 {
-entry:
-  call void @fact.memset.i8(i8* %dst, i8 0, i64 %len)
-  ret void
-}
-
-; Function Attrs: argmemonly nounwind
-declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #1
-
-; Function Attrs: alwaysinline
-define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 false)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @"__store[32]_secret_le"(i8* %dst, i32 %value) #0 {
-entry:
-  %0 = bitcast i8* %dst to i32*
-  store i32 %value, i32* %0
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i32 @"__load[32]_secret_le"(i8* %src) #0 {
-entry:
-  %0 = bitcast i8* %src to i32*
-  %1 = load i32, i32* %0
-  ret i32 %1
-}
-
-; Function Attrs: alwaysinline
-define internal i16 @load16_be(i8* %__v56_buf) #0 {
-entry:
-  %__rval = alloca i16
-  store i16 0, i16* %__rval
-  %__rctx = alloca i1
-  store i1 true, i1* %__rctx
-  %0 = getelementptr i8, i8* %__v56_buf, i64 0
-  %1 = load i8, i8* %0
-  %2 = zext i8 %1 to i16
-  %__v57_x2 = shl i16 %2, 8
-  %3 = getelementptr i8, i8* %__v56_buf, i64 1
-  %4 = load i8, i8* %3
-  %__v58_x1 = zext i8 %4 to i16
-  %5 = or i16 %__v58_x1, %__v57_x2
-  ret i16 %5
-}
+declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #0
 
 declare void @SHA1_Final(i8*, i32*)
 
 declare void @_sha1_update(i32*, i8*, i64)
 
-; Function Attrs: alwaysinline
-define internal i32 @bswap4(i32 %__v46_n) #0 {
-entry:
-  %__rval = alloca i32
-  store i32 0, i32* %__rval
-  %__rctx = alloca i1
-  store i1 true, i1* %__rctx
-  %0 = lshr i32 %__v46_n, 0
-  %1 = and i32 %0, 255
-  %__v47_x4 = shl i32 %1, 24
-  %2 = lshr i32 %__v46_n, 8
-  %3 = and i32 %2, 255
-  %__v48_x3 = shl i32 %3, 16
-  %4 = lshr i32 %__v46_n, 16
-  %5 = and i32 %4, 255
-  %__v49_x2 = shl i32 %5, 8
-  %6 = lshr i32 %__v46_n, 24
-  %7 = and i32 %6, 255
-  %__v50_x1 = shl i32 %7, 0
-  %8 = or i32 %__v50_x1, %__v49_x2
-  %9 = or i32 %8, %__v48_x3
-  %10 = or i32 %9, %__v47_x4
-  ret i32 %10
-}
-
 declare void @sha1_block_data_order(%SHA_CTX*, i8*, i32)
-
-; Function Attrs: alwaysinline
-define internal void @store16_be(i8* %__v41_buf, i16 %__v42_n) #0 {
-entry:
-  %__rctx = alloca i1
-  store i1 true, i1* %__rctx
-  %0 = getelementptr i8, i8* %__v41_buf, i64 0
-  %1 = lshr i16 %__v42_n, 8
-  %2 = trunc i16 %1 to i8
-  store i8 %2, i8* %0
-  %3 = getelementptr i8, i8* %__v41_buf, i64 1
-  %4 = trunc i16 %__v42_n to i8
-  store i8 %4, i8* %3
-  ret void
-}
 
 declare void @aesni_cbc_encrypt(i8*, i8*, i64, i32*, i8*, i32)
 
 define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %__v1_iv, %EVP_AES_HMAC_SHA1* %__v2_key, i8* %__v3__out, i64 %__v69___v3__out_len, i8* %__v4__in, i64 %__v70___v4__in_len, i16 %__v5_tls_ver) {
 entry:
+  %__rval.i22 = alloca i32
+  %__rctx.i23 = alloca i1
+  %__rctx.i21 = alloca i1
+  %__rval.i16 = alloca i32
+  %__rctx.i17 = alloca i1
+  %__rval.i11 = alloca i32
+  %__rctx.i12 = alloca i1
+  %__rval.i6 = alloca i32
+  %__rctx.i7 = alloca i1
+  %__rval.i1 = alloca i32
+  %__rctx.i2 = alloca i1
+  %__rval.i = alloca i32
+  %__rctx.i = alloca i1
   %__rval = alloca i32
   store i32 0, i32* %__rval
   %__rctx = alloca i1
@@ -171,14 +56,14 @@ entry:
 ; <label>:3:                                      ; preds = %entry
   %4 = load i32, i32* %__v15__len
   %5 = icmp ult i32 %4, 37
-  br i1 %5, label %56, label %57
+  br i1 %5, label %62, label %63
 
 ; <label>:6:                                      ; preds = %entry
   %7 = load i32, i32* %__v15__len
   %8 = icmp ult i32 %7, 21
-  br i1 %8, label %66, label %67
+  br i1 %8, label %72, label %73
 
-; <label>:9:                                      ; preds = %68, %58
+; <label>:9:                                      ; preds = %74, %64
   %10 = load i32, i32* %__v13_inp
   %__v76_lexpr = zext i32 %10 to i64
   %11 = load i32, i32* %__v15__len
@@ -209,11 +94,11 @@ entry:
   %__m1 = icmp ugt i32 %26, %__v19_maxpad
   %27 = and i1 true, %__m1
   %28 = load i32, i32* %__v17_pad
-  %29 = call i32 @fact.cmov.sel.i32(i1 %27, i32 %__v19_maxpad, i32 %28)
+  %29 = select i1 %27, i32 %__v19_maxpad, i32 %28
   store i32 %29, i32* %__v17_pad
   %30 = and i1 true, %__m1
   %31 = load i32, i32* %__v16_ret
-  %32 = call i32 @fact.cmov.sel.i32(i1 %30, i32 0, i32 %31)
+  %32 = select i1 %30, i32 0, i32 %31
   store i32 %32, i32* %__v16_ret
   %__m2 = xor i1 %__m1, true
   %33 = load i32, i32* %__v15__len
@@ -228,506 +113,643 @@ entry:
   %40 = getelementptr i8, i8* %39, i64 11
   %41 = load i32, i32* %__v20_inp_len
   %42 = trunc i32 %41 to i16
-  call void @store16_be(i8* %40, i16 %42)
-  %43 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %44 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 1
-  call void @__memcpy_SHA_CTX(%SHA_CTX* %43, %SHA_CTX* %44)
-  %45 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %46 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %45, i32 0, i32 0
-  %47 = bitcast [5 x i32]* %46 to i32*
-  %48 = getelementptr i32, i32* %47, i64 0
-  %49 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
-  %50 = bitcast [16 x i8]* %49 to i8*
-  %51 = getelementptr i8, i8* %50, i64 0
-  call void @_sha1_update(i32* %48, i8* %51, i64 13)
-  %52 = load i32, i32* %__v15__len
-  %53 = sub i32 %52, 20
-  store i32 %53, i32* %__v15__len
-  %54 = load i32, i32* %__v15__len
-  %55 = icmp uge i32 %54, 320
-  br i1 %55, label %69, label %90
+  store i1 true, i1* %__rctx.i21
+  %43 = lshr i16 %42, 8
+  %44 = trunc i16 %43 to i8
+  store i8 %44, i8* %40
+  %45 = getelementptr i8, i8* %40, i64 1
+  %46 = trunc i16 %42 to i8
+  store i8 %46, i8* %45
+  %47 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %48 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 1
+  %49 = bitcast %SHA_CTX* %47 to i8*
+  %50 = bitcast %SHA_CTX* %48 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %49, i8* %50, i64 ptrtoint (%SHA_CTX* getelementptr (%SHA_CTX, %SHA_CTX* null, i32 1) to i64), i32 1, i1 false)
+  %51 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %52 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %51, i32 0, i32 0
+  %53 = bitcast [5 x i32]* %52 to i32*
+  %54 = getelementptr i32, i32* %53, i64 0
+  %55 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 5
+  %56 = bitcast [16 x i8]* %55 to i8*
+  %57 = getelementptr i8, i8* %56, i64 0
+  call void @_sha1_update(i32* %54, i8* %57, i64 13)
+  %58 = load i32, i32* %__v15__len
+  %59 = sub i32 %58, 20
+  store i32 %59, i32* %__v15__len
+  %60 = load i32, i32* %__v15__len
+  %61 = icmp uge i32 %60, 320
+  br i1 %61, label %75, label %96
 
-; <label>:56:                                     ; preds = %3
+; <label>:62:                                     ; preds = %3
   ret i32 0
 
-; <label>:57:                                     ; preds = %3
-  br label %58
+; <label>:63:                                     ; preds = %3
+  br label %64
 
-; <label>:58:                                     ; preds = %57
-  %59 = getelementptr i8, i8* %__v4__in, i64 0
-  call void @"__memcpy[8]_public"(i8* %__v1_iv, i8* %59, i64 16)
-  %60 = load i32, i32* %__v13_inp
-  %61 = add i32 %60, 16
-  store i32 %61, i32* %__v13_inp
-  %62 = load i32, i32* %__v14_outp
-  %63 = add i32 %62, 16
-  store i32 %63, i32* %__v14_outp
-  %64 = load i32, i32* %__v15__len
-  %65 = sub i32 %64, 16
-  store i32 %65, i32* %__v15__len
-  br label %9
-
-; <label>:66:                                     ; preds = %6
-  ret i32 0
-
-; <label>:67:                                     ; preds = %6
-  br label %68
-
-; <label>:68:                                     ; preds = %67
-  br label %9
-
-; <label>:69:                                     ; preds = %9
+; <label>:64:                                     ; preds = %63
+  %65 = getelementptr i8, i8* %__v4__in, i64 0
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %__v1_iv, i8* %65, i64 16, i32 1, i1 false)
+  %66 = load i32, i32* %__v13_inp
+  %67 = add i32 %66, 16
+  store i32 %67, i32* %__v13_inp
+  %68 = load i32, i32* %__v14_outp
+  %69 = add i32 %68, 16
+  store i32 %69, i32* %__v14_outp
   %70 = load i32, i32* %__v15__len
-  %71 = sub i32 %70, 320
-  %72 = and i32 %71, -64
-  %73 = add i32 %72, 64
-  %74 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %75 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %74, i32 0, i32 4
-  %76 = load i32, i32* %75
-  %__v21_j = sub i32 %73, %76
-  %77 = load i32, i32* %__v14_outp
-  %__v82_lexpr = zext i32 %77 to i64
+  %71 = sub i32 %70, 16
+  store i32 %71, i32* %__v15__len
+  br label %9
+
+; <label>:72:                                     ; preds = %6
+  ret i32 0
+
+; <label>:73:                                     ; preds = %6
+  br label %74
+
+; <label>:74:                                     ; preds = %73
+  br label %9
+
+; <label>:75:                                     ; preds = %9
+  %76 = load i32, i32* %__v15__len
+  %77 = sub i32 %76, 320
+  %78 = and i32 %77, -64
+  %79 = add i32 %78, 64
+  %80 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %81 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %80, i32 0, i32 4
+  %82 = load i32, i32* %81
+  %__v21_j = sub i32 %79, %82
+  %83 = load i32, i32* %__v14_outp
+  %__v82_lexpr = zext i32 %83 to i64
   %__v83_lexpr = zext i32 %__v21_j to i64
-  %78 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %79 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %78, i32 0, i32 0
-  %80 = bitcast [5 x i32]* %79 to i32*
-  %81 = getelementptr i32, i32* %80, i64 0
-  %82 = getelementptr i8, i8* %__v3__out, i64 %__v82_lexpr
-  %83 = zext i32 %__v21_j to i64
-  call void @_sha1_update(i32* %81, i8* %82, i64 %83)
-  %84 = load i32, i32* %__v14_outp
-  %85 = add i32 %84, %__v21_j
-  store i32 %85, i32* %__v14_outp
-  %86 = load i32, i32* %__v15__len
-  %87 = sub i32 %86, %__v21_j
-  store i32 %87, i32* %__v15__len
-  %88 = load i32, i32* %__v20_inp_len
-  %89 = sub i32 %88, %__v21_j
-  store i32 %89, i32* %__v20_inp_len
-  br label %91
+  %84 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %85 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %84, i32 0, i32 0
+  %86 = bitcast [5 x i32]* %85 to i32*
+  %87 = getelementptr i32, i32* %86, i64 0
+  %88 = getelementptr i8, i8* %__v3__out, i64 %__v82_lexpr
+  %89 = zext i32 %__v21_j to i64
+  call void @_sha1_update(i32* %87, i8* %88, i64 %89)
+  %90 = load i32, i32* %__v14_outp
+  %91 = add i32 %90, %__v21_j
+  store i32 %91, i32* %__v14_outp
+  %92 = load i32, i32* %__v15__len
+  %93 = sub i32 %92, %__v21_j
+  store i32 %93, i32* %__v15__len
+  %94 = load i32, i32* %__v20_inp_len
+  %95 = sub i32 %94, %__v21_j
+  store i32 %95, i32* %__v20_inp_len
+  br label %97
 
-; <label>:90:                                     ; preds = %9
-  br label %91
+; <label>:96:                                     ; preds = %9
+  br label %97
 
-; <label>:91:                                     ; preds = %90, %69
-  %92 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %93 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %92, i32 0, i32 1
-  %94 = load i32, i32* %93
-  %95 = load i32, i32* %__v20_inp_len
-  %96 = shl i32 %95, 3
-  %97 = add i32 %94, %96
-  %__v22_bitlen = call i32 @bswap4(i32 %97)
-  %__v23_pmac = alloca i8, i64 20
-  call void @fact.memset.i8(i8* %__v23_pmac, i8 0, i64 20)
+; <label>:97:                                     ; preds = %96, %75
   %98 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %99 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %98, i32 0, i32 4
+  %99 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %98, i32 0, i32 1
   %100 = load i32, i32* %99
+  %101 = load i32, i32* %__v20_inp_len
+  %102 = shl i32 %101, 3
+  %103 = add i32 %100, %102
+  store i32 0, i32* %__rval.i22
+  store i1 true, i1* %__rctx.i23
+  %104 = and i32 %103, 255
+  %__v47_x4.i24 = shl i32 %104, 24
+  %105 = lshr i32 %103, 8
+  %106 = and i32 %105, 255
+  %__v48_x3.i25 = shl i32 %106, 16
+  %107 = lshr i32 %103, 16
+  %108 = and i32 %107, 255
+  %__v49_x2.i26 = shl i32 %108, 8
+  %109 = lshr i32 %103, 24
+  %110 = or i32 %109, %__v49_x2.i26
+  %111 = or i32 %110, %__v48_x3.i25
+  %112 = or i32 %111, %__v47_x4.i24
+  %__v23_pmac = alloca i8, i64 20
+  call void @llvm.memset.p0i8.i64(i8* %__v23_pmac, i8 0, i64 20, i32 1, i1 false)
+  %113 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %114 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %113, i32 0, i32 4
+  %115 = load i32, i32* %114
   %__v24_p_res = alloca i32
-  store i32 %100, i32* %__v24_p_res
-  %101 = load i32, i32* %__v15__len
-  br label %102
+  store i32 %115, i32* %__v24_p_res
+  %116 = load i32, i32* %__v15__len
+  br label %117
 
-; <label>:102:                                    ; preds = %124, %91
-  %__v25_j = phi i32 [ 0, %91 ], [ %125, %124 ]
-  %103 = icmp ult i32 %__v25_j, %101
-  br i1 %103, label %104, label %126
+; <label>:117:                                    ; preds = %143, %97
+  %__v25_j = phi i32 [ 0, %97 ], [ %144, %143 ]
+  %118 = icmp ult i32 %__v25_j, %116
+  br i1 %118, label %119, label %145
 
-; <label>:104:                                    ; preds = %102
-  %105 = load i32, i32* %__v24_p_res
-  %__v84_lexpr = zext i32 %105 to i64
-  %106 = load i32, i32* %__v14_outp
-  %107 = add i32 %106, %__v25_j
-  %__v85_lexpr = zext i32 %107 to i64
-  %108 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %109 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %108, i32 0, i32 3
-  %110 = bitcast [64 x i8]* %109 to i8*
-  %111 = getelementptr i8, i8* %110, i64 %__v84_lexpr
-  %112 = load i32, i32* %__v20_inp_len
-  %113 = icmp ult i32 %__v25_j, %112
-  %114 = getelementptr i8, i8* %__v3__out, i64 %__v85_lexpr
-  %115 = load i8, i8* %114
-  %116 = load i32, i32* %__v20_inp_len
-  %117 = icmp eq i32 %__v25_j, %116
-  %118 = call i8 @fact.select.asm.i8(i1 %117, i8 -128, i8 0)
-  %119 = call i8 @fact.select.asm.i8(i1 %113, i8 %115, i8 %118)
-  store i8 %119, i8* %111
+; <label>:119:                                    ; preds = %117
   %120 = load i32, i32* %__v24_p_res
-  %121 = add i32 %120, 1
-  store i32 %121, i32* %__v24_p_res
-  %122 = load i32, i32* %__v24_p_res
-  %123 = icmp eq i32 %122, 64
-  br i1 %123, label %129, label %179
+  %__v84_lexpr = zext i32 %120 to i64
+  %121 = load i32, i32* %__v14_outp
+  %122 = add i32 %121, %__v25_j
+  %__v85_lexpr = zext i32 %122 to i64
+  %123 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %124 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %123, i32 0, i32 3
+  %125 = bitcast [64 x i8]* %124 to i8*
+  %126 = getelementptr i8, i8* %125, i64 %__v84_lexpr
+  %127 = load i32, i32* %__v20_inp_len
+  %128 = icmp ult i32 %__v25_j, %127
+  %129 = getelementptr i8, i8* %__v3__out, i64 %__v85_lexpr
+  %130 = load i8, i8* %129
+  %131 = load i32, i32* %__v20_inp_len
+  %132 = icmp eq i32 %__v25_j, %131
+  %133 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %132, i32 128, i32 0)
+  %134 = trunc i32 %133 to i8
+  %135 = zext i8 %130 to i32
+  %136 = zext i8 %134 to i32
+  %137 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %128, i32 %135, i32 %136)
+  %138 = trunc i32 %137 to i8
+  store i8 %138, i8* %126
+  %139 = load i32, i32* %__v24_p_res
+  %140 = add i32 %139, 1
+  store i32 %140, i32* %__v24_p_res
+  %141 = load i32, i32* %__v24_p_res
+  %142 = icmp eq i32 %141, 64
+  br i1 %142, label %148, label %219
 
-; <label>:124:                                    ; preds = %180
-  %125 = add i32 %__v25_j, 1
-  br label %102
+; <label>:143:                                    ; preds = %220
+  %144 = add i32 %__v25_j, 1
+  br label %117
 
-; <label>:126:                                    ; preds = %102
-  %127 = load i32, i32* %__v15__len
+; <label>:145:                                    ; preds = %117
+  %146 = load i32, i32* %__v15__len
   %__v27_j = alloca i32
-  store i32 %127, i32* %__v27_j
-  %128 = load i32, i32* %__v24_p_res
-  br label %181
+  store i32 %146, i32* %__v27_j
+  %147 = load i32, i32* %__v24_p_res
+  br label %221
 
-; <label>:129:                                    ; preds = %104
-  %130 = load i32, i32* %__v20_inp_len
-  %131 = add i32 %130, 7
-  %__m17 = icmp ult i32 %131, %__v25_j
-  %132 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %133 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %132, i32 0, i32 3
-  %134 = bitcast [64 x i8]* %133 to i8*
-  %135 = getelementptr i8, i8* %134, i64 60
-  %136 = and i1 true, %__m17
-  call void @"__store[32]_secret_oblivious_le"(i8* %135, i32 %__v22_bitlen, i1 %136)
+; <label>:148:                                    ; preds = %119
+  %149 = load i32, i32* %__v20_inp_len
+  %150 = add i32 %149, 7
+  %__m17 = icmp ult i32 %150, %__v25_j
+  %151 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %152 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %151, i32 0, i32 3
+  %153 = bitcast [64 x i8]* %152 to i8*
+  %154 = getelementptr i8, i8* %153, i64 60
+  %155 = and i1 true, %__m17
+  %156 = bitcast i8* %154 to i32*
+  %157 = load i32, i32* %156
+  %158 = select i1 %155, i32 %112, i32 %157
+  store i32 %158, i32* %156
   %__m18 = xor i1 %__m17, true
-  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %138 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %139 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %138, i32 0, i32 3
-  %140 = bitcast [64 x i8]* %139 to i8*
-  call void @sha1_block_data_order(%SHA_CTX* %137, i8* %140, i32 1)
-  %141 = load i32, i32* %__v20_inp_len
-  %142 = add i32 %141, 72
-  %143 = icmp ult i32 %__v25_j, %142
-  %__m19 = call i1 @fact.select.asm.i1(i1 %__m17, i1 %143, i1 false)
-  %144 = getelementptr i8, i8* %__v23_pmac, i64 0
-  %145 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %146 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %145, i32 0, i32 0
-  %147 = bitcast [5 x i32]* %146 to i32*
-  %148 = getelementptr i32, i32* %147, i64 0
-  %149 = load i32, i32* %148
-  %150 = and i1 true, %__m19
-  call void @"__store[32]_secret_oblivious_le"(i8* %144, i32 %149, i1 %150)
-  %151 = getelementptr i8, i8* %__v23_pmac, i64 4
-  %152 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %153 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %152, i32 0, i32 0
-  %154 = bitcast [5 x i32]* %153 to i32*
-  %155 = getelementptr i32, i32* %154, i64 1
-  %156 = load i32, i32* %155
-  %157 = and i1 true, %__m19
-  call void @"__store[32]_secret_oblivious_le"(i8* %151, i32 %156, i1 %157)
-  %158 = getelementptr i8, i8* %__v23_pmac, i64 8
   %159 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %160 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %159, i32 0, i32 0
-  %161 = bitcast [5 x i32]* %160 to i32*
-  %162 = getelementptr i32, i32* %161, i64 2
-  %163 = load i32, i32* %162
-  %164 = and i1 true, %__m19
-  call void @"__store[32]_secret_oblivious_le"(i8* %158, i32 %163, i1 %164)
-  %165 = getelementptr i8, i8* %__v23_pmac, i64 12
-  %166 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %167 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %166, i32 0, i32 0
-  %168 = bitcast [5 x i32]* %167 to i32*
-  %169 = getelementptr i32, i32* %168, i64 3
-  %170 = load i32, i32* %169
-  %171 = and i1 true, %__m19
-  call void @"__store[32]_secret_oblivious_le"(i8* %165, i32 %170, i1 %171)
-  %172 = getelementptr i8, i8* %__v23_pmac, i64 16
-  %173 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %174 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %173, i32 0, i32 0
-  %175 = bitcast [5 x i32]* %174 to i32*
-  %176 = getelementptr i32, i32* %175, i64 4
+  %160 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %161 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %160, i32 0, i32 3
+  %162 = bitcast [64 x i8]* %161 to i8*
+  call void @sha1_block_data_order(%SHA_CTX* %159, i8* %162, i32 1)
+  %163 = load i32, i32* %__v20_inp_len
+  %164 = add i32 %163, 72
+  %165 = icmp ult i32 %__v25_j, %164
+  %166 = zext i1 %165 to i32
+  %167 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__m17, i32 %166, i32 0)
+  %168 = trunc i32 %167 to i1
+  %169 = getelementptr i8, i8* %__v23_pmac, i64 0
+  %170 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %171 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %170, i32 0, i32 0
+  %172 = bitcast [5 x i32]* %171 to i32*
+  %173 = getelementptr i32, i32* %172, i64 0
+  %174 = load i32, i32* %173
+  %175 = and i1 true, %168
+  %176 = bitcast i8* %169 to i32*
   %177 = load i32, i32* %176
-  %178 = and i1 true, %__m19
-  call void @"__store[32]_secret_oblivious_le"(i8* %172, i32 %177, i1 %178)
-  %__m20 = xor i1 %__m19, true
-  store i32 0, i32* %__v24_p_res
-  br label %180
-
-; <label>:179:                                    ; preds = %104
-  br label %180
-
-; <label>:180:                                    ; preds = %179, %129
-  br label %124
-
-; <label>:181:                                    ; preds = %190, %126
-  %__v28_i = phi i32 [ %128, %126 ], [ %191, %190 ]
-  %182 = icmp ult i32 %__v28_i, 64
-  br i1 %182, label %183, label %192
-
-; <label>:183:                                    ; preds = %181
-  %__v88_lexpr = zext i32 %__v28_i to i64
-  %184 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %185 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %184, i32 0, i32 3
-  %186 = bitcast [64 x i8]* %185 to i8*
-  %187 = getelementptr i8, i8* %186, i64 %__v88_lexpr
-  store i8 0, i8* %187
-  %188 = load i32, i32* %__v27_j
-  %189 = add i32 %188, 1
-  store i32 %189, i32* %__v27_j
-  br label %190
-
-; <label>:190:                                    ; preds = %183
-  %191 = add i32 %__v28_i, 1
-  br label %181
-
-; <label>:192:                                    ; preds = %181
-  %193 = load i32, i32* %__v24_p_res
-  %194 = icmp ugt i32 %193, 56
-  br i1 %194, label %195, label %252
-
-; <label>:195:                                    ; preds = %192
-  %196 = load i32, i32* %__v20_inp_len
-  %197 = add i32 %196, 8
-  %198 = load i32, i32* %__v27_j
-  %__m13 = icmp ult i32 %197, %198
-  %199 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %200 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %199, i32 0, i32 3
-  %201 = bitcast [64 x i8]* %200 to i8*
-  %202 = getelementptr i8, i8* %201, i64 60
-  %203 = and i1 true, %__m13
-  call void @"__store[32]_secret_oblivious_le"(i8* %202, i32 %__v22_bitlen, i1 %203)
-  %__m14 = xor i1 %__m13, true
-  %204 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %205 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %206 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %205, i32 0, i32 3
-  %207 = bitcast [64 x i8]* %206 to i8*
-  call void @sha1_block_data_order(%SHA_CTX* %204, i8* %207, i32 1)
-  %208 = load i32, i32* %__v27_j
-  %209 = load i32, i32* %__v20_inp_len
-  %210 = add i32 %209, 73
-  %211 = icmp ult i32 %208, %210
-  %__m15 = call i1 @fact.select.asm.i1(i1 %__m13, i1 %211, i1 false)
-  %212 = getelementptr i8, i8* %__v23_pmac, i64 0
-  %213 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %214 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %213, i32 0, i32 0
-  %215 = bitcast [5 x i32]* %214 to i32*
-  %216 = getelementptr i32, i32* %215, i64 0
+  %178 = select i1 %175, i32 %174, i32 %177
+  store i32 %178, i32* %176
+  %179 = getelementptr i8, i8* %__v23_pmac, i64 4
+  %180 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %181 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %180, i32 0, i32 0
+  %182 = bitcast [5 x i32]* %181 to i32*
+  %183 = getelementptr i32, i32* %182, i64 1
+  %184 = load i32, i32* %183
+  %185 = and i1 true, %168
+  %186 = bitcast i8* %179 to i32*
+  %187 = load i32, i32* %186
+  %188 = select i1 %185, i32 %184, i32 %187
+  store i32 %188, i32* %186
+  %189 = getelementptr i8, i8* %__v23_pmac, i64 8
+  %190 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %191 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %190, i32 0, i32 0
+  %192 = bitcast [5 x i32]* %191 to i32*
+  %193 = getelementptr i32, i32* %192, i64 2
+  %194 = load i32, i32* %193
+  %195 = and i1 true, %168
+  %196 = bitcast i8* %189 to i32*
+  %197 = load i32, i32* %196
+  %198 = select i1 %195, i32 %194, i32 %197
+  store i32 %198, i32* %196
+  %199 = getelementptr i8, i8* %__v23_pmac, i64 12
+  %200 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %201 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %200, i32 0, i32 0
+  %202 = bitcast [5 x i32]* %201 to i32*
+  %203 = getelementptr i32, i32* %202, i64 3
+  %204 = load i32, i32* %203
+  %205 = and i1 true, %168
+  %206 = bitcast i8* %199 to i32*
+  %207 = load i32, i32* %206
+  %208 = select i1 %205, i32 %204, i32 %207
+  store i32 %208, i32* %206
+  %209 = getelementptr i8, i8* %__v23_pmac, i64 16
+  %210 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %211 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %210, i32 0, i32 0
+  %212 = bitcast [5 x i32]* %211 to i32*
+  %213 = getelementptr i32, i32* %212, i64 4
+  %214 = load i32, i32* %213
+  %215 = and i1 true, %168
+  %216 = bitcast i8* %209 to i32*
   %217 = load i32, i32* %216
-  %218 = and i1 true, %__m15
-  call void @"__store[32]_secret_oblivious_le"(i8* %212, i32 %217, i1 %218)
-  %219 = getelementptr i8, i8* %__v23_pmac, i64 4
-  %220 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %221 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %220, i32 0, i32 0
-  %222 = bitcast [5 x i32]* %221 to i32*
-  %223 = getelementptr i32, i32* %222, i64 1
-  %224 = load i32, i32* %223
-  %225 = and i1 true, %__m15
-  call void @"__store[32]_secret_oblivious_le"(i8* %219, i32 %224, i1 %225)
-  %226 = getelementptr i8, i8* %__v23_pmac, i64 8
-  %227 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %228 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %227, i32 0, i32 0
-  %229 = bitcast [5 x i32]* %228 to i32*
-  %230 = getelementptr i32, i32* %229, i64 2
-  %231 = load i32, i32* %230
-  %232 = and i1 true, %__m15
-  call void @"__store[32]_secret_oblivious_le"(i8* %226, i32 %231, i1 %232)
-  %233 = getelementptr i8, i8* %__v23_pmac, i64 12
-  %234 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %235 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %234, i32 0, i32 0
-  %236 = bitcast [5 x i32]* %235 to i32*
-  %237 = getelementptr i32, i32* %236, i64 3
-  %238 = load i32, i32* %237
-  %239 = and i1 true, %__m15
-  call void @"__store[32]_secret_oblivious_le"(i8* %233, i32 %238, i1 %239)
-  %240 = getelementptr i8, i8* %__v23_pmac, i64 16
-  %241 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %242 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %241, i32 0, i32 0
-  %243 = bitcast [5 x i32]* %242 to i32*
-  %244 = getelementptr i32, i32* %243, i64 4
+  %218 = select i1 %215, i32 %214, i32 %217
+  store i32 %218, i32* %216
+  %__m20 = xor i1 %168, true
+  store i32 0, i32* %__v24_p_res
+  br label %220
+
+; <label>:219:                                    ; preds = %119
+  br label %220
+
+; <label>:220:                                    ; preds = %219, %148
+  br label %143
+
+; <label>:221:                                    ; preds = %230, %145
+  %__v28_i = phi i32 [ %147, %145 ], [ %231, %230 ]
+  %222 = icmp ult i32 %__v28_i, 64
+  br i1 %222, label %223, label %232
+
+; <label>:223:                                    ; preds = %221
+  %__v88_lexpr = zext i32 %__v28_i to i64
+  %224 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %225 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %224, i32 0, i32 3
+  %226 = bitcast [64 x i8]* %225 to i8*
+  %227 = getelementptr i8, i8* %226, i64 %__v88_lexpr
+  store i8 0, i8* %227
+  %228 = load i32, i32* %__v27_j
+  %229 = add i32 %228, 1
+  store i32 %229, i32* %__v27_j
+  br label %230
+
+; <label>:230:                                    ; preds = %223
+  %231 = add i32 %__v28_i, 1
+  br label %221
+
+; <label>:232:                                    ; preds = %221
+  %233 = load i32, i32* %__v24_p_res
+  %234 = icmp ugt i32 %233, 56
+  br i1 %234, label %235, label %313
+
+; <label>:235:                                    ; preds = %232
+  %236 = load i32, i32* %__v20_inp_len
+  %237 = add i32 %236, 8
+  %238 = load i32, i32* %__v27_j
+  %__m13 = icmp ult i32 %237, %238
+  %239 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %240 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %239, i32 0, i32 3
+  %241 = bitcast [64 x i8]* %240 to i8*
+  %242 = getelementptr i8, i8* %241, i64 60
+  %243 = and i1 true, %__m13
+  %244 = bitcast i8* %242 to i32*
   %245 = load i32, i32* %244
-  %246 = and i1 true, %__m15
-  call void @"__store[32]_secret_oblivious_le"(i8* %240, i32 %245, i1 %246)
-  %__m16 = xor i1 %__m15, true
+  %246 = select i1 %243, i32 %112, i32 %245
+  store i32 %246, i32* %244
+  %__m14 = xor i1 %__m13, true
   %247 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %248 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %247, i32 0, i32 3
-  %249 = bitcast [64 x i8]* %248 to i8*
-  call void @"__memzero[8]_secret"(i8* %249, i64 64)
-  %250 = load i32, i32* %__v27_j
-  %251 = add i32 %250, 64
-  store i32 %251, i32* %__v27_j
-  br label %253
-
-; <label>:252:                                    ; preds = %192
-  br label %253
-
-; <label>:253:                                    ; preds = %252, %195
-  %254 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %255 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %254, i32 0, i32 3
-  %256 = bitcast [64 x i8]* %255 to i8*
-  %257 = getelementptr i8, i8* %256, i64 60
-  call void @"__store[32]_secret_le"(i8* %257, i32 %__v22_bitlen)
-  %258 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %248 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %249 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %248, i32 0, i32 3
+  %250 = bitcast [64 x i8]* %249 to i8*
+  call void @sha1_block_data_order(%SHA_CTX* %247, i8* %250, i32 1)
+  %251 = load i32, i32* %__v27_j
+  %252 = load i32, i32* %__v20_inp_len
+  %253 = add i32 %252, 73
+  %254 = icmp ult i32 %251, %253
+  %255 = zext i1 %254 to i32
+  %256 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__m13, i32 %255, i32 0)
+  %257 = trunc i32 %256 to i1
+  %258 = getelementptr i8, i8* %__v23_pmac, i64 0
   %259 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %260 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %259, i32 0, i32 3
-  %261 = bitcast [64 x i8]* %260 to i8*
-  call void @sha1_block_data_order(%SHA_CTX* %258, i8* %261, i32 1)
-  %262 = load i32, i32* %__v27_j
-  %263 = load i32, i32* %__v20_inp_len
-  %264 = add i32 %263, 73
-  %__m3 = icmp ult i32 %262, %264
-  %265 = getelementptr i8, i8* %__v23_pmac, i64 0
-  %266 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %267 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %266, i32 0, i32 0
-  %268 = bitcast [5 x i32]* %267 to i32*
-  %269 = getelementptr i32, i32* %268, i64 0
-  %270 = load i32, i32* %269
-  %271 = and i1 true, %__m3
-  call void @"__store[32]_secret_oblivious_le"(i8* %265, i32 %270, i1 %271)
-  %272 = getelementptr i8, i8* %__v23_pmac, i64 4
-  %273 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %274 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %273, i32 0, i32 0
-  %275 = bitcast [5 x i32]* %274 to i32*
-  %276 = getelementptr i32, i32* %275, i64 1
-  %277 = load i32, i32* %276
-  %278 = and i1 true, %__m3
-  call void @"__store[32]_secret_oblivious_le"(i8* %272, i32 %277, i1 %278)
-  %279 = getelementptr i8, i8* %__v23_pmac, i64 8
-  %280 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %281 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %280, i32 0, i32 0
-  %282 = bitcast [5 x i32]* %281 to i32*
-  %283 = getelementptr i32, i32* %282, i64 2
-  %284 = load i32, i32* %283
-  %285 = and i1 true, %__m3
-  call void @"__store[32]_secret_oblivious_le"(i8* %279, i32 %284, i1 %285)
-  %286 = getelementptr i8, i8* %__v23_pmac, i64 12
-  %287 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %288 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %287, i32 0, i32 0
-  %289 = bitcast [5 x i32]* %288 to i32*
-  %290 = getelementptr i32, i32* %289, i64 3
-  %291 = load i32, i32* %290
-  %292 = and i1 true, %__m3
-  call void @"__store[32]_secret_oblivious_le"(i8* %286, i32 %291, i1 %292)
-  %293 = getelementptr i8, i8* %__v23_pmac, i64 16
-  %294 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %295 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %294, i32 0, i32 0
-  %296 = bitcast [5 x i32]* %295 to i32*
-  %297 = getelementptr i32, i32* %296, i64 4
-  %298 = load i32, i32* %297
-  %299 = and i1 true, %__m3
-  call void @"__store[32]_secret_oblivious_le"(i8* %293, i32 %298, i1 %299)
+  %260 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %259, i32 0, i32 0
+  %261 = bitcast [5 x i32]* %260 to i32*
+  %262 = getelementptr i32, i32* %261, i64 0
+  %263 = load i32, i32* %262
+  %264 = and i1 true, %257
+  %265 = bitcast i8* %258 to i32*
+  %266 = load i32, i32* %265
+  %267 = select i1 %264, i32 %263, i32 %266
+  store i32 %267, i32* %265
+  %268 = getelementptr i8, i8* %__v23_pmac, i64 4
+  %269 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %270 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %269, i32 0, i32 0
+  %271 = bitcast [5 x i32]* %270 to i32*
+  %272 = getelementptr i32, i32* %271, i64 1
+  %273 = load i32, i32* %272
+  %274 = and i1 true, %257
+  %275 = bitcast i8* %268 to i32*
+  %276 = load i32, i32* %275
+  %277 = select i1 %274, i32 %273, i32 %276
+  store i32 %277, i32* %275
+  %278 = getelementptr i8, i8* %__v23_pmac, i64 8
+  %279 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %280 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %279, i32 0, i32 0
+  %281 = bitcast [5 x i32]* %280 to i32*
+  %282 = getelementptr i32, i32* %281, i64 2
+  %283 = load i32, i32* %282
+  %284 = and i1 true, %257
+  %285 = bitcast i8* %278 to i32*
+  %286 = load i32, i32* %285
+  %287 = select i1 %284, i32 %283, i32 %286
+  store i32 %287, i32* %285
+  %288 = getelementptr i8, i8* %__v23_pmac, i64 12
+  %289 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %290 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %289, i32 0, i32 0
+  %291 = bitcast [5 x i32]* %290 to i32*
+  %292 = getelementptr i32, i32* %291, i64 3
+  %293 = load i32, i32* %292
+  %294 = and i1 true, %257
+  %295 = bitcast i8* %288 to i32*
+  %296 = load i32, i32* %295
+  %297 = select i1 %294, i32 %293, i32 %296
+  store i32 %297, i32* %295
+  %298 = getelementptr i8, i8* %__v23_pmac, i64 16
+  %299 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %300 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %299, i32 0, i32 0
+  %301 = bitcast [5 x i32]* %300 to i32*
+  %302 = getelementptr i32, i32* %301, i64 4
+  %303 = load i32, i32* %302
+  %304 = and i1 true, %257
+  %305 = bitcast i8* %298 to i32*
+  %306 = load i32, i32* %305
+  %307 = select i1 %304, i32 %303, i32 %306
+  store i32 %307, i32* %305
+  %__m16 = xor i1 %257, true
+  %308 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %309 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %308, i32 0, i32 3
+  %310 = bitcast [64 x i8]* %309 to i8*
+  call void @llvm.memset.p0i8.i64(i8* %310, i8 0, i64 64, i32 1, i1 false)
+  %311 = load i32, i32* %__v27_j
+  %312 = add i32 %311, 64
+  store i32 %312, i32* %__v27_j
+  br label %314
+
+; <label>:313:                                    ; preds = %232
+  br label %314
+
+; <label>:314:                                    ; preds = %313, %235
+  %315 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %316 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %315, i32 0, i32 3
+  %317 = bitcast [64 x i8]* %316 to i8*
+  %318 = getelementptr i8, i8* %317, i64 60
+  %319 = bitcast i8* %318 to i32*
+  store i32 %112, i32* %319
+  %320 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %321 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %322 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %321, i32 0, i32 3
+  %323 = bitcast [64 x i8]* %322 to i8*
+  call void @sha1_block_data_order(%SHA_CTX* %320, i8* %323, i32 1)
+  %324 = load i32, i32* %__v27_j
+  %325 = load i32, i32* %__v20_inp_len
+  %326 = add i32 %325, 73
+  %__m3 = icmp ult i32 %324, %326
+  %327 = getelementptr i8, i8* %__v23_pmac, i64 0
+  %328 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %329 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %328, i32 0, i32 0
+  %330 = bitcast [5 x i32]* %329 to i32*
+  %331 = getelementptr i32, i32* %330, i64 0
+  %332 = load i32, i32* %331
+  %333 = and i1 true, %__m3
+  %334 = bitcast i8* %327 to i32*
+  %335 = load i32, i32* %334
+  %336 = select i1 %333, i32 %332, i32 %335
+  store i32 %336, i32* %334
+  %337 = getelementptr i8, i8* %__v23_pmac, i64 4
+  %338 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %339 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %338, i32 0, i32 0
+  %340 = bitcast [5 x i32]* %339 to i32*
+  %341 = getelementptr i32, i32* %340, i64 1
+  %342 = load i32, i32* %341
+  %343 = and i1 true, %__m3
+  %344 = bitcast i8* %337 to i32*
+  %345 = load i32, i32* %344
+  %346 = select i1 %343, i32 %342, i32 %345
+  store i32 %346, i32* %344
+  %347 = getelementptr i8, i8* %__v23_pmac, i64 8
+  %348 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %349 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %348, i32 0, i32 0
+  %350 = bitcast [5 x i32]* %349 to i32*
+  %351 = getelementptr i32, i32* %350, i64 2
+  %352 = load i32, i32* %351
+  %353 = and i1 true, %__m3
+  %354 = bitcast i8* %347 to i32*
+  %355 = load i32, i32* %354
+  %356 = select i1 %353, i32 %352, i32 %355
+  store i32 %356, i32* %354
+  %357 = getelementptr i8, i8* %__v23_pmac, i64 12
+  %358 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %359 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %358, i32 0, i32 0
+  %360 = bitcast [5 x i32]* %359 to i32*
+  %361 = getelementptr i32, i32* %360, i64 3
+  %362 = load i32, i32* %361
+  %363 = and i1 true, %__m3
+  %364 = bitcast i8* %357 to i32*
+  %365 = load i32, i32* %364
+  %366 = select i1 %363, i32 %362, i32 %365
+  store i32 %366, i32* %364
+  %367 = getelementptr i8, i8* %__v23_pmac, i64 16
+  %368 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %369 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %368, i32 0, i32 0
+  %370 = bitcast [5 x i32]* %369 to i32*
+  %371 = getelementptr i32, i32* %370, i64 4
+  %372 = load i32, i32* %371
+  %373 = and i1 true, %__m3
+  %374 = bitcast i8* %367 to i32*
+  %375 = load i32, i32* %374
+  %376 = select i1 %373, i32 %372, i32 %375
+  store i32 %376, i32* %374
   %__m4 = xor i1 %__m3, true
-  %300 = getelementptr i8, i8* %__v23_pmac, i64 0
-  %__v59_load_le = call i32 @"__load[32]_secret_le"(i8* %300)
-  %__v60_bswap4 = call i32 @bswap4(i32 %__v59_load_le)
-  %301 = getelementptr i8, i8* %__v23_pmac, i64 0
-  call void @"__store[32]_secret_le"(i8* %301, i32 %__v60_bswap4)
-  %302 = getelementptr i8, i8* %__v23_pmac, i64 4
-  %__v61_load_le = call i32 @"__load[32]_secret_le"(i8* %302)
-  %__v62_bswap4 = call i32 @bswap4(i32 %__v61_load_le)
-  %303 = getelementptr i8, i8* %__v23_pmac, i64 4
-  call void @"__store[32]_secret_le"(i8* %303, i32 %__v62_bswap4)
-  %304 = getelementptr i8, i8* %__v23_pmac, i64 8
-  %__v63_load_le = call i32 @"__load[32]_secret_le"(i8* %304)
-  %__v64_bswap4 = call i32 @bswap4(i32 %__v63_load_le)
-  %305 = getelementptr i8, i8* %__v23_pmac, i64 8
-  call void @"__store[32]_secret_le"(i8* %305, i32 %__v64_bswap4)
-  %306 = getelementptr i8, i8* %__v23_pmac, i64 12
-  %__v65_load_le = call i32 @"__load[32]_secret_le"(i8* %306)
-  %__v66_bswap4 = call i32 @bswap4(i32 %__v65_load_le)
-  %307 = getelementptr i8, i8* %__v23_pmac, i64 12
-  call void @"__store[32]_secret_le"(i8* %307, i32 %__v66_bswap4)
-  %308 = getelementptr i8, i8* %__v23_pmac, i64 16
-  %__v67_load_le = call i32 @"__load[32]_secret_le"(i8* %308)
-  %__v68_bswap4 = call i32 @bswap4(i32 %__v67_load_le)
-  %309 = getelementptr i8, i8* %__v23_pmac, i64 16
-  call void @"__store[32]_secret_le"(i8* %309, i32 %__v68_bswap4)
-  %310 = load i32, i32* %__v15__len
-  %311 = add i32 %310, 20
-  store i32 %311, i32* %__v15__len
-  %312 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %313 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 2
-  call void @__memcpy_SHA_CTX(%SHA_CTX* %312, %SHA_CTX* %313)
-  %314 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %315 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %314, i32 0, i32 0
-  %316 = bitcast [5 x i32]* %315 to i32*
-  %317 = getelementptr i32, i32* %316, i64 0
-  call void @_sha1_update(i32* %317, i8* %__v23_pmac, i64 20)
-  %318 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
-  %319 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %318, i32 0, i32 0
-  %320 = bitcast [5 x i32]* %319 to i32*
-  %321 = getelementptr i32, i32* %320, i64 0
-  call void @SHA1_Final(i8* %__v23_pmac, i32* %321)
-  %322 = load i32, i32* %__v14_outp
-  %323 = load i32, i32* %__v20_inp_len
-  %324 = add i32 %322, %323
-  %__v30_s_outp = zext i32 %324 to i64
-  %325 = sub i64 %__v69___v3__out_len, 1
-  %326 = zext i32 %__v19_maxpad to i64
-  %327 = sub i64 %325, %326
-  %__v31_p_outp = sub i64 %327, 20
+  %377 = getelementptr i8, i8* %__v23_pmac, i64 0
+  %378 = bitcast i8* %377 to i32*
+  %379 = load i32, i32* %378
+  store i32 0, i32* %__rval.i16
+  store i1 true, i1* %__rctx.i17
+  %380 = and i32 %379, 255
+  %__v47_x4.i18 = shl i32 %380, 24
+  %381 = lshr i32 %379, 8
+  %382 = and i32 %381, 255
+  %__v48_x3.i19 = shl i32 %382, 16
+  %383 = lshr i32 %379, 16
+  %384 = and i32 %383, 255
+  %__v49_x2.i20 = shl i32 %384, 8
+  %385 = lshr i32 %379, 24
+  %386 = or i32 %385, %__v49_x2.i20
+  %387 = or i32 %386, %__v48_x3.i19
+  %388 = or i32 %387, %__v47_x4.i18
+  %389 = getelementptr i8, i8* %__v23_pmac, i64 0
+  %390 = bitcast i8* %389 to i32*
+  store i32 %388, i32* %390
+  %391 = getelementptr i8, i8* %__v23_pmac, i64 4
+  %392 = bitcast i8* %391 to i32*
+  %393 = load i32, i32* %392
+  store i32 0, i32* %__rval.i11
+  store i1 true, i1* %__rctx.i12
+  %394 = and i32 %393, 255
+  %__v47_x4.i13 = shl i32 %394, 24
+  %395 = lshr i32 %393, 8
+  %396 = and i32 %395, 255
+  %__v48_x3.i14 = shl i32 %396, 16
+  %397 = lshr i32 %393, 16
+  %398 = and i32 %397, 255
+  %__v49_x2.i15 = shl i32 %398, 8
+  %399 = lshr i32 %393, 24
+  %400 = or i32 %399, %__v49_x2.i15
+  %401 = or i32 %400, %__v48_x3.i14
+  %402 = or i32 %401, %__v47_x4.i13
+  %403 = getelementptr i8, i8* %__v23_pmac, i64 4
+  %404 = bitcast i8* %403 to i32*
+  store i32 %402, i32* %404
+  %405 = getelementptr i8, i8* %__v23_pmac, i64 8
+  %406 = bitcast i8* %405 to i32*
+  %407 = load i32, i32* %406
+  store i32 0, i32* %__rval.i6
+  store i1 true, i1* %__rctx.i7
+  %408 = and i32 %407, 255
+  %__v47_x4.i8 = shl i32 %408, 24
+  %409 = lshr i32 %407, 8
+  %410 = and i32 %409, 255
+  %__v48_x3.i9 = shl i32 %410, 16
+  %411 = lshr i32 %407, 16
+  %412 = and i32 %411, 255
+  %__v49_x2.i10 = shl i32 %412, 8
+  %413 = lshr i32 %407, 24
+  %414 = or i32 %413, %__v49_x2.i10
+  %415 = or i32 %414, %__v48_x3.i9
+  %416 = or i32 %415, %__v47_x4.i8
+  %417 = getelementptr i8, i8* %__v23_pmac, i64 8
+  %418 = bitcast i8* %417 to i32*
+  store i32 %416, i32* %418
+  %419 = getelementptr i8, i8* %__v23_pmac, i64 12
+  %420 = bitcast i8* %419 to i32*
+  %421 = load i32, i32* %420
+  store i32 0, i32* %__rval.i1
+  store i1 true, i1* %__rctx.i2
+  %422 = and i32 %421, 255
+  %__v47_x4.i3 = shl i32 %422, 24
+  %423 = lshr i32 %421, 8
+  %424 = and i32 %423, 255
+  %__v48_x3.i4 = shl i32 %424, 16
+  %425 = lshr i32 %421, 16
+  %426 = and i32 %425, 255
+  %__v49_x2.i5 = shl i32 %426, 8
+  %427 = lshr i32 %421, 24
+  %428 = or i32 %427, %__v49_x2.i5
+  %429 = or i32 %428, %__v48_x3.i4
+  %430 = or i32 %429, %__v47_x4.i3
+  %431 = getelementptr i8, i8* %__v23_pmac, i64 12
+  %432 = bitcast i8* %431 to i32*
+  store i32 %430, i32* %432
+  %433 = getelementptr i8, i8* %__v23_pmac, i64 16
+  %434 = bitcast i8* %433 to i32*
+  %435 = load i32, i32* %434
+  store i32 0, i32* %__rval.i
+  store i1 true, i1* %__rctx.i
+  %436 = and i32 %435, 255
+  %__v47_x4.i = shl i32 %436, 24
+  %437 = lshr i32 %435, 8
+  %438 = and i32 %437, 255
+  %__v48_x3.i = shl i32 %438, 16
+  %439 = lshr i32 %435, 16
+  %440 = and i32 %439, 255
+  %__v49_x2.i = shl i32 %440, 8
+  %441 = lshr i32 %435, 24
+  %442 = or i32 %441, %__v49_x2.i
+  %443 = or i32 %442, %__v48_x3.i
+  %444 = or i32 %443, %__v47_x4.i
+  %445 = getelementptr i8, i8* %__v23_pmac, i64 16
+  %446 = bitcast i8* %445 to i32*
+  store i32 %444, i32* %446
+  %447 = load i32, i32* %__v15__len
+  %448 = add i32 %447, 20
+  store i32 %448, i32* %__v15__len
+  %449 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %450 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 2
+  %451 = bitcast %SHA_CTX* %449 to i8*
+  %452 = bitcast %SHA_CTX* %450 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %451, i8* %452, i64 ptrtoint (%SHA_CTX* getelementptr (%SHA_CTX, %SHA_CTX* null, i32 1) to i64), i32 1, i1 false)
+  %453 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %454 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %453, i32 0, i32 0
+  %455 = bitcast [5 x i32]* %454 to i32*
+  %456 = getelementptr i32, i32* %455, i64 0
+  call void @_sha1_update(i32* %456, i8* %__v23_pmac, i64 20)
+  %457 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
+  %458 = getelementptr inbounds %SHA_CTX, %SHA_CTX* %457, i32 0, i32 0
+  %459 = bitcast [5 x i32]* %458 to i32*
+  %460 = getelementptr i32, i32* %459, i64 0
+  call void @SHA1_Final(i8* %__v23_pmac, i32* %460)
+  %461 = load i32, i32* %__v14_outp
+  %462 = load i32, i32* %__v20_inp_len
+  %463 = add i32 %461, %462
+  %__v30_s_outp = zext i32 %463 to i64
+  %464 = sub i64 %__v69___v3__out_len, 1
+  %465 = zext i32 %__v19_maxpad to i64
+  %466 = sub i64 %464, %465
+  %__v31_p_outp = sub i64 %466, 20
   %__v32_i = alloca i32
   store i32 0, i32* %__v32_i
-  %328 = add i32 %__v19_maxpad, 20
-  br label %329
+  %467 = add i32 %__v19_maxpad, 20
+  br label %468
 
-; <label>:329:                                    ; preds = %360, %253
-  %__v33_j = phi i32 [ 0, %253 ], [ %361, %360 ]
-  %330 = icmp ult i32 %__v33_j, %328
-  br i1 %330, label %331, label %362
+; <label>:468:                                    ; preds = %499, %314
+  %__v33_j = phi i32 [ 0, %314 ], [ %500, %499 ]
+  %469 = icmp ult i32 %__v33_j, %467
+  br i1 %469, label %470, label %501
 
-; <label>:331:                                    ; preds = %329
-  %332 = zext i32 %__v33_j to i64
-  %__v93_lexpr = add i64 %__v31_p_outp, %332
-  %333 = getelementptr i8, i8* %__v3__out, i64 %__v93_lexpr
-  %334 = load i8, i8* %333
-  %__v34_c = zext i8 %334 to i32
-  %335 = zext i32 %__v33_j to i64
-  %336 = add i64 %__v31_p_outp, %335
-  %337 = add i64 %__v30_s_outp, 20
-  %__m5 = icmp uge i64 %336, %337
-  %338 = load i32, i32* %__v17_pad
-  %__m6 = icmp ne i32 %__v34_c, %338
-  %339 = and i1 true, %__m6
-  %340 = and i1 %339, %__m5
-  %341 = load i32, i32* %__v16_ret
-  %342 = call i32 @fact.cmov.sel.i32(i1 %340, i32 0, i32 %341)
-  store i32 %342, i32* %__v16_ret
+; <label>:470:                                    ; preds = %468
+  %471 = zext i32 %__v33_j to i64
+  %__v93_lexpr = add i64 %__v31_p_outp, %471
+  %472 = getelementptr i8, i8* %__v3__out, i64 %__v93_lexpr
+  %473 = load i8, i8* %472
+  %__v34_c = zext i8 %473 to i32
+  %474 = zext i32 %__v33_j to i64
+  %475 = add i64 %__v31_p_outp, %474
+  %476 = add i64 %__v30_s_outp, 20
+  %__m5 = icmp uge i64 %475, %476
+  %477 = load i32, i32* %__v17_pad
+  %__m6 = icmp ne i32 %__v34_c, %477
+  %478 = and i1 true, %__m6
+  %479 = and i1 %478, %__m5
+  %480 = load i32, i32* %__v16_ret
+  %481 = select i1 %479, i32 0, i32 %480
+  store i32 %481, i32* %__v16_ret
   %__m7 = xor i1 %__m6, true
   %__m8 = xor i1 %__m5, true
-  %343 = zext i32 %__v33_j to i64
-  %344 = add i64 %__v31_p_outp, %343
-  %__m9 = icmp uge i64 %344, %__v30_s_outp
-  %345 = load i32, i32* %__v32_i
-  %__v94_lexpr = zext i32 %345 to i64
-  %346 = getelementptr i8, i8* %__v23_pmac, i64 %__v94_lexpr
-  %347 = load i8, i8* %346
-  %348 = zext i8 %347 to i32
-  %__m10 = icmp ne i32 %__v34_c, %348
-  %349 = and i1 true, %__m10
-  %350 = and i1 %349, %__m9
-  %351 = and i1 %350, %__m8
-  %352 = load i32, i32* %__v16_ret
-  %353 = call i32 @fact.cmov.sel.i32(i1 %351, i32 0, i32 %352)
-  store i32 %353, i32* %__v16_ret
+  %482 = zext i32 %__v33_j to i64
+  %483 = add i64 %__v31_p_outp, %482
+  %__m9 = icmp uge i64 %483, %__v30_s_outp
+  %484 = load i32, i32* %__v32_i
+  %__v94_lexpr = zext i32 %484 to i64
+  %485 = getelementptr i8, i8* %__v23_pmac, i64 %__v94_lexpr
+  %486 = load i8, i8* %485
+  %487 = zext i8 %486 to i32
+  %__m10 = icmp ne i32 %__v34_c, %487
+  %488 = and i1 true, %__m10
+  %489 = and i1 %488, %__m9
+  %490 = and i1 %489, %__m8
+  %491 = load i32, i32* %__v16_ret
+  %492 = select i1 %490, i32 0, i32 %491
+  store i32 %492, i32* %__v16_ret
   %__m11 = xor i1 %__m10, true
-  %354 = load i32, i32* %__v32_i
-  %355 = add i32 %354, 1
-  %356 = and i1 true, %__m9
-  %357 = and i1 %356, %__m8
-  %358 = load i32, i32* %__v32_i
-  %359 = call i32 @fact.cmov.sel.i32(i1 %357, i32 %355, i32 %358)
-  store i32 %359, i32* %__v32_i
+  %493 = load i32, i32* %__v32_i
+  %494 = add i32 %493, 1
+  %495 = and i1 true, %__m9
+  %496 = and i1 %495, %__m8
+  %497 = load i32, i32* %__v32_i
+  %498 = select i1 %496, i32 %494, i32 %497
+  store i32 %498, i32* %__v32_i
   %__m12 = xor i1 %__m9, true
-  br label %360
+  br label %499
 
-; <label>:360:                                    ; preds = %331
-  %361 = add i32 %__v33_j, 1
-  br label %329
+; <label>:499:                                    ; preds = %470
+  %500 = add i32 %__v33_j, 1
+  br label %468
 
-; <label>:362:                                    ; preds = %329
-  %363 = load i32, i32* %__v16_ret
-  ret i32 %363
+; <label>:501:                                    ; preds = %468
+  %502 = load i32, i32* %__v16_ret
+  ret i32 %502
 }
 
-; Function Attrs: alwaysinline
-define internal i8 @fact.select.asm.i8(i1 %cond, i8 %x, i8 %y) #0 {
-entry:
-  %0 = zext i8 %x to i32
-  %1 = zext i8 %y to i32
-  %2 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %cond, i32 %0, i32 %1)
-  %3 = trunc i32 %2 to i8
-  ret i8 %3
-}
-
-; Function Attrs: alwaysinline
-define internal i1 @fact.select.asm.i1(i1 %cond, i1 %x, i1 %y) #0 {
-entry:
-  %0 = zext i1 %x to i32
-  %1 = zext i1 %y to i32
-  %2 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %cond, i32 %0, i32 %1)
-  %3 = trunc i32 %2 to i1
-  ret i1 %3
-}
-
-attributes #0 = { alwaysinline }
-attributes #1 = { argmemonly nounwind }
+attributes #0 = { argmemonly nounwind }

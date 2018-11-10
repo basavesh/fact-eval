@@ -1,65 +1,12 @@
-; ModuleID = 'Module'
+; ModuleID = './crypto_secretbox.cref.bc'
 source_filename = "Module"
+target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
 
 %poly1305_state_internal_t = type { [3 x i64], [3 x i64], [2 x i64], i64, [16 x i8], i8 }
 
-; Function Attrs: alwaysinline
-define internal void @"__smemzero[8]_secret"(i8* %dst, i64 %len) #0 {
-entry:
-  call void @fact.smemset.i8(i8* %dst, i8 0, i64 %len)
-  ret void
-}
-
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #1
-
-; Function Attrs: alwaysinline
-define internal void @fact.smemset.i8(i8* %dst, i8 %n, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 true)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i64 @"__load[64]_secret_le"(i8* %src) #0 {
-entry:
-  %0 = bitcast i8* %src to i64*
-  %1 = load i64, i64* %0
-  ret i64 %1
-}
-
-; Function Attrs: alwaysinline
-define internal void @"__store[64]_secret_le"(i8* %dst, i64 %value) #0 {
-entry:
-  %0 = bitcast i8* %dst to i64*
-  store i64 %value, i64* %0
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @__smemzero_poly1305_state_internal_t(%poly1305_state_internal_t* %dst) #0 {
-entry:
-  %0 = bitcast %poly1305_state_internal_t* %dst to i8*
-  call void @fact.smemset.i8(i8* %0, i8 0, i64 ptrtoint (%poly1305_state_internal_t* getelementptr (%poly1305_state_internal_t, %poly1305_state_internal_t* null, i32 1) to i64))
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i32 @"__load[32]_secret_le"(i8* %src) #0 {
-entry:
-  %0 = bitcast i8* %src to i32*
-  %1 = load i32, i32* %0
-  ret i32 %1
-}
-
-; Function Attrs: alwaysinline
-define internal void @"__store[32]_secret_le"(i8* %dst, i32 %value) #0 {
-entry:
-  %0 = bitcast i8* %dst to i32*
-  store i32 %value, i32* %0
-  ret void
-}
+declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #0
 
 define internal void @_crypto_core_hsalsa20(i8* %__v178_out, i8* %__v179_input, i8* %__v180_k) {
 entry:
@@ -74,327 +21,401 @@ entry:
   %__v184_x15 = alloca i32
   store i32 1797285236, i32* %__v184_x15
   %0 = getelementptr i8, i8* %__v180_k, i64 0
-  %"__v271___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %0)
+  %1 = bitcast i8* %0 to i32*
+  %2 = load i32, i32* %1
   %__v185_x1 = alloca i32
-  store i32 %"__v271___load[32]_secret_le", i32* %__v185_x1
-  %1 = getelementptr i8, i8* %__v180_k, i64 4
-  %"__v272___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %1)
+  store i32 %2, i32* %__v185_x1
+  %3 = getelementptr i8, i8* %__v180_k, i64 4
+  %4 = bitcast i8* %3 to i32*
+  %5 = load i32, i32* %4
   %__v186_x2 = alloca i32
-  store i32 %"__v272___load[32]_secret_le", i32* %__v186_x2
-  %2 = getelementptr i8, i8* %__v180_k, i64 8
-  %"__v273___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %2)
+  store i32 %5, i32* %__v186_x2
+  %6 = getelementptr i8, i8* %__v180_k, i64 8
+  %7 = bitcast i8* %6 to i32*
+  %8 = load i32, i32* %7
   %__v187_x3 = alloca i32
-  store i32 %"__v273___load[32]_secret_le", i32* %__v187_x3
-  %3 = getelementptr i8, i8* %__v180_k, i64 12
-  %"__v274___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %3)
+  store i32 %8, i32* %__v187_x3
+  %9 = getelementptr i8, i8* %__v180_k, i64 12
+  %10 = bitcast i8* %9 to i32*
+  %11 = load i32, i32* %10
   %__v188_x4 = alloca i32
-  store i32 %"__v274___load[32]_secret_le", i32* %__v188_x4
-  %4 = getelementptr i8, i8* %__v180_k, i64 16
-  %"__v275___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %4)
+  store i32 %11, i32* %__v188_x4
+  %12 = getelementptr i8, i8* %__v180_k, i64 16
+  %13 = bitcast i8* %12 to i32*
+  %14 = load i32, i32* %13
   %__v189_x11 = alloca i32
-  store i32 %"__v275___load[32]_secret_le", i32* %__v189_x11
-  %5 = getelementptr i8, i8* %__v180_k, i64 20
-  %"__v276___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %5)
+  store i32 %14, i32* %__v189_x11
+  %15 = getelementptr i8, i8* %__v180_k, i64 20
+  %16 = bitcast i8* %15 to i32*
+  %17 = load i32, i32* %16
   %__v190_x12 = alloca i32
-  store i32 %"__v276___load[32]_secret_le", i32* %__v190_x12
-  %6 = getelementptr i8, i8* %__v180_k, i64 24
-  %"__v277___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %6)
+  store i32 %17, i32* %__v190_x12
+  %18 = getelementptr i8, i8* %__v180_k, i64 24
+  %19 = bitcast i8* %18 to i32*
+  %20 = load i32, i32* %19
   %__v191_x13 = alloca i32
-  store i32 %"__v277___load[32]_secret_le", i32* %__v191_x13
-  %7 = getelementptr i8, i8* %__v180_k, i64 28
-  %"__v278___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %7)
+  store i32 %20, i32* %__v191_x13
+  %21 = getelementptr i8, i8* %__v180_k, i64 28
+  %22 = bitcast i8* %21 to i32*
+  %23 = load i32, i32* %22
   %__v192_x14 = alloca i32
-  store i32 %"__v278___load[32]_secret_le", i32* %__v192_x14
-  %8 = getelementptr i8, i8* %__v179_input, i64 0
-  %"__v279___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %8)
+  store i32 %23, i32* %__v192_x14
+  %24 = getelementptr i8, i8* %__v179_input, i64 0
+  %25 = bitcast i8* %24 to i32*
+  %26 = load i32, i32* %25
   %__v193_x6 = alloca i32
-  store i32 %"__v279___load[32]_secret_le", i32* %__v193_x6
-  %9 = getelementptr i8, i8* %__v179_input, i64 4
-  %"__v280___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %9)
+  store i32 %26, i32* %__v193_x6
+  %27 = getelementptr i8, i8* %__v179_input, i64 4
+  %28 = bitcast i8* %27 to i32*
+  %29 = load i32, i32* %28
   %__v194_x7 = alloca i32
-  store i32 %"__v280___load[32]_secret_le", i32* %__v194_x7
-  %10 = getelementptr i8, i8* %__v179_input, i64 8
-  %"__v281___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %10)
+  store i32 %29, i32* %__v194_x7
+  %30 = getelementptr i8, i8* %__v179_input, i64 8
+  %31 = bitcast i8* %30 to i32*
+  %32 = load i32, i32* %31
   %__v195_x8 = alloca i32
-  store i32 %"__v281___load[32]_secret_le", i32* %__v195_x8
-  %11 = getelementptr i8, i8* %__v179_input, i64 12
-  %"__v282___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %11)
+  store i32 %32, i32* %__v195_x8
+  %33 = getelementptr i8, i8* %__v179_input, i64 12
+  %34 = bitcast i8* %33 to i32*
+  %35 = load i32, i32* %34
   %__v196_x9 = alloca i32
-  store i32 %"__v282___load[32]_secret_le", i32* %__v196_x9
-  br label %12
+  store i32 %35, i32* %__v196_x9
+  br label %36
 
-; <label>:12:                                     ; preds = %207, %entry
-  %__v197_i = phi i32 [ 0, %entry ], [ %208, %207 ]
-  %13 = icmp ult i32 %__v197_i, 10
-  br i1 %13, label %14, label %209
+; <label>:36:                                     ; preds = %295, %entry
+  %__v197_i = phi i32 [ 0, %entry ], [ %296, %295 ]
+  %37 = icmp ult i32 %__v197_i, 10
+  br i1 %37, label %38, label %297
 
-; <label>:14:                                     ; preds = %12
-  %15 = load i32, i32* %__v188_x4
-  %16 = load i32, i32* %__v181_x0
-  %17 = load i32, i32* %__v190_x12
-  %18 = add i32 %16, %17
-  %19 = call i32 @fact.rotl.i32(i32 %18, i32 7)
-  %20 = xor i32 %15, %19
-  store i32 %20, i32* %__v188_x4
-  %21 = load i32, i32* %__v195_x8
-  %22 = load i32, i32* %__v188_x4
-  %23 = load i32, i32* %__v181_x0
-  %24 = add i32 %22, %23
-  %25 = call i32 @fact.rotl.i32(i32 %24, i32 9)
-  %26 = xor i32 %21, %25
-  store i32 %26, i32* %__v195_x8
-  %27 = load i32, i32* %__v190_x12
-  %28 = load i32, i32* %__v195_x8
-  %29 = load i32, i32* %__v188_x4
-  %30 = add i32 %28, %29
-  %31 = call i32 @fact.rotl.i32(i32 %30, i32 13)
-  %32 = xor i32 %27, %31
-  store i32 %32, i32* %__v190_x12
-  %33 = load i32, i32* %__v181_x0
-  %34 = load i32, i32* %__v190_x12
-  %35 = load i32, i32* %__v195_x8
-  %36 = add i32 %34, %35
-  %37 = call i32 @fact.rotl.i32(i32 %36, i32 18)
-  %38 = xor i32 %33, %37
-  store i32 %38, i32* %__v181_x0
-  %39 = load i32, i32* %__v196_x9
-  %40 = load i32, i32* %__v182_x5
-  %41 = load i32, i32* %__v185_x1
+; <label>:38:                                     ; preds = %36
+  %39 = load i32, i32* %__v188_x4
+  %40 = load i32, i32* %__v181_x0
+  %41 = load i32, i32* %__v190_x12
   %42 = add i32 %40, %41
-  %43 = call i32 @fact.rotl.i32(i32 %42, i32 7)
-  %44 = xor i32 %39, %43
-  store i32 %44, i32* %__v196_x9
-  %45 = load i32, i32* %__v191_x13
-  %46 = load i32, i32* %__v196_x9
-  %47 = load i32, i32* %__v182_x5
-  %48 = add i32 %46, %47
-  %49 = call i32 @fact.rotl.i32(i32 %48, i32 9)
-  %50 = xor i32 %45, %49
-  store i32 %50, i32* %__v191_x13
-  %51 = load i32, i32* %__v185_x1
-  %52 = load i32, i32* %__v191_x13
-  %53 = load i32, i32* %__v196_x9
-  %54 = add i32 %52, %53
-  %55 = call i32 @fact.rotl.i32(i32 %54, i32 13)
-  %56 = xor i32 %51, %55
-  store i32 %56, i32* %__v185_x1
-  %57 = load i32, i32* %__v182_x5
-  %58 = load i32, i32* %__v185_x1
-  %59 = load i32, i32* %__v191_x13
-  %60 = add i32 %58, %59
-  %61 = call i32 @fact.rotl.i32(i32 %60, i32 18)
-  %62 = xor i32 %57, %61
-  store i32 %62, i32* %__v182_x5
-  %63 = load i32, i32* %__v192_x14
-  %64 = load i32, i32* %__v183_x10
-  %65 = load i32, i32* %__v193_x6
+  %43 = shl i32 %42, 7
+  %44 = lshr i32 %42, 25
+  %45 = or i32 %43, %44
+  %46 = xor i32 %39, %45
+  store i32 %46, i32* %__v188_x4
+  %47 = load i32, i32* %__v195_x8
+  %48 = load i32, i32* %__v188_x4
+  %49 = load i32, i32* %__v181_x0
+  %50 = add i32 %48, %49
+  %51 = shl i32 %50, 9
+  %52 = lshr i32 %50, 23
+  %53 = or i32 %51, %52
+  %54 = xor i32 %47, %53
+  store i32 %54, i32* %__v195_x8
+  %55 = load i32, i32* %__v190_x12
+  %56 = load i32, i32* %__v195_x8
+  %57 = load i32, i32* %__v188_x4
+  %58 = add i32 %56, %57
+  %59 = shl i32 %58, 13
+  %60 = lshr i32 %58, 19
+  %61 = or i32 %59, %60
+  %62 = xor i32 %55, %61
+  store i32 %62, i32* %__v190_x12
+  %63 = load i32, i32* %__v181_x0
+  %64 = load i32, i32* %__v190_x12
+  %65 = load i32, i32* %__v195_x8
   %66 = add i32 %64, %65
-  %67 = call i32 @fact.rotl.i32(i32 %66, i32 7)
-  %68 = xor i32 %63, %67
-  store i32 %68, i32* %__v192_x14
-  %69 = load i32, i32* %__v186_x2
-  %70 = load i32, i32* %__v192_x14
-  %71 = load i32, i32* %__v183_x10
-  %72 = add i32 %70, %71
-  %73 = call i32 @fact.rotl.i32(i32 %72, i32 9)
-  %74 = xor i32 %69, %73
-  store i32 %74, i32* %__v186_x2
-  %75 = load i32, i32* %__v193_x6
-  %76 = load i32, i32* %__v186_x2
-  %77 = load i32, i32* %__v192_x14
-  %78 = add i32 %76, %77
-  %79 = call i32 @fact.rotl.i32(i32 %78, i32 13)
-  %80 = xor i32 %75, %79
-  store i32 %80, i32* %__v193_x6
-  %81 = load i32, i32* %__v183_x10
-  %82 = load i32, i32* %__v193_x6
-  %83 = load i32, i32* %__v186_x2
-  %84 = add i32 %82, %83
-  %85 = call i32 @fact.rotl.i32(i32 %84, i32 18)
-  %86 = xor i32 %81, %85
-  store i32 %86, i32* %__v183_x10
-  %87 = load i32, i32* %__v187_x3
-  %88 = load i32, i32* %__v184_x15
-  %89 = load i32, i32* %__v189_x11
+  %67 = shl i32 %66, 18
+  %68 = lshr i32 %66, 14
+  %69 = or i32 %67, %68
+  %70 = xor i32 %63, %69
+  store i32 %70, i32* %__v181_x0
+  %71 = load i32, i32* %__v196_x9
+  %72 = load i32, i32* %__v182_x5
+  %73 = load i32, i32* %__v185_x1
+  %74 = add i32 %72, %73
+  %75 = shl i32 %74, 7
+  %76 = lshr i32 %74, 25
+  %77 = or i32 %75, %76
+  %78 = xor i32 %71, %77
+  store i32 %78, i32* %__v196_x9
+  %79 = load i32, i32* %__v191_x13
+  %80 = load i32, i32* %__v196_x9
+  %81 = load i32, i32* %__v182_x5
+  %82 = add i32 %80, %81
+  %83 = shl i32 %82, 9
+  %84 = lshr i32 %82, 23
+  %85 = or i32 %83, %84
+  %86 = xor i32 %79, %85
+  store i32 %86, i32* %__v191_x13
+  %87 = load i32, i32* %__v185_x1
+  %88 = load i32, i32* %__v191_x13
+  %89 = load i32, i32* %__v196_x9
   %90 = add i32 %88, %89
-  %91 = call i32 @fact.rotl.i32(i32 %90, i32 7)
-  %92 = xor i32 %87, %91
-  store i32 %92, i32* %__v187_x3
-  %93 = load i32, i32* %__v194_x7
-  %94 = load i32, i32* %__v187_x3
-  %95 = load i32, i32* %__v184_x15
-  %96 = add i32 %94, %95
-  %97 = call i32 @fact.rotl.i32(i32 %96, i32 9)
-  %98 = xor i32 %93, %97
-  store i32 %98, i32* %__v194_x7
-  %99 = load i32, i32* %__v189_x11
-  %100 = load i32, i32* %__v194_x7
-  %101 = load i32, i32* %__v187_x3
-  %102 = add i32 %100, %101
-  %103 = call i32 @fact.rotl.i32(i32 %102, i32 13)
-  %104 = xor i32 %99, %103
-  store i32 %104, i32* %__v189_x11
-  %105 = load i32, i32* %__v184_x15
-  %106 = load i32, i32* %__v189_x11
-  %107 = load i32, i32* %__v194_x7
-  %108 = add i32 %106, %107
-  %109 = call i32 @fact.rotl.i32(i32 %108, i32 18)
-  %110 = xor i32 %105, %109
-  store i32 %110, i32* %__v184_x15
-  %111 = load i32, i32* %__v185_x1
-  %112 = load i32, i32* %__v181_x0
-  %113 = load i32, i32* %__v187_x3
+  %91 = shl i32 %90, 13
+  %92 = lshr i32 %90, 19
+  %93 = or i32 %91, %92
+  %94 = xor i32 %87, %93
+  store i32 %94, i32* %__v185_x1
+  %95 = load i32, i32* %__v182_x5
+  %96 = load i32, i32* %__v185_x1
+  %97 = load i32, i32* %__v191_x13
+  %98 = add i32 %96, %97
+  %99 = shl i32 %98, 18
+  %100 = lshr i32 %98, 14
+  %101 = or i32 %99, %100
+  %102 = xor i32 %95, %101
+  store i32 %102, i32* %__v182_x5
+  %103 = load i32, i32* %__v192_x14
+  %104 = load i32, i32* %__v183_x10
+  %105 = load i32, i32* %__v193_x6
+  %106 = add i32 %104, %105
+  %107 = shl i32 %106, 7
+  %108 = lshr i32 %106, 25
+  %109 = or i32 %107, %108
+  %110 = xor i32 %103, %109
+  store i32 %110, i32* %__v192_x14
+  %111 = load i32, i32* %__v186_x2
+  %112 = load i32, i32* %__v192_x14
+  %113 = load i32, i32* %__v183_x10
   %114 = add i32 %112, %113
-  %115 = call i32 @fact.rotl.i32(i32 %114, i32 7)
-  %116 = xor i32 %111, %115
-  store i32 %116, i32* %__v185_x1
-  %117 = load i32, i32* %__v186_x2
-  %118 = load i32, i32* %__v185_x1
-  %119 = load i32, i32* %__v181_x0
-  %120 = add i32 %118, %119
-  %121 = call i32 @fact.rotl.i32(i32 %120, i32 9)
-  %122 = xor i32 %117, %121
-  store i32 %122, i32* %__v186_x2
-  %123 = load i32, i32* %__v187_x3
-  %124 = load i32, i32* %__v186_x2
-  %125 = load i32, i32* %__v185_x1
-  %126 = add i32 %124, %125
-  %127 = call i32 @fact.rotl.i32(i32 %126, i32 13)
-  %128 = xor i32 %123, %127
-  store i32 %128, i32* %__v187_x3
-  %129 = load i32, i32* %__v181_x0
-  %130 = load i32, i32* %__v187_x3
-  %131 = load i32, i32* %__v186_x2
-  %132 = add i32 %130, %131
-  %133 = call i32 @fact.rotl.i32(i32 %132, i32 18)
-  %134 = xor i32 %129, %133
-  store i32 %134, i32* %__v181_x0
-  %135 = load i32, i32* %__v193_x6
-  %136 = load i32, i32* %__v182_x5
-  %137 = load i32, i32* %__v188_x4
+  %115 = shl i32 %114, 9
+  %116 = lshr i32 %114, 23
+  %117 = or i32 %115, %116
+  %118 = xor i32 %111, %117
+  store i32 %118, i32* %__v186_x2
+  %119 = load i32, i32* %__v193_x6
+  %120 = load i32, i32* %__v186_x2
+  %121 = load i32, i32* %__v192_x14
+  %122 = add i32 %120, %121
+  %123 = shl i32 %122, 13
+  %124 = lshr i32 %122, 19
+  %125 = or i32 %123, %124
+  %126 = xor i32 %119, %125
+  store i32 %126, i32* %__v193_x6
+  %127 = load i32, i32* %__v183_x10
+  %128 = load i32, i32* %__v193_x6
+  %129 = load i32, i32* %__v186_x2
+  %130 = add i32 %128, %129
+  %131 = shl i32 %130, 18
+  %132 = lshr i32 %130, 14
+  %133 = or i32 %131, %132
+  %134 = xor i32 %127, %133
+  store i32 %134, i32* %__v183_x10
+  %135 = load i32, i32* %__v187_x3
+  %136 = load i32, i32* %__v184_x15
+  %137 = load i32, i32* %__v189_x11
   %138 = add i32 %136, %137
-  %139 = call i32 @fact.rotl.i32(i32 %138, i32 7)
-  %140 = xor i32 %135, %139
-  store i32 %140, i32* %__v193_x6
-  %141 = load i32, i32* %__v194_x7
-  %142 = load i32, i32* %__v193_x6
-  %143 = load i32, i32* %__v182_x5
-  %144 = add i32 %142, %143
-  %145 = call i32 @fact.rotl.i32(i32 %144, i32 9)
-  %146 = xor i32 %141, %145
-  store i32 %146, i32* %__v194_x7
-  %147 = load i32, i32* %__v188_x4
-  %148 = load i32, i32* %__v194_x7
-  %149 = load i32, i32* %__v193_x6
-  %150 = add i32 %148, %149
-  %151 = call i32 @fact.rotl.i32(i32 %150, i32 13)
-  %152 = xor i32 %147, %151
-  store i32 %152, i32* %__v188_x4
-  %153 = load i32, i32* %__v182_x5
-  %154 = load i32, i32* %__v188_x4
-  %155 = load i32, i32* %__v194_x7
-  %156 = add i32 %154, %155
-  %157 = call i32 @fact.rotl.i32(i32 %156, i32 18)
-  %158 = xor i32 %153, %157
-  store i32 %158, i32* %__v182_x5
-  %159 = load i32, i32* %__v189_x11
-  %160 = load i32, i32* %__v183_x10
-  %161 = load i32, i32* %__v196_x9
+  %139 = shl i32 %138, 7
+  %140 = lshr i32 %138, 25
+  %141 = or i32 %139, %140
+  %142 = xor i32 %135, %141
+  store i32 %142, i32* %__v187_x3
+  %143 = load i32, i32* %__v194_x7
+  %144 = load i32, i32* %__v187_x3
+  %145 = load i32, i32* %__v184_x15
+  %146 = add i32 %144, %145
+  %147 = shl i32 %146, 9
+  %148 = lshr i32 %146, 23
+  %149 = or i32 %147, %148
+  %150 = xor i32 %143, %149
+  store i32 %150, i32* %__v194_x7
+  %151 = load i32, i32* %__v189_x11
+  %152 = load i32, i32* %__v194_x7
+  %153 = load i32, i32* %__v187_x3
+  %154 = add i32 %152, %153
+  %155 = shl i32 %154, 13
+  %156 = lshr i32 %154, 19
+  %157 = or i32 %155, %156
+  %158 = xor i32 %151, %157
+  store i32 %158, i32* %__v189_x11
+  %159 = load i32, i32* %__v184_x15
+  %160 = load i32, i32* %__v189_x11
+  %161 = load i32, i32* %__v194_x7
   %162 = add i32 %160, %161
-  %163 = call i32 @fact.rotl.i32(i32 %162, i32 7)
-  %164 = xor i32 %159, %163
-  store i32 %164, i32* %__v189_x11
-  %165 = load i32, i32* %__v195_x8
-  %166 = load i32, i32* %__v189_x11
-  %167 = load i32, i32* %__v183_x10
-  %168 = add i32 %166, %167
-  %169 = call i32 @fact.rotl.i32(i32 %168, i32 9)
-  %170 = xor i32 %165, %169
-  store i32 %170, i32* %__v195_x8
-  %171 = load i32, i32* %__v196_x9
-  %172 = load i32, i32* %__v195_x8
-  %173 = load i32, i32* %__v189_x11
-  %174 = add i32 %172, %173
-  %175 = call i32 @fact.rotl.i32(i32 %174, i32 13)
-  %176 = xor i32 %171, %175
-  store i32 %176, i32* %__v196_x9
-  %177 = load i32, i32* %__v183_x10
-  %178 = load i32, i32* %__v196_x9
-  %179 = load i32, i32* %__v195_x8
-  %180 = add i32 %178, %179
-  %181 = call i32 @fact.rotl.i32(i32 %180, i32 18)
-  %182 = xor i32 %177, %181
-  store i32 %182, i32* %__v183_x10
-  %183 = load i32, i32* %__v190_x12
-  %184 = load i32, i32* %__v184_x15
-  %185 = load i32, i32* %__v192_x14
+  %163 = shl i32 %162, 18
+  %164 = lshr i32 %162, 14
+  %165 = or i32 %163, %164
+  %166 = xor i32 %159, %165
+  store i32 %166, i32* %__v184_x15
+  %167 = load i32, i32* %__v185_x1
+  %168 = load i32, i32* %__v181_x0
+  %169 = load i32, i32* %__v187_x3
+  %170 = add i32 %168, %169
+  %171 = shl i32 %170, 7
+  %172 = lshr i32 %170, 25
+  %173 = or i32 %171, %172
+  %174 = xor i32 %167, %173
+  store i32 %174, i32* %__v185_x1
+  %175 = load i32, i32* %__v186_x2
+  %176 = load i32, i32* %__v185_x1
+  %177 = load i32, i32* %__v181_x0
+  %178 = add i32 %176, %177
+  %179 = shl i32 %178, 9
+  %180 = lshr i32 %178, 23
+  %181 = or i32 %179, %180
+  %182 = xor i32 %175, %181
+  store i32 %182, i32* %__v186_x2
+  %183 = load i32, i32* %__v187_x3
+  %184 = load i32, i32* %__v186_x2
+  %185 = load i32, i32* %__v185_x1
   %186 = add i32 %184, %185
-  %187 = call i32 @fact.rotl.i32(i32 %186, i32 7)
-  %188 = xor i32 %183, %187
-  store i32 %188, i32* %__v190_x12
-  %189 = load i32, i32* %__v191_x13
-  %190 = load i32, i32* %__v190_x12
-  %191 = load i32, i32* %__v184_x15
-  %192 = add i32 %190, %191
-  %193 = call i32 @fact.rotl.i32(i32 %192, i32 9)
-  %194 = xor i32 %189, %193
-  store i32 %194, i32* %__v191_x13
-  %195 = load i32, i32* %__v192_x14
-  %196 = load i32, i32* %__v191_x13
-  %197 = load i32, i32* %__v190_x12
-  %198 = add i32 %196, %197
-  %199 = call i32 @fact.rotl.i32(i32 %198, i32 13)
-  %200 = xor i32 %195, %199
-  store i32 %200, i32* %__v192_x14
-  %201 = load i32, i32* %__v184_x15
-  %202 = load i32, i32* %__v192_x14
-  %203 = load i32, i32* %__v191_x13
-  %204 = add i32 %202, %203
-  %205 = call i32 @fact.rotl.i32(i32 %204, i32 18)
-  %206 = xor i32 %201, %205
-  store i32 %206, i32* %__v184_x15
-  br label %207
+  %187 = shl i32 %186, 13
+  %188 = lshr i32 %186, 19
+  %189 = or i32 %187, %188
+  %190 = xor i32 %183, %189
+  store i32 %190, i32* %__v187_x3
+  %191 = load i32, i32* %__v181_x0
+  %192 = load i32, i32* %__v187_x3
+  %193 = load i32, i32* %__v186_x2
+  %194 = add i32 %192, %193
+  %195 = shl i32 %194, 18
+  %196 = lshr i32 %194, 14
+  %197 = or i32 %195, %196
+  %198 = xor i32 %191, %197
+  store i32 %198, i32* %__v181_x0
+  %199 = load i32, i32* %__v193_x6
+  %200 = load i32, i32* %__v182_x5
+  %201 = load i32, i32* %__v188_x4
+  %202 = add i32 %200, %201
+  %203 = shl i32 %202, 7
+  %204 = lshr i32 %202, 25
+  %205 = or i32 %203, %204
+  %206 = xor i32 %199, %205
+  store i32 %206, i32* %__v193_x6
+  %207 = load i32, i32* %__v194_x7
+  %208 = load i32, i32* %__v193_x6
+  %209 = load i32, i32* %__v182_x5
+  %210 = add i32 %208, %209
+  %211 = shl i32 %210, 9
+  %212 = lshr i32 %210, 23
+  %213 = or i32 %211, %212
+  %214 = xor i32 %207, %213
+  store i32 %214, i32* %__v194_x7
+  %215 = load i32, i32* %__v188_x4
+  %216 = load i32, i32* %__v194_x7
+  %217 = load i32, i32* %__v193_x6
+  %218 = add i32 %216, %217
+  %219 = shl i32 %218, 13
+  %220 = lshr i32 %218, 19
+  %221 = or i32 %219, %220
+  %222 = xor i32 %215, %221
+  store i32 %222, i32* %__v188_x4
+  %223 = load i32, i32* %__v182_x5
+  %224 = load i32, i32* %__v188_x4
+  %225 = load i32, i32* %__v194_x7
+  %226 = add i32 %224, %225
+  %227 = shl i32 %226, 18
+  %228 = lshr i32 %226, 14
+  %229 = or i32 %227, %228
+  %230 = xor i32 %223, %229
+  store i32 %230, i32* %__v182_x5
+  %231 = load i32, i32* %__v189_x11
+  %232 = load i32, i32* %__v183_x10
+  %233 = load i32, i32* %__v196_x9
+  %234 = add i32 %232, %233
+  %235 = shl i32 %234, 7
+  %236 = lshr i32 %234, 25
+  %237 = or i32 %235, %236
+  %238 = xor i32 %231, %237
+  store i32 %238, i32* %__v189_x11
+  %239 = load i32, i32* %__v195_x8
+  %240 = load i32, i32* %__v189_x11
+  %241 = load i32, i32* %__v183_x10
+  %242 = add i32 %240, %241
+  %243 = shl i32 %242, 9
+  %244 = lshr i32 %242, 23
+  %245 = or i32 %243, %244
+  %246 = xor i32 %239, %245
+  store i32 %246, i32* %__v195_x8
+  %247 = load i32, i32* %__v196_x9
+  %248 = load i32, i32* %__v195_x8
+  %249 = load i32, i32* %__v189_x11
+  %250 = add i32 %248, %249
+  %251 = shl i32 %250, 13
+  %252 = lshr i32 %250, 19
+  %253 = or i32 %251, %252
+  %254 = xor i32 %247, %253
+  store i32 %254, i32* %__v196_x9
+  %255 = load i32, i32* %__v183_x10
+  %256 = load i32, i32* %__v196_x9
+  %257 = load i32, i32* %__v195_x8
+  %258 = add i32 %256, %257
+  %259 = shl i32 %258, 18
+  %260 = lshr i32 %258, 14
+  %261 = or i32 %259, %260
+  %262 = xor i32 %255, %261
+  store i32 %262, i32* %__v183_x10
+  %263 = load i32, i32* %__v190_x12
+  %264 = load i32, i32* %__v184_x15
+  %265 = load i32, i32* %__v192_x14
+  %266 = add i32 %264, %265
+  %267 = shl i32 %266, 7
+  %268 = lshr i32 %266, 25
+  %269 = or i32 %267, %268
+  %270 = xor i32 %263, %269
+  store i32 %270, i32* %__v190_x12
+  %271 = load i32, i32* %__v191_x13
+  %272 = load i32, i32* %__v190_x12
+  %273 = load i32, i32* %__v184_x15
+  %274 = add i32 %272, %273
+  %275 = shl i32 %274, 9
+  %276 = lshr i32 %274, 23
+  %277 = or i32 %275, %276
+  %278 = xor i32 %271, %277
+  store i32 %278, i32* %__v191_x13
+  %279 = load i32, i32* %__v192_x14
+  %280 = load i32, i32* %__v191_x13
+  %281 = load i32, i32* %__v190_x12
+  %282 = add i32 %280, %281
+  %283 = shl i32 %282, 13
+  %284 = lshr i32 %282, 19
+  %285 = or i32 %283, %284
+  %286 = xor i32 %279, %285
+  store i32 %286, i32* %__v192_x14
+  %287 = load i32, i32* %__v184_x15
+  %288 = load i32, i32* %__v192_x14
+  %289 = load i32, i32* %__v191_x13
+  %290 = add i32 %288, %289
+  %291 = shl i32 %290, 18
+  %292 = lshr i32 %290, 14
+  %293 = or i32 %291, %292
+  %294 = xor i32 %287, %293
+  store i32 %294, i32* %__v184_x15
+  br label %295
 
-; <label>:207:                                    ; preds = %14
-  %208 = add i32 %__v197_i, 1
-  br label %12
+; <label>:295:                                    ; preds = %38
+  %296 = add i32 %__v197_i, 1
+  br label %36
 
-; <label>:209:                                    ; preds = %12
-  %210 = getelementptr i8, i8* %__v178_out, i64 0
-  %211 = load i32, i32* %__v181_x0
-  call void @"__store[32]_secret_le"(i8* %210, i32 %211)
-  %212 = getelementptr i8, i8* %__v178_out, i64 4
-  %213 = load i32, i32* %__v182_x5
-  call void @"__store[32]_secret_le"(i8* %212, i32 %213)
-  %214 = getelementptr i8, i8* %__v178_out, i64 8
-  %215 = load i32, i32* %__v183_x10
-  call void @"__store[32]_secret_le"(i8* %214, i32 %215)
-  %216 = getelementptr i8, i8* %__v178_out, i64 12
-  %217 = load i32, i32* %__v184_x15
-  call void @"__store[32]_secret_le"(i8* %216, i32 %217)
-  %218 = getelementptr i8, i8* %__v178_out, i64 16
-  %219 = load i32, i32* %__v193_x6
-  call void @"__store[32]_secret_le"(i8* %218, i32 %219)
-  %220 = getelementptr i8, i8* %__v178_out, i64 20
-  %221 = load i32, i32* %__v194_x7
-  call void @"__store[32]_secret_le"(i8* %220, i32 %221)
-  %222 = getelementptr i8, i8* %__v178_out, i64 24
-  %223 = load i32, i32* %__v195_x8
-  call void @"__store[32]_secret_le"(i8* %222, i32 %223)
-  %224 = getelementptr i8, i8* %__v178_out, i64 28
-  %225 = load i32, i32* %__v196_x9
-  call void @"__store[32]_secret_le"(i8* %224, i32 %225)
+; <label>:297:                                    ; preds = %36
+  %298 = getelementptr i8, i8* %__v178_out, i64 0
+  %299 = load i32, i32* %__v181_x0
+  %300 = bitcast i8* %298 to i32*
+  store i32 %299, i32* %300
+  %301 = getelementptr i8, i8* %__v178_out, i64 4
+  %302 = load i32, i32* %__v182_x5
+  %303 = bitcast i8* %301 to i32*
+  store i32 %302, i32* %303
+  %304 = getelementptr i8, i8* %__v178_out, i64 8
+  %305 = load i32, i32* %__v183_x10
+  %306 = bitcast i8* %304 to i32*
+  store i32 %305, i32* %306
+  %307 = getelementptr i8, i8* %__v178_out, i64 12
+  %308 = load i32, i32* %__v184_x15
+  %309 = bitcast i8* %307 to i32*
+  store i32 %308, i32* %309
+  %310 = getelementptr i8, i8* %__v178_out, i64 16
+  %311 = load i32, i32* %__v193_x6
+  %312 = bitcast i8* %310 to i32*
+  store i32 %311, i32* %312
+  %313 = getelementptr i8, i8* %__v178_out, i64 20
+  %314 = load i32, i32* %__v194_x7
+  %315 = bitcast i8* %313 to i32*
+  store i32 %314, i32* %315
+  %316 = getelementptr i8, i8* %__v178_out, i64 24
+  %317 = load i32, i32* %__v195_x8
+  %318 = bitcast i8* %316 to i32*
+  store i32 %317, i32* %318
+  %319 = getelementptr i8, i8* %__v178_out, i64 28
+  %320 = load i32, i32* %__v196_x9
+  %321 = bitcast i8* %319 to i32*
+  store i32 %320, i32* %321
   ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i32 @fact.rotl.i32(i32 %x, i32 %n) #0 {
-entry:
-  %0 = shl i32 %x, %n
-  %1 = sub i32 32, %n
-  %2 = lshr i32 %x, %1
-  %3 = or i32 %0, %2
-  ret i32 %3
 }
 
 define internal void @_crypto_core_salsa20(i8* %__v142_output, i8* %__v143_input, i8* %__v144_k) {
@@ -414,37 +435,45 @@ entry:
   %__v151_j10 = load i32, i32* %__v147_x10
   %__v152_j15 = load i32, i32* %__v148_x15
   %0 = getelementptr i8, i8* %__v144_k, i64 0
-  %"__v259___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %0)
+  %1 = bitcast i8* %0 to i32*
+  %2 = load i32, i32* %1
   %__v153_x1 = alloca i32
-  store i32 %"__v259___load[32]_secret_le", i32* %__v153_x1
-  %1 = getelementptr i8, i8* %__v144_k, i64 4
-  %"__v260___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %1)
+  store i32 %2, i32* %__v153_x1
+  %3 = getelementptr i8, i8* %__v144_k, i64 4
+  %4 = bitcast i8* %3 to i32*
+  %5 = load i32, i32* %4
   %__v154_x2 = alloca i32
-  store i32 %"__v260___load[32]_secret_le", i32* %__v154_x2
-  %2 = getelementptr i8, i8* %__v144_k, i64 8
-  %"__v261___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %2)
+  store i32 %5, i32* %__v154_x2
+  %6 = getelementptr i8, i8* %__v144_k, i64 8
+  %7 = bitcast i8* %6 to i32*
+  %8 = load i32, i32* %7
   %__v155_x3 = alloca i32
-  store i32 %"__v261___load[32]_secret_le", i32* %__v155_x3
-  %3 = getelementptr i8, i8* %__v144_k, i64 12
-  %"__v262___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %3)
+  store i32 %8, i32* %__v155_x3
+  %9 = getelementptr i8, i8* %__v144_k, i64 12
+  %10 = bitcast i8* %9 to i32*
+  %11 = load i32, i32* %10
   %__v156_x4 = alloca i32
-  store i32 %"__v262___load[32]_secret_le", i32* %__v156_x4
-  %4 = getelementptr i8, i8* %__v144_k, i64 16
-  %"__v263___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %4)
+  store i32 %11, i32* %__v156_x4
+  %12 = getelementptr i8, i8* %__v144_k, i64 16
+  %13 = bitcast i8* %12 to i32*
+  %14 = load i32, i32* %13
   %__v157_x11 = alloca i32
-  store i32 %"__v263___load[32]_secret_le", i32* %__v157_x11
-  %5 = getelementptr i8, i8* %__v144_k, i64 20
-  %"__v264___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %5)
+  store i32 %14, i32* %__v157_x11
+  %15 = getelementptr i8, i8* %__v144_k, i64 20
+  %16 = bitcast i8* %15 to i32*
+  %17 = load i32, i32* %16
   %__v158_x12 = alloca i32
-  store i32 %"__v264___load[32]_secret_le", i32* %__v158_x12
-  %6 = getelementptr i8, i8* %__v144_k, i64 24
-  %"__v265___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %6)
+  store i32 %17, i32* %__v158_x12
+  %18 = getelementptr i8, i8* %__v144_k, i64 24
+  %19 = bitcast i8* %18 to i32*
+  %20 = load i32, i32* %19
   %__v159_x13 = alloca i32
-  store i32 %"__v265___load[32]_secret_le", i32* %__v159_x13
-  %7 = getelementptr i8, i8* %__v144_k, i64 28
-  %"__v266___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %7)
+  store i32 %20, i32* %__v159_x13
+  %21 = getelementptr i8, i8* %__v144_k, i64 28
+  %22 = bitcast i8* %21 to i32*
+  %23 = load i32, i32* %22
   %__v160_x14 = alloca i32
-  store i32 %"__v266___load[32]_secret_le", i32* %__v160_x14
+  store i32 %23, i32* %__v160_x14
   %__v161_j1 = load i32, i32* %__v153_x1
   %__v162_j2 = load i32, i32* %__v154_x2
   %__v163_j3 = load i32, i32* %__v155_x3
@@ -453,329 +482,413 @@ entry:
   %__v166_j12 = load i32, i32* %__v158_x12
   %__v167_j13 = load i32, i32* %__v159_x13
   %__v168_j14 = load i32, i32* %__v160_x14
-  %8 = getelementptr i8, i8* %__v143_input, i64 0
-  %"__v267___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %8)
+  %24 = getelementptr i8, i8* %__v143_input, i64 0
+  %25 = bitcast i8* %24 to i32*
+  %26 = load i32, i32* %25
   %__v169_x6 = alloca i32
-  store i32 %"__v267___load[32]_secret_le", i32* %__v169_x6
-  %9 = getelementptr i8, i8* %__v143_input, i64 4
-  %"__v268___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %9)
+  store i32 %26, i32* %__v169_x6
+  %27 = getelementptr i8, i8* %__v143_input, i64 4
+  %28 = bitcast i8* %27 to i32*
+  %29 = load i32, i32* %28
   %__v170_x7 = alloca i32
-  store i32 %"__v268___load[32]_secret_le", i32* %__v170_x7
-  %10 = getelementptr i8, i8* %__v143_input, i64 8
-  %"__v269___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %10)
+  store i32 %29, i32* %__v170_x7
+  %30 = getelementptr i8, i8* %__v143_input, i64 8
+  %31 = bitcast i8* %30 to i32*
+  %32 = load i32, i32* %31
   %__v171_x8 = alloca i32
-  store i32 %"__v269___load[32]_secret_le", i32* %__v171_x8
-  %11 = getelementptr i8, i8* %__v143_input, i64 12
-  %"__v270___load[32]_secret_le" = call i32 @"__load[32]_secret_le"(i8* %11)
+  store i32 %32, i32* %__v171_x8
+  %33 = getelementptr i8, i8* %__v143_input, i64 12
+  %34 = bitcast i8* %33 to i32*
+  %35 = load i32, i32* %34
   %__v172_x9 = alloca i32
-  store i32 %"__v270___load[32]_secret_le", i32* %__v172_x9
+  store i32 %35, i32* %__v172_x9
   %__v173_j6 = load i32, i32* %__v169_x6
   %__v174_j7 = load i32, i32* %__v170_x7
   %__v175_j8 = load i32, i32* %__v171_x8
   %__v176_j9 = load i32, i32* %__v172_x9
-  br label %12
+  br label %36
 
-; <label>:12:                                     ; preds = %207, %entry
-  %__v177_i = phi i32 [ 0, %entry ], [ %208, %207 ]
-  %13 = icmp ult i32 %__v177_i, 10
-  br i1 %13, label %14, label %209
+; <label>:36:                                     ; preds = %295, %entry
+  %__v177_i = phi i32 [ 0, %entry ], [ %296, %295 ]
+  %37 = icmp ult i32 %__v177_i, 10
+  br i1 %37, label %38, label %297
 
-; <label>:14:                                     ; preds = %12
-  %15 = load i32, i32* %__v156_x4
-  %16 = load i32, i32* %__v145_x0
-  %17 = load i32, i32* %__v158_x12
-  %18 = add i32 %16, %17
-  %19 = call i32 @fact.rotl.i32(i32 %18, i32 7)
-  %20 = xor i32 %15, %19
-  store i32 %20, i32* %__v156_x4
-  %21 = load i32, i32* %__v171_x8
-  %22 = load i32, i32* %__v156_x4
-  %23 = load i32, i32* %__v145_x0
-  %24 = add i32 %22, %23
-  %25 = call i32 @fact.rotl.i32(i32 %24, i32 9)
-  %26 = xor i32 %21, %25
-  store i32 %26, i32* %__v171_x8
-  %27 = load i32, i32* %__v158_x12
-  %28 = load i32, i32* %__v171_x8
-  %29 = load i32, i32* %__v156_x4
-  %30 = add i32 %28, %29
-  %31 = call i32 @fact.rotl.i32(i32 %30, i32 13)
-  %32 = xor i32 %27, %31
-  store i32 %32, i32* %__v158_x12
-  %33 = load i32, i32* %__v145_x0
-  %34 = load i32, i32* %__v158_x12
-  %35 = load i32, i32* %__v171_x8
-  %36 = add i32 %34, %35
-  %37 = call i32 @fact.rotl.i32(i32 %36, i32 18)
-  %38 = xor i32 %33, %37
-  store i32 %38, i32* %__v145_x0
-  %39 = load i32, i32* %__v172_x9
-  %40 = load i32, i32* %__v146_x5
-  %41 = load i32, i32* %__v153_x1
+; <label>:38:                                     ; preds = %36
+  %39 = load i32, i32* %__v156_x4
+  %40 = load i32, i32* %__v145_x0
+  %41 = load i32, i32* %__v158_x12
   %42 = add i32 %40, %41
-  %43 = call i32 @fact.rotl.i32(i32 %42, i32 7)
-  %44 = xor i32 %39, %43
-  store i32 %44, i32* %__v172_x9
-  %45 = load i32, i32* %__v159_x13
-  %46 = load i32, i32* %__v172_x9
-  %47 = load i32, i32* %__v146_x5
-  %48 = add i32 %46, %47
-  %49 = call i32 @fact.rotl.i32(i32 %48, i32 9)
-  %50 = xor i32 %45, %49
-  store i32 %50, i32* %__v159_x13
-  %51 = load i32, i32* %__v153_x1
-  %52 = load i32, i32* %__v159_x13
-  %53 = load i32, i32* %__v172_x9
-  %54 = add i32 %52, %53
-  %55 = call i32 @fact.rotl.i32(i32 %54, i32 13)
-  %56 = xor i32 %51, %55
-  store i32 %56, i32* %__v153_x1
-  %57 = load i32, i32* %__v146_x5
-  %58 = load i32, i32* %__v153_x1
-  %59 = load i32, i32* %__v159_x13
-  %60 = add i32 %58, %59
-  %61 = call i32 @fact.rotl.i32(i32 %60, i32 18)
-  %62 = xor i32 %57, %61
-  store i32 %62, i32* %__v146_x5
-  %63 = load i32, i32* %__v160_x14
-  %64 = load i32, i32* %__v147_x10
-  %65 = load i32, i32* %__v169_x6
+  %43 = shl i32 %42, 7
+  %44 = lshr i32 %42, 25
+  %45 = or i32 %43, %44
+  %46 = xor i32 %39, %45
+  store i32 %46, i32* %__v156_x4
+  %47 = load i32, i32* %__v171_x8
+  %48 = load i32, i32* %__v156_x4
+  %49 = load i32, i32* %__v145_x0
+  %50 = add i32 %48, %49
+  %51 = shl i32 %50, 9
+  %52 = lshr i32 %50, 23
+  %53 = or i32 %51, %52
+  %54 = xor i32 %47, %53
+  store i32 %54, i32* %__v171_x8
+  %55 = load i32, i32* %__v158_x12
+  %56 = load i32, i32* %__v171_x8
+  %57 = load i32, i32* %__v156_x4
+  %58 = add i32 %56, %57
+  %59 = shl i32 %58, 13
+  %60 = lshr i32 %58, 19
+  %61 = or i32 %59, %60
+  %62 = xor i32 %55, %61
+  store i32 %62, i32* %__v158_x12
+  %63 = load i32, i32* %__v145_x0
+  %64 = load i32, i32* %__v158_x12
+  %65 = load i32, i32* %__v171_x8
   %66 = add i32 %64, %65
-  %67 = call i32 @fact.rotl.i32(i32 %66, i32 7)
-  %68 = xor i32 %63, %67
-  store i32 %68, i32* %__v160_x14
-  %69 = load i32, i32* %__v154_x2
-  %70 = load i32, i32* %__v160_x14
-  %71 = load i32, i32* %__v147_x10
-  %72 = add i32 %70, %71
-  %73 = call i32 @fact.rotl.i32(i32 %72, i32 9)
-  %74 = xor i32 %69, %73
-  store i32 %74, i32* %__v154_x2
-  %75 = load i32, i32* %__v169_x6
-  %76 = load i32, i32* %__v154_x2
-  %77 = load i32, i32* %__v160_x14
-  %78 = add i32 %76, %77
-  %79 = call i32 @fact.rotl.i32(i32 %78, i32 13)
-  %80 = xor i32 %75, %79
-  store i32 %80, i32* %__v169_x6
-  %81 = load i32, i32* %__v147_x10
-  %82 = load i32, i32* %__v169_x6
-  %83 = load i32, i32* %__v154_x2
-  %84 = add i32 %82, %83
-  %85 = call i32 @fact.rotl.i32(i32 %84, i32 18)
-  %86 = xor i32 %81, %85
-  store i32 %86, i32* %__v147_x10
-  %87 = load i32, i32* %__v155_x3
-  %88 = load i32, i32* %__v148_x15
-  %89 = load i32, i32* %__v157_x11
+  %67 = shl i32 %66, 18
+  %68 = lshr i32 %66, 14
+  %69 = or i32 %67, %68
+  %70 = xor i32 %63, %69
+  store i32 %70, i32* %__v145_x0
+  %71 = load i32, i32* %__v172_x9
+  %72 = load i32, i32* %__v146_x5
+  %73 = load i32, i32* %__v153_x1
+  %74 = add i32 %72, %73
+  %75 = shl i32 %74, 7
+  %76 = lshr i32 %74, 25
+  %77 = or i32 %75, %76
+  %78 = xor i32 %71, %77
+  store i32 %78, i32* %__v172_x9
+  %79 = load i32, i32* %__v159_x13
+  %80 = load i32, i32* %__v172_x9
+  %81 = load i32, i32* %__v146_x5
+  %82 = add i32 %80, %81
+  %83 = shl i32 %82, 9
+  %84 = lshr i32 %82, 23
+  %85 = or i32 %83, %84
+  %86 = xor i32 %79, %85
+  store i32 %86, i32* %__v159_x13
+  %87 = load i32, i32* %__v153_x1
+  %88 = load i32, i32* %__v159_x13
+  %89 = load i32, i32* %__v172_x9
   %90 = add i32 %88, %89
-  %91 = call i32 @fact.rotl.i32(i32 %90, i32 7)
-  %92 = xor i32 %87, %91
-  store i32 %92, i32* %__v155_x3
-  %93 = load i32, i32* %__v170_x7
-  %94 = load i32, i32* %__v155_x3
-  %95 = load i32, i32* %__v148_x15
-  %96 = add i32 %94, %95
-  %97 = call i32 @fact.rotl.i32(i32 %96, i32 9)
-  %98 = xor i32 %93, %97
-  store i32 %98, i32* %__v170_x7
-  %99 = load i32, i32* %__v157_x11
-  %100 = load i32, i32* %__v170_x7
-  %101 = load i32, i32* %__v155_x3
-  %102 = add i32 %100, %101
-  %103 = call i32 @fact.rotl.i32(i32 %102, i32 13)
-  %104 = xor i32 %99, %103
-  store i32 %104, i32* %__v157_x11
-  %105 = load i32, i32* %__v148_x15
-  %106 = load i32, i32* %__v157_x11
-  %107 = load i32, i32* %__v170_x7
-  %108 = add i32 %106, %107
-  %109 = call i32 @fact.rotl.i32(i32 %108, i32 18)
-  %110 = xor i32 %105, %109
-  store i32 %110, i32* %__v148_x15
-  %111 = load i32, i32* %__v153_x1
-  %112 = load i32, i32* %__v145_x0
-  %113 = load i32, i32* %__v155_x3
+  %91 = shl i32 %90, 13
+  %92 = lshr i32 %90, 19
+  %93 = or i32 %91, %92
+  %94 = xor i32 %87, %93
+  store i32 %94, i32* %__v153_x1
+  %95 = load i32, i32* %__v146_x5
+  %96 = load i32, i32* %__v153_x1
+  %97 = load i32, i32* %__v159_x13
+  %98 = add i32 %96, %97
+  %99 = shl i32 %98, 18
+  %100 = lshr i32 %98, 14
+  %101 = or i32 %99, %100
+  %102 = xor i32 %95, %101
+  store i32 %102, i32* %__v146_x5
+  %103 = load i32, i32* %__v160_x14
+  %104 = load i32, i32* %__v147_x10
+  %105 = load i32, i32* %__v169_x6
+  %106 = add i32 %104, %105
+  %107 = shl i32 %106, 7
+  %108 = lshr i32 %106, 25
+  %109 = or i32 %107, %108
+  %110 = xor i32 %103, %109
+  store i32 %110, i32* %__v160_x14
+  %111 = load i32, i32* %__v154_x2
+  %112 = load i32, i32* %__v160_x14
+  %113 = load i32, i32* %__v147_x10
   %114 = add i32 %112, %113
-  %115 = call i32 @fact.rotl.i32(i32 %114, i32 7)
-  %116 = xor i32 %111, %115
-  store i32 %116, i32* %__v153_x1
-  %117 = load i32, i32* %__v154_x2
-  %118 = load i32, i32* %__v153_x1
-  %119 = load i32, i32* %__v145_x0
-  %120 = add i32 %118, %119
-  %121 = call i32 @fact.rotl.i32(i32 %120, i32 9)
-  %122 = xor i32 %117, %121
-  store i32 %122, i32* %__v154_x2
-  %123 = load i32, i32* %__v155_x3
-  %124 = load i32, i32* %__v154_x2
-  %125 = load i32, i32* %__v153_x1
-  %126 = add i32 %124, %125
-  %127 = call i32 @fact.rotl.i32(i32 %126, i32 13)
-  %128 = xor i32 %123, %127
-  store i32 %128, i32* %__v155_x3
-  %129 = load i32, i32* %__v145_x0
-  %130 = load i32, i32* %__v155_x3
-  %131 = load i32, i32* %__v154_x2
-  %132 = add i32 %130, %131
-  %133 = call i32 @fact.rotl.i32(i32 %132, i32 18)
-  %134 = xor i32 %129, %133
-  store i32 %134, i32* %__v145_x0
-  %135 = load i32, i32* %__v169_x6
-  %136 = load i32, i32* %__v146_x5
-  %137 = load i32, i32* %__v156_x4
+  %115 = shl i32 %114, 9
+  %116 = lshr i32 %114, 23
+  %117 = or i32 %115, %116
+  %118 = xor i32 %111, %117
+  store i32 %118, i32* %__v154_x2
+  %119 = load i32, i32* %__v169_x6
+  %120 = load i32, i32* %__v154_x2
+  %121 = load i32, i32* %__v160_x14
+  %122 = add i32 %120, %121
+  %123 = shl i32 %122, 13
+  %124 = lshr i32 %122, 19
+  %125 = or i32 %123, %124
+  %126 = xor i32 %119, %125
+  store i32 %126, i32* %__v169_x6
+  %127 = load i32, i32* %__v147_x10
+  %128 = load i32, i32* %__v169_x6
+  %129 = load i32, i32* %__v154_x2
+  %130 = add i32 %128, %129
+  %131 = shl i32 %130, 18
+  %132 = lshr i32 %130, 14
+  %133 = or i32 %131, %132
+  %134 = xor i32 %127, %133
+  store i32 %134, i32* %__v147_x10
+  %135 = load i32, i32* %__v155_x3
+  %136 = load i32, i32* %__v148_x15
+  %137 = load i32, i32* %__v157_x11
   %138 = add i32 %136, %137
-  %139 = call i32 @fact.rotl.i32(i32 %138, i32 7)
-  %140 = xor i32 %135, %139
-  store i32 %140, i32* %__v169_x6
-  %141 = load i32, i32* %__v170_x7
-  %142 = load i32, i32* %__v169_x6
-  %143 = load i32, i32* %__v146_x5
-  %144 = add i32 %142, %143
-  %145 = call i32 @fact.rotl.i32(i32 %144, i32 9)
-  %146 = xor i32 %141, %145
-  store i32 %146, i32* %__v170_x7
-  %147 = load i32, i32* %__v156_x4
-  %148 = load i32, i32* %__v170_x7
-  %149 = load i32, i32* %__v169_x6
-  %150 = add i32 %148, %149
-  %151 = call i32 @fact.rotl.i32(i32 %150, i32 13)
-  %152 = xor i32 %147, %151
-  store i32 %152, i32* %__v156_x4
-  %153 = load i32, i32* %__v146_x5
-  %154 = load i32, i32* %__v156_x4
-  %155 = load i32, i32* %__v170_x7
-  %156 = add i32 %154, %155
-  %157 = call i32 @fact.rotl.i32(i32 %156, i32 18)
-  %158 = xor i32 %153, %157
-  store i32 %158, i32* %__v146_x5
-  %159 = load i32, i32* %__v157_x11
-  %160 = load i32, i32* %__v147_x10
-  %161 = load i32, i32* %__v172_x9
+  %139 = shl i32 %138, 7
+  %140 = lshr i32 %138, 25
+  %141 = or i32 %139, %140
+  %142 = xor i32 %135, %141
+  store i32 %142, i32* %__v155_x3
+  %143 = load i32, i32* %__v170_x7
+  %144 = load i32, i32* %__v155_x3
+  %145 = load i32, i32* %__v148_x15
+  %146 = add i32 %144, %145
+  %147 = shl i32 %146, 9
+  %148 = lshr i32 %146, 23
+  %149 = or i32 %147, %148
+  %150 = xor i32 %143, %149
+  store i32 %150, i32* %__v170_x7
+  %151 = load i32, i32* %__v157_x11
+  %152 = load i32, i32* %__v170_x7
+  %153 = load i32, i32* %__v155_x3
+  %154 = add i32 %152, %153
+  %155 = shl i32 %154, 13
+  %156 = lshr i32 %154, 19
+  %157 = or i32 %155, %156
+  %158 = xor i32 %151, %157
+  store i32 %158, i32* %__v157_x11
+  %159 = load i32, i32* %__v148_x15
+  %160 = load i32, i32* %__v157_x11
+  %161 = load i32, i32* %__v170_x7
   %162 = add i32 %160, %161
-  %163 = call i32 @fact.rotl.i32(i32 %162, i32 7)
-  %164 = xor i32 %159, %163
-  store i32 %164, i32* %__v157_x11
-  %165 = load i32, i32* %__v171_x8
-  %166 = load i32, i32* %__v157_x11
-  %167 = load i32, i32* %__v147_x10
-  %168 = add i32 %166, %167
-  %169 = call i32 @fact.rotl.i32(i32 %168, i32 9)
-  %170 = xor i32 %165, %169
-  store i32 %170, i32* %__v171_x8
-  %171 = load i32, i32* %__v172_x9
-  %172 = load i32, i32* %__v171_x8
-  %173 = load i32, i32* %__v157_x11
-  %174 = add i32 %172, %173
-  %175 = call i32 @fact.rotl.i32(i32 %174, i32 13)
-  %176 = xor i32 %171, %175
-  store i32 %176, i32* %__v172_x9
-  %177 = load i32, i32* %__v147_x10
-  %178 = load i32, i32* %__v172_x9
-  %179 = load i32, i32* %__v171_x8
-  %180 = add i32 %178, %179
-  %181 = call i32 @fact.rotl.i32(i32 %180, i32 18)
-  %182 = xor i32 %177, %181
-  store i32 %182, i32* %__v147_x10
-  %183 = load i32, i32* %__v158_x12
-  %184 = load i32, i32* %__v148_x15
-  %185 = load i32, i32* %__v160_x14
+  %163 = shl i32 %162, 18
+  %164 = lshr i32 %162, 14
+  %165 = or i32 %163, %164
+  %166 = xor i32 %159, %165
+  store i32 %166, i32* %__v148_x15
+  %167 = load i32, i32* %__v153_x1
+  %168 = load i32, i32* %__v145_x0
+  %169 = load i32, i32* %__v155_x3
+  %170 = add i32 %168, %169
+  %171 = shl i32 %170, 7
+  %172 = lshr i32 %170, 25
+  %173 = or i32 %171, %172
+  %174 = xor i32 %167, %173
+  store i32 %174, i32* %__v153_x1
+  %175 = load i32, i32* %__v154_x2
+  %176 = load i32, i32* %__v153_x1
+  %177 = load i32, i32* %__v145_x0
+  %178 = add i32 %176, %177
+  %179 = shl i32 %178, 9
+  %180 = lshr i32 %178, 23
+  %181 = or i32 %179, %180
+  %182 = xor i32 %175, %181
+  store i32 %182, i32* %__v154_x2
+  %183 = load i32, i32* %__v155_x3
+  %184 = load i32, i32* %__v154_x2
+  %185 = load i32, i32* %__v153_x1
   %186 = add i32 %184, %185
-  %187 = call i32 @fact.rotl.i32(i32 %186, i32 7)
-  %188 = xor i32 %183, %187
-  store i32 %188, i32* %__v158_x12
-  %189 = load i32, i32* %__v159_x13
-  %190 = load i32, i32* %__v158_x12
-  %191 = load i32, i32* %__v148_x15
-  %192 = add i32 %190, %191
-  %193 = call i32 @fact.rotl.i32(i32 %192, i32 9)
-  %194 = xor i32 %189, %193
-  store i32 %194, i32* %__v159_x13
-  %195 = load i32, i32* %__v160_x14
-  %196 = load i32, i32* %__v159_x13
-  %197 = load i32, i32* %__v158_x12
-  %198 = add i32 %196, %197
-  %199 = call i32 @fact.rotl.i32(i32 %198, i32 13)
-  %200 = xor i32 %195, %199
-  store i32 %200, i32* %__v160_x14
-  %201 = load i32, i32* %__v148_x15
-  %202 = load i32, i32* %__v160_x14
-  %203 = load i32, i32* %__v159_x13
-  %204 = add i32 %202, %203
-  %205 = call i32 @fact.rotl.i32(i32 %204, i32 18)
-  %206 = xor i32 %201, %205
-  store i32 %206, i32* %__v148_x15
-  br label %207
-
-; <label>:207:                                    ; preds = %14
-  %208 = add i32 %__v177_i, 1
-  br label %12
-
-; <label>:209:                                    ; preds = %12
-  %210 = getelementptr i8, i8* %__v142_output, i64 0
-  %211 = load i32, i32* %__v145_x0
-  %212 = add i32 %211, %__v149_j0
-  call void @"__store[32]_secret_le"(i8* %210, i32 %212)
-  %213 = getelementptr i8, i8* %__v142_output, i64 4
-  %214 = load i32, i32* %__v153_x1
-  %215 = add i32 %214, %__v161_j1
-  call void @"__store[32]_secret_le"(i8* %213, i32 %215)
-  %216 = getelementptr i8, i8* %__v142_output, i64 8
-  %217 = load i32, i32* %__v154_x2
-  %218 = add i32 %217, %__v162_j2
-  call void @"__store[32]_secret_le"(i8* %216, i32 %218)
-  %219 = getelementptr i8, i8* %__v142_output, i64 12
-  %220 = load i32, i32* %__v155_x3
-  %221 = add i32 %220, %__v163_j3
-  call void @"__store[32]_secret_le"(i8* %219, i32 %221)
-  %222 = getelementptr i8, i8* %__v142_output, i64 16
-  %223 = load i32, i32* %__v156_x4
-  %224 = add i32 %223, %__v164_j4
-  call void @"__store[32]_secret_le"(i8* %222, i32 %224)
-  %225 = getelementptr i8, i8* %__v142_output, i64 20
-  %226 = load i32, i32* %__v146_x5
-  %227 = add i32 %226, %__v150_j5
-  call void @"__store[32]_secret_le"(i8* %225, i32 %227)
-  %228 = getelementptr i8, i8* %__v142_output, i64 24
-  %229 = load i32, i32* %__v169_x6
-  %230 = add i32 %229, %__v173_j6
-  call void @"__store[32]_secret_le"(i8* %228, i32 %230)
-  %231 = getelementptr i8, i8* %__v142_output, i64 28
-  %232 = load i32, i32* %__v170_x7
-  %233 = add i32 %232, %__v174_j7
-  call void @"__store[32]_secret_le"(i8* %231, i32 %233)
-  %234 = getelementptr i8, i8* %__v142_output, i64 32
-  %235 = load i32, i32* %__v171_x8
-  %236 = add i32 %235, %__v175_j8
-  call void @"__store[32]_secret_le"(i8* %234, i32 %236)
-  %237 = getelementptr i8, i8* %__v142_output, i64 36
-  %238 = load i32, i32* %__v172_x9
-  %239 = add i32 %238, %__v176_j9
-  call void @"__store[32]_secret_le"(i8* %237, i32 %239)
-  %240 = getelementptr i8, i8* %__v142_output, i64 40
+  %187 = shl i32 %186, 13
+  %188 = lshr i32 %186, 19
+  %189 = or i32 %187, %188
+  %190 = xor i32 %183, %189
+  store i32 %190, i32* %__v155_x3
+  %191 = load i32, i32* %__v145_x0
+  %192 = load i32, i32* %__v155_x3
+  %193 = load i32, i32* %__v154_x2
+  %194 = add i32 %192, %193
+  %195 = shl i32 %194, 18
+  %196 = lshr i32 %194, 14
+  %197 = or i32 %195, %196
+  %198 = xor i32 %191, %197
+  store i32 %198, i32* %__v145_x0
+  %199 = load i32, i32* %__v169_x6
+  %200 = load i32, i32* %__v146_x5
+  %201 = load i32, i32* %__v156_x4
+  %202 = add i32 %200, %201
+  %203 = shl i32 %202, 7
+  %204 = lshr i32 %202, 25
+  %205 = or i32 %203, %204
+  %206 = xor i32 %199, %205
+  store i32 %206, i32* %__v169_x6
+  %207 = load i32, i32* %__v170_x7
+  %208 = load i32, i32* %__v169_x6
+  %209 = load i32, i32* %__v146_x5
+  %210 = add i32 %208, %209
+  %211 = shl i32 %210, 9
+  %212 = lshr i32 %210, 23
+  %213 = or i32 %211, %212
+  %214 = xor i32 %207, %213
+  store i32 %214, i32* %__v170_x7
+  %215 = load i32, i32* %__v156_x4
+  %216 = load i32, i32* %__v170_x7
+  %217 = load i32, i32* %__v169_x6
+  %218 = add i32 %216, %217
+  %219 = shl i32 %218, 13
+  %220 = lshr i32 %218, 19
+  %221 = or i32 %219, %220
+  %222 = xor i32 %215, %221
+  store i32 %222, i32* %__v156_x4
+  %223 = load i32, i32* %__v146_x5
+  %224 = load i32, i32* %__v156_x4
+  %225 = load i32, i32* %__v170_x7
+  %226 = add i32 %224, %225
+  %227 = shl i32 %226, 18
+  %228 = lshr i32 %226, 14
+  %229 = or i32 %227, %228
+  %230 = xor i32 %223, %229
+  store i32 %230, i32* %__v146_x5
+  %231 = load i32, i32* %__v157_x11
+  %232 = load i32, i32* %__v147_x10
+  %233 = load i32, i32* %__v172_x9
+  %234 = add i32 %232, %233
+  %235 = shl i32 %234, 7
+  %236 = lshr i32 %234, 25
+  %237 = or i32 %235, %236
+  %238 = xor i32 %231, %237
+  store i32 %238, i32* %__v157_x11
+  %239 = load i32, i32* %__v171_x8
+  %240 = load i32, i32* %__v157_x11
   %241 = load i32, i32* %__v147_x10
-  %242 = add i32 %241, %__v151_j10
-  call void @"__store[32]_secret_le"(i8* %240, i32 %242)
-  %243 = getelementptr i8, i8* %__v142_output, i64 44
-  %244 = load i32, i32* %__v157_x11
-  %245 = add i32 %244, %__v165_j11
-  call void @"__store[32]_secret_le"(i8* %243, i32 %245)
-  %246 = getelementptr i8, i8* %__v142_output, i64 48
-  %247 = load i32, i32* %__v158_x12
-  %248 = add i32 %247, %__v166_j12
-  call void @"__store[32]_secret_le"(i8* %246, i32 %248)
-  %249 = getelementptr i8, i8* %__v142_output, i64 52
-  %250 = load i32, i32* %__v159_x13
-  %251 = add i32 %250, %__v167_j13
-  call void @"__store[32]_secret_le"(i8* %249, i32 %251)
-  %252 = getelementptr i8, i8* %__v142_output, i64 56
-  %253 = load i32, i32* %__v160_x14
-  %254 = add i32 %253, %__v168_j14
-  call void @"__store[32]_secret_le"(i8* %252, i32 %254)
-  %255 = getelementptr i8, i8* %__v142_output, i64 60
-  %256 = load i32, i32* %__v148_x15
-  %257 = add i32 %256, %__v152_j15
-  call void @"__store[32]_secret_le"(i8* %255, i32 %257)
+  %242 = add i32 %240, %241
+  %243 = shl i32 %242, 9
+  %244 = lshr i32 %242, 23
+  %245 = or i32 %243, %244
+  %246 = xor i32 %239, %245
+  store i32 %246, i32* %__v171_x8
+  %247 = load i32, i32* %__v172_x9
+  %248 = load i32, i32* %__v171_x8
+  %249 = load i32, i32* %__v157_x11
+  %250 = add i32 %248, %249
+  %251 = shl i32 %250, 13
+  %252 = lshr i32 %250, 19
+  %253 = or i32 %251, %252
+  %254 = xor i32 %247, %253
+  store i32 %254, i32* %__v172_x9
+  %255 = load i32, i32* %__v147_x10
+  %256 = load i32, i32* %__v172_x9
+  %257 = load i32, i32* %__v171_x8
+  %258 = add i32 %256, %257
+  %259 = shl i32 %258, 18
+  %260 = lshr i32 %258, 14
+  %261 = or i32 %259, %260
+  %262 = xor i32 %255, %261
+  store i32 %262, i32* %__v147_x10
+  %263 = load i32, i32* %__v158_x12
+  %264 = load i32, i32* %__v148_x15
+  %265 = load i32, i32* %__v160_x14
+  %266 = add i32 %264, %265
+  %267 = shl i32 %266, 7
+  %268 = lshr i32 %266, 25
+  %269 = or i32 %267, %268
+  %270 = xor i32 %263, %269
+  store i32 %270, i32* %__v158_x12
+  %271 = load i32, i32* %__v159_x13
+  %272 = load i32, i32* %__v158_x12
+  %273 = load i32, i32* %__v148_x15
+  %274 = add i32 %272, %273
+  %275 = shl i32 %274, 9
+  %276 = lshr i32 %274, 23
+  %277 = or i32 %275, %276
+  %278 = xor i32 %271, %277
+  store i32 %278, i32* %__v159_x13
+  %279 = load i32, i32* %__v160_x14
+  %280 = load i32, i32* %__v159_x13
+  %281 = load i32, i32* %__v158_x12
+  %282 = add i32 %280, %281
+  %283 = shl i32 %282, 13
+  %284 = lshr i32 %282, 19
+  %285 = or i32 %283, %284
+  %286 = xor i32 %279, %285
+  store i32 %286, i32* %__v160_x14
+  %287 = load i32, i32* %__v148_x15
+  %288 = load i32, i32* %__v160_x14
+  %289 = load i32, i32* %__v159_x13
+  %290 = add i32 %288, %289
+  %291 = shl i32 %290, 18
+  %292 = lshr i32 %290, 14
+  %293 = or i32 %291, %292
+  %294 = xor i32 %287, %293
+  store i32 %294, i32* %__v148_x15
+  br label %295
+
+; <label>:295:                                    ; preds = %38
+  %296 = add i32 %__v177_i, 1
+  br label %36
+
+; <label>:297:                                    ; preds = %36
+  %298 = getelementptr i8, i8* %__v142_output, i64 0
+  %299 = load i32, i32* %__v145_x0
+  %300 = add i32 %299, %__v149_j0
+  %301 = bitcast i8* %298 to i32*
+  store i32 %300, i32* %301
+  %302 = getelementptr i8, i8* %__v142_output, i64 4
+  %303 = load i32, i32* %__v153_x1
+  %304 = add i32 %303, %__v161_j1
+  %305 = bitcast i8* %302 to i32*
+  store i32 %304, i32* %305
+  %306 = getelementptr i8, i8* %__v142_output, i64 8
+  %307 = load i32, i32* %__v154_x2
+  %308 = add i32 %307, %__v162_j2
+  %309 = bitcast i8* %306 to i32*
+  store i32 %308, i32* %309
+  %310 = getelementptr i8, i8* %__v142_output, i64 12
+  %311 = load i32, i32* %__v155_x3
+  %312 = add i32 %311, %__v163_j3
+  %313 = bitcast i8* %310 to i32*
+  store i32 %312, i32* %313
+  %314 = getelementptr i8, i8* %__v142_output, i64 16
+  %315 = load i32, i32* %__v156_x4
+  %316 = add i32 %315, %__v164_j4
+  %317 = bitcast i8* %314 to i32*
+  store i32 %316, i32* %317
+  %318 = getelementptr i8, i8* %__v142_output, i64 20
+  %319 = load i32, i32* %__v146_x5
+  %320 = add i32 %319, %__v150_j5
+  %321 = bitcast i8* %318 to i32*
+  store i32 %320, i32* %321
+  %322 = getelementptr i8, i8* %__v142_output, i64 24
+  %323 = load i32, i32* %__v169_x6
+  %324 = add i32 %323, %__v173_j6
+  %325 = bitcast i8* %322 to i32*
+  store i32 %324, i32* %325
+  %326 = getelementptr i8, i8* %__v142_output, i64 28
+  %327 = load i32, i32* %__v170_x7
+  %328 = add i32 %327, %__v174_j7
+  %329 = bitcast i8* %326 to i32*
+  store i32 %328, i32* %329
+  %330 = getelementptr i8, i8* %__v142_output, i64 32
+  %331 = load i32, i32* %__v171_x8
+  %332 = add i32 %331, %__v175_j8
+  %333 = bitcast i8* %330 to i32*
+  store i32 %332, i32* %333
+  %334 = getelementptr i8, i8* %__v142_output, i64 36
+  %335 = load i32, i32* %__v172_x9
+  %336 = add i32 %335, %__v176_j9
+  %337 = bitcast i8* %334 to i32*
+  store i32 %336, i32* %337
+  %338 = getelementptr i8, i8* %__v142_output, i64 40
+  %339 = load i32, i32* %__v147_x10
+  %340 = add i32 %339, %__v151_j10
+  %341 = bitcast i8* %338 to i32*
+  store i32 %340, i32* %341
+  %342 = getelementptr i8, i8* %__v142_output, i64 44
+  %343 = load i32, i32* %__v157_x11
+  %344 = add i32 %343, %__v165_j11
+  %345 = bitcast i8* %342 to i32*
+  store i32 %344, i32* %345
+  %346 = getelementptr i8, i8* %__v142_output, i64 48
+  %347 = load i32, i32* %__v158_x12
+  %348 = add i32 %347, %__v166_j12
+  %349 = bitcast i8* %346 to i32*
+  store i32 %348, i32* %349
+  %350 = getelementptr i8, i8* %__v142_output, i64 52
+  %351 = load i32, i32* %__v159_x13
+  %352 = add i32 %351, %__v167_j13
+  %353 = bitcast i8* %350 to i32*
+  store i32 %352, i32* %353
+  %354 = getelementptr i8, i8* %__v142_output, i64 56
+  %355 = load i32, i32* %__v160_x14
+  %356 = add i32 %355, %__v168_j14
+  %357 = bitcast i8* %354 to i32*
+  store i32 %356, i32* %357
+  %358 = getelementptr i8, i8* %__v142_output, i64 60
+  %359 = load i32, i32* %__v148_x15
+  %360 = add i32 %359, %__v152_j15
+  %361 = bitcast i8* %358 to i32*
+  store i32 %360, i32* %361
   ret void
 }
 
@@ -786,203 +899,198 @@ entry:
   %0 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 5
   %1 = load i8, i8* %0
   %2 = icmp ne i8 %1, 0
-  %__v125_hibit = call i64 @fact.select.sel.i64(i1 %2, i64 0, i64 1099511627776)
-  %3 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
-  %4 = bitcast [3 x i64]* %3 to i64*
-  %5 = getelementptr i64, i64* %4, i64 0
-  %__v126_r0 = load i64, i64* %5
-  %6 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
-  %7 = bitcast [3 x i64]* %6 to i64*
-  %8 = getelementptr i64, i64* %7, i64 1
-  %__v127_r1 = load i64, i64* %8
-  %9 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
-  %10 = bitcast [3 x i64]* %9 to i64*
-  %11 = getelementptr i64, i64* %10, i64 2
-  %__v128_r2 = load i64, i64* %11
-  %12 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
-  %13 = bitcast [3 x i64]* %12 to i64*
-  %14 = getelementptr i64, i64* %13, i64 0
-  %15 = load i64, i64* %14
+  %3 = select i1 %2, i64 0, i64 1099511627776
+  %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
+  %5 = bitcast [3 x i64]* %4 to i64*
+  %6 = getelementptr i64, i64* %5, i64 0
+  %__v126_r0 = load i64, i64* %6
+  %7 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
+  %8 = bitcast [3 x i64]* %7 to i64*
+  %9 = getelementptr i64, i64* %8, i64 1
+  %__v127_r1 = load i64, i64* %9
+  %10 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
+  %11 = bitcast [3 x i64]* %10 to i64*
+  %12 = getelementptr i64, i64* %11, i64 2
+  %__v128_r2 = load i64, i64* %12
+  %13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %14 = bitcast [3 x i64]* %13 to i64*
+  %15 = getelementptr i64, i64* %14, i64 0
+  %16 = load i64, i64* %15
   %__v129_h0 = alloca i64
-  store i64 %15, i64* %__v129_h0
-  %16 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
-  %17 = bitcast [3 x i64]* %16 to i64*
-  %18 = getelementptr i64, i64* %17, i64 1
-  %19 = load i64, i64* %18
+  store i64 %16, i64* %__v129_h0
+  %17 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %18 = bitcast [3 x i64]* %17 to i64*
+  %19 = getelementptr i64, i64* %18, i64 1
+  %20 = load i64, i64* %19
   %__v130_h1 = alloca i64
-  store i64 %19, i64* %__v130_h1
-  %20 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
-  %21 = bitcast [3 x i64]* %20 to i64*
-  %22 = getelementptr i64, i64* %21, i64 2
-  %23 = load i64, i64* %22
+  store i64 %20, i64* %__v130_h1
+  %21 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %22 = bitcast [3 x i64]* %21 to i64*
+  %23 = getelementptr i64, i64* %22, i64 2
+  %24 = load i64, i64* %23
   %__v131_h2 = alloca i64
-  store i64 %23, i64* %__v131_h2
+  store i64 %24, i64* %__v131_h2
   %__v132_s1 = mul i64 %__v127_r1, 20
   %__v133_s2 = mul i64 %__v128_r2, 20
   %__v134_mloops = udiv i64 %__v224___v122_m_len, 16
-  br label %24
+  br label %25
 
-; <label>:24:                                     ; preds = %124, %entry
-  %__v135_bindex = phi i64 [ 0, %entry ], [ %125, %124 ]
-  %25 = icmp ult i64 %__v135_bindex, %__v134_mloops
-  br i1 %25, label %26, label %126
+; <label>:25:                                     ; preds = %129, %entry
+  %__v135_bindex = phi i64 [ 0, %entry ], [ %130, %129 ]
+  %26 = icmp ult i64 %__v135_bindex, %__v134_mloops
+  br i1 %26, label %27, label %131
 
-; <label>:26:                                     ; preds = %24
+; <label>:27:                                     ; preds = %25
   %__v255_lexpr = mul i64 %__v135_bindex, 16
   %__v256_lexpr = mul i64 %__v135_bindex, 16
-  %27 = getelementptr i8, i8* %__v122_m, i64 %__v256_lexpr
-  %__v136_t0 = call i64 @"__load[64]_secret_le"(i8* %27)
-  %28 = mul i64 %__v135_bindex, 16
-  %__v257_lexpr = add i64 %28, 8
-  %29 = mul i64 %__v135_bindex, 16
-  %__v258_lexpr = add i64 %29, 8
-  %30 = getelementptr i8, i8* %__v122_m, i64 %__v258_lexpr
-  %__v137_t1 = call i64 @"__load[64]_secret_le"(i8* %30)
-  %31 = load i64, i64* %__v129_h0
-  %32 = and i64 %__v136_t0, 17592186044415
-  %33 = add i64 %31, %32
-  store i64 %33, i64* %__v129_h0
-  %34 = load i64, i64* %__v130_h1
-  %35 = lshr i64 %__v136_t0, 44
-  %36 = shl i64 %__v137_t1, 20
-  %37 = or i64 %35, %36
-  %38 = and i64 %37, 17592186044415
-  %39 = add i64 %34, %38
-  store i64 %39, i64* %__v130_h1
-  %40 = load i64, i64* %__v131_h2
-  %41 = lshr i64 %__v137_t1, 24
-  %42 = and i64 %41, 4398046511103
-  %43 = or i64 %42, %__v125_hibit
-  %44 = add i64 %40, %43
-  store i64 %44, i64* %__v131_h2
-  %45 = load i64, i64* %__v129_h0
-  %46 = zext i64 %45 to i128
-  %47 = zext i64 %__v126_r0 to i128
-  %48 = mul i128 %46, %47
-  %49 = load i64, i64* %__v130_h1
-  %50 = zext i64 %49 to i128
-  %51 = zext i64 %__v133_s2 to i128
-  %52 = mul i128 %50, %51
-  %53 = add i128 %48, %52
-  %54 = load i64, i64* %__v131_h2
+  %28 = getelementptr i8, i8* %__v122_m, i64 %__v256_lexpr
+  %29 = bitcast i8* %28 to i64*
+  %30 = load i64, i64* %29
+  %31 = mul i64 %__v135_bindex, 16
+  %__v257_lexpr = add i64 %31, 8
+  %32 = mul i64 %__v135_bindex, 16
+  %__v258_lexpr = add i64 %32, 8
+  %33 = getelementptr i8, i8* %__v122_m, i64 %__v258_lexpr
+  %34 = bitcast i8* %33 to i64*
+  %35 = load i64, i64* %34
+  %36 = load i64, i64* %__v129_h0
+  %37 = and i64 %30, 17592186044415
+  %38 = add i64 %36, %37
+  store i64 %38, i64* %__v129_h0
+  %39 = load i64, i64* %__v130_h1
+  %40 = lshr i64 %30, 44
+  %41 = shl i64 %35, 20
+  %42 = or i64 %40, %41
+  %43 = and i64 %42, 17592186044415
+  %44 = add i64 %39, %43
+  store i64 %44, i64* %__v130_h1
+  %45 = load i64, i64* %__v131_h2
+  %46 = lshr i64 %35, 24
+  %47 = and i64 %46, 4398046511103
+  %48 = or i64 %47, %3
+  %49 = add i64 %45, %48
+  store i64 %49, i64* %__v131_h2
+  %50 = load i64, i64* %__v129_h0
+  %51 = zext i64 %50 to i128
+  %52 = zext i64 %__v126_r0 to i128
+  %53 = mul i128 %51, %52
+  %54 = load i64, i64* %__v130_h1
   %55 = zext i64 %54 to i128
-  %56 = zext i64 %__v132_s1 to i128
+  %56 = zext i64 %__v133_s2 to i128
   %57 = mul i128 %55, %56
   %58 = add i128 %53, %57
-  %__v138_d0 = alloca i128
-  store i128 %58, i128* %__v138_d0
-  %59 = load i64, i64* %__v129_h0
+  %59 = load i64, i64* %__v131_h2
   %60 = zext i64 %59 to i128
-  %61 = zext i64 %__v127_r1 to i128
+  %61 = zext i64 %__v132_s1 to i128
   %62 = mul i128 %60, %61
-  %63 = load i64, i64* %__v130_h1
-  %64 = zext i64 %63 to i128
-  %65 = zext i64 %__v126_r0 to i128
-  %66 = mul i128 %64, %65
-  %67 = add i128 %62, %66
-  %68 = load i64, i64* %__v131_h2
+  %63 = add i128 %58, %62
+  %__v138_d0 = alloca i128
+  store i128 %63, i128* %__v138_d0
+  %64 = load i64, i64* %__v129_h0
+  %65 = zext i64 %64 to i128
+  %66 = zext i64 %__v127_r1 to i128
+  %67 = mul i128 %65, %66
+  %68 = load i64, i64* %__v130_h1
   %69 = zext i64 %68 to i128
-  %70 = zext i64 %__v133_s2 to i128
+  %70 = zext i64 %__v126_r0 to i128
   %71 = mul i128 %69, %70
   %72 = add i128 %67, %71
-  %__v139_d1 = alloca i128
-  store i128 %72, i128* %__v139_d1
-  %73 = load i64, i64* %__v129_h0
+  %73 = load i64, i64* %__v131_h2
   %74 = zext i64 %73 to i128
-  %75 = zext i64 %__v128_r2 to i128
+  %75 = zext i64 %__v133_s2 to i128
   %76 = mul i128 %74, %75
-  %77 = load i64, i64* %__v130_h1
-  %78 = zext i64 %77 to i128
-  %79 = zext i64 %__v127_r1 to i128
-  %80 = mul i128 %78, %79
-  %81 = add i128 %76, %80
-  %82 = load i64, i64* %__v131_h2
+  %77 = add i128 %72, %76
+  %__v139_d1 = alloca i128
+  store i128 %77, i128* %__v139_d1
+  %78 = load i64, i64* %__v129_h0
+  %79 = zext i64 %78 to i128
+  %80 = zext i64 %__v128_r2 to i128
+  %81 = mul i128 %79, %80
+  %82 = load i64, i64* %__v130_h1
   %83 = zext i64 %82 to i128
-  %84 = zext i64 %__v126_r0 to i128
+  %84 = zext i64 %__v127_r1 to i128
   %85 = mul i128 %83, %84
   %86 = add i128 %81, %85
+  %87 = load i64, i64* %__v131_h2
+  %88 = zext i64 %87 to i128
+  %89 = zext i64 %__v126_r0 to i128
+  %90 = mul i128 %88, %89
+  %91 = add i128 %86, %90
   %__v140_d2 = alloca i128
-  store i128 %86, i128* %__v140_d2
-  %87 = load i128, i128* %__v138_d0
-  %88 = lshr i128 %87, 44
-  %89 = trunc i128 %88 to i64
+  store i128 %91, i128* %__v140_d2
+  %92 = load i128, i128* %__v138_d0
+  %93 = lshr i128 %92, 44
+  %94 = trunc i128 %93 to i64
   %__v141_c = alloca i64
-  store i64 %89, i64* %__v141_c
-  %90 = load i128, i128* %__v138_d0
-  %91 = trunc i128 %90 to i64
-  %92 = and i64 %91, 17592186044415
-  store i64 %92, i64* %__v129_h0
-  %93 = load i128, i128* %__v139_d1
-  %94 = load i64, i64* %__v141_c
-  %95 = zext i64 %94 to i128
-  %96 = add i128 %93, %95
-  store i128 %96, i128* %__v139_d1
-  %97 = load i128, i128* %__v139_d1
-  %98 = lshr i128 %97, 44
-  %99 = trunc i128 %98 to i64
-  store i64 %99, i64* %__v141_c
-  %100 = load i128, i128* %__v139_d1
-  %101 = trunc i128 %100 to i64
-  %102 = and i64 %101, 17592186044415
-  store i64 %102, i64* %__v130_h1
-  %103 = load i128, i128* %__v140_d2
-  %104 = load i64, i64* %__v141_c
-  %105 = zext i64 %104 to i128
-  %106 = add i128 %103, %105
-  store i128 %106, i128* %__v140_d2
-  %107 = load i128, i128* %__v140_d2
-  %108 = lshr i128 %107, 42
-  %109 = trunc i128 %108 to i64
-  store i64 %109, i64* %__v141_c
-  %110 = load i128, i128* %__v140_d2
-  %111 = trunc i128 %110 to i64
-  %112 = and i64 %111, 4398046511103
-  store i64 %112, i64* %__v131_h2
-  %113 = load i64, i64* %__v129_h0
-  %114 = load i64, i64* %__v141_c
-  %115 = mul i64 %114, 5
-  %116 = add i64 %113, %115
-  store i64 %116, i64* %__v129_h0
-  %117 = load i64, i64* %__v129_h0
-  %118 = lshr i64 %117, 44
-  store i64 %118, i64* %__v141_c
-  %119 = load i64, i64* %__v129_h0
-  %120 = and i64 %119, 17592186044415
-  store i64 %120, i64* %__v129_h0
-  %121 = load i64, i64* %__v130_h1
-  %122 = load i64, i64* %__v141_c
-  %123 = add i64 %121, %122
-  store i64 %123, i64* %__v130_h1
-  br label %124
+  store i64 %94, i64* %__v141_c
+  %95 = load i128, i128* %__v138_d0
+  %96 = trunc i128 %95 to i64
+  %97 = and i64 %96, 17592186044415
+  store i64 %97, i64* %__v129_h0
+  %98 = load i128, i128* %__v139_d1
+  %99 = load i64, i64* %__v141_c
+  %100 = zext i64 %99 to i128
+  %101 = add i128 %98, %100
+  store i128 %101, i128* %__v139_d1
+  %102 = load i128, i128* %__v139_d1
+  %103 = lshr i128 %102, 44
+  %104 = trunc i128 %103 to i64
+  store i64 %104, i64* %__v141_c
+  %105 = load i128, i128* %__v139_d1
+  %106 = trunc i128 %105 to i64
+  %107 = and i64 %106, 17592186044415
+  store i64 %107, i64* %__v130_h1
+  %108 = load i128, i128* %__v140_d2
+  %109 = load i64, i64* %__v141_c
+  %110 = zext i64 %109 to i128
+  %111 = add i128 %108, %110
+  store i128 %111, i128* %__v140_d2
+  %112 = load i128, i128* %__v140_d2
+  %113 = lshr i128 %112, 42
+  %114 = trunc i128 %113 to i64
+  store i64 %114, i64* %__v141_c
+  %115 = load i128, i128* %__v140_d2
+  %116 = trunc i128 %115 to i64
+  %117 = and i64 %116, 4398046511103
+  store i64 %117, i64* %__v131_h2
+  %118 = load i64, i64* %__v129_h0
+  %119 = load i64, i64* %__v141_c
+  %120 = mul i64 %119, 5
+  %121 = add i64 %118, %120
+  store i64 %121, i64* %__v129_h0
+  %122 = load i64, i64* %__v129_h0
+  %123 = lshr i64 %122, 44
+  store i64 %123, i64* %__v141_c
+  %124 = load i64, i64* %__v129_h0
+  %125 = and i64 %124, 17592186044415
+  store i64 %125, i64* %__v129_h0
+  %126 = load i64, i64* %__v130_h1
+  %127 = load i64, i64* %__v141_c
+  %128 = add i64 %126, %127
+  store i64 %128, i64* %__v130_h1
+  br label %129
 
-; <label>:124:                                    ; preds = %26
-  %125 = add i64 %__v135_bindex, 1
-  br label %24
+; <label>:129:                                    ; preds = %27
+  %130 = add i64 %__v135_bindex, 1
+  br label %25
 
-; <label>:126:                                    ; preds = %24
-  %127 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
-  %128 = bitcast [3 x i64]* %127 to i64*
-  %129 = getelementptr i64, i64* %128, i64 0
-  %130 = load i64, i64* %__v129_h0
-  store i64 %130, i64* %129
-  %131 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
-  %132 = bitcast [3 x i64]* %131 to i64*
-  %133 = getelementptr i64, i64* %132, i64 1
-  %134 = load i64, i64* %__v130_h1
-  store i64 %134, i64* %133
-  %135 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
-  %136 = bitcast [3 x i64]* %135 to i64*
-  %137 = getelementptr i64, i64* %136, i64 2
-  %138 = load i64, i64* %__v131_h2
-  store i64 %138, i64* %137
+; <label>:131:                                    ; preds = %25
+  %132 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %133 = bitcast [3 x i64]* %132 to i64*
+  %134 = getelementptr i64, i64* %133, i64 0
+  %135 = load i64, i64* %__v129_h0
+  store i64 %135, i64* %134
+  %136 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %137 = bitcast [3 x i64]* %136 to i64*
+  %138 = getelementptr i64, i64* %137, i64 1
+  %139 = load i64, i64* %__v130_h1
+  store i64 %139, i64* %138
+  %140 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 1
+  %141 = bitcast [3 x i64]* %140 to i64*
+  %142 = getelementptr i64, i64* %141, i64 2
+  %143 = load i64, i64* %__v131_h2
+  store i64 %143, i64* %142
   ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i64 @fact.select.sel.i64(i1 %cond, i64 %x, i64 %y) #0 {
-entry:
-  %0 = select i1 %cond, i64 %x, i64 %y
-  ret i64 %0
 }
 
 define internal void @_poly1305_finish(%poly1305_state_internal_t* %__v106_state, i8* %__v107_mac) {
@@ -1002,12 +1110,12 @@ entry:
   %7 = getelementptr i8, i8* %6, i64 %__v108_start
   store i8 1, i8* %7
   %8 = add i64 %__v108_start, 1
-  br label %159
+  br label %162
 
 ; <label>:9:                                      ; preds = %entry
   br label %10
 
-; <label>:10:                                     ; preds = %9, %167
+; <label>:10:                                     ; preds = %170, %9
   %11 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 1
   %12 = bitcast [3 x i64]* %11 to i64*
   %13 = getelementptr i64, i64* %12, i64 0
@@ -1209,35 +1317,38 @@ entry:
   store i64 %154, i64* %__v113_h1
   %155 = getelementptr i8, i8* %__v107_mac, i64 0
   %156 = load i64, i64* %__v112_h0
-  call void @"__store[64]_secret_le"(i8* %155, i64 %156)
-  %157 = getelementptr i8, i8* %__v107_mac, i64 8
-  %158 = load i64, i64* %__v113_h1
-  call void @"__store[64]_secret_le"(i8* %157, i64 %158)
-  call void @__smemzero_poly1305_state_internal_t(%poly1305_state_internal_t* %__v106_state)
+  %157 = bitcast i8* %155 to i64*
+  store i64 %156, i64* %157
+  %158 = getelementptr i8, i8* %__v107_mac, i64 8
+  %159 = load i64, i64* %__v113_h1
+  %160 = bitcast i8* %158 to i64*
+  store i64 %159, i64* %160
+  %161 = bitcast %poly1305_state_internal_t* %__v106_state to i8*
+  call void @llvm.memset.p0i8.i64(i8* %161, i8 0, i64 ptrtoint (%poly1305_state_internal_t* getelementptr (%poly1305_state_internal_t, %poly1305_state_internal_t* null, i32 1) to i64), i32 1, i1 true)
   ret void
 
-; <label>:159:                                    ; preds = %165, %3
-  %__v109_i = phi i64 [ %8, %3 ], [ %166, %165 ]
-  %160 = icmp ult i64 %__v109_i, 16
-  br i1 %160, label %161, label %167
+; <label>:162:                                    ; preds = %168, %3
+  %__v109_i = phi i64 [ %8, %3 ], [ %169, %168 ]
+  %163 = icmp ult i64 %__v109_i, 16
+  br i1 %163, label %164, label %170
 
-; <label>:161:                                    ; preds = %159
-  %162 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
-  %163 = bitcast [16 x i8]* %162 to i8*
-  %164 = getelementptr i8, i8* %163, i64 %__v109_i
-  store i8 0, i8* %164
-  br label %165
+; <label>:164:                                    ; preds = %162
+  %165 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %166 = bitcast [16 x i8]* %165 to i8*
+  %167 = getelementptr i8, i8* %166, i64 %__v109_i
+  store i8 0, i8* %167
+  br label %168
 
-; <label>:165:                                    ; preds = %161
-  %166 = add i64 %__v109_i, 1
-  br label %159
+; <label>:168:                                    ; preds = %164
+  %169 = add i64 %__v109_i, 1
+  br label %162
 
-; <label>:167:                                    ; preds = %159
-  %168 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
-  store i8 1, i8* %168
-  %169 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
-  %170 = bitcast [16 x i8]* %169 to i8*
-  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v106_state, i8* %170, i64 16)
+; <label>:170:                                    ; preds = %162
+  %171 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 5
+  store i8 1, i8* %171
+  %172 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v106_state, i32 0, i32 4
+  %173 = bitcast [16 x i8]* %172 to i8*
+  call void @_poly1305_blocks(%poly1305_state_internal_t* %__v106_state, i8* %173, i64 16)
   br label %10
 }
 
@@ -1265,7 +1376,7 @@ entry:
 ; <label>:9:                                      ; preds = %entry
   br label %10
 
-; <label>:10:                                     ; preds = %9, %44
+; <label>:10:                                     ; preds = %44, %9
   %11 = load i64, i64* %__v95_mindex
   %12 = sub i64 %__v223___v94_m_len, %11
   %13 = icmp uge i64 %12, 16
@@ -1361,7 +1472,7 @@ entry:
 ; <label>:59:                                     ; preds = %54
   br label %60
 
-; <label>:60:                                     ; preds = %59, %72
+; <label>:60:                                     ; preds = %72, %59
   ret void
 
 ; <label>:61:                                     ; preds = %70, %57
@@ -1401,56 +1512,60 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %0 = getelementptr i8, i8* %__v90_key, i64 0
-  %__v91_t0 = call i64 @"__load[64]_secret_le"(i8* %0)
-  %1 = getelementptr i8, i8* %__v90_key, i64 8
-  %__v92_t1 = call i64 @"__load[64]_secret_le"(i8* %1)
-  %2 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
-  %3 = bitcast [3 x i64]* %2 to i64*
-  %4 = getelementptr i64, i64* %3, i64 0
-  %5 = and i64 %__v91_t0, 17575274610687
-  store i64 %5, i64* %4
+  %1 = bitcast i8* %0 to i64*
+  %2 = load i64, i64* %1
+  %3 = getelementptr i8, i8* %__v90_key, i64 8
+  %4 = bitcast i8* %3 to i64*
+  %5 = load i64, i64* %4
   %6 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
   %7 = bitcast [3 x i64]* %6 to i64*
-  %8 = getelementptr i64, i64* %7, i64 1
-  %9 = lshr i64 %__v91_t0, 44
-  %10 = shl i64 %__v92_t1, 20
-  %11 = or i64 %9, %10
-  %12 = and i64 %11, 17592181915647
-  store i64 %12, i64* %8
-  %13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
-  %14 = bitcast [3 x i64]* %13 to i64*
-  %15 = getelementptr i64, i64* %14, i64 2
-  %16 = lshr i64 %__v92_t1, 24
-  %17 = and i64 %16, 68719475727
-  store i64 %17, i64* %15
-  %18 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
-  %19 = bitcast [3 x i64]* %18 to i64*
-  %20 = getelementptr i64, i64* %19, i64 0
-  store i64 0, i64* %20
-  %21 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
-  %22 = bitcast [3 x i64]* %21 to i64*
-  %23 = getelementptr i64, i64* %22, i64 1
-  store i64 0, i64* %23
-  %24 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
-  %25 = bitcast [3 x i64]* %24 to i64*
-  %26 = getelementptr i64, i64* %25, i64 2
-  store i64 0, i64* %26
-  %27 = getelementptr i8, i8* %__v90_key, i64 16
-  %__v203_load_le = call i64 @"__load[64]_secret_le"(i8* %27)
-  %28 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 2
-  %29 = bitcast [2 x i64]* %28 to i64*
-  %30 = getelementptr i64, i64* %29, i64 0
-  store i64 %__v203_load_le, i64* %30
-  %31 = getelementptr i8, i8* %__v90_key, i64 24
-  %__v204_load_le = call i64 @"__load[64]_secret_le"(i8* %31)
-  %32 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 2
-  %33 = bitcast [2 x i64]* %32 to i64*
-  %34 = getelementptr i64, i64* %33, i64 1
-  store i64 %__v204_load_le, i64* %34
-  %35 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 3
-  store i64 0, i64* %35
-  %36 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 5
-  store i8 0, i8* %36
+  %8 = getelementptr i64, i64* %7, i64 0
+  %9 = and i64 %2, 17575274610687
+  store i64 %9, i64* %8
+  %10 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
+  %11 = bitcast [3 x i64]* %10 to i64*
+  %12 = getelementptr i64, i64* %11, i64 1
+  %13 = lshr i64 %2, 44
+  %14 = shl i64 %5, 20
+  %15 = or i64 %13, %14
+  %16 = and i64 %15, 17592181915647
+  store i64 %16, i64* %12
+  %17 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 0
+  %18 = bitcast [3 x i64]* %17 to i64*
+  %19 = getelementptr i64, i64* %18, i64 2
+  %20 = lshr i64 %5, 24
+  %21 = and i64 %20, 68719475727
+  store i64 %21, i64* %19
+  %22 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
+  %23 = bitcast [3 x i64]* %22 to i64*
+  %24 = getelementptr i64, i64* %23, i64 0
+  store i64 0, i64* %24
+  %25 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
+  %26 = bitcast [3 x i64]* %25 to i64*
+  %27 = getelementptr i64, i64* %26, i64 1
+  store i64 0, i64* %27
+  %28 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 1
+  %29 = bitcast [3 x i64]* %28 to i64*
+  %30 = getelementptr i64, i64* %29, i64 2
+  store i64 0, i64* %30
+  %31 = getelementptr i8, i8* %__v90_key, i64 16
+  %32 = bitcast i8* %31 to i64*
+  %33 = load i64, i64* %32
+  %34 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 2
+  %35 = bitcast [2 x i64]* %34 to i64*
+  %36 = getelementptr i64, i64* %35, i64 0
+  store i64 %33, i64* %36
+  %37 = getelementptr i8, i8* %__v90_key, i64 24
+  %38 = bitcast i8* %37 to i64*
+  %39 = load i64, i64* %38
+  %40 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 2
+  %41 = bitcast [2 x i64]* %40 to i64*
+  %42 = getelementptr i64, i64* %41, i64 1
+  store i64 %39, i64* %42
+  %43 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 3
+  store i64 0, i64* %43
+  %44 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v89_state, i32 0, i32 5
+  store i8 0, i8* %44
   ret void
 }
 
@@ -1462,72 +1577,46 @@ entry:
   store i1 true, i1* %__rctx
   %__v88_state = alloca %poly1305_state_internal_t
   %0 = alloca i64, i64 3
-  call void @fact.memset.i64(i64* %0, i8 0, i64 3)
-  %1 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 0
-  %2 = bitcast [3 x i64]* %1 to i64*
-  call void @fact.memcpy.i64(i64* %2, i64* %0, i64 3)
-  %3 = alloca i64, i64 3
-  call void @fact.memset.i64(i64* %3, i8 0, i64 3)
-  %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 1
-  %5 = bitcast [3 x i64]* %4 to i64*
-  call void @fact.memcpy.i64(i64* %5, i64* %3, i64 3)
-  %6 = alloca i64, i64 2
-  call void @fact.memset.i64(i64* %6, i8 0, i64 2)
-  %7 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 2
-  %8 = bitcast [2 x i64]* %7 to i64*
-  call void @fact.memcpy.i64(i64* %8, i64* %6, i64 2)
-  %9 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 3
-  store i64 0, i64* %9
-  %10 = alloca i8, i64 16
-  call void @fact.memset.i8(i8* %10, i8 0, i64 16)
-  %11 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 4
-  %12 = bitcast [16 x i8]* %11 to i8*
-  call void @fact.memcpy.i8(i8* %12, i8* %10, i64 16)
-  %13 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 5
-  store i8 0, i8* %13
+  %1 = bitcast i64* %0 to i8*
+  call void @llvm.memset.p0i8.i64(i8* %1, i8 0, i64 24, i32 8, i1 false)
+  %2 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 0
+  %3 = bitcast [3 x i64]* %2 to i64*
+  %4 = bitcast i64* %3 to i8*
+  %5 = bitcast i64* %0 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %4, i8* %5, i64 24, i32 8, i1 false)
+  %6 = alloca i64, i64 3
+  %7 = bitcast i64* %6 to i8*
+  call void @llvm.memset.p0i8.i64(i8* %7, i8 0, i64 24, i32 8, i1 false)
+  %8 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 1
+  %9 = bitcast [3 x i64]* %8 to i64*
+  %10 = bitcast i64* %9 to i8*
+  %11 = bitcast i64* %6 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %10, i8* %11, i64 24, i32 8, i1 false)
+  %12 = alloca i64, i64 2
+  %13 = bitcast i64* %12 to i8*
+  call void @llvm.memset.p0i8.i64(i8* %13, i8 0, i64 16, i32 8, i1 false)
+  %14 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 2
+  %15 = bitcast [2 x i64]* %14 to i64*
+  %16 = bitcast i64* %15 to i8*
+  %17 = bitcast i64* %12 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %16, i8* %17, i64 16, i32 8, i1 false)
+  %18 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 3
+  store i64 0, i64* %18
+  %19 = alloca i8, i64 16
+  call void @llvm.memset.p0i8.i64(i8* %19, i8 0, i64 16, i32 1, i1 false)
+  %20 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 4
+  %21 = bitcast [16 x i8]* %20 to i8*
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %21, i8* %19, i64 16, i32 1, i1 false)
+  %22 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v88_state, i32 0, i32 5
+  store i8 0, i8* %22
   call void @_poly1305_init(%poly1305_state_internal_t* %__v88_state, i8* %__v87_key)
   call void @_poly1305_update(%poly1305_state_internal_t* %__v88_state, i8* %__v86_m, i64 %__v222___v86_m_len)
   call void @_poly1305_finish(%poly1305_state_internal_t* %__v88_state, i8* %__v85_out)
   ret i32 0
 }
 
-; Function Attrs: alwaysinline
-define internal void @fact.memset.i64(i64* %dst, i8 %n, i64 %len) #0 {
-entry:
-  %0 = bitcast i64* %dst to i8*
-  %1 = mul i64 %len, 8
-  call void @llvm.memset.p0i8.i64(i8* %0, i8 %n, i64 %1, i32 8, i1 false)
-  ret void
-}
-
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #1
-
-; Function Attrs: alwaysinline
-define internal void @fact.memcpy.i64(i64* %dst, i64* %src, i64 %len) #0 {
-entry:
-  %0 = bitcast i64* %dst to i8*
-  %1 = bitcast i64* %src to i8*
-  %2 = mul i64 %len, 8
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %0, i8* %1, i64 %2, i32 8, i1 false)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 false)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %dst, i8* %src, i64 %0, i32 1, i1 false)
-  ret void
-}
+declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #0
 
 define internal i1 @_crypto_verify_16(i8* %__v82_x, i8* %__v83_y) {
 entry:
@@ -1537,10 +1626,10 @@ entry:
   store i1 true, i1* %__rctx
   br label %0
 
-; <label>:0:                                      ; preds = %15, %entry
-  %__v84_i = phi i32 [ 0, %entry ], [ %16, %15 ]
+; <label>:0:                                      ; preds = %19, %entry
+  %__v84_i = phi i32 [ 0, %entry ], [ %20, %19 ]
   %1 = icmp ult i32 %__v84_i, 16
-  br i1 %1, label %2, label %17
+  br i1 %1, label %2, label %21
 
 ; <label>:2:                                      ; preds = %0
   %__m3 = load i1, i1* %__rctx
@@ -1554,44 +1643,42 @@ entry:
   %7 = and i1 true, %__m4
   %8 = and i1 %7, %__m3
   %9 = load i1, i1* %__rval
-  %10 = call i1 @fact.cmov.asm.i1(i1 %8, i1 false, i1 %9)
-  store i1 %10, i1* %__rval
-  %11 = and i1 true, %__m4
-  %12 = and i1 %11, %__m3
-  %13 = load i1, i1* %__rctx
-  %14 = call i1 @fact.cmov.asm.i1(i1 %12, i1 false, i1 %13)
-  store i1 %14, i1* %__rctx
+  %10 = zext i1 %9 to i32
+  %11 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %8, i32 0, i32 %10)
+  %12 = trunc i32 %11 to i1
+  store i1 %12, i1* %__rval
+  %13 = and i1 true, %__m4
+  %14 = and i1 %13, %__m3
+  %15 = load i1, i1* %__rctx
+  %16 = zext i1 %15 to i32
+  %17 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %14, i32 0, i32 %16)
+  %18 = trunc i32 %17 to i1
+  store i1 %18, i1* %__rctx
   %__m5 = xor i1 %__m4, true
   %__m6 = xor i1 %__m3, true
-  br label %15
+  br label %19
 
-; <label>:15:                                     ; preds = %2
-  %16 = add i32 %__v84_i, 1
+; <label>:19:                                     ; preds = %2
+  %20 = add i32 %__v84_i, 1
   br label %0
 
-; <label>:17:                                     ; preds = %0
+; <label>:21:                                     ; preds = %0
   %__m1 = load i1, i1* %__rctx
-  %18 = and i1 true, %__m1
-  %19 = load i1, i1* %__rval
-  %20 = call i1 @fact.cmov.asm.i1(i1 %18, i1 true, i1 %19)
-  store i1 %20, i1* %__rval
-  %21 = and i1 true, %__m1
-  %22 = load i1, i1* %__rctx
-  %23 = call i1 @fact.cmov.asm.i1(i1 %21, i1 false, i1 %22)
-  store i1 %23, i1* %__rctx
+  %22 = and i1 true, %__m1
+  %23 = load i1, i1* %__rval
+  %24 = zext i1 %23 to i32
+  %25 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %22, i32 1, i32 %24)
+  %26 = trunc i32 %25 to i1
+  store i1 %26, i1* %__rval
+  %27 = and i1 true, %__m1
+  %28 = load i1, i1* %__rctx
+  %29 = zext i1 %28 to i32
+  %30 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %27, i32 0, i32 %29)
+  %31 = trunc i32 %30 to i1
+  store i1 %31, i1* %__rctx
   %__m2 = xor i1 %__m1, true
-  %24 = load i1, i1* %__rval
-  ret i1 %24
-}
-
-; Function Attrs: alwaysinline
-define internal i1 @fact.cmov.asm.i1(i1 %cond, i1 %x, i1 %y) #0 {
-entry:
-  %0 = zext i1 %x to i32
-  %1 = zext i1 %y to i32
-  %2 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %cond, i32 %0, i32 %1)
-  %3 = trunc i32 %2 to i1
-  ret i1 %3
+  %32 = load i1, i1* %__rval
+  ret i1 %32
 }
 
 define internal i1 @_crypto_onetimeauth_poly1305_verify(i8* %__v78_h, i8* %__v79_input, i64 %__v221___v79_input_len, i8* %__v80_k) {
@@ -1601,7 +1688,7 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %__v81_correct = alloca i8, i64 16
-  call void @fact.memset.i8(i8* %__v81_correct, i8 0, i64 16)
+  call void @llvm.memset.p0i8.i64(i8* %__v81_correct, i8 0, i64 16, i32 1, i1 false)
   %0 = call i32 @_crypto_onetimeauth_poly1305(i8* %__v81_correct, i8* %__v79_input, i64 %__v221___v79_input_len, i8* %__v80_k)
   %__v202__crypto_verify_16 = call i1 @_crypto_verify_16(i8* %__v78_h, i8* %__v81_correct)
   ret i1 %__v202__crypto_verify_16
@@ -1626,9 +1713,9 @@ entry:
   %__v61_ic = alloca i64
   store i64 %__v59_ic_val, i64* %__v61_ic
   %__v62_kcopy = alloca i8, i64 32
-  call void @fact.memcpy.i8(i8* %__v62_kcopy, i8* %__v60_k, i64 32)
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %__v62_kcopy, i8* %__v60_k, i64 32, i32 1, i1 false)
   %__v63_input = alloca i8, i64 16
-  call void @fact.memset.i8(i8* %__v63_input, i8 0, i64 16)
+  call void @llvm.memset.p0i8.i64(i8* %__v63_input, i8 0, i64 16, i32 1, i1 false)
   br label %4
 
 ; <label>:4:                                      ; preds = %10, %3
@@ -1675,7 +1762,7 @@ entry:
 ; <label>:23:                                     ; preds = %13
   %__v66_mtimes = udiv i64 %__v220___v57_m_len, 64
   %__v67_block = alloca i8, i64 64
-  call void @fact.memset.i8(i8* %__v67_block, i8 0, i64 64)
+  call void @llvm.memset.p0i8.i64(i8* %__v67_block, i8 0, i64 64, i32 1, i1 false)
   br label %24
 
 ; <label>:24:                                     ; preds = %27, %23
@@ -1770,9 +1857,9 @@ entry:
 ; <label>:62:                                     ; preds = %29
   br label %63
 
-; <label>:63:                                     ; preds = %62, %75
-  call void @"__smemzero[8]_secret"(i8* %__v67_block, i64 64)
-  call void @"__smemzero[8]_secret"(i8* %__v62_kcopy, i64 32)
+; <label>:63:                                     ; preds = %75, %62
+  call void @llvm.memset.p0i8.i64(i8* %__v67_block, i8 0, i64 64, i32 1, i1 true)
+  call void @llvm.memset.p0i8.i64(i8* %__v62_kcopy, i8 0, i64 32, i32 1, i1 true)
   ret i32 0
 
 ; <label>:64:                                     ; preds = %73, %60
@@ -1805,12 +1892,12 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %__v53_subkey = alloca i8, i64 32
-  call void @fact.memset.i8(i8* %__v53_subkey, i8 0, i64 32)
+  call void @llvm.memset.p0i8.i64(i8* %__v53_subkey, i8 0, i64 32, i32 1, i1 false)
   %0 = getelementptr i8, i8* %__v50_n, i64 0
   call void @_crypto_core_hsalsa20(i8* %__v53_subkey, i8* %0, i8* %__v52_k)
   %__v54_tmp = getelementptr i8, i8* %__v50_n, i64 16
   %__v55_ret = call i32 @_crypto_stream_salsa20_xor_ic(i8* %__v48_c, i64 %__v217___v48_c_len, i8* %__v49_m, i64 %__v218___v49_m_len, i8* %__v54_tmp, i64 %__v51_ic, i8* %__v53_subkey)
-  call void @"__smemzero[8]_secret"(i8* %__v53_subkey, i64 32)
+  call void @llvm.memset.p0i8.i64(i8* %__v53_subkey, i8 0, i64 32, i32 1, i1 true)
   ret i32 %__v55_ret
 }
 
@@ -1893,9 +1980,9 @@ entry:
 
 ; <label>:3:                                      ; preds = %2
   %__v21_kcopy = alloca i8, i64 32
-  call void @fact.memcpy.i8(i8* %__v21_kcopy, i8* %__v20_k, i64 32)
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %__v21_kcopy, i8* %__v20_k, i64 32, i32 1, i1 false)
   %__v22_input = alloca i8, i64 16
-  call void @fact.memset.i8(i8* %__v22_input, i8 0, i64 16)
+  call void @llvm.memset.p0i8.i64(i8* %__v22_input, i8 0, i64 16, i32 1, i1 false)
   br label %4
 
 ; <label>:4:                                      ; preds = %10, %3
@@ -1941,7 +2028,7 @@ entry:
 
 ; <label>:21:                                     ; preds = %14
   %__v28_block = alloca i8, i64 64
-  call void @fact.memset.i8(i8* %__v28_block, i8 0, i64 64)
+  call void @llvm.memset.p0i8.i64(i8* %__v28_block, i8 0, i64 64, i32 1, i1 false)
   %22 = mul i32 %__v24_ctimes, 64
   %23 = zext i32 %22 to i64
   %24 = icmp ult i64 %23, %__v210___v18_c_len
@@ -1992,9 +2079,9 @@ entry:
 ; <label>:46:                                     ; preds = %21
   br label %47
 
-; <label>:47:                                     ; preds = %46, %56
-  call void @"__smemzero[8]_secret"(i8* %__v28_block, i64 64)
-  call void @"__smemzero[8]_secret"(i8* %__v21_kcopy, i64 32)
+; <label>:47:                                     ; preds = %56, %46
+  call void @llvm.memset.p0i8.i64(i8* %__v28_block, i8 0, i64 64, i32 1, i1 true)
+  call void @llvm.memset.p0i8.i64(i8* %__v21_kcopy, i8 0, i64 32, i32 1, i1 true)
   ret i32 0
 
 ; <label>:48:                                     ; preds = %54, %41
@@ -2026,12 +2113,12 @@ entry:
   %__rctx = alloca i1
   store i1 true, i1* %__rctx
   %__v16_subkey = alloca i8, i64 32
-  call void @fact.memset.i8(i8* %__v16_subkey, i8 0, i64 32)
+  call void @llvm.memset.p0i8.i64(i8* %__v16_subkey, i8 0, i64 32, i32 1, i1 false)
   %0 = getelementptr i8, i8* %__v14_n, i64 0
   call void @_crypto_core_hsalsa20(i8* %__v16_subkey, i8* %0, i8* %__v15_k)
   %1 = getelementptr i8, i8* %__v14_n, i64 16
   %__v17_ret = call i32 @_crypto_stream_salsa20(i8* %__v13_c, i64 %__v209___v13_c_len, i8* %1, i8* %__v16_subkey)
-  call void @"__smemzero[8]_secret"(i8* %__v16_subkey, i64 32)
+  call void @llvm.memset.p0i8.i64(i8* %__v16_subkey, i8 0, i64 32, i32 1, i1 true)
   ret i32 %__v17_ret
 }
 
@@ -2052,7 +2139,7 @@ entry:
 
 ; <label>:3:                                      ; preds = %2
   %__v9_subkey = alloca i8, i64 32
-  call void @fact.memset.i8(i8* %__v9_subkey, i8 0, i64 32)
+  call void @llvm.memset.p0i8.i64(i8* %__v9_subkey, i8 0, i64 32, i32 1, i1 false)
   %4 = call i32 @_crypto_stream_xsalsa20(i8* %__v9_subkey, i64 32, i8* %__v7_n, i8* %__v8_k)
   %__v10_tmp1 = getelementptr i8, i8* %__v6_c, i64 16
   %__v225_lexpr = sub i64 %__v208___v6_c_len, 32
@@ -2100,5 +2187,4 @@ entry:
   ret i1 %__v198__crypto_secretbox_xsalsa20poly1305_open
 }
 
-attributes #0 = { alwaysinline }
-attributes #1 = { argmemonly nounwind }
+attributes #0 = { argmemonly nounwind }
