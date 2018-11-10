@@ -1,23 +1,10 @@
-; ModuleID = 'Module'
+; ModuleID = './s3_cbc.bc'
 source_filename = "Module"
-
-; Function Attrs: alwaysinline
-define internal void @"__memcpy[8]_secret"(i8* %dst, i8* %src, i64 %len) #0 {
-entry:
-  call void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len)
-  ret void
-}
+target datalayout = "e-m:e-i64:64-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
 
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #1
-
-; Function Attrs: alwaysinline
-define internal void @fact.memcpy.i8(i8* %dst, i8* %src, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %dst, i8* %src, i64 %0, i32 1, i1 false)
-  ret void
-}
+declare void @llvm.memcpy.p0i8.p0i8.i64(i8* nocapture writeonly, i8* nocapture readonly, i64, i32, i1) #0
 
 declare void @_md_final_raw(i8*, i8*)
 
@@ -63,10 +50,10 @@ entry:
 
 ; <label>:13:                                     ; preds = %12, %8
   %__v25_first_block = alloca i8, i64 128
-  call void @fact.memset.i8(i8* %__v25_first_block, i8 0, i64 128)
+  call void @llvm.memset.p0i8.i64(i8* %__v25_first_block, i8 0, i64 128, i32 1, i1 false)
   %__v26_bits = mul i64 8, %__v19_mac_end_offset
   %__v27_length_bytes = alloca i8, i64 16
-  call void @fact.memset.i8(i8* %__v27_length_bytes, i8 0, i64 16)
+  call void @llvm.memset.p0i8.i64(i8* %__v27_length_bytes, i8 0, i64 16, i32 1, i1 false)
   %14 = getelementptr i8, i8* %__v27_length_bytes, i64 4
   %15 = lshr i64 %__v26_bits, 24
   %16 = trunc i64 %15 to i8
@@ -93,7 +80,7 @@ entry:
 ; <label>:29:                                     ; preds = %13
   br label %30
 
-; <label>:30:                                     ; preds = %29, %51
+; <label>:30:                                     ; preds = %51, %29
   %31 = load i64, i64* %__v23_num_starting_blocks
   %32 = load i64, i64* %__v23_num_starting_blocks
   %33 = add i64 %32, 2
@@ -111,11 +98,11 @@ entry:
   call void @SHA1_Transform(i8* %__v1_md_state, i8* %__v4_header)
   %38 = getelementptr i8, i8* %__v25_first_block, i64 0
   %39 = getelementptr i8, i8* %__v4_header, i64 64
-  call void @"__memcpy[8]_secret"(i8* %38, i8* %39, i64 %__v28_overhang)
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %38, i8* %39, i64 %__v28_overhang, i32 1, i1 false)
   %__v29_cpylen = sub i64 64, %__v28_overhang
   %40 = getelementptr i8, i8* %__v25_first_block, i64 %__v28_overhang
   %41 = getelementptr i8, i8* %__v5_data, i64 0
-  call void @"__memcpy[8]_secret"(i8* %40, i8* %41, i64 %__v29_cpylen)
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %40, i8* %41, i64 %__v29_cpylen, i32 1, i1 false)
   call void @SHA1_Transform(i8* %__v1_md_state, i8* %__v25_first_block)
   %42 = load i64, i64* %__v24_k
   %43 = udiv i64 %42, 64
@@ -148,12 +135,12 @@ entry:
 
 ; <label>:54:                                     ; preds = %52
   %__v34_block = alloca i8, i64 128
-  call void @fact.memset.i8(i8* %__v34_block, i8 0, i64 128)
+  call void @llvm.memset.p0i8.i64(i8* %__v34_block, i8 0, i64 128, i32 1, i1 false)
   %__v35_is_block_a = icmp eq i64 %__v33_i, %__v21_index_a
   %__v36_is_block_b = icmp eq i64 %__v33_i, %__v22_index_b
   br label %58
 
-; <label>:55:                                     ; preds = %113
+; <label>:55:                                     ; preds = %133
   %56 = add i64 %__v33_i, 1
   br label %52
 
@@ -172,14 +159,14 @@ entry:
   %61 = icmp ult i64 %__v39__k, %__v47___v4_header_len
   br i1 %61, label %65, label %68
 
-; <label>:62:                                     ; preds = %98
+; <label>:62:                                     ; preds = %116
   %63 = add i64 %__v37_j, 1
   br label %58
 
 ; <label>:64:                                     ; preds = %58
   call void @SHA1_Transform(i8* %__v1_md_state, i8* %__v34_block)
   call void @_md_final_raw(i8* %__v1_md_state, i8* %__v34_block)
-  br label %101
+  br label %119
 
 ; <label>:65:                                     ; preds = %60
   %66 = getelementptr i8, i8* %__v4_header, i64 %__v39__k
@@ -190,130 +177,108 @@ entry:
 ; <label>:68:                                     ; preds = %60
   %69 = add i64 %__v48___v5_data_len, %__v47___v4_header_len
   %70 = icmp ult i64 %__v39__k, %69
-  br i1 %70, label %87, label %90
+  br i1 %70, label %102, label %105
 
-; <label>:71:                                     ; preds = %91, %65
+; <label>:71:                                     ; preds = %106, %65
   %72 = load i64, i64* %__v24_k
   %73 = add i64 %72, 1
   store i64 %73, i64* %__v24_k
   %74 = icmp uge i64 %__v37_j, %__v20_c
-  %__v40_is_past_c = call i1 @fact.select.asm.i1(i1 %__v35_is_block_a, i1 %74, i1 false)
-  %75 = add i64 %__v20_c, 1
-  %76 = icmp uge i64 %__v37_j, %75
-  %__m1 = call i1 @fact.select.asm.i1(i1 %__v35_is_block_a, i1 %76, i1 false)
-  %77 = load i8, i8* %__v38_b
-  %78 = call i8 @fact.select.asm.i8(i1 %__v40_is_past_c, i8 -128, i8 %77)
-  store i8 %78, i8* %__v38_b
-  %79 = and i1 true, %__m1
-  %80 = load i8, i8* %__v38_b
-  %81 = call i8 @fact.cmov.asm.i8(i1 %79, i8 0, i8 %80)
-  store i8 %81, i8* %__v38_b
-  %__m2 = xor i1 %__m1, true
-  %82 = xor i1 %__v35_is_block_a, true
-  %__m3 = call i1 @fact.select.asm.i1(i1 %__v36_is_block_b, i1 %82, i1 false)
-  %83 = and i1 true, %__m3
-  %84 = load i8, i8* %__v38_b
-  %85 = call i8 @fact.cmov.asm.i8(i1 %83, i8 0, i8 %84)
-  store i8 %85, i8* %__v38_b
-  %__m4 = xor i1 %__m3, true
-  %86 = icmp uge i64 %__v37_j, 56
-  br i1 %86, label %92, label %97
+  %75 = zext i1 %74 to i32
+  %76 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__v35_is_block_a, i32 %75, i32 0)
+  %77 = trunc i32 %76 to i1
+  %78 = add i64 %__v20_c, 1
+  %79 = icmp uge i64 %__v37_j, %78
+  %80 = zext i1 %79 to i32
+  %81 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__v35_is_block_a, i32 %80, i32 0)
+  %82 = trunc i32 %81 to i1
+  %83 = load i8, i8* %__v38_b
+  %84 = zext i8 %83 to i32
+  %85 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %77, i32 128, i32 %84)
+  %86 = trunc i32 %85 to i8
+  store i8 %86, i8* %__v38_b
+  %87 = and i1 true, %82
+  %88 = load i8, i8* %__v38_b
+  %89 = zext i8 %88 to i32
+  %90 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %87, i32 0, i32 %89)
+  %91 = trunc i32 %90 to i8
+  store i8 %91, i8* %__v38_b
+  %__m2 = xor i1 %82, true
+  %92 = xor i1 %__v35_is_block_a, true
+  %93 = zext i1 %92 to i32
+  %94 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__v36_is_block_b, i32 %93, i32 0)
+  %95 = trunc i32 %94 to i1
+  %96 = and i1 true, %95
+  %97 = load i8, i8* %__v38_b
+  %98 = zext i8 %97 to i32
+  %99 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %96, i32 0, i32 %98)
+  %100 = trunc i32 %99 to i8
+  store i8 %100, i8* %__v38_b
+  %__m4 = xor i1 %95, true
+  %101 = icmp uge i64 %__v37_j, 56
+  br i1 %101, label %107, label %115
 
-; <label>:87:                                     ; preds = %68
+; <label>:102:                                    ; preds = %68
   %__v55_lexpr = sub i64 %__v39__k, %__v47___v4_header_len
-  %88 = getelementptr i8, i8* %__v5_data, i64 %__v55_lexpr
-  %89 = load i8, i8* %88
-  store i8 %89, i8* %__v38_b
-  br label %91
+  %103 = getelementptr i8, i8* %__v5_data, i64 %__v55_lexpr
+  %104 = load i8, i8* %103
+  store i8 %104, i8* %__v38_b
+  br label %106
 
-; <label>:90:                                     ; preds = %68
-  br label %91
+; <label>:105:                                    ; preds = %68
+  br label %106
 
-; <label>:91:                                     ; preds = %90, %87
+; <label>:106:                                    ; preds = %105, %102
   br label %71
 
-; <label>:92:                                     ; preds = %71
+; <label>:107:                                    ; preds = %71
   %__v56_lexpr = sub i64 %__v37_j, 56
-  %93 = getelementptr i8, i8* %__v27_length_bytes, i64 %__v56_lexpr
-  %94 = load i8, i8* %93
-  %95 = load i8, i8* %__v38_b
-  %96 = call i8 @fact.select.asm.i8(i1 %__v36_is_block_b, i8 %94, i8 %95)
-  store i8 %96, i8* %__v38_b
-  br label %98
+  %108 = getelementptr i8, i8* %__v27_length_bytes, i64 %__v56_lexpr
+  %109 = load i8, i8* %108
+  %110 = load i8, i8* %__v38_b
+  %111 = zext i8 %109 to i32
+  %112 = zext i8 %110 to i32
+  %113 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__v36_is_block_b, i32 %111, i32 %112)
+  %114 = trunc i32 %113 to i8
+  store i8 %114, i8* %__v38_b
+  br label %116
 
-; <label>:97:                                     ; preds = %71
-  br label %98
+; <label>:115:                                    ; preds = %71
+  br label %116
 
-; <label>:98:                                     ; preds = %97, %92
-  %99 = getelementptr i8, i8* %__v34_block, i64 %__v37_j
-  %100 = load i8, i8* %__v38_b
-  store i8 %100, i8* %99
+; <label>:116:                                    ; preds = %115, %107
+  %117 = getelementptr i8, i8* %__v34_block, i64 %__v37_j
+  %118 = load i8, i8* %__v38_b
+  store i8 %118, i8* %117
   br label %62
 
-; <label>:101:                                    ; preds = %111, %64
-  %__v42_j = phi i64 [ 0, %64 ], [ %112, %111 ]
-  %102 = icmp ult i64 %__v42_j, 20
-  br i1 %102, label %103, label %113
+; <label>:119:                                    ; preds = %131, %64
+  %__v42_j = phi i64 [ 0, %64 ], [ %132, %131 ]
+  %120 = icmp ult i64 %__v42_j, 20
+  br i1 %120, label %121, label %133
 
-; <label>:103:                                    ; preds = %101
-  %104 = getelementptr i8, i8* %__v2_mac_out, i64 %__v42_j
-  %105 = getelementptr i8, i8* %__v2_mac_out, i64 %__v42_j
-  %106 = load i8, i8* %105
-  %107 = getelementptr i8, i8* %__v34_block, i64 %__v42_j
-  %108 = load i8, i8* %107
-  %109 = call i8 @fact.select.asm.i8(i1 %__v36_is_block_b, i8 %108, i8 0)
-  %110 = or i8 %106, %109
-  store i8 %110, i8* %104
-  br label %111
+; <label>:121:                                    ; preds = %119
+  %122 = getelementptr i8, i8* %__v2_mac_out, i64 %__v42_j
+  %123 = getelementptr i8, i8* %__v2_mac_out, i64 %__v42_j
+  %124 = load i8, i8* %123
+  %125 = getelementptr i8, i8* %__v34_block, i64 %__v42_j
+  %126 = load i8, i8* %125
+  %127 = zext i8 %126 to i32
+  %128 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__v36_is_block_b, i32 %127, i32 0)
+  %129 = trunc i32 %128 to i8
+  %130 = or i8 %124, %129
+  store i8 %130, i8* %122
+  br label %131
 
-; <label>:111:                                    ; preds = %103
-  %112 = add i64 %__v42_j, 1
-  br label %101
+; <label>:131:                                    ; preds = %121
+  %132 = add i64 %__v42_j, 1
+  br label %119
 
-; <label>:113:                                    ; preds = %101
+; <label>:133:                                    ; preds = %119
   br label %55
 }
 
 ; Function Attrs: argmemonly nounwind
-declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #1
+declare void @llvm.memset.p0i8.i64(i8* nocapture writeonly, i8, i64, i32, i1) #0
 
-; Function Attrs: alwaysinline
-define internal void @fact.memset.i8(i8* %dst, i8 %n, i64 %len) #0 {
-entry:
-  %0 = mul i64 %len, 1
-  call void @llvm.memset.p0i8.i64(i8* %dst, i8 %n, i64 %0, i32 1, i1 false)
-  ret void
-}
-
-; Function Attrs: alwaysinline
-define internal i1 @fact.select.asm.i1(i1 %cond, i1 %x, i1 %y) #0 {
-entry:
-  %0 = zext i1 %x to i32
-  %1 = zext i1 %y to i32
-  %2 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %cond, i32 %0, i32 %1)
-  %3 = trunc i32 %2 to i1
-  ret i1 %3
-}
-
-; Function Attrs: alwaysinline
-define internal i8 @fact.select.asm.i8(i1 %cond, i8 %x, i8 %y) #0 {
-entry:
-  %0 = zext i8 %x to i32
-  %1 = zext i8 %y to i32
-  %2 = call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %cond, i32 %0, i32 %1)
-  %3 = trunc i32 %2 to i8
-  ret i8 %3
-}
-
-; Function Attrs: alwaysinline
-define internal i8 @fact.cmov.asm.i8(i1 %cond, i8 %x, i8 %y) #0 {
-entry:
-  %0 = zext i8 %x to i32
-  %1 = zext i8 %y to i32
-  %2 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %cond, i32 %0, i32 %1)
-  %3 = trunc i32 %2 to i8
-  ret i8 %3
-}
-
-attributes #0 = { alwaysinline }
-attributes #1 = { argmemonly nounwind }
+attributes #0 = { argmemonly nounwind }
