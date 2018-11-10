@@ -1,5 +1,5 @@
-#ifndef __BIGNUM_FPIC_H
-#define __BIGNUM_FPIC_H
+#ifndef __BIGNUM_O2_FPIC_H
+#define __BIGNUM_O2_FPIC_H
 
 
 
@@ -36,4 +36,4 @@
 
 /* _mpi_copy is an internal function */
 
-#endif /* __BIGNUM_FPIC_H */
+#endif /* __BIGNUM_O2_FPIC_H */
