@@ -18,4 +18,5 @@ generate:
 	mv *.bc *.ll ll/
 
 ctverify:
-	$(VERIFSH) _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c obj/bignum.h ll/bignum.ll
+	$(VERIFSH) -q _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c obj/bignum.h ll/bignum.ll
+	$(VERIFSH) -q _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c obj/bignum.h ll/bignum.fpic.ll
