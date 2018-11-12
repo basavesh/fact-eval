@@ -18,6 +18,7 @@
   const /*secret*/ uint8_t __v35_k[32]) {
 
     // TODO: assumes in FaCT code?
+    assume(__v211___v32_c_len == __v212___v33_m_len);
 
     // disjoint regions: (__v32_c,__v211___v32_c_len), (__v33_m,__v212___v33_m_len), (__v34_n,24), (__v35_k,32)
     __disjoint_regions(__v32_c,__v211___v32_c_len,__v33_m,__v212___v33_m_len);
