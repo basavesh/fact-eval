@@ -2,7 +2,7 @@
 
 # TODO: Increase loop unroll bounds and adjust CLEN for secretbox_open
 
-LOGFILE=ctverif.log
+LOGFILE=verifs/ctverif.log
 
 err() {
     echo $1

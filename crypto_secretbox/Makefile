@@ -21,5 +21,5 @@ generate:
 	mv *.bc *.ll ll/
 
 ctverify:
-	./ctverify.sh > ctverif.results
+	./crypto_secretbox_ctverify.sh > verifs/ctverif.results
 
