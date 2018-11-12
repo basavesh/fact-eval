@@ -1,6 +1,10 @@
 #include "ctverif.h"
 #include <stdint.h>
-#include "curve25519-c64.h"
+
+/*public*/ int32_t curve25519_donna(
+  /*secret*/ uint8_t __v1_mypublic[32],
+  const /*secret*/ uint8_t __v2__secret[32],
+  const /*public*/ uint8_t __v3_basepoint[32]);
 
 /*public*/ int32_t curve25519_donna_wrapper(
   /*secret*/ uint8_t __v1_mypublic[32],
