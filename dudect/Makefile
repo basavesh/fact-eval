@@ -1,9 +1,14 @@
-all: dut_donna dut_secretbox
+all: dut_donna \
+	dut_secretbox_cref \
+	dut_secretbox_asm \
+	dut_secretbox_msg_cref \
+	dut_secretbox_msg_asm
 
 OBJS = src/cpucycles.o src/fixture.o src/random.o \
 src/ttest.o src/percentile.o
 OBJS_donna = dut/donna/curve25519-c64.O2.o
-OBJS_secretbox = dut/secretbox/crypto_secretbox.cref.O2.o
+OBJS_secretbox_cref = dut/secretbox/crypto_secretbox.cref.O2.o
+OBJS_secretbox_asm = dut/secretbox/crypto_secretbox.asm.O2.o
 CC=clang
 OPTIMIZATION=-O2
 #CFLAGS = -Weverything -O0 -fsanitize=memory -fno-omit-frame-pointer -g 
@@ -18,7 +23,16 @@ INCS = -Iinc/
 dut_donna: $(OBJS) $(OBJS_donna) dut/donna/dut_donna.c
 	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
 
-dut_secretbox: $(OBJS) $(OBJS_secretbox) dut/secretbox/dut_secretbox.c
+dut_secretbox_cref: $(OBJS) $(OBJS_secretbox_cref) dut/secretbox/dut_secretbox.c
+	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
+
+dut_secretbox_asm: $(OBJS) $(OBJS_secretbox_asm) dut/secretbox/dut_secretbox.c
+	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
+
+dut_secretbox_msg_cref: $(OBJS) $(OBJS_secretbox_cref) dut/secretbox/dut_secretbox_msg.c
+	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
+
+dut_secretbox_msg_asm: $(OBJS) $(OBJS_secretbox_asm) dut/secretbox/dut_secretbox_msg.c
 	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
 
 .c.o:
