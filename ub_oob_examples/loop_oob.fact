@@ -1,0 +1,25 @@
+// This fails to compile due to oob
+void loop_ub(
+    secret mut uint8[] buf,
+    public uint64 public_index,
+    secret uint64 secret_index) {
+  assume(secret_index < len buf);
+  // NOT assuming public_index < len buf
+  // this is a contrived example
+  for (uint64 i from 0 to public_index) {
+    if (i < secret_index) {
+      buf[i] = 0;
+    }
+  }
+}
+
+// This compiles just fine
+void loop_no_ub(
+    secret mut uint8[] buf,
+    secret uint64 secret_index) {
+  for (uint64 i from 0 to len buf) {
+    if (i < secret_index) {
+      buf[i] = 0;
+    }
+  }
+}
