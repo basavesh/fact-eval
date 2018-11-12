@@ -226,6 +226,9 @@ int main(int argc, char **argv) {
   (void)argc;
   (void)argv;
 
+  /* Line buffer stdout */
+  setvbuf(stdout, NULL, _IOLBF, 0);
+
   init_dut();
   for (int i = 0; i < number_tests; i++) {
     t[i] = malloc(sizeof(t_ctx));
