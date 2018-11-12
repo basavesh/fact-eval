@@ -15,13 +15,6 @@ uint8_t do_one_computation(uint8_t *data) {
   const uint8_t basepoint[32] = {9};
   curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
   curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
-  curve25519_donna(out, data, basepoint); memcpy(data, out, 32);
   ret ^= out[0];
   return ret;
 }
