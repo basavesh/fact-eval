@@ -13,7 +13,4 @@ generate:
 	mv *.bc *.ll ll/
 
 ctverify:
-	$(VERIFSH) -q _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20170717_latest.ll
-	$(VERIFSH) -q _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20170717_latest_raw.ll
-	$(VERIFSH) -q _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20110823_fast.ll
-
+	./saga_ctverify.sh > verifs/ctverif.results
