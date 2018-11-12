@@ -101,9 +101,11 @@ SHA1_Final_secret:                      # @SHA1_Final_secret
 	movq	%rbx, %rdi
 	movq	%r15, %rsi
 	callq	sha1_block_data_order
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 52(%rbx)
-	vmovups	%ymm0, 28(%rbx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 60(%rbx)
+	movups	%xmm0, 44(%rbx)
+	movups	%xmm0, 28(%rbx)
+	movq	$0, 76(%rbx)
 	movl	20(%rbx), %eax
 	movl	24(%rbx), %ecx
 	movl	%ecx, %edx
@@ -127,25 +129,26 @@ SHA1_Final_secret:                      # @SHA1_Final_secret
 	movq	%r12, %rsp
 	movl	16(%rbx), %ecx
 	movl	%ecx, -16(%rax)
-	vmovups	(%rbx), %xmm0
-	vmovups	%xmm0, -32(%rax)
+	movups	(%rbx), %xmm0
+	movups	%xmm0, -32(%rax)
 	movl	$1, %edx
 	movq	%rbx, %rdi
 	movq	%r15, %rsi
-	vzeroupper
 	callq	sha1_block_data_order
 	cmpl	$55, %r14d
 	ja	.LBB0_7
 # %bb.6:                                # %.split.us
 	movl	16(%r12), %eax
 	movl	%eax, 16(%rbx)
-	vmovups	(%r12), %xmm0
-	vmovups	%xmm0, (%rbx)
+	movups	(%r12), %xmm0
+	movups	%xmm0, (%rbx)
 .LBB0_7:                                # %.us-lcssa.us
 	movl	$0, 92(%rbx)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%r15)
-	vmovups	%ymm0, (%r15)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%r15)
+	movups	%xmm0, 32(%r15)
+	movups	%xmm0, 16(%r15)
+	movups	%xmm0, (%r15)
 	movl	(%rbx), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
@@ -199,7 +202,6 @@ SHA1_Final_secret:                      # @SHA1_Final_secret
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end0:
 	.size	SHA1_Final_secret, .Lfunc_end0-SHA1_Final_secret
@@ -268,8 +270,8 @@ SHA1_Update_secret:                     # @SHA1_Update_secret
 	movq	%rcx, %rsp
 	movl	16(%rbx), %ecx
 	movl	%ecx, -16(%rax)
-	vmovups	(%rbx), %xmm0
-	vmovups	%xmm0, -32(%rax)
+	movups	(%rbx), %xmm0
+	movups	%xmm0, -32(%rax)
 	movl	$1, %edx
 	movq	%rbx, %rdi
 	movq	-64(%rbp), %rsi         # 8-byte Reload
@@ -282,8 +284,8 @@ SHA1_Update_secret:                     # @SHA1_Update_secret
 	movq	-80(%rbp), %rcx         # 8-byte Reload
 	movl	16(%rcx), %eax
 	movl	%eax, 16(%rbx)
-	vmovups	(%rcx), %xmm0
-	vmovups	%xmm0, (%rbx)
+	movups	(%rcx), %xmm0
+	movups	%xmm0, (%rbx)
 .LBB1_5:                                # %.loopexit
                                         #   in Loop: Header=BB1_2 Depth=1
 	addq	$1, %r13
@@ -333,12 +335,12 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	.cfi_offset %r14, -32
 	.cfi_offset %r15, -24
 	movq	%rcx, %rbx
-	movq	%rdx, %r11
+	movq	%rdx, %r14
 	movq	%rdi, %r10
 	xorl	%eax, %eax
 	testb	$15, %r9b
 	je	.LBB2_1
-.LBB2_47:                               # %.loopexit
+.LBB2_49:                               # %.loopexit
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
@@ -346,7 +348,6 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .LBB2_1:
 	movzwl	16(%rbp), %ecx
@@ -354,71 +355,75 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	jb	.LBB2_4
 # %bb.2:
 	cmpl	$37, %ebx
-	jb	.LBB2_47
+	jb	.LBB2_49
 # %bb.3:
-	vmovups	(%r8), %xmm0
-	vmovups	%xmm0, (%r10)
-	leal	-16(%rbx), %r15d
-	movl	$16, %r12d
+	movups	(%r8), %xmm0
+	movups	%xmm0, (%r10)
+	leal	-16(%rbx), %r12d
+	movl	$16, %r15d
 	jmp	.LBB2_5
 .LBB2_4:
 	xorl	%eax, %eax
-	movl	%ebx, %r15d
-	movl	$0, %r12d
+	movl	%ebx, %r12d
+	movl	$0, %r15d
 	cmpl	$21, %ebx
-	jb	.LBB2_47
+	jb	.LBB2_49
 .LBB2_5:
-	movl	%r12d, %eax
+	movl	%r15d, %eax
 	addq	%rax, %r8
-	addq	%r11, %rax
-	movl	%r15d, %edx
-	movq	%r11, %r14
+	addq	%r14, %rax
+	movl	%r12d, %edx
 	xorl	%r13d, %r13d
 	xorl	%r9d, %r9d
 	movq	%r8, %rdi
 	movq	%rsi, -48(%rbp)         # 8-byte Spill
-	movq	%rax, -80(%rbp)         # 8-byte Spill
+	movq	%rax, -88(%rbp)         # 8-byte Spill
 	movq	%rax, %rsi
 	movq	-48(%rbp), %rcx         # 8-byte Reload
 	movq	%r10, %r8
 	callq	aesni_cbc_encrypt
 	movq	-48(%rbp), %rsi         # 8-byte Reload
-	movq	%r14, -128(%rbp)        # 8-byte Spill
 	movzbl	-1(%r14,%rbx), %edx
-	leal	-21(%r15), %eax
+	leal	-21(%r12), %eax
 	cmpl	$255, %eax
 	movl	$255, %ecx
 	cmovbl	%eax, %ecx
 	cmpl	%edx, %ecx
 	setae	-49(%rbp)               # 1-byte Folded Spill
-	movl	%edx, -84(%rbp)         # 4-byte Spill
+	movl	%edx, -92(%rbp)         # 4-byte Spill
 	cmovael	%edx, %ecx
 	negl	%ecx
-	leal	(%r15,%rcx), %eax
+	leal	(%r12,%rcx), %eax
 	addl	$-21, %eax
 	movb	%ah, 555(%rsi)  # NOREX
-	movq	%rax, -96(%rbp)         # 8-byte Spill
+	movq	%rax, -112(%rbp)        # 8-byte Spill
 	movb	%al, 556(%rsi)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rcx
-	movq	%rcx, -120(%rbp)        # 8-byte Spill
+	movq	%rcx, -128(%rbp)        # 8-byte Spill
 	movq	%rcx, %rsp
 	movl	$0, -16(%rax)
 	movq	%rsp, %rax
 	leaq	-32(%rax), %rcx
 	movq	%rcx, -72(%rbp)         # 8-byte Spill
 	movq	%rcx, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%xmm0, -32(%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, -32(%rax)
 	movl	$0, -16(%rax)
-	vmovups	244(%rsi), %ymm0
-	vmovups	276(%rsi), %ymm1
-	vmovups	308(%rsi), %ymm2
-	vmovups	%ymm0, 436(%rsi)
-	vmovups	%ymm2, 500(%rsi)
+	movups	244(%rsi), %xmm0
+	movups	260(%rsi), %xmm1
+	movups	276(%rsi), %xmm2
+	movups	292(%rsi), %xmm3
+	movups	%xmm1, 452(%rsi)
+	movups	324(%rsi), %xmm1
+	movups	%xmm1, 516(%rsi)
+	movups	308(%rsi), %xmm1
+	movups	%xmm1, 500(%rsi)
+	movups	%xmm3, 484(%rsi)
+	movups	%xmm2, 468(%rsi)
 	leaq	436(%rsi), %rax
 	movq	%rax, -64(%rbp)         # 8-byte Spill
-	vmovups	%ymm1, 468(%rsi)
+	movups	%xmm0, 436(%rsi)
 	movq	456(%rsi), %rax
 	addq	$104, %rax
 	movq	%rax, %rcx
@@ -427,7 +432,8 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, 456(%rsi)
 	movl	528(%rsi), %ebx
 	testq	%rbx, %rbx
-	movq	%r12, -104(%rbp)        # 8-byte Spill
+	movq	%r14, -104(%rbp)        # 8-byte Spill
+	movq	%r15, -80(%rbp)         # 8-byte Spill
 	je	.LBB2_6
 # %bb.22:
 	movq	%rsi, %r14
@@ -440,7 +446,6 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	(%r14,%rbx), %rdi
 	addq	$464, %rdi              # imm = 0x1D0
 	movq	%r13, %rdx
-	vzeroupper
 	callq	memcpy
 	addq	%r13, %rbx
 	cmpq	$64, %rbx
@@ -487,7 +492,6 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	leaq	(%rax,%r13), %rsi
 	addq	$544, %rsi              # imm = 0x220
 	movq	%rbx, %rdx
-	vzeroupper
 	callq	memcpy
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	addl	528(%rsi), %ebx
@@ -496,18 +500,18 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 .LBB2_12:                               # %.SHA1_Update_public.exit15_crit_edge
 	movl	528(%rsi), %ebx
 .LBB2_13:                               # %SHA1_Update_public.exit15
-	leal	-276(%r15), %r14d
+	leal	-276(%r12), %r14d
 	movl	%r14d, %eax
 	andl	$-64, %eax
 	subl	%ebx, %eax
-	xorl	%r12d, %r12d
-	movq	%r15, -112(%rbp)        # 8-byte Spill
-	cmpl	$339, %r15d             # imm = 0x153
-	cmoval	%eax, %r12d
-	testl	%r12d, %r12d
+	xorl	%r15d, %r15d
+	movq	%r12, -120(%rbp)        # 8-byte Spill
+	cmpl	$339, %r12d             # imm = 0x153
+	cmoval	%eax, %r15d
+	testl	%r15d, %r15d
 	je	.LBB2_20
 # %bb.14:
-	movl	%r12d, %r13d
+	movl	%r15d, %r13d
 	leaq	(,%r13,8), %rax
 	addq	456(%rsi), %rax
 	movq	%rax, %rcx
@@ -517,95 +521,102 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	testl	%ebx, %ebx
 	je	.LBB2_15
 # %bb.24:
-	movl	$64, %r15d
-	subl	%ebx, %r15d
-	cmpq	%r13, %r15
-	cmovaq	%r13, %r15
+	movl	$64, %r12d
+	subl	%ebx, %r12d
+	cmpq	%r13, %r12
+	cmovaq	%r13, %r12
 	movl	%ebx, %ebx
 	leaq	(%rsi,%rbx), %rdi
 	addq	$464, %rdi              # imm = 0x1D0
-	movq	-80(%rbp), %rsi         # 8-byte Reload
-	movq	%r15, %rdx
+	movq	-88(%rbp), %rsi         # 8-byte Reload
+	movq	%r12, %rdx
 	callq	memcpy
 	movq	-48(%rbp), %rsi         # 8-byte Reload
-	addq	%r15, %rbx
+	addq	%r12, %rbx
 	cmpq	$64, %rbx
+	movq	-64(%rbp), %rbx         # 8-byte Reload
 	jne	.LBB2_26
 # %bb.25:
 	movq	-48(%rbp), %rax         # 8-byte Reload
 	leaq	464(%rax), %rsi
 	movl	$1, %edx
-	movq	-64(%rbp), %rdi         # 8-byte Reload
+	movq	%rbx, %rdi
 	callq	sha1_block_data_order
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	xorl	%eax, %eax
 	jmp	.LBB2_27
 .LBB2_15:
-	xorl	%r15d, %r15d
+	xorl	%r12d, %r12d
+	movq	-64(%rbp), %rbx         # 8-byte Reload
 	movq	%r13, %rdx
 	shrq	$6, %rdx
 	jne	.LBB2_17
 	jmp	.LBB2_18
 .LBB2_26:
 	movl	528(%rsi), %eax
-	addl	%r15d, %eax
+	addl	%r12d, %eax
 .LBB2_27:
 	movl	%eax, 528(%rsi)
-	subq	%r15, %r13
+	subq	%r12, %r13
 	movq	%r13, %rdx
 	shrq	$6, %rdx
 	je	.LBB2_18
 .LBB2_17:
-	movq	-80(%rbp), %rax         # 8-byte Reload
-	leaq	(%rax,%r15), %rsi
-	movq	-64(%rbp), %rdi         # 8-byte Reload
+	movq	-88(%rbp), %rax         # 8-byte Reload
+	leaq	(%rax,%r12), %rsi
+	movq	%rbx, %rdi
                                         # kill: def %edx killed %edx killed %rdx
 	callq	sha1_block_data_order
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	movq	%r13, %rax
 	andq	$-64, %rax
-	addq	%rax, %r15
+	addq	%rax, %r12
 	subq	%rax, %r13
 .LBB2_18:
 	testq	%r13, %r13
 	je	.LBB2_20
 # %bb.19:
 	leaq	464(%rsi), %rdi
-	movq	-80(%rbp), %rsi         # 8-byte Reload
-	addq	%r15, %rsi
+	movq	-88(%rbp), %rsi         # 8-byte Reload
+	addq	%r12, %rsi
 	movq	%r13, %rdx
 	callq	memcpy
 	movq	-48(%rbp), %rax         # 8-byte Reload
 	addl	%r13d, 528(%rax)
 .LBB2_20:                               # %SHA1_Update_public.exit26
-	movq	-104(%rbp), %rax        # 8-byte Reload
-	leal	(%r12,%rax), %edx
-	movq	-112(%rbp), %rcx        # 8-byte Reload
+	movq	-80(%rbp), %rax         # 8-byte Reload
+	leal	(%r15,%rax), %edx
+	movq	-120(%rbp), %rcx        # 8-byte Reload
                                         # kill: def %ecx killed %ecx killed %rcx def %rcx
-	subl	%r12d, %ecx
-	movq	-128(%rbp), %r13        # 8-byte Reload
-	addq	%r13, %rdx
-	movq	-96(%rbp), %rax         # 8-byte Reload
+	subl	%r15d, %ecx
+	addq	-104(%rbp), %rdx        # 8-byte Folded Reload
+	movq	-112(%rbp), %rax        # 8-byte Reload
                                         # kill: def %eax killed %eax killed %rax
-	subl	%r12d, %eax
+	subl	%r15d, %eax
 	movq	-64(%rbp), %rbx         # 8-byte Reload
 	movq	%rbx, %rdi
-	movq	-120(%rbp), %r15        # 8-byte Reload
+	movq	-128(%rbp), %r15        # 8-byte Reload
 	movq	%r15, %rsi
 	movl	%eax, %r8d
 	callq	SHA1_Update_secret
 	movl	(%r15), %edx
-	movq	-72(%rbp), %r12         # 8-byte Reload
-	movq	%r12, %rdi
+	movq	-72(%rbp), %r15         # 8-byte Reload
+	movq	%r15, %rdi
 	movq	%rbx, %rsi
 	callq	SHA1_Final_secret
 	movq	-48(%rbp), %rsi         # 8-byte Reload
-	vmovups	340(%rsi), %ymm0
-	vmovups	372(%rsi), %ymm1
-	vmovups	404(%rsi), %ymm2
-	vmovups	%ymm2, 64(%rbx)
-	vmovups	%ymm1, 32(%rbx)
-	vmovups	%ymm0, (%rbx)
+	movups	420(%rsi), %xmm0
+	movups	%xmm0, 80(%rbx)
+	movups	404(%rsi), %xmm0
+	movups	%xmm0, 64(%rbx)
+	movups	340(%rsi), %xmm0
+	movups	356(%rsi), %xmm1
+	movups	372(%rsi), %xmm2
+	movups	388(%rsi), %xmm3
+	movups	%xmm3, 48(%rbx)
+	movups	%xmm2, 32(%rbx)
+	movups	%xmm1, 16(%rbx)
+	movups	%xmm0, (%rbx)
 	movl	$160, %eax
 	addq	456(%rsi), %rax
 	movq	%rax, %rcx
@@ -615,86 +626,81 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	528(%rsi), %ebx
 	testq	%rbx, %rbx
 	je	.LBB2_21
-# %bb.34:
+# %bb.33:
 	movl	$64, %eax
 	subl	%ebx, %eax
 	cmpl	$20, %eax
-	movl	$20, %r15d
-	cmovbq	%rax, %r15
+	movl	$20, %r13d
+	cmovbq	%rax, %r13
 	leaq	464(%rsi,%rbx), %rdi
-	movq	%r12, %rsi
-	movq	%r15, %rdx
-	vzeroupper
+	movq	%rsi, %r12
+	movq	%r15, %rsi
+	movq	%r13, %rdx
 	callq	memcpy
-	addq	%r15, %rbx
+	addq	%r13, %rbx
 	cmpq	$64, %rbx
-	jne	.LBB2_28
-# %bb.35:
-	movq	-48(%rbp), %rbx         # 8-byte Reload
-	leaq	464(%rbx), %rsi
+	jne	.LBB2_35
+# %bb.34:
+	leaq	464(%r12), %rsi
 	movl	$1, %edx
-	movq	-64(%rbp), %r12         # 8-byte Reload
-	movq	%r12, %rdi
+	movq	-64(%rbp), %rdi         # 8-byte Reload
 	callq	sha1_block_data_order
 	xorl	%eax, %eax
-	movq	-72(%rbp), %rcx         # 8-byte Reload
-	movq	%rbx, %rsi
-	jmp	.LBB2_29
+	jmp	.LBB2_36
 .LBB2_21:
 	movl	$20, %ebx
-	movq	%r12, %r15
-	jmp	.LBB2_33
-.LBB2_28:
-	movq	-48(%rbp), %rdx         # 8-byte Reload
-	movl	528(%rdx), %eax
-	addl	%r15d, %eax
+	movq	%r15, %r13
+	movq	-80(%rbp), %r15         # 8-byte Reload
+	jmp	.LBB2_32
+.LBB2_35:
+	movl	528(%r12), %eax
+	addl	%r13d, %eax
+.LBB2_36:
 	movq	-72(%rbp), %rcx         # 8-byte Reload
-	movq	%rdx, %rsi
-	movq	-64(%rbp), %r12         # 8-byte Reload
-.LBB2_29:
+	movq	-80(%rbp), %r15         # 8-byte Reload
+	movq	%r12, %rsi
+# %bb.28:
 	movl	%eax, 528(%rsi)
 	movl	$20, %ebx
-	subq	%r15, %rbx
+	subq	%r13, %rbx
 	movq	%rbx, %rdx
 	shrq	$6, %rdx
-	je	.LBB2_31
-# %bb.30:
-	leaq	(%rcx,%r15), %rsi
-	movq	%r12, %rdi
+	je	.LBB2_30
+# %bb.29:
+	leaq	(%rcx,%r13), %rsi
+	movq	-64(%rbp), %rdi         # 8-byte Reload
                                         # kill: def %edx killed %edx killed %rdx
 	callq	sha1_block_data_order
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	movq	%rbx, %rax
 	andq	$-64, %rax
-	orq	%rax, %r15
+	orq	%rax, %r13
 	subq	%rax, %rbx
-.LBB2_31:
+.LBB2_30:
 	testq	%rbx, %rbx
-	je	.LBB2_36
-# %bb.32:                               # %..thread33_crit_edge
-	addq	-72(%rbp), %r15         # 8-byte Folded Reload
-.LBB2_33:                               # %.thread33
+	je	.LBB2_37
+# %bb.31:                               # %..thread33_crit_edge
+	addq	-72(%rbp), %r13         # 8-byte Folded Reload
+.LBB2_32:                               # %.thread33
 	leaq	464(%rsi), %r12
 	movq	%r12, %rdi
-	movq	%r15, %rsi
+	movq	%r13, %rsi
 	movq	%rbx, %rdx
-	vzeroupper
 	callq	memcpy
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	addl	528(%rsi), %ebx
 	movl	%ebx, 528(%rsi)
-	jmp	.LBB2_37
-.LBB2_36:                               # %.SHA1_Update_public.exit_crit_edge
+	jmp	.LBB2_38
+.LBB2_37:                               # %.SHA1_Update_public.exit_crit_edge
 	movl	528(%rsi), %ebx
 	leaq	464(%rsi), %r12
-.LBB2_37:                               # %SHA1_Update_public.exit
+.LBB2_38:                               # %SHA1_Update_public.exit
 	movl	%ebx, %eax
 	movb	$-128, 464(%rsi,%rax)
 	addl	$1, %ebx
 	cmpl	$57, %ebx
-	movq	-112(%rbp), %r15        # 8-byte Reload
 	jb	.LBB2_39
-# %bb.38:
+# %bb.40:
 	movl	$64, %edx
 	subq	%rbx, %rdx
 	leaq	(%rsi,%rbx), %rdi
@@ -703,11 +709,15 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	xorl	%esi, %esi
 	callq	memset
 	movl	$1, %edx
-	movq	-64(%rbp), %rdi         # 8-byte Reload
+	movq	-64(%rbp), %r13         # 8-byte Reload
+	movq	%r13, %rdi
 	movq	%r12, %rsi
 	callq	sha1_block_data_order
 	movq	-48(%rbp), %rsi         # 8-byte Reload
-.LBB2_39:                               # %SHA1_Final_public.exit
+	jmp	.LBB2_41
+.LBB2_39:
+	movq	-64(%rbp), %r13         # 8-byte Reload
+.LBB2_41:                               # %SHA1_Final_public.exit
 	movl	%ebx, %eax
 	movl	$56, %edx
 	subq	%rax, %rdx
@@ -735,13 +745,15 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movb	%ah, 526(%rbx)  # NOREX
 	movb	%al, 527(%rbx)
 	movl	$1, %edx
-	movq	-64(%rbp), %rdi         # 8-byte Reload
+	movq	%r13, %rdi
 	movq	%r12, %rsi
 	callq	sha1_block_data_order
 	movl	$0, 528(%rbx)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%r12)
-	vmovups	%ymm0, (%r12)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%r12)
+	movups	%xmm0, 32(%r12)
+	movups	%xmm0, 16(%r12)
+	movups	%xmm0, (%r12)
 	movl	436(%rbx), %eax
 	movl	%eax, %ecx
 	shrl	$24, %ecx
@@ -788,28 +800,28 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movb	%cl, 17(%rdx)
 	movb	%ah, 18(%rdx)  # NOREX
 	movb	%al, 19(%rdx)
-	cmpl	$276, %r15d             # imm = 0x114
+	movq	-120(%rbp), %r11        # 8-byte Reload
+	cmpl	$276, %r11d             # imm = 0x114
 	movl	$0, %eax
 	cmovbl	%eax, %r14d
-	movq	-104(%rbp), %rsi        # 8-byte Reload
-	movq	-96(%rbp), %rbx         # 8-byte Reload
-	leal	(%rbx,%rsi), %edx
+	movq	-112(%rbp), %rbx        # 8-byte Reload
+	leal	(%rbx,%r15), %edx
 	addl	$20, %edx
-	cmpl	%r15d, %edx
+	cmpl	%r11d, %edx
 	setbe	%al
 	andb	-49(%rbp), %al          # 1-byte Folded Reload
 	movzbl	%al, %eax
-	leal	(%r14,%rsi), %ecx
-	cmpl	%r15d, %ecx
-	jae	.LBB2_47
-# %bb.40:                               # %.lr.ph
-	addl	%esi, %ebx
+	leal	(%r14,%r15), %ecx
+	cmpl	%r11d, %ecx
+	jae	.LBB2_49
+# %bb.42:                               # %.lr.ph
+	addl	%r15d, %ebx
 	movl	%ecx, %ecx
 	addl	$20, %r14d
-	movl	-84(%rbp), %edi         # 4-byte Reload
+	movl	-92(%rbp), %edi         # 4-byte Reload
 	notl	%edi
 	movl	$20, %esi
-	subl	%r15d, %esi
+	subl	%r11d, %esi
 	cmpl	%esi, %edi
 	cmoval	%edi, %esi
 	cmpl	$-256, %esi
@@ -817,10 +829,11 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	cmoval	%esi, %edi
 	movl	%edx, %r8d
 	movl	%ebx, %r9d
-	addl	%r15d, %edi
+	addl	%r11d, %edi
 	subl	%edi, %r14d
+	movq	-104(%rbp), %r10        # 8-byte Reload
 	.p2align	4, 0x90
-.LBB2_41:                               # =>This Inner Loop Header: Depth=1
+.LBB2_43:                               # =>This Inner Loop Header: Depth=1
 	cmpq	%r9, %rcx
 	setae	%dl
 	xorl	%esi, %esi
@@ -833,56 +846,34 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	cmovnel	%esi, %ebx
 	#NO_APP
 	testb	$1, %bl
-	jne	.LBB2_42
-# %bb.43:                               #   in Loop: Header=BB2_41 Depth=1
-	xorl	%r10d, %r10d
-	movzbl	(%r13,%rcx), %edx
+	jne	.LBB2_44
+# %bb.45:                               #   in Loop: Header=BB2_43 Depth=1
+	xorl	%r15d, %r15d
+	movzbl	(%r10,%rcx), %edx
 	movq	-72(%rbp), %rsi         # 8-byte Reload
-	cmpb	(%rsi,%r10), %dl
-	je	.LBB2_45
-	jmp	.LBB2_46
+	cmpb	(%rsi,%r15), %dl
+	je	.LBB2_47
+	jmp	.LBB2_48
 	.p2align	4, 0x90
-.LBB2_42:                               #   in Loop: Header=BB2_41 Depth=1
-	movl	%r14d, %r10d
-	movzbl	(%r13,%rcx), %edx
+.LBB2_44:                               #   in Loop: Header=BB2_43 Depth=1
+	movl	%r14d, %r15d
+	movzbl	(%r10,%rcx), %edx
 	movq	-72(%rbp), %rsi         # 8-byte Reload
-	cmpb	(%rsi,%r10), %dl
-	jne	.LBB2_46
-.LBB2_45:                               #   in Loop: Header=BB2_41 Depth=1
+	cmpb	(%rsi,%r15), %dl
+	jne	.LBB2_48
+.LBB2_47:                               #   in Loop: Header=BB2_43 Depth=1
 	movl	%eax, %edi
-.LBB2_46:                               #   in Loop: Header=BB2_41 Depth=1
+.LBB2_48:                               #   in Loop: Header=BB2_43 Depth=1
 	testb	$1, %bl
 	cmovnel	%edi, %eax
 	addq	$1, %rcx
 	addl	$1, %r14d
-	cmpl	%r15d, %ecx
-	jb	.LBB2_41
-	jmp	.LBB2_47
+	cmpl	%r11d, %ecx
+	jb	.LBB2_43
+	jmp	.LBB2_49
 .Lfunc_end2:
 	.size	_aesni_cbc_hmac_sha1_cipher, .Lfunc_end2-_aesni_cbc_hmac_sha1_cipher
 	.cfi_endproc
-                                        # -- End function
-	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
-	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
-	.weak	__llvm_retpoline_r11
-	.p2align	4, 0x90
-	.type	__llvm_retpoline_r11,@function
-__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
-# %bb.0:                                # %entry
-	callq	.LBB3_2
-.LBB3_1:                                # Block address taken
-                                        # %entry
-                                        # =>This Inner Loop Header: Depth=1
-	pause
-	lfence
-	jmp	.LBB3_1
-	.p2align	4, 0x90
-.LBB3_2:                                # Block address taken
-                                        # %entry
-	movq	%r11, (%rsp)
-	retq
-.Lfunc_end3:
-	.size	__llvm_retpoline_r11, .Lfunc_end3-__llvm_retpoline_r11
                                         # -- End function
 
 	.section	".note.GNU-stack","",@progbits

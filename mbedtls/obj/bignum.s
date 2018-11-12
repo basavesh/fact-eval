@@ -843,26 +843,43 @@ _mpi_montmul:                           # @_mpi_montmul
 _mpi_montred:                           # @_mpi_montred
 	.cfi_startproc
 # %bb.0:                                # %entry
-	subq	$56, %rsp
-	.cfi_def_cfa_offset 64
-	movq	64(%rsp), %rax
-	movb	$1, 55(%rsp)
-	movq	$1, 40(%rsp)
-	movq	%rsp, %r10
-	movq	%rax, 16(%r10)
-	movq	%r9, 8(%r10)
-	movq	%r8, (%r10)
+	pushq	%r15
+	.cfi_def_cfa_offset 16
+	pushq	%r14
+	.cfi_def_cfa_offset 24
+	pushq	%rbx
+	.cfi_def_cfa_offset 32
+	subq	$80, %rsp
+	.cfi_def_cfa_offset 112
+	.cfi_offset %rbx, -32
+	.cfi_offset %r14, -24
+	.cfi_offset %r15, -16
+	movq	112(%rsp), %rax
+	leaq	64(%rsp), %r10
 	movl	$1, %r11d
-	movl	%r11d, %eax
-	leaq	40(%rsp), %r8
-	movq	%rdx, 32(%rsp)          # 8-byte Spill
-	movq	%r8, %rdx
-	movq	%rcx, 24(%rsp)          # 8-byte Spill
-	movq	%rax, %rcx
-	movq	32(%rsp), %r8           # 8-byte Reload
-	movq	24(%rsp), %r9           # 8-byte Reload
+	movl	%r11d, %ebx
+	movb	$1, 79(%rsp)
+	movq	$1, 64(%rsp)
+	movq	%rdx, 56(%rsp)          # 8-byte Spill
+	movq	%r10, %rdx
+	movq	%rcx, 48(%rsp)          # 8-byte Spill
+	movq	%rbx, %rcx
+	movq	56(%rsp), %r10          # 8-byte Reload
+	movq	%r8, 40(%rsp)           # 8-byte Spill
+	movq	%r10, %r8
+	movq	48(%rsp), %rbx          # 8-byte Reload
+	movq	%r9, 32(%rsp)           # 8-byte Spill
+	movq	%rbx, %r9
+	movq	40(%rsp), %r14          # 8-byte Reload
+	movq	%r14, (%rsp)
+	movq	32(%rsp), %r15          # 8-byte Reload
+	movq	%r15, 8(%rsp)
+	movq	%rax, 16(%rsp)
 	callq	_mpi_montmul
-	addq	$56, %rsp
+	addq	$80, %rsp
+	popq	%rbx
+	popq	%r14
+	popq	%r15
 	retq
 .Lfunc_end5:
 	.size	_mpi_montred, .Lfunc_end5-_mpi_montred
@@ -909,13 +926,13 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movq	328(%rsp), %rax
 	movq	%rax, 224(%rsp)         # 8-byte Spill
 	movq	320(%rsp), %rax
+	movq	%rsi, 216(%rsp)         # 8-byte Spill
+	movl	$1, %esi
 	movl	$0, 260(%rsp)
 	movb	$1, 259(%rsp)
 	shrq	$4, %rbx
                                         # kill: def %ebx killed %ebx killed %rbx
 	movl	$1, 252(%rsp)
-	movq	%rsi, 216(%rsp)         # 8-byte Spill
-	movl	$1, %esi
 	movq	%rdi, 208(%rsp)         # 8-byte Spill
 	movq	%rax, 200(%rsp)         # 8-byte Spill
 	movq	216(%rsp), %rax         # 8-byte Reload
@@ -938,33 +955,32 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movq	%r11, 104(%rsp)         # 8-byte Spill
 	movl	%ebx, 100(%rsp)         # 4-byte Spill
 	callq	_mpi_copy
-	movq	%rsp, %rcx
-	movq	136(%rsp), %rdx         # 8-byte Reload
-	movq	%rdx, (%rcx)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	224(%rsp), %rdx         # 8-byte Reload
 	movq	232(%rsp), %rcx         # 8-byte Reload
 	movq	240(%rsp), %r8          # 8-byte Reload
 	movq	128(%rsp), %r9          # 8-byte Reload
+	movq	136(%rsp), %r10         # 8-byte Reload
+	movq	%r10, (%rsp)
 	callq	_mpi_montred
+	movl	$1, %r8d
 	movl	100(%rsp), %eax         # 4-byte Reload
 	movl	%eax, %ebx
 	movl	%ebx, %esi
-	movl	$1, %r8d
 	movq	144(%rsp), %rdi         # 8-byte Reload
 	movq	208(%rsp), %rdx         # 8-byte Reload
 	movq	216(%rsp), %rcx         # 8-byte Reload
 	callq	_mpi_copy
+	movl	$1, %r8d
 	movl	100(%rsp), %eax         # 4-byte Reload
-	movl	%eax, %r8d
-	movl	%r8d, %ecx
-	movl	%eax, %r8d
-	movl	%r8d, %esi
+	movl	%eax, %ebx
+	movl	%ebx, %ecx
+	movl	%eax, %ebx
+	movl	%ebx, %esi
 	shlq	$3, %rcx
 	movq	144(%rsp), %rdx         # 8-byte Reload
 	addq	%rcx, %rdx
-	movl	$1, %r8d
 	movq	%rdx, %rdi
 	movq	184(%rsp), %rdx         # 8-byte Reload
 	movq	176(%rsp), %rcx         # 8-byte Reload
@@ -977,18 +993,17 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	shlq	$3, %rcx
 	movq	144(%rsp), %rdx         # 8-byte Reload
 	addq	%rcx, %rdx
-	movq	%rsp, %rcx
-	movq	136(%rsp), %rdi         # 8-byte Reload
-	movq	%rdi, 16(%rcx)
-	movq	128(%rsp), %r9          # 8-byte Reload
-	movq	%r9, 8(%rcx)
-	movq	240(%rsp), %r10         # 8-byte Reload
-	movq	%r10, (%rcx)
 	movq	%rdx, %rdi
 	movq	160(%rsp), %rdx         # 8-byte Reload
 	movq	120(%rsp), %rcx         # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %r10         # 8-byte Reload
+	movq	%r10, (%rsp)
+	movq	128(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 8(%rsp)
+	movq	136(%rsp), %r14         # 8-byte Reload
+	movq	%r14, 16(%rsp)
 	callq	_mpi_montmul
 	movl	$2, %eax
 	movl	%eax, 96(%rsp)          # 4-byte Spill
@@ -998,6 +1013,7 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movl	%eax, 92(%rsp)          # 4-byte Spill
 	jae	.LBB6_4
 # %bb.2:                                #   in Loop: Header=BB6_1 Depth=1
+	movl	$1, %r8d
 	movl	92(%rsp), %eax          # 4-byte Reload
 	movl	100(%rsp), %ecx         # 4-byte Reload
 	imull	%ecx, %eax
@@ -1013,14 +1029,12 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movl	%ecx, %eax
 	movl	%eax, %ecx
 	shlq	$3, %rdx
-	movq	144(%rsp), %r8          # 8-byte Reload
-	addq	%rdx, %r8
+	movq	144(%rsp), %r9          # 8-byte Reload
+	addq	%rdx, %r9
 	shlq	$3, %rdi
 	movq	144(%rsp), %rdx         # 8-byte Reload
 	addq	%rdi, %rdx
-	movl	$1, %eax
-	movq	%r8, %rdi
-	movl	%eax, %r8d
+	movq	%r9, %rdi
 	callq	_mpi_copy
 	movl	92(%rsp), %eax          # 4-byte Reload
 	movl	100(%rsp), %r8d         # 4-byte Reload
@@ -1039,19 +1053,18 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	shlq	$3, %rdx
 	movq	144(%rsp), %rcx         # 8-byte Reload
 	addq	%rdx, %rcx
-	movq	%rsp, %rdx
-	movq	136(%rsp), %r10         # 8-byte Reload
-	movq	%r10, 16(%rdx)
-	movq	128(%rsp), %r11         # 8-byte Reload
-	movq	%r11, 8(%rdx)
-	movq	240(%rsp), %rbx         # 8-byte Reload
-	movq	%rbx, (%rdx)
 	movq	%rdi, 80(%rsp)          # 8-byte Spill
 	movq	%r9, %rdi
 	movq	%rcx, %rdx
 	movq	80(%rsp), %rcx          # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %r10         # 8-byte Reload
+	movq	%r10, (%rsp)
+	movq	128(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 8(%rsp)
+	movq	136(%rsp), %rbx         # 8-byte Reload
+	movq	%rbx, 16(%rsp)
 	callq	_mpi_montmul
 # %bb.3:                                #   in Loop: Header=BB6_1 Depth=1
 	movl	92(%rsp), %eax          # 4-byte Reload
@@ -1086,15 +1099,14 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movq	%rax, 72(%rsp)          # 8-byte Spill
 	jmp	.LBB6_5
 .LBB6_8:
-	movq	%rsp, %rax
-	movq	136(%rsp), %rcx         # 8-byte Reload
-	movq	%rcx, (%rax)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	224(%rsp), %rdx         # 8-byte Reload
 	movq	232(%rsp), %rcx         # 8-byte Reload
 	movq	240(%rsp), %r8          # 8-byte Reload
 	movq	128(%rsp), %r9          # 8-byte Reload
+	movq	136(%rsp), %rax         # 8-byte Reload
+	movq	%rax, (%rsp)
 	callq	_mpi_montred
 	movl	$4294967295, %r10d      # imm = 0xFFFFFFFF
 	movl	172(%rsp), %r11d        # 4-byte Reload
@@ -1162,80 +1174,76 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movl	%eax, 48(%rsp)          # 4-byte Spill
 	jae	.LBB6_12
 # %bb.10:                               #   in Loop: Header=BB6_9 Depth=2
-	movq	%rsp, %rax
-	movq	136(%rsp), %rcx         # 8-byte Reload
-	movq	%rcx, 16(%rax)
-	movq	128(%rsp), %rdx         # 8-byte Reload
-	movq	%rdx, 8(%rax)
-	movq	240(%rsp), %rsi         # 8-byte Reload
-	movq	%rsi, (%rax)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	208(%rsp), %rdx         # 8-byte Reload
 	movq	216(%rsp), %rcx         # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %rax         # 8-byte Reload
+	movq	%rax, (%rsp)
+	movq	128(%rsp), %r10         # 8-byte Reload
+	movq	%r10, 8(%rsp)
+	movq	136(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 16(%rsp)
 	callq	_mpi_montmul
-	movq	%rsp, %rax
-	movq	136(%rsp), %rcx         # 8-byte Reload
-	movq	%rcx, 16(%rax)
-	movq	128(%rsp), %rdx         # 8-byte Reload
-	movq	%rdx, 8(%rax)
-	movq	240(%rsp), %rsi         # 8-byte Reload
-	movq	%rsi, (%rax)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	208(%rsp), %rdx         # 8-byte Reload
 	movq	216(%rsp), %rcx         # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %rax         # 8-byte Reload
+	movq	%rax, (%rsp)
+	movq	128(%rsp), %r10         # 8-byte Reload
+	movq	%r10, 8(%rsp)
+	movq	136(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 16(%rsp)
 	callq	_mpi_montmul
-	movq	%rsp, %rax
-	movq	136(%rsp), %rcx         # 8-byte Reload
-	movq	%rcx, 16(%rax)
-	movq	128(%rsp), %rdx         # 8-byte Reload
-	movq	%rdx, 8(%rax)
-	movq	240(%rsp), %rsi         # 8-byte Reload
-	movq	%rsi, (%rax)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	208(%rsp), %rdx         # 8-byte Reload
 	movq	216(%rsp), %rcx         # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %rax         # 8-byte Reload
+	movq	%rax, (%rsp)
+	movq	128(%rsp), %r10         # 8-byte Reload
+	movq	%r10, 8(%rsp)
+	movq	136(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 16(%rsp)
 	callq	_mpi_montmul
-	movq	%rsp, %rax
-	movq	136(%rsp), %rcx         # 8-byte Reload
-	movq	%rcx, 16(%rax)
-	movq	128(%rsp), %rdx         # 8-byte Reload
-	movq	%rdx, 8(%rax)
-	movq	240(%rsp), %rsi         # 8-byte Reload
-	movq	%rsi, (%rax)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	208(%rsp), %rdx         # 8-byte Reload
 	movq	216(%rsp), %rcx         # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %rax         # 8-byte Reload
+	movq	%rax, (%rsp)
+	movq	128(%rsp), %r10         # 8-byte Reload
+	movq	%r10, 8(%rsp)
+	movq	136(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 16(%rsp)
 	callq	_mpi_montmul
-	xorl	%r10d, %r10d
-	movl	$64, %r11d
-	movl	60(%rsp), %ebx          # 4-byte Reload
-	subl	$1, %ebx
-	movl	%ebx, %ebx
-	movl	%ebx, %eax
+	xorl	%ebx, %ebx
+	movl	$64, %ebp
+	movl	60(%rsp), %r14d         # 4-byte Reload
+	subl	$1, %r14d
+	movl	%r14d, %r14d
+	movl	%r14d, %eax
 	movq	152(%rsp), %rcx         # 8-byte Reload
 	movq	(%rcx,%rax,8), %rax
-	movl	48(%rsp), %ebx          # 4-byte Reload
-	shll	$2, %ebx
-	subl	%ebx, %r11d
-	movl	%r11d, %r11d
-	movl	%r11d, %ecx
+	movl	48(%rsp), %r14d         # 4-byte Reload
+	shll	$2, %r14d
+	subl	%r14d, %ebp
+	movl	%ebp, %ebp
+	movl	%ebp, %ecx
                                         # kill: def %cl killed %rcx
 	shrq	%cl, %rax
 	andq	$15, %rax
 	movq	%rax, 40(%rsp)          # 8-byte Spill
-	movl	%r10d, 36(%rsp)         # 4-byte Spill
+	movl	%ebx, 36(%rsp)          # 4-byte Spill
 	jmp	.LBB6_13
 .LBB6_11:                               #   in Loop: Header=BB6_9 Depth=2
 	movl	48(%rsp), %eax          # 4-byte Reload
@@ -1280,46 +1288,23 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movl	%eax, 36(%rsp)          # 4-byte Spill
 	jmp	.LBB6_13
 .LBB6_16:                               #   in Loop: Header=BB6_9 Depth=2
-	movq	%rsp, %rax
-	movq	136(%rsp), %rcx         # 8-byte Reload
-	movq	%rcx, 16(%rax)
-	movq	128(%rsp), %rdx         # 8-byte Reload
-	movq	%rdx, 8(%rax)
-	movq	240(%rsp), %rsi         # 8-byte Reload
-	movq	%rsi, (%rax)
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	104(%rsp), %rdx         # 8-byte Reload
 	movq	112(%rsp), %rcx         # 8-byte Reload
 	movq	224(%rsp), %r8          # 8-byte Reload
 	movq	232(%rsp), %r9          # 8-byte Reload
+	movq	240(%rsp), %rax         # 8-byte Reload
+	movq	%rax, (%rsp)
+	movq	128(%rsp), %r10         # 8-byte Reload
+	movq	%r10, 8(%rsp)
+	movq	136(%rsp), %r11         # 8-byte Reload
+	movq	%r11, 16(%rsp)
 	callq	_mpi_montmul
 	jmp	.LBB6_11
 .Lfunc_end6:
 	.size	_f_mpi_exp_mod, .Lfunc_end6-_f_mpi_exp_mod
 	.cfi_endproc
-                                        # -- End function
-	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
-	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
-	.weak	__llvm_retpoline_r11
-	.p2align	4, 0x90
-	.type	__llvm_retpoline_r11,@function
-__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
-# %bb.0:                                # %entry
-	callq	.LBB7_2
-.LBB7_1:                                # Block address taken
-                                        # %entry
-                                        # =>This Inner Loop Header: Depth=1
-	pause
-	lfence
-	jmp	.LBB7_1
-	.p2align	4, 0x90
-.LBB7_2:                                # Block address taken
-                                        # %entry
-	movq	%r11, (%rsp)
-	retq
-.Lfunc_end7:
-	.size	__llvm_retpoline_r11, .Lfunc_end7-__llvm_retpoline_r11
                                         # -- End function
 
 	.section	".note.GNU-stack","",@progbits

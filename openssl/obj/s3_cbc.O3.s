@@ -48,17 +48,20 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%rsp, %rax
 	leaq	-128(%rax), %r12
 	movq	%r12, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, -32(%rax)
-	vmovups	%ymm0, -64(%rax)
-	vmovups	%ymm0, -96(%rax)
-	vmovups	%ymm0, -128(%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, -16(%rax)
+	movups	%xmm0, -32(%rax)
+	movups	%xmm0, -48(%rax)
+	movups	%xmm0, -64(%rax)
+	movups	%xmm0, -80(%rax)
+	movups	%xmm0, -96(%rax)
+	movups	%xmm0, -112(%rax)
+	movups	%xmm0, -128(%rax)
 	movq	%rsp, %rax
 	leaq	-16(%rax), %rcx
 	movq	%rcx, -128(%rbp)        # 8-byte Spill
 	movq	%rcx, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%xmm0, -16(%rax)
+	movups	%xmm0, -16(%rax)
 	movq	%r14, %rdx
 	movq	%rdx, %rcx
 	shrq	$21, %rcx
@@ -87,7 +90,6 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	-96(%rbp), %rbx         # 8-byte Reload
 	movq	%r8, -56(%rbp)          # 8-byte Spill
 	movq	%rbx, %rsi
-	vzeroupper
 	callq	SHA1_Transform
 	leaq	64(%rbx), %rsi
 	movq	%r12, %rdi
@@ -153,11 +155,15 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%rsp, %rax
 	leaq	-128(%rax), %r12
 	movq	%r12, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, -32(%rax)
-	vmovups	%ymm0, -64(%rax)
-	vmovups	%ymm0, -96(%rax)
-	vmovups	%ymm0, -128(%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, -16(%rax)
+	movups	%xmm0, -32(%rax)
+	movups	%xmm0, -48(%rax)
+	movups	%xmm0, -64(%rax)
+	movups	%xmm0, -80(%rax)
+	movups	%xmm0, -96(%rax)
+	movups	%xmm0, -112(%rax)
+	movups	%xmm0, -128(%rax)
 	xorl	%r9d, %r9d
 	cmpq	-64(%rbp), %r15         # 8-byte Folded Reload
 	setne	%r9b
@@ -262,7 +268,6 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	-72(%rbp), %rbx         # 8-byte Reload
 	movq	%rbx, %rdi
 	movq	%r12, %rsi
-	vzeroupper
 	callq	SHA1_Transform
 	movq	%rbx, %rdi
 	movq	%r12, %rsi
@@ -425,33 +430,10 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end0:
 	.size	__ssl3_cbc_digest_record, .Lfunc_end0-__ssl3_cbc_digest_record
 	.cfi_endproc
-                                        # -- End function
-	.section	.text.__llvm_retpoline_r11,"axG",@progbits,__llvm_retpoline_r11,comdat
-	.hidden	__llvm_retpoline_r11    # -- Begin function __llvm_retpoline_r11
-	.weak	__llvm_retpoline_r11
-	.p2align	4, 0x90
-	.type	__llvm_retpoline_r11,@function
-__llvm_retpoline_r11:                   # @__llvm_retpoline_r11
-# %bb.0:                                # %entry
-	callq	.LBB1_2
-.LBB1_1:                                # Block address taken
-                                        # %entry
-                                        # =>This Inner Loop Header: Depth=1
-	pause
-	lfence
-	jmp	.LBB1_1
-	.p2align	4, 0x90
-.LBB1_2:                                # Block address taken
-                                        # %entry
-	movq	%r11, (%rsp)
-	retq
-.Lfunc_end1:
-	.size	__llvm_retpoline_r11, .Lfunc_end1-__llvm_retpoline_r11
                                         # -- End function
 
 	.section	".note.GNU-stack","",@progbits

@@ -839,10 +839,13 @@ _poly1305_finish:                       # @_poly1305_finish
 	movq	%rax, (%rcx)
 	movq	(%r10), %rax
 	movq	%rax, 8(%rcx)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 64(%rdx)
-	vmovups	%ymm0, 32(%rdx)
-	vmovups	%ymm0, (%rdx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 80(%rdx)
+	movups	%xmm0, 64(%rdx)
+	movups	%xmm0, 48(%rdx)
+	movups	%xmm0, 32(%rdx)
+	movups	%xmm0, 16(%rdx)
+	movups	%xmm0, (%rdx)
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
@@ -850,7 +853,6 @@ _poly1305_finish:                       # @_poly1305_finish
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .LBB2_4:                                # =>This Inner Loop Header: Depth=1
 	movq	-72(%rbp), %rax         # 8-byte Reload
@@ -1097,8 +1099,8 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	leaq	88(%rsp), %r9
 	movl	$0, 212(%rsp)
 	movb	$1, 211(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqu	%xmm0, (%r9)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%r9)
 	movq	$0, 16(%r9)
 	movq	88(%rsp), %r9
 	movq	%r9, 112(%rsp)
@@ -1106,8 +1108,8 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movq	%r9, 120(%rsp)
 	movq	104(%rsp), %r9
 	movq	%r9, 128(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqu	%xmm0, (%r8)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%r8)
 	movq	$0, 16(%r8)
 	movq	64(%rsp), %r8
 	movq	%r8, 136(%rsp)
@@ -1115,15 +1117,15 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movq	%r8, 144(%rsp)
 	movq	80(%rsp), %r8
 	movq	%r8, 152(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqu	%xmm0, (%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rax)
 	movq	48(%rsp), %rax
 	movq	%rax, 160(%rsp)
 	movq	56(%rsp), %rax
 	movq	%rax, 168(%rsp)
 	movq	$0, 176(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqa	%xmm0, 32(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 32(%rsp)
 	movq	32(%rsp), %rax
 	movq	%rax, 184(%rsp)
 	movq	40(%rsp), %rax
@@ -1249,8 +1251,8 @@ _crypto_onetimeauth_poly1305_verify:    # @_crypto_onetimeauth_poly1305_verify
 	.cfi_def_cfa_offset 64
 	movb	$0, 55(%rsp)
 	movb	$1, 54(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqa	%xmm0, 32(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 32(%rsp)
 	leaq	32(%rsp), %rax
 	movq	%rdi, 24(%rsp)          # 8-byte Spill
 	movq	%rax, %rdi
@@ -1317,35 +1319,35 @@ u0:                                     # @u0
 	movq	-136(%rbp), %rcx        # 8-byte Reload
 	shlq	$6, %rcx
 	movq	-96(%rbp), %rdx         # 8-byte Reload
-	vmovdqa	(%rdx), %xmm0
+	movaps	(%rdx), %xmm0
 	movq	%rsp, %rsi
 	movq	%rsi, %rdi
 	addq	$-16, %rdi
 	movq	%rdi, %rsp
-	vmovdqa	%xmm0, -16(%rsi)
-	vmovdqa	16(%rdx), %xmm0
+	movaps	%xmm0, -16(%rsi)
+	movaps	16(%rdx), %xmm0
 	movq	%rsp, %rsi
 	movq	%rsi, %r8
 	addq	$-16, %r8
 	movq	%r8, %rsp
-	vmovdqa	%xmm0, -16(%rsi)
-	vmovdqa	32(%rdx), %xmm0
+	movaps	%xmm0, -16(%rsi)
+	movaps	32(%rdx), %xmm0
 	movq	%rsp, %r9
 	movq	%r9, %r10
 	addq	$-16, %r10
 	movq	%r10, %rsp
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	48(%rdx), %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	48(%rdx), %xmm0
 	movq	%rsp, %r9
 	movq	%r9, %r11
 	addq	$-16, %r11
 	movq	%r11, %rsp
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%rsi), %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%rsi), %xmm0
 	movq	%rsp, %rsi
 	addq	$-16, %rsi
 	movq	%rsi, %rsp
-	vmovdqa	%xmm0, (%rsi)
+	movdqa	%xmm0, (%rsi)
 	movq	%rsi, -144(%rbp)        # 8-byte Spill
 	movq	%rcx, -152(%rbp)        # 8-byte Spill
 	movq	%rdi, -160(%rbp)        # 8-byte Spill
@@ -1361,511 +1363,511 @@ u0:                                     # @u0
 	jae	.LBB8_5
 # %bb.4:                                #   in Loop: Header=BB8_3 Depth=2
 	movq	-144(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-160(%rbp), %rcx        # 8-byte Reload
-	vmovdqa	(%rcx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rcx), %xmm0
+	movaps	(%rcx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	(%rcx), %xmm0
 	movq	%rsp, %rdx
 	movq	%rdx, %rsi
 	addq	$-16, %rsi
 	movq	%rsi, %rsp
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	(%rax), %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	(%rax), %xmm0
 	movq	%rsp, %rsi
 	movq	%rsi, %rdi
 	addq	$-16, %rdi
 	movq	%rdi, %rsp
-	vmovdqa	%xmm0, -16(%rsi)
-	vmovdqa	(%rax), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%rsi), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rsi)
+	movaps	%xmm0, -16(%rsi)
+	movaps	(%rax), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%rsi), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%rsi)
 	movq	-176(%rbp), %rdi        # 8-byte Reload
-	vmovdqa	(%rdi), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	(%rdi), %xmm0
-	vmovdqa	-16(%rsi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	-16(%rdx), %xmm0
-	vmovdqa	(%rdi), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	(%rdi), %xmm0
+	movaps	(%rdi), %xmm0
+	movaps	(%rax), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdi)
+	movaps	(%rdi), %xmm0
+	movaps	-16(%rsi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdi)
+	movaps	-16(%rdx), %xmm0
+	movaps	(%rdi), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	(%rdi), %xmm0
 	movq	%rsp, %r8
 	movq	%r8, %r9
 	addq	$-16, %r9
 	movq	%r9, %rsp
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rdx), %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rdx), %xmm0
 	movq	%rsp, %r9
 	movq	%r9, %r10
 	addq	$-16, %r10
 	movq	%r10, %rsp
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%rdx), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	-16(%r9), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r9)
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%rdx), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	-16(%r9), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%r9)
 	movq	-184(%rbp), %r10        # 8-byte Reload
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%rdx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%r9), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	-16(%r8), %xmm0
-	vmovdqa	(%r10), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	(%r10), %xmm0
+	movaps	(%r10), %xmm0
+	movaps	-16(%rdx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	(%rdi), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%rdi)
+	movaps	(%r10), %xmm0
+	movaps	-16(%r9), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	-16(%r8), %xmm0
+	movaps	(%r10), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	(%r10), %xmm0
 	movq	%rsp, %r11
 	movq	%r11, %rbx
 	addq	$-16, %rbx
 	movq	%rbx, %rsp
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r8), %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r8), %xmm0
 	movq	%rsp, %rbx
 	movq	%rbx, %r14
 	addq	$-16, %r14
 	movq	%r14, %rsp
-	vmovdqa	%xmm0, -16(%rbx)
-	vmovdqa	-16(%r8), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rbx), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rbx)
+	movaps	%xmm0, -16(%rbx)
+	movaps	-16(%r8), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rbx), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%rbx)
 	movq	-168(%rbp), %r14        # 8-byte Reload
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%r8), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%r10), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%rbx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	-16(%r11), %xmm0
-	vmovdqa	(%r14), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	(%rdi), %xmm0
+	movaps	(%r14), %xmm0
+	movaps	-16(%r8), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	(%r10), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%r10)
+	movaps	(%r14), %xmm0
+	movaps	-16(%rbx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	-16(%r11), %xmm0
+	movaps	(%r14), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	(%rdi), %xmm0
 	movq	%rsp, %r15
 	movq	%r15, %r12
 	addq	$-16, %r12
 	movq	%r12, %rsp
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%r11), %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%r11), %xmm0
 	movq	%rsp, %r12
 	movq	%r12, %r13
 	addq	$-16, %r13
 	movq	%r13, %rsp
-	vmovdqa	%xmm0, -16(%r12)
-	vmovdqa	-16(%r11), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r12), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r12)
-	vmovdqa	(%rcx), %xmm0
-	vmovdqa	-16(%r11), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	(%r14), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%rcx), %xmm0
-	vmovdqa	-16(%r12), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	-16(%r15), %xmm0
-	vmovdqa	(%rcx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	(%rcx), %xmm0
+	movaps	%xmm0, -16(%r12)
+	movaps	-16(%r11), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r12), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%r12)
+	movaps	(%rcx), %xmm0
+	movaps	-16(%r11), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rcx)
+	movaps	(%r14), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%r14)
+	movaps	(%rcx), %xmm0
+	movaps	-16(%r12), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rcx)
+	movaps	-16(%r15), %xmm0
+	movaps	(%rcx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	(%rcx), %xmm0
 	movq	%rsp, %r13
 	movq	%r13, %rax
 	addq	$-16, %rax
 	movq	%rax, %rsp
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%r15), %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%r15), %xmm0
 	movq	%rsp, %rax
 	movq	%rax, %rcx
 	addq	$-16, %rcx
 	movq	%rcx, %rsp
-	vmovdqa	%xmm0, -16(%rax)
-	vmovdqa	-16(%r15), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%rax), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rax)
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%r15), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	-16(%r13), %xmm0
-	vmovdqa	(%r14), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	(%r14), %xmm0
+	movaps	%xmm0, -16(%rax)
+	movaps	-16(%r15), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%rax), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%rax)
+	movaps	(%r14), %xmm0
+	movaps	-16(%r15), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	(%r14), %xmm0
+	movaps	-16(%rax), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	-16(%r13), %xmm0
+	movaps	(%r14), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	(%r14), %xmm0
 	movq	%rsp, %rcx
 	movq	%rcx, %rdi
 	addq	$-16, %rdi
 	movq	%rdi, %rsp
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r13), %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r13), %xmm0
 	movq	%rsp, %rdi
 	movq	%rdi, %r10
 	addq	$-16, %r10
 	movq	%r10, %rsp
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	-16(%r13), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%rdi), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
+	movaps	%xmm0, -16(%rdi)
+	movaps	-16(%r13), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%rdi), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%rdi)
 	movq	-184(%rbp), %r10        # 8-byte Reload
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%r13), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	(%r14), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%rdi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	-16(%rcx), %xmm0
-	vmovdqa	(%r10), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	(%r10), %xmm0
+	movaps	(%r10), %xmm0
+	movaps	-16(%r13), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	(%r14), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%r14)
+	movaps	(%r10), %xmm0
+	movaps	-16(%rdi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	-16(%rcx), %xmm0
+	movaps	(%r10), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	(%r10), %xmm0
 	movq	%rsp, %r10
 	movq	%r10, %r14
 	addq	$-16, %r14
 	movq	%r14, %rsp
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rcx), %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rcx), %xmm0
 	movq	%rsp, %r14
 	movq	%rax, -200(%rbp)        # 8-byte Spill
 	movq	%r14, %rax
 	addq	$-16, %rax
 	movq	%rax, %rsp
-	vmovdqa	%xmm0, -16(%r14)
-	vmovdqa	-16(%rcx), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r14), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r14)
+	movaps	%xmm0, -16(%r14)
+	movaps	-16(%rcx), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r14), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%r14)
 	movq	-176(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%rcx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	movaps	-16(%rcx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
 	movq	-184(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%rax)
 	movq	-176(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%r14), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%r10), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
+	movaps	(%rax), %xmm0
+	movaps	-16(%r14), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%r10), %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r10)
 	movq	-168(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-144(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%r10), %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%r10), %xmm0
 	movq	%rsp, %rax
 	movq	%rax, -208(%rbp)        # 8-byte Spill
 	addq	$-16, %rax
 	movq	%rax, %rsp
 	movq	-208(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, -16(%rax)
-	vmovdqa	-16(%r10), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rax), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rax)
+	movaps	%xmm0, -16(%rax)
+	movaps	-16(%r10), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rax), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%rax)
 	movq	-160(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%r10), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	movaps	-16(%r10), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
 	movq	-176(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rax)
 	movq	-160(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-208(%rbp), %rax        # 8-byte Reload
-	vmovdqa	-16(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
+	movaps	-16(%rax), %xmm1
+	pxor	%xmm1, %xmm0
 	movq	-160(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
+	movaps	%xmm0, (%rax)
 	movq	-144(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-160(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
 	movq	-144(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
+	movaps	%xmm0, (%rax)
 	movq	-160(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%rdx)
 	movq	-144(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%rsi)
-	vmovdqa	(%rax), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%rsi), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rsi)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%rsi)
+	movaps	(%rax), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%rsi), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%rsi)
 	movq	-176(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-144(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
+	movaps	(%rax), %xmm1
+	pxor	%xmm1, %xmm0
 	movq	-176(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%rsi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%rdx), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rdx), %xmm0
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%rdx), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	-16(%r9), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r9)
+	movaps	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	movaps	-16(%rsi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%rdx), %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rdx), %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%rdx), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	-16(%r9), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%r9)
 	movq	-184(%rbp), %rsi        # 8-byte Reload
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%rdx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%r9), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	-16(%r8), %xmm0
-	vmovdqa	(%rsi), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r8), %xmm0
-	vmovdqa	%xmm0, -16(%rbx)
-	vmovdqa	-16(%r8), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rbx), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rbx)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%rdx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	(%rax), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%rax)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%r9), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	-16(%r8), %xmm0
+	movaps	(%rsi), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	(%rsi), %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r8), %xmm0
+	movaps	%xmm0, -16(%rbx)
+	movaps	-16(%r8), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rbx), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%rbx)
 	movq	-168(%rbp), %rdx        # 8-byte Reload
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%r8), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%rbx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	-16(%r11), %xmm0
-	vmovdqa	(%rdx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%r11), %xmm0
-	vmovdqa	%xmm0, -16(%r12)
-	vmovdqa	-16(%r11), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r12), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r12)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%r8), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%rbx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	-16(%r11), %xmm0
+	movaps	(%rdx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%r11), %xmm0
+	movaps	%xmm0, -16(%r12)
+	movaps	-16(%r11), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r12), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%r12)
 	movq	-160(%rbp), %r8         # 8-byte Reload
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%r11), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%r12), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	-16(%r15), %xmm0
-	vmovdqa	(%r8), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%r15), %xmm0
+	movaps	(%r8), %xmm0
+	movaps	-16(%r11), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r8)
+	movaps	(%rdx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdx)
+	movaps	(%r8), %xmm0
+	movaps	-16(%r12), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r8)
+	movaps	-16(%r15), %xmm0
+	movaps	(%r8), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	(%r8), %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%r15), %xmm0
 	movq	-200(%rbp), %r9         # 8-byte Reload
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%r15), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%r9), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%r15), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%r9), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	-16(%r13), %xmm0
-	vmovdqa	(%rdx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r13), %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	-16(%r13), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%rdi), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%r13), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%rdi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	-16(%rcx), %xmm0
-	vmovdqa	(%rsi), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rcx), %xmm0
-	vmovdqa	%xmm0, -16(%r14)
-	vmovdqa	-16(%rcx), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r14), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r14)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%rcx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%r14), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%r10), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	(%rdx), %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%r15), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%r9), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%r15), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%r9), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	-16(%r13), %xmm0
+	movaps	(%rdx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	(%rdx), %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r13), %xmm0
+	movaps	%xmm0, -16(%rdi)
+	movaps	-16(%r13), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%rdi), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%rdi)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%r13), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdx), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%rdi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	-16(%rcx), %xmm0
+	movaps	(%rsi), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	(%rsi), %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rcx), %xmm0
+	movaps	%xmm0, -16(%r14)
+	movaps	-16(%rcx), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r14), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%r14)
+	movaps	(%rax), %xmm0
+	movaps	-16(%rcx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	(%rsi), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rax), %xmm0
+	movaps	-16(%r14), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%r10), %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	(%rdx), %xmm0
 	movq	-144(%rbp), %rcx        # 8-byte Reload
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	-16(%r10), %xmm0
+	movaps	%xmm0, (%rcx)
+	movaps	-16(%r10), %xmm0
 	movq	-208(%rbp), %rdi        # 8-byte Reload
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	-16(%r10), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rdi), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%r10), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%rdi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
+	movaps	%xmm0, -16(%rdi)
+	movaps	-16(%r10), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rdi), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%rdi)
+	movaps	(%r8), %xmm0
+	movaps	-16(%r10), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r8)
+	movaps	(%rax), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rax)
+	movaps	(%r8), %xmm0
+	movaps	-16(%rdi), %xmm1
+	pxor	%xmm1, %xmm0
+	movdqa	%xmm0, (%r8)
 	movl	-192(%rbp), %esi        # 4-byte Reload
 	addl	$1, %esi
 	movl	%esi, -188(%rbp)        # 4-byte Spill
 	jmp	.LBB8_3
 .LBB8_5:                                #   in Loop: Header=BB8_1 Depth=1
 	movq	-96(%rbp), %rax         # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-160(%rbp), %rcx        # 8-byte Reload
-	vmovdqa	(%rcx), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	16(%rax), %xmm0
+	movaps	(%rcx), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%rcx)
+	movaps	16(%rax), %xmm0
 	movq	-168(%rbp), %rdx        # 8-byte Reload
-	vmovdqa	(%rdx), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	32(%rax), %xmm0
+	movaps	(%rdx), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%rdx)
+	movaps	32(%rax), %xmm0
 	movq	-184(%rbp), %rsi        # 8-byte Reload
-	vmovdqa	(%rsi), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	48(%rax), %xmm0
+	movaps	(%rsi), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%rsi)
+	movaps	48(%rax), %xmm0
 	movq	-176(%rbp), %rdi        # 8-byte Reload
-	vmovdqa	(%rdi), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%rdi)
+	movaps	(%rdi), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%rdi)
 	movl	(%rcx), %r8d
 	movq	%rsp, %r9
 	movq	%r9, %r10
@@ -1890,18 +1892,18 @@ u0:                                     # @u0
 	addq	$-16, %r14
 	movq	%r14, %rsp
 	movl	%r8d, -16(%rbx)
-	vmovdqa	(%rcx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdi)
+	movaps	(%rcx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rcx)
+	movaps	(%rdx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdi)
 	movq	-88(%rbp), %r14         # 8-byte Reload
 	movq	-152(%rbp), %r15        # 8-byte Reload
 	movl	(%r14,%r15), %r8d
@@ -1953,18 +1955,18 @@ u0:                                     # @u0
 	addq	$-16, %rax
 	movq	%rax, %rsp
 	movl	%r8d, -16(%r13)
-	vmovdqa	(%rcx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdi)
+	movaps	(%rcx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rcx)
+	movaps	(%rdx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdi)
 	movl	20(%r14,%r15), %r8d
 	movl	-16(%r10), %r12d
 	xorl	%r8d, %r12d
@@ -2013,18 +2015,18 @@ u0:                                     # @u0
 	addq	$-16, %r13
 	movq	%r13, %rsp
 	movl	%r8d, -16(%rbx)
-	vmovdqa	(%rcx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdi)
+	movaps	(%rcx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rcx)
+	movaps	(%rdx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdi)
 	movl	40(%r14,%r15), %r8d
 	movl	-16(%rax), %r12d
 	xorl	%r8d, %r12d
@@ -2073,18 +2075,18 @@ u0:                                     # @u0
 	addq	$-16, %r13
 	movq	%r13, %rsp
 	movl	%r8d, -16(%rbx)
-	vmovdqa	(%rcx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdi)
+	movaps	(%rcx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rcx)
+	movaps	(%rdx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdi)
 	movl	60(%r14,%r15), %r8d
 	movl	-16(%rax), %r12d
 	xorl	%r8d, %r12d
@@ -2161,35 +2163,35 @@ u0:                                     # @u0
 # %bb.7:
 	xorl	%eax, %eax
 	movq	-96(%rbp), %rcx         # 8-byte Reload
-	vmovdqa	(%rcx), %xmm0
+	movaps	(%rcx), %xmm0
 	movq	%rsp, %rdx
 	movq	%rdx, %rsi
 	addq	$-16, %rsi
 	movq	%rsi, %rsp
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	16(%rcx), %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	16(%rcx), %xmm0
 	movq	%rsp, %rdx
 	movq	%rdx, %rdi
 	addq	$-16, %rdi
 	movq	%rdi, %rsp
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	32(%rcx), %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	32(%rcx), %xmm0
 	movq	%rsp, %r8
 	movq	%r8, %r9
 	addq	$-16, %r9
 	movq	%r9, %rsp
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	48(%rcx), %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	48(%rcx), %xmm0
 	movq	%rsp, %r8
 	movq	%r8, %r10
 	addq	$-16, %r10
 	movq	%r10, %rsp
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rdx), %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rdx), %xmm0
 	movq	%rsp, %rdx
 	addq	$-16, %rdx
 	movq	%rdx, %rsp
-	vmovdqa	%xmm0, (%rdx)
+	movdqa	%xmm0, (%rdx)
 	movq	%rdx, -248(%rbp)        # 8-byte Spill
 	movq	%rsi, -256(%rbp)        # 8-byte Spill
 	movq	%rdi, -264(%rbp)        # 8-byte Spill
@@ -2206,485 +2208,485 @@ u0:                                     # @u0
 	jae	.LBB8_11
 # %bb.10:                               #   in Loop: Header=BB8_9 Depth=1
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-256(%rbp), %rcx        # 8-byte Reload
-	vmovdqa	(%rcx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rcx), %xmm0
+	movaps	(%rcx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	(%rcx), %xmm0
 	movq	%rsp, %rdx
 	movq	%rdx, %rsi
 	addq	$-16, %rsi
 	movq	%rsi, %rsp
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	(%rax), %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	(%rax), %xmm0
 	movq	%rsp, %rsi
 	movq	%rsi, %rdi
 	addq	$-16, %rdi
 	movq	%rdi, %rsp
-	vmovdqa	%xmm0, -16(%rsi)
-	vmovdqa	(%rax), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%rsi), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rsi)
+	movaps	%xmm0, -16(%rsi)
+	movaps	(%rax), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%rsi), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%rsi)
 	movq	-272(%rbp), %rdi        # 8-byte Reload
-	vmovdqa	(%rdi), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	(%rdi), %xmm0
-	vmovdqa	-16(%rsi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	-16(%rdx), %xmm0
-	vmovdqa	(%rdi), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	(%rdi), %xmm0
+	movaps	(%rdi), %xmm0
+	movaps	(%rax), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdi)
+	movaps	(%rdi), %xmm0
+	movaps	-16(%rsi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdi)
+	movaps	-16(%rdx), %xmm0
+	movaps	(%rdi), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	(%rdi), %xmm0
 	movq	%rsp, %r8
 	movq	%r8, %r9
 	addq	$-16, %r9
 	movq	%r9, %rsp
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rdx), %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rdx), %xmm0
 	movq	%rsp, %r9
 	movq	%r9, %r10
 	addq	$-16, %r10
 	movq	%r10, %rsp
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%rdx), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	-16(%r9), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r9)
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%rdx), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	-16(%r9), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%r9)
 	movq	-280(%rbp), %r10        # 8-byte Reload
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%rdx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%r9), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	-16(%r8), %xmm0
-	vmovdqa	(%r10), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	(%r10), %xmm0
+	movaps	(%r10), %xmm0
+	movaps	-16(%rdx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	(%rdi), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%rdi)
+	movaps	(%r10), %xmm0
+	movaps	-16(%r9), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	-16(%r8), %xmm0
+	movaps	(%r10), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	(%r10), %xmm0
 	movq	%rsp, %r11
 	movq	%r11, %rbx
 	addq	$-16, %rbx
 	movq	%rbx, %rsp
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r8), %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r8), %xmm0
 	movq	%rsp, %rbx
 	movq	%rbx, %r14
 	addq	$-16, %r14
 	movq	%r14, %rsp
-	vmovdqa	%xmm0, -16(%rbx)
-	vmovdqa	-16(%r8), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rbx), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rbx)
+	movaps	%xmm0, -16(%rbx)
+	movaps	-16(%r8), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rbx), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%rbx)
 	movq	-264(%rbp), %r14        # 8-byte Reload
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%r8), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%r10), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%rbx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	-16(%r11), %xmm0
-	vmovdqa	(%r14), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	(%rdi), %xmm0
+	movaps	(%r14), %xmm0
+	movaps	-16(%r8), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	(%r10), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%r10)
+	movaps	(%r14), %xmm0
+	movaps	-16(%rbx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	-16(%r11), %xmm0
+	movaps	(%r14), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	(%rdi), %xmm0
 	movq	%rsp, %r15
 	movq	%r15, %r12
 	addq	$-16, %r12
 	movq	%r12, %rsp
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%r11), %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%r11), %xmm0
 	movq	%rsp, %r12
 	movq	%r12, %r13
 	addq	$-16, %r13
 	movq	%r13, %rsp
-	vmovdqa	%xmm0, -16(%r12)
-	vmovdqa	-16(%r11), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r12), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r12)
-	vmovdqa	(%rcx), %xmm0
-	vmovdqa	-16(%r11), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	(%r14), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%rcx), %xmm0
-	vmovdqa	-16(%r12), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	-16(%r15), %xmm0
-	vmovdqa	(%rcx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	(%rcx), %xmm0
+	movaps	%xmm0, -16(%r12)
+	movaps	-16(%r11), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r12), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%r12)
+	movaps	(%rcx), %xmm0
+	movaps	-16(%r11), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rcx)
+	movaps	(%r14), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%r14)
+	movaps	(%rcx), %xmm0
+	movaps	-16(%r12), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rcx)
+	movaps	-16(%r15), %xmm0
+	movaps	(%rcx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	(%rcx), %xmm0
 	movq	%rsp, %r13
 	movq	%r13, %rax
 	addq	$-16, %rax
 	movq	%rax, %rsp
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%r15), %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%r15), %xmm0
 	movq	%rsp, %rax
 	movq	%rax, %rcx
 	addq	$-16, %rcx
 	movq	%rcx, %rsp
-	vmovdqa	%xmm0, -16(%rax)
-	vmovdqa	-16(%r15), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%rax), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rax)
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%r15), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%r14), %xmm0
-	vmovdqa	-16(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	-16(%r13), %xmm0
-	vmovdqa	(%r14), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	(%r14), %xmm0
+	movaps	%xmm0, -16(%rax)
+	movaps	-16(%r15), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%rax), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%rax)
+	movaps	(%r14), %xmm0
+	movaps	-16(%r15), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	(%r14), %xmm0
+	movaps	-16(%rax), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r14)
+	movaps	-16(%r13), %xmm0
+	movaps	(%r14), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	(%r14), %xmm0
 	movq	%rsp, %rcx
 	movq	%rcx, %rdi
 	addq	$-16, %rdi
 	movq	%rdi, %rsp
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r13), %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r13), %xmm0
 	movq	%rsp, %rdi
 	movq	%rdi, %r10
 	addq	$-16, %r10
 	movq	%r10, %rsp
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	-16(%r13), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%rdi), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
+	movaps	%xmm0, -16(%rdi)
+	movaps	-16(%r13), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%rdi), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%rdi)
 	movq	-280(%rbp), %r10        # 8-byte Reload
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%r13), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	(%r14), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%r14)
-	vmovdqa	(%r10), %xmm0
-	vmovdqa	-16(%rdi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r10)
-	vmovdqa	-16(%rcx), %xmm0
-	vmovdqa	(%r10), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	(%r10), %xmm0
+	movaps	(%r10), %xmm0
+	movaps	-16(%r13), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	(%r14), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%r14)
+	movaps	(%r10), %xmm0
+	movaps	-16(%rdi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r10)
+	movaps	-16(%rcx), %xmm0
+	movaps	(%r10), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	(%r10), %xmm0
 	movq	%rsp, %r10
 	movq	%r10, %r14
 	addq	$-16, %r14
 	movq	%r14, %rsp
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rcx), %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rcx), %xmm0
 	movq	%rsp, %r14
 	movq	%rax, -296(%rbp)        # 8-byte Spill
 	movq	%r14, %rax
 	addq	$-16, %rax
 	movq	%rax, %rsp
-	vmovdqa	%xmm0, -16(%r14)
-	vmovdqa	-16(%rcx), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r14), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r14)
+	movaps	%xmm0, -16(%r14)
+	movaps	-16(%rcx), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r14), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%r14)
 	movq	-272(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%rcx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	movaps	-16(%rcx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
 	movq	-280(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%rax)
 	movq	-272(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%r14), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%r10), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
+	movaps	(%rax), %xmm0
+	movaps	-16(%r14), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%r10), %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r10)
 	movq	-264(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%r10), %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%r10), %xmm0
 	movq	%rsp, %rax
 	movq	%rax, -304(%rbp)        # 8-byte Spill
 	addq	$-16, %rax
 	movq	%rax, %rsp
 	movq	-304(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, -16(%rax)
-	vmovdqa	-16(%r10), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rax), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rax)
+	movaps	%xmm0, -16(%rax)
+	movaps	-16(%r10), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rax), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%rax)
 	movq	-256(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%r10), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	movaps	-16(%r10), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
 	movq	-272(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rax)
 	movq	-256(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-304(%rbp), %rax        # 8-byte Reload
-	vmovdqa	-16(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
+	movaps	-16(%rax), %xmm1
+	pxor	%xmm1, %xmm0
 	movq	-256(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
+	movaps	%xmm0, (%rax)
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-256(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
+	movaps	%xmm0, (%rax)
 	movq	-256(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%rdx)
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%rsi)
-	vmovdqa	(%rax), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%rsi), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rsi)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%rsi)
+	movaps	(%rax), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%rsi), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%rsi)
 	movq	-272(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm0
+	movaps	(%rax), %xmm0
 	movq	-248(%rbp), %rax        # 8-byte Reload
-	vmovdqa	(%rax), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
+	movaps	(%rax), %xmm1
+	pxor	%xmm1, %xmm0
 	movq	-272(%rbp), %rax        # 8-byte Reload
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%rsi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%rdx), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rdx), %xmm0
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%rdx), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdx)
-	vmovdqa	-16(%r9), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r9)
+	movaps	%xmm0, (%rax)
+	movaps	(%rax), %xmm0
+	movaps	-16(%rsi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%rdx), %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rdx), %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%rdx), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%rdx)
+	movaps	-16(%r9), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%r9)
 	movq	-280(%rbp), %rsi        # 8-byte Reload
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%rdx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%r9), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	-16(%r8), %xmm0
-	vmovdqa	(%rsi), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r8), %xmm0
-	vmovdqa	%xmm0, -16(%rbx)
-	vmovdqa	-16(%r8), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r8)
-	vmovdqa	-16(%rbx), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rbx)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%rdx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	(%rax), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%rax)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%r9), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	-16(%r8), %xmm0
+	movaps	(%rsi), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	(%rsi), %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r8), %xmm0
+	movaps	%xmm0, -16(%rbx)
+	movaps	-16(%r8), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%r8)
+	movaps	-16(%rbx), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%rbx)
 	movq	-264(%rbp), %rdx        # 8-byte Reload
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%r8), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%rbx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	-16(%r11), %xmm0
-	vmovdqa	(%rdx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%r11), %xmm0
-	vmovdqa	%xmm0, -16(%r12)
-	vmovdqa	-16(%r11), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r11)
-	vmovdqa	-16(%r12), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r12)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%r8), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%rbx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	-16(%r11), %xmm0
+	movaps	(%rdx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	(%rax), %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%r11), %xmm0
+	movaps	%xmm0, -16(%r12)
+	movaps	-16(%r11), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r11)
+	movaps	-16(%r12), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%r12)
 	movq	-256(%rbp), %r8         # 8-byte Reload
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%r11), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%r12), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	-16(%r15), %xmm0
-	vmovdqa	(%r8), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%r15), %xmm0
+	movaps	(%r8), %xmm0
+	movaps	-16(%r11), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r8)
+	movaps	(%rdx), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdx)
+	movaps	(%r8), %xmm0
+	movaps	-16(%r12), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r8)
+	movaps	-16(%r15), %xmm0
+	movaps	(%r8), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	(%r8), %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%r15), %xmm0
 	movq	-296(%rbp), %r9         # 8-byte Reload
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	-16(%r15), %xmm0
-	vpslld	$7, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r15)
-	vmovdqa	-16(%r9), %xmm0
-	vpsrld	$25, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r9)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%r15), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	-16(%r9), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	-16(%r13), %xmm0
-	vmovdqa	(%rdx), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	(%rdx), %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r13), %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	-16(%r13), %xmm0
-	vpslld	$9, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r13)
-	vmovdqa	-16(%rdi), %xmm0
-	vpsrld	$23, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%r13), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdx), %xmm0
-	vpshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
-	vmovdqa	%xmm0, (%rdx)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	-16(%rdi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	-16(%rcx), %xmm0
-	vmovdqa	(%rsi), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	(%rsi), %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rcx), %xmm0
-	vmovdqa	%xmm0, -16(%r14)
-	vmovdqa	-16(%rcx), %xmm0
-	vpslld	$13, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rcx)
-	vmovdqa	-16(%r14), %xmm0
-	vpsrld	$19, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r14)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%rcx), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%rsi), %xmm0
-	vpshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rax), %xmm0
-	vmovdqa	-16(%r14), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	-16(%r10), %xmm0
-	vmovdqa	(%rax), %xmm1
-	vpaddd	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	(%rdx), %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	-16(%r15), %xmm0
+	pslld	$7, %xmm0
+	movaps	%xmm0, -16(%r15)
+	movaps	-16(%r9), %xmm0
+	psrld	$25, %xmm0
+	movaps	%xmm0, -16(%r9)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%r15), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	(%rdx), %xmm0
+	movaps	-16(%r9), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rdx)
+	movaps	-16(%r13), %xmm0
+	movaps	(%rdx), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	(%rdx), %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r13), %xmm0
+	movaps	%xmm0, -16(%rdi)
+	movaps	-16(%r13), %xmm0
+	pslld	$9, %xmm0
+	movaps	%xmm0, -16(%r13)
+	movaps	-16(%rdi), %xmm0
+	psrld	$23, %xmm0
+	movaps	%xmm0, -16(%rdi)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%r13), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdx), %xmm0
+	pshufd	$147, %xmm0, %xmm0      # xmm0 = xmm0[3,0,1,2]
+	movaps	%xmm0, (%rdx)
+	movaps	(%rsi), %xmm0
+	movaps	-16(%rdi), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rsi)
+	movaps	-16(%rcx), %xmm0
+	movaps	(%rsi), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	(%rsi), %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rcx), %xmm0
+	movaps	%xmm0, -16(%r14)
+	movaps	-16(%rcx), %xmm0
+	pslld	$13, %xmm0
+	movaps	%xmm0, -16(%rcx)
+	movaps	-16(%r14), %xmm0
+	psrld	$19, %xmm0
+	movaps	%xmm0, -16(%r14)
+	movaps	(%rax), %xmm0
+	movaps	-16(%rcx), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	(%rsi), %xmm0
+	pshufd	$78, %xmm0, %xmm0       # xmm0 = xmm0[2,3,0,1]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rax), %xmm0
+	movaps	-16(%r14), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%rax)
+	movaps	-16(%r10), %xmm0
+	movaps	(%rax), %xmm1
+	paddd	%xmm1, %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	(%rdx), %xmm0
 	movq	-248(%rbp), %rcx        # 8-byte Reload
-	vmovdqa	%xmm0, (%rcx)
-	vmovdqa	-16(%r10), %xmm0
+	movaps	%xmm0, (%rcx)
+	movaps	-16(%r10), %xmm0
 	movq	-304(%rbp), %rdi        # 8-byte Reload
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	-16(%r10), %xmm0
-	vpslld	$18, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%r10)
-	vmovdqa	-16(%rdi), %xmm0
-	vpsrld	$14, %xmm0, %xmm0
-	vmovdqa	%xmm0, -16(%rdi)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%r10), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	(%rax), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rax)
-	vmovdqa	(%r8), %xmm0
-	vmovdqa	-16(%rdi), %xmm1
-	vpxor	%xmm1, %xmm0, %xmm0
-	vmovdqa	%xmm0, (%r8)
+	movaps	%xmm0, -16(%rdi)
+	movaps	-16(%r10), %xmm0
+	pslld	$18, %xmm0
+	movaps	%xmm0, -16(%r10)
+	movaps	-16(%rdi), %xmm0
+	psrld	$14, %xmm0
+	movaps	%xmm0, -16(%rdi)
+	movaps	(%r8), %xmm0
+	movaps	-16(%r10), %xmm1
+	pxor	%xmm1, %xmm0
+	movaps	%xmm0, (%r8)
+	movaps	(%rax), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rax)
+	movaps	(%r8), %xmm0
+	movaps	-16(%rdi), %xmm1
+	pxor	%xmm1, %xmm0
+	movdqa	%xmm0, (%r8)
 	movl	-288(%rbp), %esi        # 4-byte Reload
 	addl	$1, %esi
 	movl	%esi, -284(%rbp)        # 4-byte Spill
@@ -2693,106 +2695,108 @@ u0:                                     # @u0
 	xorl	%eax, %eax
 	movl	%eax, %ecx
 	movq	-96(%rbp), %rdx         # 8-byte Reload
-	vmovdqa	(%rdx), %xmm0
+	movaps	(%rdx), %xmm0
 	movq	-256(%rbp), %rsi        # 8-byte Reload
-	vmovdqa	(%rsi), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	16(%rdx), %xmm0
+	movaps	(%rsi), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%rsi)
+	movaps	16(%rdx), %xmm0
 	movq	-264(%rbp), %rdi        # 8-byte Reload
-	vmovdqa	(%rdi), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	32(%rdx), %xmm0
+	movaps	(%rdi), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%rdi)
+	movaps	32(%rdx), %xmm0
 	movq	-280(%rbp), %r8         # 8-byte Reload
-	vmovdqa	(%r8), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	48(%rdx), %xmm0
+	movaps	(%r8), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%r8)
+	movaps	48(%rdx), %xmm0
 	movq	-272(%rbp), %r9         # 8-byte Reload
-	vmovdqa	(%r9), %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vmovdqa	%xmm0, (%r9)
+	movaps	(%r9), %xmm1
+	paddd	%xmm0, %xmm1
+	movaps	%xmm1, (%r9)
 	movq	%rsp, %r10
 	movq	%r10, %r11
 	addq	$-64, %r11
 	movq	%r11, %rsp
-	vxorps	%xmm2, %xmm2, %xmm2
-	vmovups	%ymm2, -32(%r10)
-	vmovups	%ymm2, -64(%r10)
-	vmovdqa	(%rsi), %xmm0
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, -16(%r10)
+	movups	%xmm0, -32(%r10)
+	movups	%xmm0, -48(%r10)
+	movups	%xmm0, -64(%r10)
+	movaps	(%rsi), %xmm0
 	movl	(%rdi), %eax
 	movl	(%r8), %ebx
 	movl	(%r9), %r14d
-	vpshufd	$57, %xmm0, %xmm1       # xmm1 = xmm0[1,2,3,0]
-	vmovdqa	%xmm1, (%rsi)
-	vmovdqa	(%rdi), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%rdi)
-	vmovdqa	(%r8), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%r8)
-	vmovdqa	(%r9), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%r9)
-	vmovd	%xmm0, -64(%r10)
+	pshufd	$57, %xmm0, %xmm1       # xmm1 = xmm0[1,2,3,0]
+	movaps	%xmm1, (%rsi)
+	movaps	(%rdi), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%rdi)
+	movaps	(%r8), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%r8)
+	movaps	(%r9), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%r9)
+	movd	%xmm0, -64(%r10)
 	movl	%eax, -16(%r10)
 	movl	%ebx, -32(%r10)
 	movl	%r14d, -48(%r10)
-	vmovdqa	(%rsi), %xmm0
+	movaps	(%rsi), %xmm0
 	movl	(%rdi), %eax
 	movl	(%r8), %ebx
 	movl	(%r9), %r14d
-	vpshufd	$57, %xmm0, %xmm1       # xmm1 = xmm0[1,2,3,0]
-	vmovdqa	%xmm1, (%rsi)
-	vmovdqa	(%rdi), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%rdi)
-	vmovdqa	(%r8), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%r8)
-	vmovdqa	(%r9), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%r9)
-	vmovd	%xmm0, -44(%r10)
+	pshufd	$57, %xmm0, %xmm1       # xmm1 = xmm0[1,2,3,0]
+	movaps	%xmm1, (%rsi)
+	movaps	(%rdi), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%rdi)
+	movaps	(%r8), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%r8)
+	movaps	(%r9), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%r9)
+	movd	%xmm0, -44(%r10)
 	movl	%eax, -60(%r10)
 	movl	%ebx, -12(%r10)
 	movl	%r14d, -28(%r10)
-	vmovdqa	(%rsi), %xmm0
+	movaps	(%rsi), %xmm0
 	movl	(%rdi), %eax
 	movl	(%r8), %ebx
 	movl	(%r9), %r14d
-	vpshufd	$57, %xmm0, %xmm1       # xmm1 = xmm0[1,2,3,0]
-	vmovdqa	%xmm1, (%rsi)
-	vmovdqa	(%rdi), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%rdi)
-	vmovdqa	(%r8), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%r8)
-	vmovdqa	(%r9), %xmm1
-	vpshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
-	vmovdqa	%xmm1, (%r9)
-	vmovd	%xmm0, -24(%r10)
+	pshufd	$57, %xmm0, %xmm1       # xmm1 = xmm0[1,2,3,0]
+	movaps	%xmm1, (%rsi)
+	movaps	(%rdi), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%rdi)
+	movaps	(%r8), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%r8)
+	movaps	(%r9), %xmm1
+	pshufd	$57, %xmm1, %xmm1       # xmm1 = xmm1[1,2,3,0]
+	movaps	%xmm1, (%r9)
+	movd	%xmm0, -24(%r10)
 	movl	%eax, -40(%r10)
 	movl	%ebx, -56(%r10)
 	movl	%r14d, -8(%r10)
-	vmovdqa	(%rsi), %xmm0
-	vmovd	%xmm0, %eax
+	movaps	(%rsi), %xmm0
+	movd	%xmm0, %eax
 	movl	(%rdi), %ebx
 	movl	(%r8), %r14d
 	movl	(%r9), %r15d
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rsi)
-	vmovdqa	(%rdi), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%rdi)
-	vmovdqa	(%r8), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%r8)
-	vmovdqa	(%r9), %xmm0
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vmovdqa	%xmm0, (%r9)
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rsi)
+	movaps	(%rdi), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%rdi)
+	movaps	(%r8), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movaps	%xmm0, (%r8)
+	movaps	(%r9), %xmm0
+	pshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
+	movdqa	%xmm0, (%r9)
 	movl	%eax, 60(%r11)
 	movl	%ebx, 44(%r11)
 	movl	%r14d, 28(%r11)
@@ -2817,10 +2821,12 @@ u0:                                     # @u0
 	movq	%rcx, -320(%rbp)        # 8-byte Spill
 	jmp	.LBB8_12
 .LBB8_14:
-	vxorps	%xmm0, %xmm0, %xmm0
+	xorps	%xmm0, %xmm0
 	movq	-312(%rbp), %rax        # 8-byte Reload
-	vmovups	%ymm0, 32(%rax)
-	vmovups	%ymm0, (%rax)
+	movups	%xmm0, 48(%rax)
+	movups	%xmm0, 32(%rax)
+	movups	%xmm0, 16(%rax)
+	movups	%xmm0, (%rax)
 .LBB8_15:                               # %_u0.exit
 	movq	-240(%rbp), %rax        # 8-byte Reload
 	movq	%rax, %rsp
@@ -2831,7 +2837,6 @@ u0:                                     # @u0
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end8:
 	.size	u0, .Lfunc_end8-u0
@@ -2960,14 +2965,15 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	addq	$-64, %rax
 	movq	%rax, %rsp
 	movq	%rax, %rsi
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%rsi)
-	vmovups	%ymm0, (%rsi)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%rsi)
+	movups	%xmm0, 32(%rsi)
+	movups	%xmm0, 16(%rsi)
+	movups	%xmm0, (%rsi)
 	movq	%rax, %rdi
 	movq	-16(%rbp), %rsi         # 8-byte Reload
 	movq	%rcx, -72(%rbp)         # 8-byte Spill
 	movq	%rax, -80(%rbp)         # 8-byte Spill
-	vzeroupper
 	callq	_salsa_keysetup
 	movq	-80(%rbp), %rdi         # 8-byte Reload
 	movq	-32(%rbp), %rsi         # 8-byte Reload
@@ -2981,12 +2987,13 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	callq	_salsa20_encrypt_bytes
 	xorl	%eax, %eax
 	movq	-80(%rbp), %rcx         # 8-byte Reload
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%rcx)
-	vmovups	%ymm0, (%rcx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%rcx)
+	movups	%xmm0, 32(%rcx)
+	movups	%xmm0, 16(%rcx)
+	movups	%xmm0, (%rcx)
 	movq	%rbp, %rsp
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end12:
 	.size	_crypto_stream_salsa20_xor_ic, .Lfunc_end12-_crypto_stream_salsa20_xor_ic
@@ -2997,18 +3004,14 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	.cfi_startproc
 # %bb.0:                                # %entry
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	andq	$-32, %rsp
-	subq	$128, %rsp
-	movq	16(%rbp), %rax
-	movl	$0, 108(%rsp)
-	movb	$1, 107(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 64(%rsp)
+	subq	$104, %rsp
+	.cfi_def_cfa_offset 112
+	movq	112(%rsp), %rax
+	movl	$0, 100(%rsp)
+	movb	$1, 99(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 80(%rsp)
+	movaps	%xmm0, 64(%rsp)
 	leaq	64(%rsp), %r10
 	movq	%rdi, 56(%rsp)          # 8-byte Spill
 	movq	%r10, %rdi
@@ -3019,7 +3022,6 @@ _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	movq	%rcx, 32(%rsp)          # 8-byte Spill
 	movq	%r9, 24(%rsp)           # 8-byte Spill
 	movq	%r8, 16(%rsp)           # 8-byte Spill
-	vzeroupper
 	callq	_crypto_core_hsalsa20
 	movq	16(%rsp), %rax          # 8-byte Reload
 	addq	$16, %rax
@@ -3033,11 +3035,10 @@ _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	movq	%rax, %r8
 	movq	24(%rsp), %r9           # 8-byte Reload
 	callq	_crypto_stream_salsa20_xor_ic
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 64(%rsp)
-	movq	%rbp, %rsp
-	popq	%rbp
-	vzeroupper
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 80(%rsp)
+	movaps	%xmm0, 64(%rsp)
+	addq	$104, %rsp
 	retq
 .Lfunc_end13:
 	.size	_crypto_stream_xsalsa20_xor_ic, .Lfunc_end13-_crypto_stream_xsalsa20_xor_ic
@@ -3199,13 +3200,14 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	addq	$-64, %rax
 	movq	%rax, %rsp
 	movq	%rax, %rcx
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%rcx)
-	vmovups	%ymm0, (%rcx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%rcx)
+	movups	%xmm0, 32(%rcx)
+	movups	%xmm0, 16(%rcx)
+	movups	%xmm0, (%rcx)
 	movq	%rax, %rdi
 	movq	-40(%rbp), %rsi         # 8-byte Reload
 	movq	%rax, -48(%rbp)         # 8-byte Spill
-	vzeroupper
 	callq	_salsa_keysetup
 	movq	-48(%rbp), %rdi         # 8-byte Reload
 	movq	-16(%rbp), %rsi         # 8-byte Reload
@@ -3213,7 +3215,7 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	xorl	%esi, %esi
 	movq	-32(%rbp), %rdi         # 8-byte Reload
 	movq	-24(%rbp), %rdx         # 8-byte Reload
-	callq	memset
+	callq	memset@PLT
 	movq	-48(%rbp), %rdi         # 8-byte Reload
 	movq	-32(%rbp), %rsi         # 8-byte Reload
 	movq	-24(%rbp), %rdx         # 8-byte Reload
@@ -3223,12 +3225,13 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	callq	_salsa20_encrypt_bytes
 	xorl	%eax, %eax
 	movq	-48(%rbp), %rcx         # 8-byte Reload
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%rcx)
-	vmovups	%ymm0, (%rcx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%rcx)
+	movups	%xmm0, 32(%rcx)
+	movups	%xmm0, 16(%rcx)
+	movups	%xmm0, (%rcx)
 	movq	%rbp, %rsp
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end18:
 	.size	_crypto_stream_salsa20, .Lfunc_end18-_crypto_stream_salsa20
@@ -3239,17 +3242,13 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	.cfi_startproc
 # %bb.0:                                # %entry
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	andq	$-32, %rsp
-	subq	$96, %rsp
-	movl	$0, 76(%rsp)
-	movb	$1, 75(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 32(%rsp)
+	subq	$72, %rsp
+	.cfi_def_cfa_offset 80
+	movl	$0, 68(%rsp)
+	movb	$1, 67(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 48(%rsp)
+	movaps	%xmm0, 32(%rsp)
 	leaq	32(%rsp), %rax
 	movq	%rdi, 24(%rsp)          # 8-byte Spill
 	movq	%rax, %rdi
@@ -3257,7 +3256,6 @@ _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	movq	%rdx, %rsi
 	movq	%rdx, 8(%rsp)           # 8-byte Spill
 	movq	%rcx, %rdx
-	vzeroupper
 	callq	_crypto_core_hsalsa20
 	movq	8(%rsp), %rax           # 8-byte Reload
 	addq	$16, %rax
@@ -3266,11 +3264,10 @@ _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	movq	16(%rsp), %rsi          # 8-byte Reload
 	movq	%rax, %rdx
 	callq	_crypto_stream_salsa20
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 32(%rsp)
-	movq	%rbp, %rsp
-	popq	%rbp
-	vzeroupper
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 48(%rsp)
+	movaps	%xmm0, 32(%rsp)
+	addq	$72, %rsp
 	retq
 .Lfunc_end19:
 	.size	_crypto_stream_xsalsa20, .Lfunc_end19-_crypto_stream_xsalsa20
@@ -3310,15 +3307,15 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	movq	%rsp, %rax
 	addq	$-32, %rax
 	movq	%rax, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, (%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 16(%rax)
+	movups	%xmm0, (%rax)
 	movl	$32, %ecx
 	movl	%ecx, %esi
 	movq	%rax, %rdi
 	movq	-16(%rbp), %rdx         # 8-byte Reload
 	movq	-56(%rbp), %rcx         # 8-byte Reload
 	movq	%rax, -64(%rbp)         # 8-byte Spill
-	vzeroupper
 	callq	_crypto_stream_xsalsa20
 	movq	-32(%rbp), %rcx         # 8-byte Reload
 	addq	$16, %rcx

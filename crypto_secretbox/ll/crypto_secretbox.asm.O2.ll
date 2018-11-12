@@ -958,7 +958,7 @@ _u1.exit:                                         ; preds = %112, %entry
 ._crit_edge12.i.lr.ph:                            ; preds = %.lr.ph.i1
   %387 = add i64 %__v322___v65_m_len, -1
   %388 = sub i64 %387, %235
-  %min.iters.check = icmp ult i64 %388, 128
+  %min.iters.check = icmp ult i64 %388, 32
   br i1 %min.iters.check, label %._crit_edge12.i.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %._crit_edge12.i.lr.ph
@@ -973,68 +973,112 @@ vector.memcheck:                                  ; preds = %._crit_edge12.i.lr.
   br i1 %memcheck.conflict, label %._crit_edge12.i.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %vector.memcheck
-  %n.vec = and i64 %388, -128
+  %n.vec = and i64 %388, -32
   %ind.end = or i64 %n.vec, 1
+  %390 = add i64 %n.vec, -32
+  %391 = lshr exact i64 %390, 5
+  %392 = add nuw nsw i64 %391, 1
+  %xtraiter46 = and i64 %392, 1
+  %393 = icmp eq i64 %390, 0
+  br i1 %393, label %middle.block.unr-lcssa, label %vector.ph.new
+
+vector.ph.new:                                    ; preds = %vector.ph
+  %unroll_iter = sub nsw i64 %392, %xtraiter46
   br label %vector.body
 
-vector.body:                                      ; preds = %vector.body, %vector.ph
-  %index = phi i64 [ 0, %vector.ph ], [ %index.next, %vector.body ]
+vector.body:                                      ; preds = %vector.body, %vector.ph.new
+  %index = phi i64 [ 0, %vector.ph.new ], [ %index.next.1, %vector.body ]
+  %niter = phi i64 [ %unroll_iter, %vector.ph.new ], [ %niter.nsub.1, %vector.body ]
   %offset.idx = or i64 %index, 1
-  %390 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %offset.idx
-  %391 = bitcast i8* %390 to <32 x i8>*
-  %wide.load = load <32 x i8>, <32 x i8>* %391, align 1, !alias.scope !0
-  %392 = getelementptr i8, i8* %390, i64 32
-  %393 = bitcast i8* %392 to <32 x i8>*
-  %wide.load38 = load <32 x i8>, <32 x i8>* %393, align 1, !alias.scope !0
-  %394 = getelementptr i8, i8* %390, i64 64
-  %395 = bitcast i8* %394 to <32 x i8>*
-  %wide.load39 = load <32 x i8>, <32 x i8>* %395, align 1, !alias.scope !0
-  %396 = getelementptr i8, i8* %390, i64 96
-  %397 = bitcast i8* %396 to <32 x i8>*
-  %wide.load40 = load <32 x i8>, <32 x i8>* %397, align 1, !alias.scope !0
+  %394 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %offset.idx
+  %395 = bitcast i8* %394 to <16 x i8>*
+  %wide.load = load <16 x i8>, <16 x i8>* %395, align 1, !alias.scope !0
+  %396 = getelementptr i8, i8* %394, i64 16
+  %397 = bitcast i8* %396 to <16 x i8>*
+  %wide.load36 = load <16 x i8>, <16 x i8>* %397, align 1, !alias.scope !0
   %398 = getelementptr i8, i8* %237, i64 %offset.idx
   %399 = getelementptr i8, i8* %236, i64 %offset.idx
-  %400 = bitcast i8* %399 to <32 x i8>*
-  %wide.load41 = load <32 x i8>, <32 x i8>* %400, align 1, !alias.scope !3
-  %401 = getelementptr i8, i8* %399, i64 32
-  %402 = bitcast i8* %401 to <32 x i8>*
-  %wide.load42 = load <32 x i8>, <32 x i8>* %402, align 1, !alias.scope !3
-  %403 = getelementptr i8, i8* %399, i64 64
-  %404 = bitcast i8* %403 to <32 x i8>*
-  %wide.load43 = load <32 x i8>, <32 x i8>* %404, align 1, !alias.scope !3
-  %405 = getelementptr i8, i8* %399, i64 96
-  %406 = bitcast i8* %405 to <32 x i8>*
-  %wide.load44 = load <32 x i8>, <32 x i8>* %406, align 1, !alias.scope !3
-  %407 = xor <32 x i8> %wide.load41, %wide.load
-  %408 = xor <32 x i8> %wide.load42, %wide.load38
-  %409 = xor <32 x i8> %wide.load43, %wide.load39
-  %410 = xor <32 x i8> %wide.load44, %wide.load40
-  %411 = bitcast i8* %398 to <32 x i8>*
-  store <32 x i8> %407, <32 x i8>* %411, align 1, !alias.scope !5, !noalias !3
-  %412 = getelementptr i8, i8* %398, i64 32
-  %413 = bitcast i8* %412 to <32 x i8>*
-  store <32 x i8> %408, <32 x i8>* %413, align 1, !alias.scope !5, !noalias !3
-  %414 = getelementptr i8, i8* %398, i64 64
-  %415 = bitcast i8* %414 to <32 x i8>*
-  store <32 x i8> %409, <32 x i8>* %415, align 1, !alias.scope !5, !noalias !3
-  %416 = getelementptr i8, i8* %398, i64 96
-  %417 = bitcast i8* %416 to <32 x i8>*
-  store <32 x i8> %410, <32 x i8>* %417, align 1, !alias.scope !5, !noalias !3
-  %index.next = add i64 %index, 128
-  %418 = icmp eq i64 %index.next, %n.vec
-  br i1 %418, label %middle.block, label %vector.body, !llvm.loop !7
+  %400 = bitcast i8* %399 to <16 x i8>*
+  %wide.load37 = load <16 x i8>, <16 x i8>* %400, align 1, !alias.scope !3
+  %401 = getelementptr i8, i8* %399, i64 16
+  %402 = bitcast i8* %401 to <16 x i8>*
+  %wide.load38 = load <16 x i8>, <16 x i8>* %402, align 1, !alias.scope !3
+  %403 = xor <16 x i8> %wide.load37, %wide.load
+  %404 = xor <16 x i8> %wide.load38, %wide.load36
+  %405 = bitcast i8* %398 to <16 x i8>*
+  store <16 x i8> %403, <16 x i8>* %405, align 1, !alias.scope !5, !noalias !3
+  %406 = getelementptr i8, i8* %398, i64 16
+  %407 = bitcast i8* %406 to <16 x i8>*
+  store <16 x i8> %404, <16 x i8>* %407, align 1, !alias.scope !5, !noalias !3
+  %offset.idx.1 = or i64 %index, 33
+  %408 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %offset.idx.1
+  %409 = bitcast i8* %408 to <16 x i8>*
+  %wide.load.1 = load <16 x i8>, <16 x i8>* %409, align 1, !alias.scope !0
+  %410 = getelementptr i8, i8* %408, i64 16
+  %411 = bitcast i8* %410 to <16 x i8>*
+  %wide.load36.1 = load <16 x i8>, <16 x i8>* %411, align 1, !alias.scope !0
+  %412 = getelementptr i8, i8* %237, i64 %offset.idx.1
+  %413 = getelementptr i8, i8* %236, i64 %offset.idx.1
+  %414 = bitcast i8* %413 to <16 x i8>*
+  %wide.load37.1 = load <16 x i8>, <16 x i8>* %414, align 1, !alias.scope !3
+  %415 = getelementptr i8, i8* %413, i64 16
+  %416 = bitcast i8* %415 to <16 x i8>*
+  %wide.load38.1 = load <16 x i8>, <16 x i8>* %416, align 1, !alias.scope !3
+  %417 = xor <16 x i8> %wide.load37.1, %wide.load.1
+  %418 = xor <16 x i8> %wide.load38.1, %wide.load36.1
+  %419 = bitcast i8* %412 to <16 x i8>*
+  store <16 x i8> %417, <16 x i8>* %419, align 1, !alias.scope !5, !noalias !3
+  %420 = getelementptr i8, i8* %412, i64 16
+  %421 = bitcast i8* %420 to <16 x i8>*
+  store <16 x i8> %418, <16 x i8>* %421, align 1, !alias.scope !5, !noalias !3
+  %index.next.1 = add i64 %index, 64
+  %niter.nsub.1 = add i64 %niter, -2
+  %niter.ncmp.1 = icmp eq i64 %niter.nsub.1, 0
+  br i1 %niter.ncmp.1, label %middle.block.unr-lcssa.loopexit, label %vector.body, !llvm.loop !7
 
-middle.block:                                     ; preds = %vector.body
+middle.block.unr-lcssa.loopexit:                  ; preds = %vector.body
+  %phitmp = or i64 %index.next.1, 1
+  br label %middle.block.unr-lcssa
+
+middle.block.unr-lcssa:                           ; preds = %middle.block.unr-lcssa.loopexit, %vector.ph
+  %index.unr = phi i64 [ 1, %vector.ph ], [ %phitmp, %middle.block.unr-lcssa.loopexit ]
+  %lcmp.mod47 = icmp eq i64 %xtraiter46, 0
+  br i1 %lcmp.mod47, label %middle.block, label %vector.body.epil
+
+vector.body.epil:                                 ; preds = %middle.block.unr-lcssa
+  %422 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %index.unr
+  %423 = bitcast i8* %422 to <16 x i8>*
+  %wide.load.epil = load <16 x i8>, <16 x i8>* %423, align 1, !alias.scope !0
+  %424 = getelementptr i8, i8* %422, i64 16
+  %425 = bitcast i8* %424 to <16 x i8>*
+  %wide.load36.epil = load <16 x i8>, <16 x i8>* %425, align 1, !alias.scope !0
+  %426 = getelementptr i8, i8* %237, i64 %index.unr
+  %427 = getelementptr i8, i8* %236, i64 %index.unr
+  %428 = bitcast i8* %427 to <16 x i8>*
+  %wide.load37.epil = load <16 x i8>, <16 x i8>* %428, align 1, !alias.scope !3
+  %429 = getelementptr i8, i8* %427, i64 16
+  %430 = bitcast i8* %429 to <16 x i8>*
+  %wide.load38.epil = load <16 x i8>, <16 x i8>* %430, align 1, !alias.scope !3
+  %431 = xor <16 x i8> %wide.load37.epil, %wide.load.epil
+  %432 = xor <16 x i8> %wide.load38.epil, %wide.load36.epil
+  %433 = bitcast i8* %426 to <16 x i8>*
+  store <16 x i8> %431, <16 x i8>* %433, align 1, !alias.scope !5, !noalias !3
+  %434 = getelementptr i8, i8* %426, i64 16
+  %435 = bitcast i8* %434 to <16 x i8>*
+  store <16 x i8> %432, <16 x i8>* %435, align 1, !alias.scope !5, !noalias !3
+  br label %middle.block
+
+middle.block:                                     ; preds = %middle.block.unr-lcssa, %vector.body.epil
   %cmp.n = icmp eq i64 %388, %n.vec
   br i1 %cmp.n, label %._crit_edge.i, label %._crit_edge12.i.preheader
 
 ._crit_edge12.i.preheader:                        ; preds = %middle.block, %vector.memcheck, %._crit_edge12.i.lr.ph
   %.ph = phi i64 [ 1, %vector.memcheck ], [ 1, %._crit_edge12.i.lr.ph ], [ %ind.end, %middle.block ]
-  %419 = sub i64 %__v322___v65_m_len, %.ph
-  %420 = add i64 %__v322___v65_m_len, -1
-  %421 = sub i64 %420, %.ph
-  %422 = sub i64 %421, %235
-  %xtraiter = and i64 %419, 3
+  %436 = sub i64 %__v322___v65_m_len, %.ph
+  %437 = add i64 %__v322___v65_m_len, -1
+  %438 = sub i64 %437, %.ph
+  %439 = sub i64 %438, %235
+  %xtraiter = and i64 %436, 3
   %lcmp.mod = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod, label %._crit_edge12.i.prol.loopexit, label %._crit_edge12.i.prol.preheader
 
@@ -1042,63 +1086,63 @@ middle.block:                                     ; preds = %vector.body
   br label %._crit_edge12.i.prol
 
 ._crit_edge12.i.prol:                             ; preds = %._crit_edge12.i.prol, %._crit_edge12.i.prol.preheader
-  %423 = phi i64 [ %428, %._crit_edge12.i.prol ], [ %.ph, %._crit_edge12.i.prol.preheader ]
+  %440 = phi i64 [ %445, %._crit_edge12.i.prol ], [ %.ph, %._crit_edge12.i.prol.preheader ]
   %prol.iter = phi i64 [ %prol.iter.sub, %._crit_edge12.i.prol ], [ %xtraiter, %._crit_edge12.i.prol.preheader ]
-  %.phi.trans.insert.i.prol = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %423
+  %.phi.trans.insert.i.prol = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %440
   %.pre.i.prol = load i8, i8* %.phi.trans.insert.i.prol, align 1
-  %424 = getelementptr i8, i8* %237, i64 %423
-  %425 = getelementptr i8, i8* %236, i64 %423
-  %426 = load i8, i8* %425, align 1
-  %427 = xor i8 %426, %.pre.i.prol
-  store i8 %427, i8* %424, align 1
-  %428 = add nuw i64 %423, 1
+  %441 = getelementptr i8, i8* %237, i64 %440
+  %442 = getelementptr i8, i8* %236, i64 %440
+  %443 = load i8, i8* %442, align 1
+  %444 = xor i8 %443, %.pre.i.prol
+  store i8 %444, i8* %441, align 1
+  %445 = add nuw i64 %440, 1
   %prol.iter.sub = add i64 %prol.iter, -1
   %prol.iter.cmp = icmp eq i64 %prol.iter.sub, 0
   br i1 %prol.iter.cmp, label %._crit_edge12.i.prol.loopexit, label %._crit_edge12.i.prol, !llvm.loop !9
 
 ._crit_edge12.i.prol.loopexit:                    ; preds = %._crit_edge12.i.prol, %._crit_edge12.i.preheader
-  %.unr = phi i64 [ %.ph, %._crit_edge12.i.preheader ], [ %428, %._crit_edge12.i.prol ]
-  %429 = icmp ult i64 %422, 3
-  br i1 %429, label %._crit_edge.i, label %._crit_edge12.i.preheader.new
+  %.unr = phi i64 [ %.ph, %._crit_edge12.i.preheader ], [ %445, %._crit_edge12.i.prol ]
+  %446 = icmp ult i64 %439, 3
+  br i1 %446, label %._crit_edge.i, label %._crit_edge12.i.preheader.new
 
 ._crit_edge12.i.preheader.new:                    ; preds = %._crit_edge12.i.prol.loopexit
   br label %._crit_edge12.i
 
 ._crit_edge12.i:                                  ; preds = %._crit_edge12.i, %._crit_edge12.i.preheader.new
-  %430 = phi i64 [ %.unr, %._crit_edge12.i.preheader.new ], [ %450, %._crit_edge12.i ]
-  %.phi.trans.insert.i = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %430
+  %447 = phi i64 [ %.unr, %._crit_edge12.i.preheader.new ], [ %467, %._crit_edge12.i ]
+  %.phi.trans.insert.i = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %447
   %.pre.i = load i8, i8* %.phi.trans.insert.i, align 1
-  %431 = getelementptr i8, i8* %237, i64 %430
-  %432 = getelementptr i8, i8* %236, i64 %430
-  %433 = load i8, i8* %432, align 1
-  %434 = xor i8 %433, %.pre.i
-  store i8 %434, i8* %431, align 1
-  %435 = add nuw i64 %430, 1
-  %.phi.trans.insert.i.1 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %435
+  %448 = getelementptr i8, i8* %237, i64 %447
+  %449 = getelementptr i8, i8* %236, i64 %447
+  %450 = load i8, i8* %449, align 1
+  %451 = xor i8 %450, %.pre.i
+  store i8 %451, i8* %448, align 1
+  %452 = add nuw i64 %447, 1
+  %.phi.trans.insert.i.1 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %452
   %.pre.i.1 = load i8, i8* %.phi.trans.insert.i.1, align 1
-  %436 = getelementptr i8, i8* %237, i64 %435
-  %437 = getelementptr i8, i8* %236, i64 %435
-  %438 = load i8, i8* %437, align 1
-  %439 = xor i8 %438, %.pre.i.1
-  store i8 %439, i8* %436, align 1
-  %440 = add i64 %430, 2
-  %.phi.trans.insert.i.2 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %440
+  %453 = getelementptr i8, i8* %237, i64 %452
+  %454 = getelementptr i8, i8* %236, i64 %452
+  %455 = load i8, i8* %454, align 1
+  %456 = xor i8 %455, %.pre.i.1
+  store i8 %456, i8* %453, align 1
+  %457 = add i64 %447, 2
+  %.phi.trans.insert.i.2 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %457
   %.pre.i.2 = load i8, i8* %.phi.trans.insert.i.2, align 1
-  %441 = getelementptr i8, i8* %237, i64 %440
-  %442 = getelementptr i8, i8* %236, i64 %440
-  %443 = load i8, i8* %442, align 1
-  %444 = xor i8 %443, %.pre.i.2
-  store i8 %444, i8* %441, align 1
-  %445 = add i64 %430, 3
-  %.phi.trans.insert.i.3 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %445
+  %458 = getelementptr i8, i8* %237, i64 %457
+  %459 = getelementptr i8, i8* %236, i64 %457
+  %460 = load i8, i8* %459, align 1
+  %461 = xor i8 %460, %.pre.i.2
+  store i8 %461, i8* %458, align 1
+  %462 = add i64 %447, 3
+  %.phi.trans.insert.i.3 = getelementptr [64 x i8], [64 x i8]* %__v157_partialblock1.i, i64 0, i64 %462
   %.pre.i.3 = load i8, i8* %.phi.trans.insert.i.3, align 1
-  %446 = getelementptr i8, i8* %237, i64 %445
-  %447 = getelementptr i8, i8* %236, i64 %445
-  %448 = load i8, i8* %447, align 1
-  %449 = xor i8 %448, %.pre.i.3
-  store i8 %449, i8* %446, align 1
-  %450 = add i64 %430, 4
-  %exitcond.i2.3 = icmp eq i64 %450, %__v336_lexpr
+  %463 = getelementptr i8, i8* %237, i64 %462
+  %464 = getelementptr i8, i8* %236, i64 %462
+  %465 = load i8, i8* %464, align 1
+  %466 = xor i8 %465, %.pre.i.3
+  store i8 %466, i8* %463, align 1
+  %467 = add i64 %447, 4
+  %exitcond.i2.3 = icmp eq i64 %467, %__v336_lexpr
   br i1 %exitcond.i2.3, label %._crit_edge.i, label %._crit_edge12.i, !llvm.loop !11
 
 ._crit_edge.i:                                    ; preds = %._crit_edge12.i.prol.loopexit, %._crit_edge12.i, %middle.block, %.lr.ph.i1

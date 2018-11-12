@@ -31,14 +31,14 @@ entry:
   %10 = add i64 %__v85___v29_T_p_len, -1
   %11 = sub i64 %10, %__v30_n
   %exitcond7.i62 = icmp eq i64 %__v31_m, 1
-  %xtraiter90 = and i64 %__v30_n, 1
+  %xtraiter86 = and i64 %__v30_n, 1
   %12 = icmp eq i64 %__v30_n, 1
-  %xtraiter85 = and i64 %8, 1
+  %xtraiter81 = and i64 %8, 1
   %13 = icmp eq i64 %7, 2
-  %unroll_iter92 = sub i64 %__v30_n, %xtraiter90
-  %lcmp.mod91 = icmp eq i64 %xtraiter90, 0
-  %unroll_iter88 = sub i64 %8, %xtraiter85
-  %lcmp.mod87 = icmp eq i64 %xtraiter85, 0
+  %unroll_iter88 = sub i64 %__v30_n, %xtraiter86
+  %lcmp.mod87 = icmp eq i64 %xtraiter86, 0
+  %unroll_iter84 = sub i64 %8, %xtraiter81
+  %lcmp.mod83 = icmp eq i64 %xtraiter81, 0
   br label %14
 
 ; <label>:14:                                     ; preds = %_mpi_mul_hlp.exit14, %.lr.ph27
@@ -79,7 +79,7 @@ entry:
 ._crit_edge44:                                    ; preds = %._crit_edge44, %._crit_edge44.preheader.new
   %32 = phi i64 [ 1, %._crit_edge44.preheader.new ], [ %61, %._crit_edge44 ]
   %33 = phi i64 [ %31, %._crit_edge44.preheader.new ], [ %60, %._crit_edge44 ]
-  %niter89 = phi i64 [ %unroll_iter88, %._crit_edge44.preheader.new ], [ %niter89.nsub.1, %._crit_edge44 ]
+  %niter85 = phi i64 [ %unroll_iter84, %._crit_edge44.preheader.new ], [ %niter85.nsub.1, %._crit_edge44 ]
   %.phi.trans.insert = getelementptr i64, i64* %__v26_B_p, i64 %32
   %.pre = load i64, i64* %.phi.trans.insert, align 8
   %.phi.trans.insert45 = getelementptr i64, i64* %18, i64 %32
@@ -120,15 +120,15 @@ entry:
   %60 = add i64 %55, %59
   store i64 %57, i64* %56, align 8
   %61 = add i64 %32, 2
-  %niter89.nsub.1 = add i64 %niter89, -2
-  %niter89.ncmp.1 = icmp eq i64 %niter89.nsub.1, 0
-  br i1 %niter89.ncmp.1, label %._crit_edge6.i.loopexit.unr-lcssa, label %._crit_edge44
+  %niter85.nsub.1 = add i64 %niter85, -2
+  %niter85.ncmp.1 = icmp eq i64 %niter85.nsub.1, 0
+  br i1 %niter85.ncmp.1, label %._crit_edge6.i.loopexit.unr-lcssa, label %._crit_edge44
 
 ._crit_edge6.i.loopexit.unr-lcssa:                ; preds = %._crit_edge44, %._crit_edge44.preheader
-  %.lcssa79.ph = phi i64 [ undef, %._crit_edge44.preheader ], [ %60, %._crit_edge44 ]
+  %.lcssa75.ph = phi i64 [ undef, %._crit_edge44.preheader ], [ %60, %._crit_edge44 ]
   %.unr = phi i64 [ 1, %._crit_edge44.preheader ], [ %61, %._crit_edge44 ]
-  %.unr86 = phi i64 [ %31, %._crit_edge44.preheader ], [ %60, %._crit_edge44 ]
-  br i1 %lcmp.mod87, label %._crit_edge6.i, label %._crit_edge44.epil
+  %.unr82 = phi i64 [ %31, %._crit_edge44.preheader ], [ %60, %._crit_edge44 ]
+  br i1 %lcmp.mod83, label %._crit_edge6.i, label %._crit_edge44.epil
 
 ._crit_edge44.epil:                               ; preds = %._crit_edge6.i.loopexit.unr-lcssa
   %.phi.trans.insert.epil = getelementptr i64, i64* %__v26_B_p, i64 %.unr
@@ -138,11 +138,11 @@ entry:
   %62 = zext i64 %.pre.epil to i128
   %__v43_r.i.epil = mul nuw i128 %62, %23
   %63 = trunc i128 %__v43_r.i.epil to i64
-  %64 = add i64 %.unr86, %63
+  %64 = add i64 %.unr82, %63
   %65 = getelementptr i64, i64* %18, i64 %.unr
   %66 = add i64 %64, %.pre46.epil
   store i64 %66, i64* %65, align 8
-  %67 = icmp ult i64 %64, %.unr86
+  %67 = icmp ult i64 %64, %.unr82
   %68 = zext i1 %67 to i64
   %69 = lshr i128 %__v43_r.i.epil, 64
   %70 = trunc i128 %69 to i64
@@ -153,7 +153,7 @@ entry:
   br label %._crit_edge6.i
 
 ._crit_edge6.i:                                   ; preds = %._crit_edge44.epil, %._crit_edge6.i.loopexit.unr-lcssa, %.lr.ph5.i, %14
-  %__v41_c.0.lcssa.i = phi i64 [ 0, %14 ], [ %31, %.lr.ph5.i ], [ %.lcssa79.ph, %._crit_edge6.i.loopexit.unr-lcssa ], [ %74, %._crit_edge44.epil ]
+  %__v41_c.0.lcssa.i = phi i64 [ 0, %14 ], [ %31, %.lr.ph5.i ], [ %.lcssa75.ph, %._crit_edge6.i.loopexit.unr-lcssa ], [ %74, %._crit_edge44.epil ]
   %75 = icmp ult i64 %__v31_m, %__v126_lexpr
   br i1 %75, label %.lr.ph.i.preheader, label %.lr.ph5.i3
 
@@ -183,7 +183,7 @@ entry:
 ; <label>:83:                                     ; preds = %83, %.lr.ph5.i3.new
   %__v42_i4.i4 = phi i64 [ 0, %.lr.ph5.i3.new ], [ %117, %83 ]
   %__v41_c.03.i5 = phi i64 [ 0, %.lr.ph5.i3.new ], [ %116, %83 ]
-  %niter93 = phi i64 [ %unroll_iter92, %.lr.ph5.i3.new ], [ %niter93.nsub.1, %83 ]
+  %niter89 = phi i64 [ %unroll_iter88, %.lr.ph5.i3.new ], [ %niter89.nsub.1, %83 ]
   %84 = getelementptr i64, i64* %__v27_N_p, i64 %__v42_i4.i4
   %85 = load i64, i64* %84, align 8
   %86 = zext i64 %85 to i128
@@ -222,15 +222,15 @@ entry:
   %116 = add i64 %110, %115
   store i64 %113, i64* %111, align 8
   %117 = add i64 %__v42_i4.i4, 2
-  %niter93.nsub.1 = add i64 %niter93, -2
-  %niter93.ncmp.1 = icmp eq i64 %niter93.nsub.1, 0
-  br i1 %niter93.ncmp.1, label %._crit_edge6.i9.unr-lcssa, label %83
+  %niter89.nsub.1 = add i64 %niter89, -2
+  %niter89.ncmp.1 = icmp eq i64 %niter89.nsub.1, 0
+  br i1 %niter89.ncmp.1, label %._crit_edge6.i9.unr-lcssa, label %83
 
 ._crit_edge6.i9.unr-lcssa:                        ; preds = %83, %.lr.ph5.i3
-  %.lcssa80.ph = phi i64 [ undef, %.lr.ph5.i3 ], [ %116, %83 ]
+  %.lcssa76.ph = phi i64 [ undef, %.lr.ph5.i3 ], [ %116, %83 ]
   %__v42_i4.i4.unr = phi i64 [ 0, %.lr.ph5.i3 ], [ %117, %83 ]
   %__v41_c.03.i5.unr = phi i64 [ 0, %.lr.ph5.i3 ], [ %116, %83 ]
-  br i1 %lcmp.mod91, label %._crit_edge6.i9, label %.epil.preheader
+  br i1 %lcmp.mod87, label %._crit_edge6.i9, label %.epil.preheader
 
 .epil.preheader:                                  ; preds = %._crit_edge6.i9.unr-lcssa
   %118 = getelementptr i64, i64* %__v27_N_p, i64 %__v42_i4.i4.unr
@@ -254,22 +254,22 @@ entry:
   br label %._crit_edge6.i9
 
 ._crit_edge6.i9:                                  ; preds = %._crit_edge6.i9.unr-lcssa, %.epil.preheader
-  %.lcssa80 = phi i64 [ %.lcssa80.ph, %._crit_edge6.i9.unr-lcssa ], [ %133, %.epil.preheader ]
+  %.lcssa76 = phi i64 [ %.lcssa76.ph, %._crit_edge6.i9.unr-lcssa ], [ %133, %.epil.preheader ]
   %134 = icmp ugt i64 %__v126_lexpr, %__v30_n
   br i1 %134, label %.lr.ph.i10.preheader, label %_mpi_mul_hlp.exit14
 
 .lr.ph.i10.preheader:                             ; preds = %._crit_edge6.i9
-  %xtraiter94 = and i64 %15, 3
-  %lcmp.mod95 = icmp eq i64 %xtraiter94, 0
-  br i1 %lcmp.mod95, label %.lr.ph.i10.prol.loopexit, label %.lr.ph.i10.prol.preheader
+  %xtraiter90 = and i64 %15, 3
+  %lcmp.mod91 = icmp eq i64 %xtraiter90, 0
+  br i1 %lcmp.mod91, label %.lr.ph.i10.prol.loopexit, label %.lr.ph.i10.prol.preheader
 
 .lr.ph.i10.prol.preheader:                        ; preds = %.lr.ph.i10.preheader
   br label %.lr.ph.i10.prol
 
 .lr.ph.i10.prol:                                  ; preds = %.lr.ph.i10.prol, %.lr.ph.i10.prol.preheader
   %__v46_i2.i11.prol = phi i64 [ %140, %.lr.ph.i10.prol ], [ %__v30_n, %.lr.ph.i10.prol.preheader ]
-  %__v41_c.11.i12.prol = phi i64 [ %139, %.lr.ph.i10.prol ], [ %.lcssa80, %.lr.ph.i10.prol.preheader ]
-  %prol.iter96 = phi i64 [ %prol.iter96.sub, %.lr.ph.i10.prol ], [ %xtraiter94, %.lr.ph.i10.prol.preheader ]
+  %__v41_c.11.i12.prol = phi i64 [ %139, %.lr.ph.i10.prol ], [ %.lcssa76, %.lr.ph.i10.prol.preheader ]
+  %prol.iter92 = phi i64 [ %prol.iter92.sub, %.lr.ph.i10.prol ], [ %xtraiter90, %.lr.ph.i10.prol.preheader ]
   %135 = getelementptr i64, i64* %18, i64 %__v46_i2.i11.prol
   %136 = load i64, i64* %135, align 8
   %137 = add i64 %136, %__v41_c.11.i12.prol
@@ -277,9 +277,9 @@ entry:
   %138 = icmp ult i64 %137, %__v41_c.11.i12.prol
   %139 = zext i1 %138 to i64
   %140 = add nuw i64 %__v46_i2.i11.prol, 1
-  %prol.iter96.sub = add i64 %prol.iter96, -1
-  %prol.iter96.cmp = icmp eq i64 %prol.iter96.sub, 0
-  br i1 %prol.iter96.cmp, label %.lr.ph.i10.prol.loopexit.unr-lcssa, label %.lr.ph.i10.prol, !llvm.loop !0
+  %prol.iter92.sub = add i64 %prol.iter92, -1
+  %prol.iter92.cmp = icmp eq i64 %prol.iter92.sub, 0
+  br i1 %prol.iter92.cmp, label %.lr.ph.i10.prol.loopexit.unr-lcssa, label %.lr.ph.i10.prol, !llvm.loop !0
 
 .lr.ph.i10.prol.loopexit.unr-lcssa:               ; preds = %.lr.ph.i10.prol
   %141 = zext i1 %138 to i64
@@ -287,7 +287,7 @@ entry:
 
 .lr.ph.i10.prol.loopexit:                         ; preds = %.lr.ph.i10.preheader, %.lr.ph.i10.prol.loopexit.unr-lcssa
   %__v46_i2.i11.unr = phi i64 [ %__v30_n, %.lr.ph.i10.preheader ], [ %140, %.lr.ph.i10.prol.loopexit.unr-lcssa ]
-  %__v41_c.11.i12.unr = phi i64 [ %.lcssa80, %.lr.ph.i10.preheader ], [ %141, %.lr.ph.i10.prol.loopexit.unr-lcssa ]
+  %__v41_c.11.i12.unr = phi i64 [ %.lcssa76, %.lr.ph.i10.preheader ], [ %141, %.lr.ph.i10.prol.loopexit.unr-lcssa ]
   %142 = icmp ult i64 %16, 3
   br i1 %142, label %_mpi_mul_hlp.exit14, label %.lr.ph.i10.preheader.new
 
@@ -343,7 +343,7 @@ _mpi_mul_hlp.exit14:                              ; preds = %.lr.ph.i10.prol.loo
 
 .lr.ph:                                           ; preds = %._crit_edge31, %._crit_edge28
   %.pre-phi48 = phi i64 [ %5, %._crit_edge28 ], [ 1, %._crit_edge31 ]
-  %min.iters.check = icmp ult i64 %.pre-phi48, 16
+  %min.iters.check = icmp ult i64 %.pre-phi48, 4
   br i1 %min.iters.check, label %scalar.ph.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %.lr.ph
@@ -357,388 +357,388 @@ vector.memcheck:                                  ; preds = %.lr.ph
   br i1 %memcheck.conflict, label %scalar.ph.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %vector.memcheck
-  %n.vec = and i64 %.pre-phi48, -16
-  %171 = add i64 %n.vec, -16
-  %172 = lshr exact i64 %171, 4
+  %n.vec = and i64 %.pre-phi48, -4
+  %171 = add i64 %n.vec, -4
+  %172 = lshr exact i64 %171, 2
   %173 = add nuw nsw i64 %172, 1
-  %xtraiter83 = and i64 %173, 1
-  %174 = icmp eq i64 %171, 0
+  %xtraiter79 = and i64 %173, 3
+  %174 = icmp ult i64 %171, 12
   br i1 %174, label %middle.block.unr-lcssa, label %vector.ph.new
 
 vector.ph.new:                                    ; preds = %vector.ph
-  %unroll_iter = sub nsw i64 %173, %xtraiter83
+  %unroll_iter = sub nsw i64 %173, %xtraiter79
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph.new
-  %index = phi i64 [ 0, %vector.ph.new ], [ %index.next.1, %vector.body ]
-  %niter = phi i64 [ %unroll_iter, %vector.ph.new ], [ %niter.nsub.1, %vector.body ]
+  %index = phi i64 [ 0, %vector.ph.new ], [ %index.next.3, %vector.body ]
+  %niter = phi i64 [ %unroll_iter, %vector.ph.new ], [ %niter.nsub.3, %vector.body ]
   %175 = add i64 %index, %__v30_n
   %176 = getelementptr i64, i64* %__v25_A_p, i64 %index
   %177 = getelementptr i64, i64* %__v29_T_p, i64 %175
-  %178 = bitcast i64* %177 to <4 x i64>*
-  %wide.load = load <4 x i64>, <4 x i64>* %178, align 8, !alias.scope !2
-  %179 = getelementptr i64, i64* %177, i64 4
-  %180 = bitcast i64* %179 to <4 x i64>*
-  %wide.load72 = load <4 x i64>, <4 x i64>* %180, align 8, !alias.scope !2
-  %181 = getelementptr i64, i64* %177, i64 8
-  %182 = bitcast i64* %181 to <4 x i64>*
-  %wide.load73 = load <4 x i64>, <4 x i64>* %182, align 8, !alias.scope !2
-  %183 = getelementptr i64, i64* %177, i64 12
-  %184 = bitcast i64* %183 to <4 x i64>*
-  %wide.load74 = load <4 x i64>, <4 x i64>* %184, align 8, !alias.scope !2
-  %185 = bitcast i64* %176 to <4 x i64>*
-  store <4 x i64> %wide.load, <4 x i64>* %185, align 8, !alias.scope !5, !noalias !2
-  %186 = getelementptr i64, i64* %176, i64 4
-  %187 = bitcast i64* %186 to <4 x i64>*
-  store <4 x i64> %wide.load72, <4 x i64>* %187, align 8, !alias.scope !5, !noalias !2
-  %188 = getelementptr i64, i64* %176, i64 8
-  %189 = bitcast i64* %188 to <4 x i64>*
-  store <4 x i64> %wide.load73, <4 x i64>* %189, align 8, !alias.scope !5, !noalias !2
-  %190 = getelementptr i64, i64* %176, i64 12
-  %191 = bitcast i64* %190 to <4 x i64>*
-  store <4 x i64> %wide.load74, <4 x i64>* %191, align 8, !alias.scope !5, !noalias !2
-  %index.next = or i64 %index, 16
-  %192 = add i64 %index.next, %__v30_n
-  %193 = getelementptr i64, i64* %__v25_A_p, i64 %index.next
-  %194 = getelementptr i64, i64* %__v29_T_p, i64 %192
-  %195 = bitcast i64* %194 to <4 x i64>*
-  %wide.load.1 = load <4 x i64>, <4 x i64>* %195, align 8, !alias.scope !2
-  %196 = getelementptr i64, i64* %194, i64 4
-  %197 = bitcast i64* %196 to <4 x i64>*
-  %wide.load72.1 = load <4 x i64>, <4 x i64>* %197, align 8, !alias.scope !2
-  %198 = getelementptr i64, i64* %194, i64 8
-  %199 = bitcast i64* %198 to <4 x i64>*
-  %wide.load73.1 = load <4 x i64>, <4 x i64>* %199, align 8, !alias.scope !2
-  %200 = getelementptr i64, i64* %194, i64 12
-  %201 = bitcast i64* %200 to <4 x i64>*
-  %wide.load74.1 = load <4 x i64>, <4 x i64>* %201, align 8, !alias.scope !2
-  %202 = bitcast i64* %193 to <4 x i64>*
-  store <4 x i64> %wide.load.1, <4 x i64>* %202, align 8, !alias.scope !5, !noalias !2
-  %203 = getelementptr i64, i64* %193, i64 4
-  %204 = bitcast i64* %203 to <4 x i64>*
-  store <4 x i64> %wide.load72.1, <4 x i64>* %204, align 8, !alias.scope !5, !noalias !2
-  %205 = getelementptr i64, i64* %193, i64 8
-  %206 = bitcast i64* %205 to <4 x i64>*
-  store <4 x i64> %wide.load73.1, <4 x i64>* %206, align 8, !alias.scope !5, !noalias !2
-  %207 = getelementptr i64, i64* %193, i64 12
-  %208 = bitcast i64* %207 to <4 x i64>*
-  store <4 x i64> %wide.load74.1, <4 x i64>* %208, align 8, !alias.scope !5, !noalias !2
-  %index.next.1 = add i64 %index, 32
-  %niter.nsub.1 = add i64 %niter, -2
-  %niter.ncmp.1 = icmp eq i64 %niter.nsub.1, 0
-  br i1 %niter.ncmp.1, label %middle.block.unr-lcssa, label %vector.body, !llvm.loop !7
+  %178 = bitcast i64* %177 to <2 x i64>*
+  %wide.load = load <2 x i64>, <2 x i64>* %178, align 8, !alias.scope !2
+  %179 = getelementptr i64, i64* %177, i64 2
+  %180 = bitcast i64* %179 to <2 x i64>*
+  %wide.load70 = load <2 x i64>, <2 x i64>* %180, align 8, !alias.scope !2
+  %181 = bitcast i64* %176 to <2 x i64>*
+  store <2 x i64> %wide.load, <2 x i64>* %181, align 8, !alias.scope !5, !noalias !2
+  %182 = getelementptr i64, i64* %176, i64 2
+  %183 = bitcast i64* %182 to <2 x i64>*
+  store <2 x i64> %wide.load70, <2 x i64>* %183, align 8, !alias.scope !5, !noalias !2
+  %index.next = or i64 %index, 4
+  %184 = add i64 %index.next, %__v30_n
+  %185 = getelementptr i64, i64* %__v25_A_p, i64 %index.next
+  %186 = getelementptr i64, i64* %__v29_T_p, i64 %184
+  %187 = bitcast i64* %186 to <2 x i64>*
+  %wide.load.1 = load <2 x i64>, <2 x i64>* %187, align 8, !alias.scope !2
+  %188 = getelementptr i64, i64* %186, i64 2
+  %189 = bitcast i64* %188 to <2 x i64>*
+  %wide.load70.1 = load <2 x i64>, <2 x i64>* %189, align 8, !alias.scope !2
+  %190 = bitcast i64* %185 to <2 x i64>*
+  store <2 x i64> %wide.load.1, <2 x i64>* %190, align 8, !alias.scope !5, !noalias !2
+  %191 = getelementptr i64, i64* %185, i64 2
+  %192 = bitcast i64* %191 to <2 x i64>*
+  store <2 x i64> %wide.load70.1, <2 x i64>* %192, align 8, !alias.scope !5, !noalias !2
+  %index.next.1 = or i64 %index, 8
+  %193 = add i64 %index.next.1, %__v30_n
+  %194 = getelementptr i64, i64* %__v25_A_p, i64 %index.next.1
+  %195 = getelementptr i64, i64* %__v29_T_p, i64 %193
+  %196 = bitcast i64* %195 to <2 x i64>*
+  %wide.load.2 = load <2 x i64>, <2 x i64>* %196, align 8, !alias.scope !2
+  %197 = getelementptr i64, i64* %195, i64 2
+  %198 = bitcast i64* %197 to <2 x i64>*
+  %wide.load70.2 = load <2 x i64>, <2 x i64>* %198, align 8, !alias.scope !2
+  %199 = bitcast i64* %194 to <2 x i64>*
+  store <2 x i64> %wide.load.2, <2 x i64>* %199, align 8, !alias.scope !5, !noalias !2
+  %200 = getelementptr i64, i64* %194, i64 2
+  %201 = bitcast i64* %200 to <2 x i64>*
+  store <2 x i64> %wide.load70.2, <2 x i64>* %201, align 8, !alias.scope !5, !noalias !2
+  %index.next.2 = or i64 %index, 12
+  %202 = add i64 %index.next.2, %__v30_n
+  %203 = getelementptr i64, i64* %__v25_A_p, i64 %index.next.2
+  %204 = getelementptr i64, i64* %__v29_T_p, i64 %202
+  %205 = bitcast i64* %204 to <2 x i64>*
+  %wide.load.3 = load <2 x i64>, <2 x i64>* %205, align 8, !alias.scope !2
+  %206 = getelementptr i64, i64* %204, i64 2
+  %207 = bitcast i64* %206 to <2 x i64>*
+  %wide.load70.3 = load <2 x i64>, <2 x i64>* %207, align 8, !alias.scope !2
+  %208 = bitcast i64* %203 to <2 x i64>*
+  store <2 x i64> %wide.load.3, <2 x i64>* %208, align 8, !alias.scope !5, !noalias !2
+  %209 = getelementptr i64, i64* %203, i64 2
+  %210 = bitcast i64* %209 to <2 x i64>*
+  store <2 x i64> %wide.load70.3, <2 x i64>* %210, align 8, !alias.scope !5, !noalias !2
+  %index.next.3 = add i64 %index, 16
+  %niter.nsub.3 = add i64 %niter, -4
+  %niter.ncmp.3 = icmp eq i64 %niter.nsub.3, 0
+  br i1 %niter.ncmp.3, label %middle.block.unr-lcssa, label %vector.body, !llvm.loop !7
 
 middle.block.unr-lcssa:                           ; preds = %vector.body, %vector.ph
-  %index.unr = phi i64 [ 0, %vector.ph ], [ %index.next.1, %vector.body ]
-  %lcmp.mod84 = icmp eq i64 %xtraiter83, 0
-  br i1 %lcmp.mod84, label %middle.block, label %vector.body.epil
+  %index.unr = phi i64 [ 0, %vector.ph ], [ %index.next.3, %vector.body ]
+  %lcmp.mod80 = icmp eq i64 %xtraiter79, 0
+  br i1 %lcmp.mod80, label %middle.block, label %vector.body.epil.preheader
 
-vector.body.epil:                                 ; preds = %middle.block.unr-lcssa
-  %209 = add i64 %index.unr, %__v30_n
-  %210 = getelementptr i64, i64* %__v25_A_p, i64 %index.unr
-  %211 = getelementptr i64, i64* %__v29_T_p, i64 %209
-  %212 = bitcast i64* %211 to <4 x i64>*
-  %wide.load.epil = load <4 x i64>, <4 x i64>* %212, align 8, !alias.scope !2
-  %213 = getelementptr i64, i64* %211, i64 4
-  %214 = bitcast i64* %213 to <4 x i64>*
-  %wide.load72.epil = load <4 x i64>, <4 x i64>* %214, align 8, !alias.scope !2
-  %215 = getelementptr i64, i64* %211, i64 8
-  %216 = bitcast i64* %215 to <4 x i64>*
-  %wide.load73.epil = load <4 x i64>, <4 x i64>* %216, align 8, !alias.scope !2
-  %217 = getelementptr i64, i64* %211, i64 12
-  %218 = bitcast i64* %217 to <4 x i64>*
-  %wide.load74.epil = load <4 x i64>, <4 x i64>* %218, align 8, !alias.scope !2
-  %219 = bitcast i64* %210 to <4 x i64>*
-  store <4 x i64> %wide.load.epil, <4 x i64>* %219, align 8, !alias.scope !5, !noalias !2
-  %220 = getelementptr i64, i64* %210, i64 4
-  %221 = bitcast i64* %220 to <4 x i64>*
-  store <4 x i64> %wide.load72.epil, <4 x i64>* %221, align 8, !alias.scope !5, !noalias !2
-  %222 = getelementptr i64, i64* %210, i64 8
-  %223 = bitcast i64* %222 to <4 x i64>*
-  store <4 x i64> %wide.load73.epil, <4 x i64>* %223, align 8, !alias.scope !5, !noalias !2
-  %224 = getelementptr i64, i64* %210, i64 12
-  %225 = bitcast i64* %224 to <4 x i64>*
-  store <4 x i64> %wide.load74.epil, <4 x i64>* %225, align 8, !alias.scope !5, !noalias !2
-  br label %middle.block
+vector.body.epil.preheader:                       ; preds = %middle.block.unr-lcssa
+  br label %vector.body.epil
 
-middle.block:                                     ; preds = %middle.block.unr-lcssa, %vector.body.epil
+vector.body.epil:                                 ; preds = %vector.body.epil, %vector.body.epil.preheader
+  %index.epil = phi i64 [ %index.unr, %vector.body.epil.preheader ], [ %index.next.epil, %vector.body.epil ]
+  %epil.iter = phi i64 [ %xtraiter79, %vector.body.epil.preheader ], [ %epil.iter.sub, %vector.body.epil ]
+  %211 = add i64 %index.epil, %__v30_n
+  %212 = getelementptr i64, i64* %__v25_A_p, i64 %index.epil
+  %213 = getelementptr i64, i64* %__v29_T_p, i64 %211
+  %214 = bitcast i64* %213 to <2 x i64>*
+  %wide.load.epil = load <2 x i64>, <2 x i64>* %214, align 8, !alias.scope !2
+  %215 = getelementptr i64, i64* %213, i64 2
+  %216 = bitcast i64* %215 to <2 x i64>*
+  %wide.load70.epil = load <2 x i64>, <2 x i64>* %216, align 8, !alias.scope !2
+  %217 = bitcast i64* %212 to <2 x i64>*
+  store <2 x i64> %wide.load.epil, <2 x i64>* %217, align 8, !alias.scope !5, !noalias !2
+  %218 = getelementptr i64, i64* %212, i64 2
+  %219 = bitcast i64* %218 to <2 x i64>*
+  store <2 x i64> %wide.load70.epil, <2 x i64>* %219, align 8, !alias.scope !5, !noalias !2
+  %index.next.epil = add i64 %index.epil, 4
+  %epil.iter.sub = add i64 %epil.iter, -1
+  %epil.iter.cmp = icmp eq i64 %epil.iter.sub, 0
+  br i1 %epil.iter.cmp, label %middle.block, label %vector.body.epil, !llvm.loop !9
+
+middle.block:                                     ; preds = %vector.body.epil, %middle.block.unr-lcssa
   %cmp.n = icmp eq i64 %.pre-phi48, %n.vec
   br i1 %cmp.n, label %._crit_edge, label %scalar.ph.preheader
 
 scalar.ph.preheader:                              ; preds = %middle.block, %vector.memcheck, %.lr.ph
   %__v36_i24.ph = phi i64 [ 0, %vector.memcheck ], [ 0, %.lr.ph ], [ %n.vec, %middle.block ]
-  %226 = add i64 %.pre-phi48, -1
-  %227 = sub i64 %226, %__v36_i24.ph
-  %xtraiter81 = and i64 %.pre-phi48, 3
-  %lcmp.mod82 = icmp eq i64 %xtraiter81, 0
-  br i1 %lcmp.mod82, label %scalar.ph.prol.loopexit, label %scalar.ph.prol.preheader
+  %220 = add i64 %.pre-phi48, -1
+  %221 = sub i64 %220, %__v36_i24.ph
+  %xtraiter77 = and i64 %.pre-phi48, 3
+  %lcmp.mod78 = icmp eq i64 %xtraiter77, 0
+  br i1 %lcmp.mod78, label %scalar.ph.prol.loopexit, label %scalar.ph.prol.preheader
 
 scalar.ph.prol.preheader:                         ; preds = %scalar.ph.preheader
   br label %scalar.ph.prol
 
 scalar.ph.prol:                                   ; preds = %scalar.ph.prol, %scalar.ph.prol.preheader
-  %__v36_i24.prol = phi i64 [ %231, %scalar.ph.prol ], [ %__v36_i24.ph, %scalar.ph.prol.preheader ]
-  %prol.iter = phi i64 [ %prol.iter.sub, %scalar.ph.prol ], [ %xtraiter81, %scalar.ph.prol.preheader ]
+  %__v36_i24.prol = phi i64 [ %225, %scalar.ph.prol ], [ %__v36_i24.ph, %scalar.ph.prol.preheader ]
+  %prol.iter = phi i64 [ %prol.iter.sub, %scalar.ph.prol ], [ %xtraiter77, %scalar.ph.prol.preheader ]
   %__v130_lexpr.prol = add i64 %__v36_i24.prol, %__v30_n
-  %228 = getelementptr i64, i64* %__v25_A_p, i64 %__v36_i24.prol
-  %229 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.prol
-  %230 = load i64, i64* %229, align 8
-  store i64 %230, i64* %228, align 8
-  %231 = add nuw i64 %__v36_i24.prol, 1
+  %222 = getelementptr i64, i64* %__v25_A_p, i64 %__v36_i24.prol
+  %223 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.prol
+  %224 = load i64, i64* %223, align 8
+  store i64 %224, i64* %222, align 8
+  %225 = add nuw i64 %__v36_i24.prol, 1
   %prol.iter.sub = add i64 %prol.iter, -1
   %prol.iter.cmp = icmp eq i64 %prol.iter.sub, 0
-  br i1 %prol.iter.cmp, label %scalar.ph.prol.loopexit, label %scalar.ph.prol, !llvm.loop !9
+  br i1 %prol.iter.cmp, label %scalar.ph.prol.loopexit, label %scalar.ph.prol, !llvm.loop !10
 
 scalar.ph.prol.loopexit:                          ; preds = %scalar.ph.prol, %scalar.ph.preheader
-  %__v36_i24.unr = phi i64 [ %__v36_i24.ph, %scalar.ph.preheader ], [ %231, %scalar.ph.prol ]
-  %232 = icmp ult i64 %227, 3
-  br i1 %232, label %._crit_edge, label %scalar.ph.preheader.new
+  %__v36_i24.unr = phi i64 [ %__v36_i24.ph, %scalar.ph.preheader ], [ %225, %scalar.ph.prol ]
+  %226 = icmp ult i64 %221, 3
+  br i1 %226, label %._crit_edge, label %scalar.ph.preheader.new
 
 scalar.ph.preheader.new:                          ; preds = %scalar.ph.prol.loopexit
   br label %scalar.ph
 
 scalar.ph:                                        ; preds = %scalar.ph, %scalar.ph.preheader.new
-  %__v36_i24 = phi i64 [ %__v36_i24.unr, %scalar.ph.preheader.new ], [ %248, %scalar.ph ]
+  %__v36_i24 = phi i64 [ %__v36_i24.unr, %scalar.ph.preheader.new ], [ %242, %scalar.ph ]
   %__v130_lexpr = add i64 %__v36_i24, %__v30_n
-  %233 = getelementptr i64, i64* %__v25_A_p, i64 %__v36_i24
-  %234 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr
-  %235 = load i64, i64* %234, align 8
-  store i64 %235, i64* %233, align 8
-  %236 = add nuw i64 %__v36_i24, 1
-  %__v130_lexpr.1 = add i64 %236, %__v30_n
-  %237 = getelementptr i64, i64* %__v25_A_p, i64 %236
-  %238 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.1
-  %239 = load i64, i64* %238, align 8
-  store i64 %239, i64* %237, align 8
-  %240 = add i64 %__v36_i24, 2
-  %__v130_lexpr.2 = add i64 %240, %__v30_n
-  %241 = getelementptr i64, i64* %__v25_A_p, i64 %240
-  %242 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.2
-  %243 = load i64, i64* %242, align 8
-  store i64 %243, i64* %241, align 8
-  %244 = add i64 %__v36_i24, 3
-  %__v130_lexpr.3 = add i64 %244, %__v30_n
-  %245 = getelementptr i64, i64* %__v25_A_p, i64 %244
-  %246 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.3
-  %247 = load i64, i64* %246, align 8
-  store i64 %247, i64* %245, align 8
-  %248 = add i64 %__v36_i24, 4
-  %exitcond.3 = icmp eq i64 %248, %.pre-phi48
-  br i1 %exitcond.3, label %._crit_edge, label %scalar.ph, !llvm.loop !10
+  %227 = getelementptr i64, i64* %__v25_A_p, i64 %__v36_i24
+  %228 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr
+  %229 = load i64, i64* %228, align 8
+  store i64 %229, i64* %227, align 8
+  %230 = add nuw i64 %__v36_i24, 1
+  %__v130_lexpr.1 = add i64 %230, %__v30_n
+  %231 = getelementptr i64, i64* %__v25_A_p, i64 %230
+  %232 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.1
+  %233 = load i64, i64* %232, align 8
+  store i64 %233, i64* %231, align 8
+  %234 = add i64 %__v36_i24, 2
+  %__v130_lexpr.2 = add i64 %234, %__v30_n
+  %235 = getelementptr i64, i64* %__v25_A_p, i64 %234
+  %236 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.2
+  %237 = load i64, i64* %236, align 8
+  store i64 %237, i64* %235, align 8
+  %238 = add i64 %__v36_i24, 3
+  %__v130_lexpr.3 = add i64 %238, %__v30_n
+  %239 = getelementptr i64, i64* %__v25_A_p, i64 %238
+  %240 = getelementptr i64, i64* %__v29_T_p, i64 %__v130_lexpr.3
+  %241 = load i64, i64* %240, align 8
+  store i64 %241, i64* %239, align 8
+  %242 = add i64 %__v36_i24, 4
+  %exitcond.3 = icmp eq i64 %242, %.pre-phi48
+  br i1 %exitcond.3, label %._crit_edge, label %scalar.ph, !llvm.loop !11
 
 ._crit_edge:                                      ; preds = %scalar.ph.prol.loopexit, %scalar.ph, %middle.block, %._crit_edge28
-  %249 = icmp eq i64 %__v82___v25_A_p_len, 0
-  br i1 %249, label %._crit_edge37.i, label %.lr.ph36.i.preheader
+  %243 = icmp eq i64 %__v82___v25_A_p_len, 0
+  br i1 %243, label %._crit_edge37.i, label %.lr.ph36.i.preheader
 
 .lr.ph36.i.preheader:                             ; preds = %._crit_edge
   br label %.lr.ph36.i
 
 .lr.ph36.i:                                       ; preds = %.lr.ph36.i.preheader, %.lr.ph36.i
-  %__v51__i35.i = phi i64 [ %259, %.lr.ph36.i ], [ 0, %.lr.ph36.i.preheader ]
-  %__v49_saved_i.034.i = phi i64 [ %258, %.lr.ph36.i ], [ 0, %.lr.ph36.i.preheader ]
+  %__v51__i35.i = phi i64 [ %253, %.lr.ph36.i ], [ 0, %.lr.ph36.i.preheader ]
+  %__v49_saved_i.034.i = phi i64 [ %252, %.lr.ph36.i ], [ 0, %.lr.ph36.i.preheader ]
   %__v52_i.i = sub i64 %__v82___v25_A_p_len, %__v51__i35.i
   %__v131_lexpr.i = add i64 %__v52_i.i, -1
-  %250 = icmp eq i64 %__v49_saved_i.034.i, 0
-  %251 = getelementptr i64, i64* %__v25_A_p, i64 %__v131_lexpr.i
-  %252 = load i64, i64* %251, align 8
-  %253 = icmp ne i64 %252, 0
-  %254 = zext i1 %253 to i32
-  %255 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %250, i32 %254, i32 0) #0
-  %256 = and i32 %255, 1
-  %257 = icmp eq i32 %256, 0
-  %258 = select i1 %257, i64 %__v49_saved_i.034.i, i64 %__v52_i.i
-  %259 = add nuw i64 %__v51__i35.i, 1
-  %exitcond43.i = icmp eq i64 %259, %__v82___v25_A_p_len
+  %244 = icmp eq i64 %__v49_saved_i.034.i, 0
+  %245 = getelementptr i64, i64* %__v25_A_p, i64 %__v131_lexpr.i
+  %246 = load i64, i64* %245, align 8
+  %247 = icmp ne i64 %246, 0
+  %248 = zext i1 %247 to i32
+  %249 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %244, i32 %248, i32 0) #0
+  %250 = and i32 %249, 1
+  %251 = icmp eq i32 %250, 0
+  %252 = select i1 %251, i64 %__v49_saved_i.034.i, i64 %__v52_i.i
+  %253 = add nuw i64 %__v51__i35.i, 1
+  %exitcond43.i = icmp eq i64 %253, %__v82___v25_A_p_len
   br i1 %exitcond43.i, label %._crit_edge37.i, label %.lr.ph36.i
 
 ._crit_edge37.i:                                  ; preds = %.lr.ph36.i, %._crit_edge
-  %__v49_saved_i.0.lcssa.i = phi i64 [ 0, %._crit_edge ], [ %258, %.lr.ph36.i ]
+  %__v49_saved_i.0.lcssa.i = phi i64 [ 0, %._crit_edge ], [ %252, %.lr.ph36.i ]
   br i1 %3, label %._crit_edge32.i, label %.lr.ph31.i.preheader
 
 .lr.ph31.i.preheader:                             ; preds = %._crit_edge37.i
   br label %.lr.ph31.i
 
 .lr.ph31.i:                                       ; preds = %.lr.ph31.i.preheader, %.lr.ph31.i
-  %__v53__j29.i = phi i64 [ %269, %.lr.ph31.i ], [ 0, %.lr.ph31.i.preheader ]
-  %__v50_saved_j.028.i = phi i64 [ %268, %.lr.ph31.i ], [ 0, %.lr.ph31.i.preheader ]
+  %__v53__j29.i = phi i64 [ %263, %.lr.ph31.i ], [ 0, %.lr.ph31.i.preheader ]
+  %__v50_saved_j.028.i = phi i64 [ %262, %.lr.ph31.i ], [ 0, %.lr.ph31.i.preheader ]
   %__v54_j.i = sub i64 %__v30_n, %__v53__j29.i
   %__v132_lexpr.i = add i64 %__v54_j.i, -1
-  %260 = icmp eq i64 %__v50_saved_j.028.i, 0
-  %261 = getelementptr i64, i64* %__v27_N_p, i64 %__v132_lexpr.i
-  %262 = load i64, i64* %261, align 8
-  %263 = icmp ne i64 %262, 0
-  %264 = zext i1 %263 to i32
-  %265 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %260, i32 %264, i32 0) #0
-  %266 = and i32 %265, 1
-  %267 = icmp eq i32 %266, 0
-  %268 = select i1 %267, i64 %__v50_saved_j.028.i, i64 %__v54_j.i
-  %269 = add nuw i64 %__v53__j29.i, 1
-  %exitcond.i15 = icmp eq i64 %269, %__v30_n
+  %254 = icmp eq i64 %__v50_saved_j.028.i, 0
+  %255 = getelementptr i64, i64* %__v27_N_p, i64 %__v132_lexpr.i
+  %256 = load i64, i64* %255, align 8
+  %257 = icmp ne i64 %256, 0
+  %258 = zext i1 %257 to i32
+  %259 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %254, i32 %258, i32 0) #0
+  %260 = and i32 %259, 1
+  %261 = icmp eq i32 %260, 0
+  %262 = select i1 %261, i64 %__v50_saved_j.028.i, i64 %__v54_j.i
+  %263 = add nuw i64 %__v53__j29.i, 1
+  %exitcond.i15 = icmp eq i64 %263, %__v30_n
   br i1 %exitcond.i15, label %._crit_edge32.i, label %.lr.ph31.i
 
 ._crit_edge32.i:                                  ; preds = %.lr.ph31.i, %._crit_edge37.i
-  %__v50_saved_j.0.lcssa.i = phi i64 [ 0, %._crit_edge37.i ], [ %268, %.lr.ph31.i ]
-  %270 = icmp eq i64 %__v49_saved_i.0.lcssa.i, 0
-  %271 = icmp eq i64 %__v50_saved_j.0.lcssa.i, 0
-  %272 = zext i1 %271 to i32
-  %273 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %270, i32 %272, i32 0) #0
-  %274 = and i32 %273, 1
-  %275 = icmp ne i32 %274, 0
-  %276 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %275, i32 0, i32 1) #0
-  %277 = and i32 %276, 1
-  %278 = icmp ne i32 %277, 0
+  %__v50_saved_j.0.lcssa.i = phi i64 [ 0, %._crit_edge37.i ], [ %262, %.lr.ph31.i ]
+  %264 = icmp eq i64 %__v49_saved_i.0.lcssa.i, 0
+  %265 = icmp eq i64 %__v50_saved_j.0.lcssa.i, 0
+  %266 = zext i1 %265 to i32
+  %267 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %264, i32 %266, i32 0) #0
+  %268 = and i32 %267, 1
+  %269 = icmp ne i32 %268, 0
+  %270 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %269, i32 0, i32 1) #0
+  %271 = and i32 %270, 1
+  %272 = icmp ne i32 %271, 0
   %__m10.i = icmp ugt i64 %__v49_saved_i.0.lcssa.i, %__v50_saved_j.0.lcssa.i
-  %279 = and i1 %__m10.i, %278
-  %280 = zext i1 %279 to i32
-  %281 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %279, i32 0, i32 %277) #0
-  %282 = and i32 %281, 1
+  %273 = and i1 %__m10.i, %272
+  %274 = zext i1 %273 to i32
+  %275 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %273, i32 0, i32 %271) #0
+  %276 = and i32 %275, 1
   %__m13.i = icmp ugt i64 %__v50_saved_j.0.lcssa.i, %__v49_saved_i.0.lcssa.i
-  %283 = and i32 %277, %281
-  %284 = icmp ne i32 %283, 0
-  %285 = and i1 %__m13.i, %284
-  %286 = select i1 %285, i32 -1, i32 %280
-  %287 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %285, i32 0, i32 %282) #0
-  %288 = icmp ult i64 %__v82___v25_A_p_len, %__v30_n
-  %__v55_start_idx.i = select i1 %288, i64 %__v82___v25_A_p_len, i64 %__v30_n
-  %__rctx.0.in21.i = and i32 %287, 1
-  %289 = icmp eq i64 %__v55_start_idx.i, 0
-  %.pre.i = and i32 %283, %287
-  br i1 %289, label %_mbedtls_mpi_cmp_abs.exit, label %.lr.ph.i16.preheader
+  %277 = and i32 %271, %275
+  %278 = icmp ne i32 %277, 0
+  %279 = and i1 %__m13.i, %278
+  %280 = select i1 %279, i32 -1, i32 %274
+  %281 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %279, i32 0, i32 %276) #0
+  %282 = icmp ult i64 %__v82___v25_A_p_len, %__v30_n
+  %__v55_start_idx.i = select i1 %282, i64 %__v82___v25_A_p_len, i64 %__v30_n
+  %__rctx.0.in21.i = and i32 %281, 1
+  %283 = icmp eq i64 %__v55_start_idx.i, 0
+  %.pre.i = and i32 %277, %281
+  br i1 %283, label %_mbedtls_mpi_cmp_abs.exit, label %.lr.ph.i16.preheader
 
 .lr.ph.i16.preheader:                             ; preds = %._crit_edge32.i
   br label %.lr.ph.i16
 
 .lr.ph.i16:                                       ; preds = %.lr.ph.i16.preheader, %.lr.ph.i16
   %__rctx.0.in25.i = phi i32 [ %__rctx.0.in.i, %.lr.ph.i16 ], [ %__rctx.0.in21.i, %.lr.ph.i16.preheader ]
-  %__v56__i24.i = phi i64 [ %309, %.lr.ph.i16 ], [ 0, %.lr.ph.i16.preheader ]
-  %__rctx.0.in.in23.i = phi i32 [ %308, %.lr.ph.i16 ], [ %287, %.lr.ph.i16.preheader ]
-  %__rval.022.i = phi i32 [ %307, %.lr.ph.i16 ], [ %286, %.lr.ph.i16.preheader ]
+  %__v56__i24.i = phi i64 [ %303, %.lr.ph.i16 ], [ 0, %.lr.ph.i16.preheader ]
+  %__rctx.0.in.in23.i = phi i32 [ %302, %.lr.ph.i16 ], [ %281, %.lr.ph.i16.preheader ]
+  %__rval.022.i = phi i32 [ %301, %.lr.ph.i16 ], [ %280, %.lr.ph.i16.preheader ]
   %__v57_i.i = sub i64 %__v55_start_idx.i, %__v56__i24.i
   %__m19.i = icmp ule i64 %__v57_i.i, %__v49_saved_i.0.lcssa.i
   %__v133_lexpr.i = add i64 %__v57_i.i, -1
-  %290 = getelementptr i64, i64* %__v25_A_p, i64 %__v133_lexpr.i
-  %291 = load i64, i64* %290, align 8
-  %292 = getelementptr i64, i64* %__v27_N_p, i64 %__v133_lexpr.i
-  %293 = load i64, i64* %292, align 8
-  %__m20.i = icmp ugt i64 %291, %293
-  %294 = and i1 %__m19.i, %__m20.i
-  %295 = and i32 %__rctx.0.in.in23.i, %.pre.i
-  %296 = icmp ne i32 %295, 0
-  %297 = and i1 %296, %294
-  %298 = select i1 %297, i32 1, i32 %__rval.022.i
-  %299 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %297, i32 0, i32 %__rctx.0.in25.i) #0
-  %300 = and i32 %299, 1
-  %301 = icmp ne i32 %300, 0
-  %302 = load i64, i64* %290, align 8
-  %303 = load i64, i64* %292, align 8
-  %__m23.i = icmp ult i64 %302, %303
-  %304 = and i1 %301, %__m23.i
-  %305 = and i1 %__m19.i, %304
-  %306 = and i1 %296, %305
-  %307 = select i1 %306, i32 -1, i32 %298
-  %308 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %306, i32 0, i32 %300) #0
-  %309 = add nuw i64 %__v56__i24.i, 1
-  %__rctx.0.in.i = and i32 %308, 1
-  %310 = icmp ugt i64 %__v55_start_idx.i, %309
-  br i1 %310, label %.lr.ph.i16, label %_mbedtls_mpi_cmp_abs.exit
+  %284 = getelementptr i64, i64* %__v25_A_p, i64 %__v133_lexpr.i
+  %285 = load i64, i64* %284, align 8
+  %286 = getelementptr i64, i64* %__v27_N_p, i64 %__v133_lexpr.i
+  %287 = load i64, i64* %286, align 8
+  %__m20.i = icmp ugt i64 %285, %287
+  %288 = and i1 %__m19.i, %__m20.i
+  %289 = and i32 %__rctx.0.in.in23.i, %.pre.i
+  %290 = icmp ne i32 %289, 0
+  %291 = and i1 %290, %288
+  %292 = select i1 %291, i32 1, i32 %__rval.022.i
+  %293 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %291, i32 0, i32 %__rctx.0.in25.i) #0
+  %294 = and i32 %293, 1
+  %295 = icmp ne i32 %294, 0
+  %296 = load i64, i64* %284, align 8
+  %297 = load i64, i64* %286, align 8
+  %__m23.i = icmp ult i64 %296, %297
+  %298 = and i1 %295, %__m23.i
+  %299 = and i1 %__m19.i, %298
+  %300 = and i1 %290, %299
+  %301 = select i1 %300, i32 -1, i32 %292
+  %302 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %300, i32 0, i32 %294) #0
+  %303 = add nuw i64 %__v56__i24.i, 1
+  %__rctx.0.in.i = and i32 %302, 1
+  %304 = icmp ugt i64 %__v55_start_idx.i, %303
+  br i1 %304, label %.lr.ph.i16, label %_mbedtls_mpi_cmp_abs.exit
 
 _mbedtls_mpi_cmp_abs.exit:                        ; preds = %.lr.ph.i16, %._crit_edge32.i
-  %__rval.0.lcssa.i = phi i32 [ %286, %._crit_edge32.i ], [ %307, %.lr.ph.i16 ]
-  %__rctx.0.in.in.lcssa.i = phi i32 [ %287, %._crit_edge32.i ], [ %308, %.lr.ph.i16 ]
+  %__rval.0.lcssa.i = phi i32 [ %280, %._crit_edge32.i ], [ %301, %.lr.ph.i16 ]
+  %__rctx.0.in.in.lcssa.i = phi i32 [ %281, %._crit_edge32.i ], [ %302, %.lr.ph.i16 ]
   %__rctx.0.in.lcssa.i = phi i32 [ %__rctx.0.in21.i, %._crit_edge32.i ], [ %__rctx.0.in.i, %.lr.ph.i16 ]
-  %311 = and i32 %__rctx.0.in.in.lcssa.i, %.pre.i
-  %312 = icmp ne i32 %311, 0
-  %313 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %312, i32 0, i32 %__rctx.0.in.lcssa.i) #0
+  %305 = and i32 %__rctx.0.in.in.lcssa.i, %.pre.i
+  %306 = icmp ne i32 %305, 0
+  %307 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %306, i32 0, i32 %__rctx.0.in.lcssa.i) #0
   %__m517 = icmp sgt i32 %__rval.0.lcssa.i, -1
-  %__m5 = or i1 %__m517, %312
+  %__m5 = or i1 %__m517, %306
   br i1 %3, label %._crit_edge8.i, label %.lr.ph7.i.preheader
 
 .lr.ph7.i.preheader:                              ; preds = %_mbedtls_mpi_cmp_abs.exit
   br label %.lr.ph7.i
 
 .lr.ph7.i:                                        ; preds = %.lr.ph7.i.preheader, %.lr.ph7.i
-  %__v63_i6.i = phi i64 [ %328, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
-  %__v61_c.04.i = phi i64 [ %325, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
-  %314 = getelementptr i64, i64* %__v25_A_p, i64 %__v63_i6.i
+  %__v63_i6.i = phi i64 [ %322, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
+  %__v61_c.04.i = phi i64 [ %319, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
+  %308 = getelementptr i64, i64* %__v25_A_p, i64 %__v63_i6.i
+  %309 = load i64, i64* %308, align 8
+  %310 = icmp ult i64 %309, %__v61_c.04.i
+  %311 = zext i1 %310 to i64
+  %312 = select i1 %__m5, i64 %__v61_c.04.i, i64 0
+  %313 = sub i64 %309, %312
+  store i64 %313, i64* %308, align 8
+  %314 = getelementptr i64, i64* %__v27_N_p, i64 %__v63_i6.i
   %315 = load i64, i64* %314, align 8
-  %316 = icmp ult i64 %315, %__v61_c.04.i
+  %316 = icmp ult i64 %313, %315
   %317 = zext i1 %316 to i64
-  %318 = select i1 %__m5, i64 %__v61_c.04.i, i64 0
-  %319 = sub i64 %315, %318
-  store i64 %319, i64* %314, align 8
-  %320 = getelementptr i64, i64* %__v27_N_p, i64 %__v63_i6.i
-  %321 = load i64, i64* %320, align 8
-  %322 = icmp ult i64 %319, %321
-  %323 = zext i1 %322 to i64
-  %324 = add nuw nsw i64 %323, %317
-  %325 = select i1 %__m5, i64 %324, i64 %__v61_c.04.i
-  %326 = select i1 %__m5, i64 %321, i64 0
-  %327 = sub i64 %319, %326
-  store i64 %327, i64* %314, align 8
-  %328 = add nuw i64 %__v63_i6.i, 1
-  %exitcond11.i = icmp eq i64 %328, %__v30_n
+  %318 = add nuw nsw i64 %317, %311
+  %319 = select i1 %__m5, i64 %318, i64 %__v61_c.04.i
+  %320 = select i1 %__m5, i64 %315, i64 0
+  %321 = sub i64 %313, %320
+  store i64 %321, i64* %308, align 8
+  %322 = add nuw i64 %__v63_i6.i, 1
+  %exitcond11.i = icmp eq i64 %322, %__v30_n
   br i1 %exitcond11.i, label %._crit_edge8.i, label %.lr.ph7.i
 
 ._crit_edge8.i:                                   ; preds = %.lr.ph7.i, %_mbedtls_mpi_cmp_abs.exit
-  %__v61_c.0.lcssa.i = phi i64 [ 0, %_mbedtls_mpi_cmp_abs.exit ], [ %325, %.lr.ph7.i ]
-  %329 = icmp ugt i64 %__v82___v25_A_p_len, %__v30_n
-  br i1 %329, label %.lr.ph.i1.preheader, label %_mpi_sub_hlp.exit
+  %__v61_c.0.lcssa.i = phi i64 [ 0, %_mbedtls_mpi_cmp_abs.exit ], [ %319, %.lr.ph7.i ]
+  %323 = icmp ugt i64 %__v82___v25_A_p_len, %__v30_n
+  br i1 %323, label %.lr.ph.i1.preheader, label %_mpi_sub_hlp.exit
 
 .lr.ph.i1.preheader:                              ; preds = %._crit_edge8.i
-  %330 = sub i64 %__v82___v25_A_p_len, %__v30_n
-  %331 = add i64 %__v82___v25_A_p_len, -1
-  %xtraiter = and i64 %330, 1
+  %324 = sub i64 %__v82___v25_A_p_len, %__v30_n
+  %325 = add i64 %__v82___v25_A_p_len, -1
+  %xtraiter = and i64 %324, 1
   %lcmp.mod = icmp eq i64 %xtraiter, 0
   br i1 %lcmp.mod, label %.lr.ph.i1.prol.loopexit, label %.lr.ph.i1.prol
 
 .lr.ph.i1.prol:                                   ; preds = %.lr.ph.i1.preheader
-  %332 = getelementptr i64, i64* %__v25_A_p, i64 %__v30_n
-  %333 = load i64, i64* %332, align 8
-  %334 = icmp ult i64 %333, %__v61_c.0.lcssa.i
-  %335 = zext i1 %334 to i64
-  %336 = select i1 %__m5, i64 %__v61_c.0.lcssa.i, i64 0
-  %337 = sub i64 %333, %336
-  store i64 %337, i64* %332, align 8
-  %338 = select i1 %__m5, i64 %335, i64 %__v61_c.0.lcssa.i
-  %339 = add nuw i64 %__v30_n, 1
+  %326 = getelementptr i64, i64* %__v25_A_p, i64 %__v30_n
+  %327 = load i64, i64* %326, align 8
+  %328 = icmp ult i64 %327, %__v61_c.0.lcssa.i
+  %329 = zext i1 %328 to i64
+  %330 = select i1 %__m5, i64 %__v61_c.0.lcssa.i, i64 0
+  %331 = sub i64 %327, %330
+  store i64 %331, i64* %326, align 8
+  %332 = select i1 %__m5, i64 %329, i64 %__v61_c.0.lcssa.i
+  %333 = add nuw i64 %__v30_n, 1
   br label %.lr.ph.i1.prol.loopexit
 
 .lr.ph.i1.prol.loopexit:                          ; preds = %.lr.ph.i1.preheader, %.lr.ph.i1.prol
-  %__v64_i3.i.unr = phi i64 [ %__v30_n, %.lr.ph.i1.preheader ], [ %339, %.lr.ph.i1.prol ]
-  %__v61_c.11.i.unr = phi i64 [ %__v61_c.0.lcssa.i, %.lr.ph.i1.preheader ], [ %338, %.lr.ph.i1.prol ]
-  %340 = icmp eq i64 %331, %__v30_n
-  br i1 %340, label %_mpi_sub_hlp.exit, label %.lr.ph.i1.preheader.new
+  %__v64_i3.i.unr = phi i64 [ %__v30_n, %.lr.ph.i1.preheader ], [ %333, %.lr.ph.i1.prol ]
+  %__v61_c.11.i.unr = phi i64 [ %__v61_c.0.lcssa.i, %.lr.ph.i1.preheader ], [ %332, %.lr.ph.i1.prol ]
+  %334 = icmp eq i64 %325, %__v30_n
+  br i1 %334, label %_mpi_sub_hlp.exit, label %.lr.ph.i1.preheader.new
 
 .lr.ph.i1.preheader.new:                          ; preds = %.lr.ph.i1.prol.loopexit
   br label %.lr.ph.i1
 
 .lr.ph.i1:                                        ; preds = %.lr.ph.i1, %.lr.ph.i1.preheader.new
-  %__v64_i3.i = phi i64 [ %__v64_i3.i.unr, %.lr.ph.i1.preheader.new ], [ %356, %.lr.ph.i1 ]
-  %__v61_c.11.i = phi i64 [ %__v61_c.11.i.unr, %.lr.ph.i1.preheader.new ], [ %355, %.lr.ph.i1 ]
-  %341 = getelementptr i64, i64* %__v25_A_p, i64 %__v64_i3.i
-  %342 = load i64, i64* %341, align 8
-  %343 = icmp ult i64 %342, %__v61_c.11.i
-  %344 = zext i1 %343 to i64
-  %345 = select i1 %__m5, i64 %__v61_c.11.i, i64 0
-  %346 = sub i64 %342, %345
-  store i64 %346, i64* %341, align 8
-  %347 = select i1 %__m5, i64 %344, i64 %__v61_c.11.i
-  %348 = add nuw i64 %__v64_i3.i, 1
-  %349 = getelementptr i64, i64* %__v25_A_p, i64 %348
-  %350 = load i64, i64* %349, align 8
-  %351 = icmp ult i64 %350, %347
-  %352 = zext i1 %351 to i64
-  %narrow = and i1 %__m5, %343
-  %353 = zext i1 %narrow to i64
-  %354 = sub i64 %350, %353
-  store i64 %354, i64* %349, align 8
-  %355 = select i1 %__m5, i64 %352, i64 %__v61_c.11.i
-  %356 = add i64 %__v64_i3.i, 2
-  %exitcond.i2.1 = icmp eq i64 %356, %__v82___v25_A_p_len
+  %__v64_i3.i = phi i64 [ %__v64_i3.i.unr, %.lr.ph.i1.preheader.new ], [ %350, %.lr.ph.i1 ]
+  %__v61_c.11.i = phi i64 [ %__v61_c.11.i.unr, %.lr.ph.i1.preheader.new ], [ %349, %.lr.ph.i1 ]
+  %335 = getelementptr i64, i64* %__v25_A_p, i64 %__v64_i3.i
+  %336 = load i64, i64* %335, align 8
+  %337 = icmp ult i64 %336, %__v61_c.11.i
+  %338 = zext i1 %337 to i64
+  %339 = select i1 %__m5, i64 %__v61_c.11.i, i64 0
+  %340 = sub i64 %336, %339
+  store i64 %340, i64* %335, align 8
+  %341 = select i1 %__m5, i64 %338, i64 %__v61_c.11.i
+  %342 = add nuw i64 %__v64_i3.i, 1
+  %343 = getelementptr i64, i64* %__v25_A_p, i64 %342
+  %344 = load i64, i64* %343, align 8
+  %345 = icmp ult i64 %344, %341
+  %346 = zext i1 %345 to i64
+  %narrow = and i1 %__m5, %337
+  %347 = zext i1 %narrow to i64
+  %348 = sub i64 %344, %347
+  store i64 %348, i64* %343, align 8
+  %349 = select i1 %__m5, i64 %346, i64 %__v61_c.11.i
+  %350 = add i64 %__v64_i3.i, 2
+  %exitcond.i2.1 = icmp eq i64 %350, %__v82___v25_A_p_len
   br i1 %exitcond.i2.1, label %_mpi_sub_hlp.exit, label %.lr.ph.i1
 
 _mpi_sub_hlp.exit:                                ; preds = %.lr.ph.i1.prol.loopexit, %.lr.ph.i1, %._crit_edge8.i
-  %357 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m5, i32 0, i32 1) #0
+  %351 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m5, i32 0, i32 1) #0
   ret void
 }
 
@@ -754,7 +754,7 @@ entry:
   br i1 %2, label %._crit_edge4.i, label %.lr.ph3.i
 
 .lr.ph3.i:                                        ; preds = %entry
-  %min.iters.check = icmp ult i64 %__v67_clen.i, 16
+  %min.iters.check = icmp ult i64 %__v67_clen.i, 4
   br i1 %min.iters.check, label %scalar.ph.preheader, label %vector.memcheck
 
 vector.memcheck:                                  ; preds = %.lr.ph3.i
@@ -766,108 +766,106 @@ vector.memcheck:                                  ; preds = %.lr.ph3.i
   br i1 %memcheck.conflict, label %scalar.ph.preheader, label %vector.ph
 
 vector.ph:                                        ; preds = %vector.memcheck
-  %n.vec = and i64 %__v67_clen.i, -16
-  %3 = add i64 %n.vec, -16
-  %4 = lshr exact i64 %3, 4
+  %n.vec = and i64 %__v67_clen.i, -4
+  %3 = add i64 %n.vec, -4
+  %4 = lshr exact i64 %3, 2
   %5 = add nuw nsw i64 %4, 1
-  %xtraiter384 = and i64 %5, 1
-  %6 = icmp eq i64 %3, 0
+  %xtraiter343 = and i64 %5, 3
+  %6 = icmp ult i64 %3, 12
   br i1 %6, label %middle.block.unr-lcssa, label %vector.ph.new
 
 vector.ph.new:                                    ; preds = %vector.ph
-  %unroll_iter386 = sub nsw i64 %5, %xtraiter384
+  %unroll_iter346 = sub nsw i64 %5, %xtraiter343
   br label %vector.body
 
 vector.body:                                      ; preds = %vector.body, %vector.ph.new
-  %index = phi i64 [ 0, %vector.ph.new ], [ %index.next.1, %vector.body ]
-  %niter387 = phi i64 [ %unroll_iter386, %vector.ph.new ], [ %niter387.nsub.1, %vector.body ]
+  %index = phi i64 [ 0, %vector.ph.new ], [ %index.next.3, %vector.body ]
+  %niter347 = phi i64 [ %unroll_iter346, %vector.ph.new ], [ %niter347.nsub.3, %vector.body ]
   %7 = getelementptr i64, i64* %__v1_X, i64 %index
   %8 = getelementptr i64, i64* %__v6_RR, i64 %index
-  %9 = bitcast i64* %8 to <4 x i64>*
-  %wide.load = load <4 x i64>, <4 x i64>* %9, align 8, !alias.scope !11
-  %10 = getelementptr i64, i64* %8, i64 4
-  %11 = bitcast i64* %10 to <4 x i64>*
-  %wide.load72 = load <4 x i64>, <4 x i64>* %11, align 8, !alias.scope !11
-  %12 = getelementptr i64, i64* %8, i64 8
-  %13 = bitcast i64* %12 to <4 x i64>*
-  %wide.load73 = load <4 x i64>, <4 x i64>* %13, align 8, !alias.scope !11
-  %14 = getelementptr i64, i64* %8, i64 12
-  %15 = bitcast i64* %14 to <4 x i64>*
-  %wide.load74 = load <4 x i64>, <4 x i64>* %15, align 8, !alias.scope !11
-  %16 = bitcast i64* %7 to <4 x i64>*
-  store <4 x i64> %wide.load, <4 x i64>* %16, align 8, !alias.scope !14, !noalias !11
-  %17 = getelementptr i64, i64* %7, i64 4
-  %18 = bitcast i64* %17 to <4 x i64>*
-  store <4 x i64> %wide.load72, <4 x i64>* %18, align 8, !alias.scope !14, !noalias !11
-  %19 = getelementptr i64, i64* %7, i64 8
-  %20 = bitcast i64* %19 to <4 x i64>*
-  store <4 x i64> %wide.load73, <4 x i64>* %20, align 8, !alias.scope !14, !noalias !11
-  %21 = getelementptr i64, i64* %7, i64 12
-  %22 = bitcast i64* %21 to <4 x i64>*
-  store <4 x i64> %wide.load74, <4 x i64>* %22, align 8, !alias.scope !14, !noalias !11
-  %index.next = or i64 %index, 16
-  %23 = getelementptr i64, i64* %__v1_X, i64 %index.next
-  %24 = getelementptr i64, i64* %__v6_RR, i64 %index.next
-  %25 = bitcast i64* %24 to <4 x i64>*
-  %wide.load.1 = load <4 x i64>, <4 x i64>* %25, align 8, !alias.scope !11
-  %26 = getelementptr i64, i64* %24, i64 4
-  %27 = bitcast i64* %26 to <4 x i64>*
-  %wide.load72.1 = load <4 x i64>, <4 x i64>* %27, align 8, !alias.scope !11
-  %28 = getelementptr i64, i64* %24, i64 8
-  %29 = bitcast i64* %28 to <4 x i64>*
-  %wide.load73.1 = load <4 x i64>, <4 x i64>* %29, align 8, !alias.scope !11
-  %30 = getelementptr i64, i64* %24, i64 12
-  %31 = bitcast i64* %30 to <4 x i64>*
-  %wide.load74.1 = load <4 x i64>, <4 x i64>* %31, align 8, !alias.scope !11
-  %32 = bitcast i64* %23 to <4 x i64>*
-  store <4 x i64> %wide.load.1, <4 x i64>* %32, align 8, !alias.scope !14, !noalias !11
-  %33 = getelementptr i64, i64* %23, i64 4
-  %34 = bitcast i64* %33 to <4 x i64>*
-  store <4 x i64> %wide.load72.1, <4 x i64>* %34, align 8, !alias.scope !14, !noalias !11
-  %35 = getelementptr i64, i64* %23, i64 8
-  %36 = bitcast i64* %35 to <4 x i64>*
-  store <4 x i64> %wide.load73.1, <4 x i64>* %36, align 8, !alias.scope !14, !noalias !11
-  %37 = getelementptr i64, i64* %23, i64 12
-  %38 = bitcast i64* %37 to <4 x i64>*
-  store <4 x i64> %wide.load74.1, <4 x i64>* %38, align 8, !alias.scope !14, !noalias !11
-  %index.next.1 = add i64 %index, 32
-  %niter387.nsub.1 = add i64 %niter387, -2
-  %niter387.ncmp.1 = icmp eq i64 %niter387.nsub.1, 0
-  br i1 %niter387.ncmp.1, label %middle.block.unr-lcssa, label %vector.body, !llvm.loop !16
+  %9 = bitcast i64* %8 to <2 x i64>*
+  %wide.load = load <2 x i64>, <2 x i64>* %9, align 8, !alias.scope !12
+  %10 = getelementptr i64, i64* %8, i64 2
+  %11 = bitcast i64* %10 to <2 x i64>*
+  %wide.load70 = load <2 x i64>, <2 x i64>* %11, align 8, !alias.scope !12
+  %12 = bitcast i64* %7 to <2 x i64>*
+  store <2 x i64> %wide.load, <2 x i64>* %12, align 8, !alias.scope !15, !noalias !12
+  %13 = getelementptr i64, i64* %7, i64 2
+  %14 = bitcast i64* %13 to <2 x i64>*
+  store <2 x i64> %wide.load70, <2 x i64>* %14, align 8, !alias.scope !15, !noalias !12
+  %index.next = or i64 %index, 4
+  %15 = getelementptr i64, i64* %__v1_X, i64 %index.next
+  %16 = getelementptr i64, i64* %__v6_RR, i64 %index.next
+  %17 = bitcast i64* %16 to <2 x i64>*
+  %wide.load.1 = load <2 x i64>, <2 x i64>* %17, align 8, !alias.scope !12
+  %18 = getelementptr i64, i64* %16, i64 2
+  %19 = bitcast i64* %18 to <2 x i64>*
+  %wide.load70.1 = load <2 x i64>, <2 x i64>* %19, align 8, !alias.scope !12
+  %20 = bitcast i64* %15 to <2 x i64>*
+  store <2 x i64> %wide.load.1, <2 x i64>* %20, align 8, !alias.scope !15, !noalias !12
+  %21 = getelementptr i64, i64* %15, i64 2
+  %22 = bitcast i64* %21 to <2 x i64>*
+  store <2 x i64> %wide.load70.1, <2 x i64>* %22, align 8, !alias.scope !15, !noalias !12
+  %index.next.1 = or i64 %index, 8
+  %23 = getelementptr i64, i64* %__v1_X, i64 %index.next.1
+  %24 = getelementptr i64, i64* %__v6_RR, i64 %index.next.1
+  %25 = bitcast i64* %24 to <2 x i64>*
+  %wide.load.2 = load <2 x i64>, <2 x i64>* %25, align 8, !alias.scope !12
+  %26 = getelementptr i64, i64* %24, i64 2
+  %27 = bitcast i64* %26 to <2 x i64>*
+  %wide.load70.2 = load <2 x i64>, <2 x i64>* %27, align 8, !alias.scope !12
+  %28 = bitcast i64* %23 to <2 x i64>*
+  store <2 x i64> %wide.load.2, <2 x i64>* %28, align 8, !alias.scope !15, !noalias !12
+  %29 = getelementptr i64, i64* %23, i64 2
+  %30 = bitcast i64* %29 to <2 x i64>*
+  store <2 x i64> %wide.load70.2, <2 x i64>* %30, align 8, !alias.scope !15, !noalias !12
+  %index.next.2 = or i64 %index, 12
+  %31 = getelementptr i64, i64* %__v1_X, i64 %index.next.2
+  %32 = getelementptr i64, i64* %__v6_RR, i64 %index.next.2
+  %33 = bitcast i64* %32 to <2 x i64>*
+  %wide.load.3 = load <2 x i64>, <2 x i64>* %33, align 8, !alias.scope !12
+  %34 = getelementptr i64, i64* %32, i64 2
+  %35 = bitcast i64* %34 to <2 x i64>*
+  %wide.load70.3 = load <2 x i64>, <2 x i64>* %35, align 8, !alias.scope !12
+  %36 = bitcast i64* %31 to <2 x i64>*
+  store <2 x i64> %wide.load.3, <2 x i64>* %36, align 8, !alias.scope !15, !noalias !12
+  %37 = getelementptr i64, i64* %31, i64 2
+  %38 = bitcast i64* %37 to <2 x i64>*
+  store <2 x i64> %wide.load70.3, <2 x i64>* %38, align 8, !alias.scope !15, !noalias !12
+  %index.next.3 = add i64 %index, 16
+  %niter347.nsub.3 = add i64 %niter347, -4
+  %niter347.ncmp.3 = icmp eq i64 %niter347.nsub.3, 0
+  br i1 %niter347.ncmp.3, label %middle.block.unr-lcssa, label %vector.body, !llvm.loop !17
 
 middle.block.unr-lcssa:                           ; preds = %vector.body, %vector.ph
-  %index.unr = phi i64 [ 0, %vector.ph ], [ %index.next.1, %vector.body ]
-  %lcmp.mod385 = icmp eq i64 %xtraiter384, 0
-  br i1 %lcmp.mod385, label %middle.block, label %vector.body.epil
+  %index.unr = phi i64 [ 0, %vector.ph ], [ %index.next.3, %vector.body ]
+  %lcmp.mod345 = icmp eq i64 %xtraiter343, 0
+  br i1 %lcmp.mod345, label %middle.block, label %vector.body.epil.preheader
 
-vector.body.epil:                                 ; preds = %middle.block.unr-lcssa
-  %39 = getelementptr i64, i64* %__v1_X, i64 %index.unr
-  %40 = getelementptr i64, i64* %__v6_RR, i64 %index.unr
-  %41 = bitcast i64* %40 to <4 x i64>*
-  %wide.load.epil = load <4 x i64>, <4 x i64>* %41, align 8, !alias.scope !11
-  %42 = getelementptr i64, i64* %40, i64 4
-  %43 = bitcast i64* %42 to <4 x i64>*
-  %wide.load72.epil = load <4 x i64>, <4 x i64>* %43, align 8, !alias.scope !11
-  %44 = getelementptr i64, i64* %40, i64 8
-  %45 = bitcast i64* %44 to <4 x i64>*
-  %wide.load73.epil = load <4 x i64>, <4 x i64>* %45, align 8, !alias.scope !11
-  %46 = getelementptr i64, i64* %40, i64 12
-  %47 = bitcast i64* %46 to <4 x i64>*
-  %wide.load74.epil = load <4 x i64>, <4 x i64>* %47, align 8, !alias.scope !11
-  %48 = bitcast i64* %39 to <4 x i64>*
-  store <4 x i64> %wide.load.epil, <4 x i64>* %48, align 8, !alias.scope !14, !noalias !11
-  %49 = getelementptr i64, i64* %39, i64 4
-  %50 = bitcast i64* %49 to <4 x i64>*
-  store <4 x i64> %wide.load72.epil, <4 x i64>* %50, align 8, !alias.scope !14, !noalias !11
-  %51 = getelementptr i64, i64* %39, i64 8
-  %52 = bitcast i64* %51 to <4 x i64>*
-  store <4 x i64> %wide.load73.epil, <4 x i64>* %52, align 8, !alias.scope !14, !noalias !11
-  %53 = getelementptr i64, i64* %39, i64 12
-  %54 = bitcast i64* %53 to <4 x i64>*
-  store <4 x i64> %wide.load74.epil, <4 x i64>* %54, align 8, !alias.scope !14, !noalias !11
-  br label %middle.block
+vector.body.epil.preheader:                       ; preds = %middle.block.unr-lcssa
+  br label %vector.body.epil
 
-middle.block:                                     ; preds = %middle.block.unr-lcssa, %vector.body.epil
+vector.body.epil:                                 ; preds = %vector.body.epil, %vector.body.epil.preheader
+  %index.epil = phi i64 [ %index.unr, %vector.body.epil.preheader ], [ %index.next.epil, %vector.body.epil ]
+  %epil.iter344 = phi i64 [ %xtraiter343, %vector.body.epil.preheader ], [ %epil.iter344.sub, %vector.body.epil ]
+  %39 = getelementptr i64, i64* %__v1_X, i64 %index.epil
+  %40 = getelementptr i64, i64* %__v6_RR, i64 %index.epil
+  %41 = bitcast i64* %40 to <2 x i64>*
+  %wide.load.epil = load <2 x i64>, <2 x i64>* %41, align 8, !alias.scope !12
+  %42 = getelementptr i64, i64* %40, i64 2
+  %43 = bitcast i64* %42 to <2 x i64>*
+  %wide.load70.epil = load <2 x i64>, <2 x i64>* %43, align 8, !alias.scope !12
+  %44 = bitcast i64* %39 to <2 x i64>*
+  store <2 x i64> %wide.load.epil, <2 x i64>* %44, align 8, !alias.scope !15, !noalias !12
+  %45 = getelementptr i64, i64* %39, i64 2
+  %46 = bitcast i64* %45 to <2 x i64>*
+  store <2 x i64> %wide.load70.epil, <2 x i64>* %46, align 8, !alias.scope !15, !noalias !12
+  %index.next.epil = add i64 %index.epil, 4
+  %epil.iter344.sub = add i64 %epil.iter344, -1
+  %epil.iter344.cmp = icmp eq i64 %epil.iter344.sub, 0
+  br i1 %epil.iter344.cmp, label %middle.block, label %vector.body.epil, !llvm.loop !18
+
+middle.block:                                     ; preds = %vector.body.epil, %middle.block.unr-lcssa
   %cmp.n = icmp eq i64 %__v67_clen.i, %n.vec
   br i1 %cmp.n, label %._crit_edge4.i, label %scalar.ph.preheader
 
@@ -876,1089 +874,1256 @@ scalar.ph.preheader:                              ; preds = %middle.block, %vect
   br label %scalar.ph
 
 scalar.ph:                                        ; preds = %scalar.ph.preheader, %scalar.ph
-  %__v68_i2.i = phi i64 [ %58, %scalar.ph ], [ %__v68_i2.i.ph, %scalar.ph.preheader ]
-  %55 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i
-  %56 = getelementptr i64, i64* %__v6_RR, i64 %__v68_i2.i
-  %57 = load i64, i64* %56, align 8
-  store i64 %57, i64* %55, align 8
-  %58 = add nuw i64 %__v68_i2.i, 1
-  %59 = icmp ult i64 %58, %__v67_clen.i
-  br i1 %59, label %scalar.ph, label %._crit_edge4.i, !llvm.loop !17
+  %__v68_i2.i = phi i64 [ %50, %scalar.ph ], [ %__v68_i2.i.ph, %scalar.ph.preheader ]
+  %47 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i
+  %48 = getelementptr i64, i64* %__v6_RR, i64 %__v68_i2.i
+  %49 = load i64, i64* %48, align 8
+  store i64 %49, i64* %47, align 8
+  %50 = add nuw i64 %__v68_i2.i, 1
+  %51 = icmp ult i64 %50, %__v67_clen.i
+  br i1 %51, label %scalar.ph, label %._crit_edge4.i, !llvm.loop !19
 
 ._crit_edge4.i:                                   ; preds = %scalar.ph, %middle.block, %entry
-  %60 = icmp ugt i64 %__v71___v1_X_len, %__v75___v6_RR_len
-  br i1 %60, label %.lr.ph.i, label %_mpi_copy.exit
+  %52 = icmp ugt i64 %__v71___v1_X_len, %__v75___v6_RR_len
+  br i1 %52, label %.lr.ph.i, label %_mpi_copy.exit
 
 .lr.ph.i:                                         ; preds = %._crit_edge4.i
   %scevgep59 = getelementptr i64, i64* %__v1_X, i64 %__v67_clen.i
   %scevgep5960 = bitcast i64* %scevgep59 to i8*
-  %61 = xor i64 %__v75___v6_RR_len, 2305843009213693951
-  %62 = add i64 %61, %__v71___v1_X_len
-  %63 = shl i64 %62, 3
-  %64 = add i64 %63, 8
-  call void @llvm.memset.p0i8.i64(i8* %scevgep5960, i8 0, i64 %64, i32 8, i1 false)
+  %53 = xor i64 %__v75___v6_RR_len, 2305843009213693951
+  %54 = add i64 %53, %__v71___v1_X_len
+  %55 = shl i64 %54, 3
+  %56 = add i64 %55, 8
+  call void @llvm.memset.p0i8.i64(i8* %scevgep5960, i8 0, i64 %56, i32 8, i1 false)
   br label %_mpi_copy.exit
 
 _mpi_copy.exit:                                   ; preds = %.lr.ph.i, %._crit_edge4.i
-  %65 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
-  %66 = bitcast i64* %__v24_one.i to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %66)
+  %57 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
+  %58 = bitcast i64* %__v24_one.i to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %58)
   store i64 1, i64* %__v24_one.i, align 8
   call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* nonnull %__v24_one.i, i64 1, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len) #0
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %66)
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %58)
   %__v95_lexpr = and i64 %0, 4294967295
-  %67 = icmp ult i64 %__v95_lexpr, %__v71___v1_X_len
-  %__v67_clen.i2 = select i1 %67, i64 %__v95_lexpr, i64 %__v71___v1_X_len
-  %68 = icmp eq i64 %__v67_clen.i2, 0
-  br i1 %68, label %._crit_edge4.i5, label %.lr.ph3.i3
+  %59 = icmp ult i64 %__v95_lexpr, %__v71___v1_X_len
+  %__v67_clen.i2 = select i1 %59, i64 %__v95_lexpr, i64 %__v71___v1_X_len
+  %60 = icmp eq i64 %__v67_clen.i2, 0
+  br i1 %60, label %._crit_edge4.i5, label %.lr.ph3.i3
 
 .lr.ph3.i3:                                       ; preds = %_mpi_copy.exit
-  %min.iters.check78 = icmp ult i64 %__v67_clen.i2, 16
-  br i1 %min.iters.check78, label %scalar.ph77.preheader, label %vector.memcheck89
+  %min.iters.check74 = icmp ult i64 %__v67_clen.i2, 4
+  br i1 %min.iters.check74, label %scalar.ph73.preheader, label %vector.memcheck85
 
-vector.memcheck89:                                ; preds = %.lr.ph3.i3
-  %scevgep81 = getelementptr i64, i64* %__v8_W, i64 %__v67_clen.i2
-  %scevgep83 = getelementptr i64, i64* %__v1_X, i64 %__v67_clen.i2
-  %bound085 = icmp ugt i64* %scevgep83, %__v8_W
-  %bound186 = icmp ugt i64* %scevgep81, %__v1_X
-  %memcheck.conflict88 = and i1 %bound085, %bound186
-  br i1 %memcheck.conflict88, label %scalar.ph77.preheader, label %vector.ph90
+vector.memcheck85:                                ; preds = %.lr.ph3.i3
+  %scevgep77 = getelementptr i64, i64* %__v8_W, i64 %__v67_clen.i2
+  %scevgep79 = getelementptr i64, i64* %__v1_X, i64 %__v67_clen.i2
+  %bound081 = icmp ugt i64* %scevgep79, %__v8_W
+  %bound182 = icmp ugt i64* %scevgep77, %__v1_X
+  %memcheck.conflict84 = and i1 %bound081, %bound182
+  br i1 %memcheck.conflict84, label %scalar.ph73.preheader, label %vector.ph86
 
-vector.ph90:                                      ; preds = %vector.memcheck89
-  %n.vec92 = and i64 %__v67_clen.i2, 4294967280
-  %69 = add nsw i64 %n.vec92, -16
-  %70 = lshr exact i64 %69, 4
-  %71 = add nuw nsw i64 %70, 1
-  %xtraiter380 = and i64 %71, 1
-  %72 = icmp eq i64 %69, 0
-  br i1 %72, label %middle.block76.unr-lcssa, label %vector.ph90.new
+vector.ph86:                                      ; preds = %vector.memcheck85
+  %n.vec88 = and i64 %__v67_clen.i2, 4294967292
+  %61 = add nsw i64 %n.vec88, -4
+  %62 = lshr exact i64 %61, 2
+  %63 = add nuw nsw i64 %62, 1
+  %xtraiter338 = and i64 %63, 3
+  %64 = icmp ult i64 %61, 12
+  br i1 %64, label %middle.block72.unr-lcssa, label %vector.ph86.new
 
-vector.ph90.new:                                  ; preds = %vector.ph90
-  %unroll_iter382 = sub nsw i64 %71, %xtraiter380
-  br label %vector.body75
+vector.ph86.new:                                  ; preds = %vector.ph86
+  %unroll_iter341 = sub nsw i64 %63, %xtraiter338
+  br label %vector.body71
 
-vector.body75:                                    ; preds = %vector.body75, %vector.ph90.new
-  %index93 = phi i64 [ 0, %vector.ph90.new ], [ %index.next94.1, %vector.body75 ]
-  %niter383 = phi i64 [ %unroll_iter382, %vector.ph90.new ], [ %niter383.nsub.1, %vector.body75 ]
-  %73 = getelementptr i64, i64* %__v8_W, i64 %index93
-  %74 = getelementptr i64, i64* %__v1_X, i64 %index93
-  %75 = bitcast i64* %74 to <4 x i64>*
-  %wide.load103 = load <4 x i64>, <4 x i64>* %75, align 8, !alias.scope !18
-  %76 = getelementptr i64, i64* %74, i64 4
-  %77 = bitcast i64* %76 to <4 x i64>*
-  %wide.load104 = load <4 x i64>, <4 x i64>* %77, align 8, !alias.scope !18
-  %78 = getelementptr i64, i64* %74, i64 8
-  %79 = bitcast i64* %78 to <4 x i64>*
-  %wide.load105 = load <4 x i64>, <4 x i64>* %79, align 8, !alias.scope !18
-  %80 = getelementptr i64, i64* %74, i64 12
-  %81 = bitcast i64* %80 to <4 x i64>*
-  %wide.load106 = load <4 x i64>, <4 x i64>* %81, align 8, !alias.scope !18
-  %82 = bitcast i64* %73 to <4 x i64>*
-  store <4 x i64> %wide.load103, <4 x i64>* %82, align 8, !alias.scope !21, !noalias !18
-  %83 = getelementptr i64, i64* %73, i64 4
-  %84 = bitcast i64* %83 to <4 x i64>*
-  store <4 x i64> %wide.load104, <4 x i64>* %84, align 8, !alias.scope !21, !noalias !18
-  %85 = getelementptr i64, i64* %73, i64 8
-  %86 = bitcast i64* %85 to <4 x i64>*
-  store <4 x i64> %wide.load105, <4 x i64>* %86, align 8, !alias.scope !21, !noalias !18
-  %87 = getelementptr i64, i64* %73, i64 12
-  %88 = bitcast i64* %87 to <4 x i64>*
-  store <4 x i64> %wide.load106, <4 x i64>* %88, align 8, !alias.scope !21, !noalias !18
-  %index.next94 = or i64 %index93, 16
-  %89 = getelementptr i64, i64* %__v8_W, i64 %index.next94
-  %90 = getelementptr i64, i64* %__v1_X, i64 %index.next94
-  %91 = bitcast i64* %90 to <4 x i64>*
-  %wide.load103.1 = load <4 x i64>, <4 x i64>* %91, align 8, !alias.scope !18
-  %92 = getelementptr i64, i64* %90, i64 4
-  %93 = bitcast i64* %92 to <4 x i64>*
-  %wide.load104.1 = load <4 x i64>, <4 x i64>* %93, align 8, !alias.scope !18
-  %94 = getelementptr i64, i64* %90, i64 8
-  %95 = bitcast i64* %94 to <4 x i64>*
-  %wide.load105.1 = load <4 x i64>, <4 x i64>* %95, align 8, !alias.scope !18
-  %96 = getelementptr i64, i64* %90, i64 12
-  %97 = bitcast i64* %96 to <4 x i64>*
-  %wide.load106.1 = load <4 x i64>, <4 x i64>* %97, align 8, !alias.scope !18
-  %98 = bitcast i64* %89 to <4 x i64>*
-  store <4 x i64> %wide.load103.1, <4 x i64>* %98, align 8, !alias.scope !21, !noalias !18
-  %99 = getelementptr i64, i64* %89, i64 4
-  %100 = bitcast i64* %99 to <4 x i64>*
-  store <4 x i64> %wide.load104.1, <4 x i64>* %100, align 8, !alias.scope !21, !noalias !18
-  %101 = getelementptr i64, i64* %89, i64 8
-  %102 = bitcast i64* %101 to <4 x i64>*
-  store <4 x i64> %wide.load105.1, <4 x i64>* %102, align 8, !alias.scope !21, !noalias !18
-  %103 = getelementptr i64, i64* %89, i64 12
-  %104 = bitcast i64* %103 to <4 x i64>*
-  store <4 x i64> %wide.load106.1, <4 x i64>* %104, align 8, !alias.scope !21, !noalias !18
-  %index.next94.1 = add i64 %index93, 32
-  %niter383.nsub.1 = add i64 %niter383, -2
-  %niter383.ncmp.1 = icmp eq i64 %niter383.nsub.1, 0
-  br i1 %niter383.ncmp.1, label %middle.block76.unr-lcssa, label %vector.body75, !llvm.loop !23
+vector.body71:                                    ; preds = %vector.body71, %vector.ph86.new
+  %index89 = phi i64 [ 0, %vector.ph86.new ], [ %index.next90.3, %vector.body71 ]
+  %niter342 = phi i64 [ %unroll_iter341, %vector.ph86.new ], [ %niter342.nsub.3, %vector.body71 ]
+  %65 = getelementptr i64, i64* %__v8_W, i64 %index89
+  %66 = getelementptr i64, i64* %__v1_X, i64 %index89
+  %67 = bitcast i64* %66 to <2 x i64>*
+  %wide.load97 = load <2 x i64>, <2 x i64>* %67, align 8, !alias.scope !20
+  %68 = getelementptr i64, i64* %66, i64 2
+  %69 = bitcast i64* %68 to <2 x i64>*
+  %wide.load98 = load <2 x i64>, <2 x i64>* %69, align 8, !alias.scope !20
+  %70 = bitcast i64* %65 to <2 x i64>*
+  store <2 x i64> %wide.load97, <2 x i64>* %70, align 8, !alias.scope !23, !noalias !20
+  %71 = getelementptr i64, i64* %65, i64 2
+  %72 = bitcast i64* %71 to <2 x i64>*
+  store <2 x i64> %wide.load98, <2 x i64>* %72, align 8, !alias.scope !23, !noalias !20
+  %index.next90 = or i64 %index89, 4
+  %73 = getelementptr i64, i64* %__v8_W, i64 %index.next90
+  %74 = getelementptr i64, i64* %__v1_X, i64 %index.next90
+  %75 = bitcast i64* %74 to <2 x i64>*
+  %wide.load97.1 = load <2 x i64>, <2 x i64>* %75, align 8, !alias.scope !20
+  %76 = getelementptr i64, i64* %74, i64 2
+  %77 = bitcast i64* %76 to <2 x i64>*
+  %wide.load98.1 = load <2 x i64>, <2 x i64>* %77, align 8, !alias.scope !20
+  %78 = bitcast i64* %73 to <2 x i64>*
+  store <2 x i64> %wide.load97.1, <2 x i64>* %78, align 8, !alias.scope !23, !noalias !20
+  %79 = getelementptr i64, i64* %73, i64 2
+  %80 = bitcast i64* %79 to <2 x i64>*
+  store <2 x i64> %wide.load98.1, <2 x i64>* %80, align 8, !alias.scope !23, !noalias !20
+  %index.next90.1 = or i64 %index89, 8
+  %81 = getelementptr i64, i64* %__v8_W, i64 %index.next90.1
+  %82 = getelementptr i64, i64* %__v1_X, i64 %index.next90.1
+  %83 = bitcast i64* %82 to <2 x i64>*
+  %wide.load97.2 = load <2 x i64>, <2 x i64>* %83, align 8, !alias.scope !20
+  %84 = getelementptr i64, i64* %82, i64 2
+  %85 = bitcast i64* %84 to <2 x i64>*
+  %wide.load98.2 = load <2 x i64>, <2 x i64>* %85, align 8, !alias.scope !20
+  %86 = bitcast i64* %81 to <2 x i64>*
+  store <2 x i64> %wide.load97.2, <2 x i64>* %86, align 8, !alias.scope !23, !noalias !20
+  %87 = getelementptr i64, i64* %81, i64 2
+  %88 = bitcast i64* %87 to <2 x i64>*
+  store <2 x i64> %wide.load98.2, <2 x i64>* %88, align 8, !alias.scope !23, !noalias !20
+  %index.next90.2 = or i64 %index89, 12
+  %89 = getelementptr i64, i64* %__v8_W, i64 %index.next90.2
+  %90 = getelementptr i64, i64* %__v1_X, i64 %index.next90.2
+  %91 = bitcast i64* %90 to <2 x i64>*
+  %wide.load97.3 = load <2 x i64>, <2 x i64>* %91, align 8, !alias.scope !20
+  %92 = getelementptr i64, i64* %90, i64 2
+  %93 = bitcast i64* %92 to <2 x i64>*
+  %wide.load98.3 = load <2 x i64>, <2 x i64>* %93, align 8, !alias.scope !20
+  %94 = bitcast i64* %89 to <2 x i64>*
+  store <2 x i64> %wide.load97.3, <2 x i64>* %94, align 8, !alias.scope !23, !noalias !20
+  %95 = getelementptr i64, i64* %89, i64 2
+  %96 = bitcast i64* %95 to <2 x i64>*
+  store <2 x i64> %wide.load98.3, <2 x i64>* %96, align 8, !alias.scope !23, !noalias !20
+  %index.next90.3 = add i64 %index89, 16
+  %niter342.nsub.3 = add i64 %niter342, -4
+  %niter342.ncmp.3 = icmp eq i64 %niter342.nsub.3, 0
+  br i1 %niter342.ncmp.3, label %middle.block72.unr-lcssa, label %vector.body71, !llvm.loop !25
 
-middle.block76.unr-lcssa:                         ; preds = %vector.body75, %vector.ph90
-  %index93.unr = phi i64 [ 0, %vector.ph90 ], [ %index.next94.1, %vector.body75 ]
-  %lcmp.mod381 = icmp eq i64 %xtraiter380, 0
-  br i1 %lcmp.mod381, label %middle.block76, label %vector.body75.epil
+middle.block72.unr-lcssa:                         ; preds = %vector.body71, %vector.ph86
+  %index89.unr = phi i64 [ 0, %vector.ph86 ], [ %index.next90.3, %vector.body71 ]
+  %lcmp.mod340 = icmp eq i64 %xtraiter338, 0
+  br i1 %lcmp.mod340, label %middle.block72, label %vector.body71.epil.preheader
 
-vector.body75.epil:                               ; preds = %middle.block76.unr-lcssa
-  %105 = getelementptr i64, i64* %__v8_W, i64 %index93.unr
-  %106 = getelementptr i64, i64* %__v1_X, i64 %index93.unr
-  %107 = bitcast i64* %106 to <4 x i64>*
-  %wide.load103.epil = load <4 x i64>, <4 x i64>* %107, align 8, !alias.scope !18
-  %108 = getelementptr i64, i64* %106, i64 4
-  %109 = bitcast i64* %108 to <4 x i64>*
-  %wide.load104.epil = load <4 x i64>, <4 x i64>* %109, align 8, !alias.scope !18
-  %110 = getelementptr i64, i64* %106, i64 8
-  %111 = bitcast i64* %110 to <4 x i64>*
-  %wide.load105.epil = load <4 x i64>, <4 x i64>* %111, align 8, !alias.scope !18
-  %112 = getelementptr i64, i64* %106, i64 12
-  %113 = bitcast i64* %112 to <4 x i64>*
-  %wide.load106.epil = load <4 x i64>, <4 x i64>* %113, align 8, !alias.scope !18
-  %114 = bitcast i64* %105 to <4 x i64>*
-  store <4 x i64> %wide.load103.epil, <4 x i64>* %114, align 8, !alias.scope !21, !noalias !18
-  %115 = getelementptr i64, i64* %105, i64 4
-  %116 = bitcast i64* %115 to <4 x i64>*
-  store <4 x i64> %wide.load104.epil, <4 x i64>* %116, align 8, !alias.scope !21, !noalias !18
-  %117 = getelementptr i64, i64* %105, i64 8
-  %118 = bitcast i64* %117 to <4 x i64>*
-  store <4 x i64> %wide.load105.epil, <4 x i64>* %118, align 8, !alias.scope !21, !noalias !18
-  %119 = getelementptr i64, i64* %105, i64 12
-  %120 = bitcast i64* %119 to <4 x i64>*
-  store <4 x i64> %wide.load106.epil, <4 x i64>* %120, align 8, !alias.scope !21, !noalias !18
-  br label %middle.block76
+vector.body71.epil.preheader:                     ; preds = %middle.block72.unr-lcssa
+  br label %vector.body71.epil
 
-middle.block76:                                   ; preds = %middle.block76.unr-lcssa, %vector.body75.epil
-  %cmp.n96 = icmp eq i64 %__v67_clen.i2, %n.vec92
-  br i1 %cmp.n96, label %._crit_edge4.i5, label %scalar.ph77.preheader
+vector.body71.epil:                               ; preds = %vector.body71.epil, %vector.body71.epil.preheader
+  %index89.epil = phi i64 [ %index89.unr, %vector.body71.epil.preheader ], [ %index.next90.epil, %vector.body71.epil ]
+  %epil.iter339 = phi i64 [ %xtraiter338, %vector.body71.epil.preheader ], [ %epil.iter339.sub, %vector.body71.epil ]
+  %97 = getelementptr i64, i64* %__v8_W, i64 %index89.epil
+  %98 = getelementptr i64, i64* %__v1_X, i64 %index89.epil
+  %99 = bitcast i64* %98 to <2 x i64>*
+  %wide.load97.epil = load <2 x i64>, <2 x i64>* %99, align 8, !alias.scope !20
+  %100 = getelementptr i64, i64* %98, i64 2
+  %101 = bitcast i64* %100 to <2 x i64>*
+  %wide.load98.epil = load <2 x i64>, <2 x i64>* %101, align 8, !alias.scope !20
+  %102 = bitcast i64* %97 to <2 x i64>*
+  store <2 x i64> %wide.load97.epil, <2 x i64>* %102, align 8, !alias.scope !23, !noalias !20
+  %103 = getelementptr i64, i64* %97, i64 2
+  %104 = bitcast i64* %103 to <2 x i64>*
+  store <2 x i64> %wide.load98.epil, <2 x i64>* %104, align 8, !alias.scope !23, !noalias !20
+  %index.next90.epil = add i64 %index89.epil, 4
+  %epil.iter339.sub = add i64 %epil.iter339, -1
+  %epil.iter339.cmp = icmp eq i64 %epil.iter339.sub, 0
+  br i1 %epil.iter339.cmp, label %middle.block72, label %vector.body71.epil, !llvm.loop !26
 
-scalar.ph77.preheader:                            ; preds = %middle.block76, %vector.memcheck89, %.lr.ph3.i3
-  %__v68_i2.i4.ph = phi i64 [ 0, %vector.memcheck89 ], [ 0, %.lr.ph3.i3 ], [ %n.vec92, %middle.block76 ]
-  br label %scalar.ph77
+middle.block72:                                   ; preds = %vector.body71.epil, %middle.block72.unr-lcssa
+  %cmp.n92 = icmp eq i64 %__v67_clen.i2, %n.vec88
+  br i1 %cmp.n92, label %._crit_edge4.i5, label %scalar.ph73.preheader
 
-scalar.ph77:                                      ; preds = %scalar.ph77.preheader, %scalar.ph77
-  %__v68_i2.i4 = phi i64 [ %124, %scalar.ph77 ], [ %__v68_i2.i4.ph, %scalar.ph77.preheader ]
-  %121 = getelementptr i64, i64* %__v8_W, i64 %__v68_i2.i4
-  %122 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i4
-  %123 = load i64, i64* %122, align 8
-  store i64 %123, i64* %121, align 8
-  %124 = add nuw nsw i64 %__v68_i2.i4, 1
-  %125 = icmp ult i64 %124, %__v67_clen.i2
-  br i1 %125, label %scalar.ph77, label %._crit_edge4.i5, !llvm.loop !24
+scalar.ph73.preheader:                            ; preds = %middle.block72, %vector.memcheck85, %.lr.ph3.i3
+  %__v68_i2.i4.ph = phi i64 [ 0, %vector.memcheck85 ], [ 0, %.lr.ph3.i3 ], [ %n.vec88, %middle.block72 ]
+  br label %scalar.ph73
 
-._crit_edge4.i5:                                  ; preds = %scalar.ph77, %middle.block76, %_mpi_copy.exit
-  %126 = icmp ugt i64 %__v95_lexpr, %__v71___v1_X_len
-  br i1 %126, label %.lr.ph.i6, label %_mpi_copy.exit8
+scalar.ph73:                                      ; preds = %scalar.ph73.preheader, %scalar.ph73
+  %__v68_i2.i4 = phi i64 [ %108, %scalar.ph73 ], [ %__v68_i2.i4.ph, %scalar.ph73.preheader ]
+  %105 = getelementptr i64, i64* %__v8_W, i64 %__v68_i2.i4
+  %106 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i4
+  %107 = load i64, i64* %106, align 8
+  store i64 %107, i64* %105, align 8
+  %108 = add nuw nsw i64 %__v68_i2.i4, 1
+  %109 = icmp ult i64 %108, %__v67_clen.i2
+  br i1 %109, label %scalar.ph73, label %._crit_edge4.i5, !llvm.loop !27
+
+._crit_edge4.i5:                                  ; preds = %scalar.ph73, %middle.block72, %_mpi_copy.exit
+  %110 = icmp ugt i64 %__v95_lexpr, %__v71___v1_X_len
+  br i1 %110, label %.lr.ph.i6, label %_mpi_copy.exit8
 
 .lr.ph.i6:                                        ; preds = %._crit_edge4.i5
   %scevgep55 = getelementptr i64, i64* %__v8_W, i64 %__v67_clen.i2
   %scevgep5556 = bitcast i64* %scevgep55 to i8*
-  %127 = xor i64 %__v71___v1_X_len, 2305843009213693951
-  %128 = add i64 %__v95_lexpr, %127
-  %129 = shl i64 %128, 3
-  %130 = add i64 %129, 8
-  call void @llvm.memset.p0i8.i64(i8* %scevgep5556, i8 0, i64 %130, i32 8, i1 false)
+  %111 = xor i64 %__v71___v1_X_len, 2305843009213693951
+  %112 = add i64 %__v95_lexpr, %111
+  %113 = shl i64 %112, 3
+  %114 = add i64 %113, 8
+  call void @llvm.memset.p0i8.i64(i8* %scevgep5556, i8 0, i64 %114, i32 8, i1 false)
   br label %_mpi_copy.exit8
 
 _mpi_copy.exit8:                                  ; preds = %.lr.ph.i6, %._crit_edge4.i5
-  %131 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
-  %132 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr
-  %133 = icmp ult i64 %__v95_lexpr, %__v72___v2_A_len
-  %__v67_clen.i9 = select i1 %133, i64 %__v95_lexpr, i64 %__v72___v2_A_len
-  %134 = icmp eq i64 %__v67_clen.i9, 0
-  br i1 %134, label %._crit_edge4.i12, label %.lr.ph3.i10
+  %115 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
+  %116 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr
+  %117 = icmp ult i64 %__v95_lexpr, %__v72___v2_A_len
+  %__v67_clen.i9 = select i1 %117, i64 %__v95_lexpr, i64 %__v72___v2_A_len
+  %118 = icmp eq i64 %__v67_clen.i9, 0
+  br i1 %118, label %._crit_edge4.i12, label %.lr.ph3.i10
 
 .lr.ph3.i10:                                      ; preds = %_mpi_copy.exit8
-  %min.iters.check110 = icmp ult i64 %__v67_clen.i9, 16
-  br i1 %min.iters.check110, label %scalar.ph109.preheader, label %vector.memcheck121
+  %min.iters.check102 = icmp ult i64 %__v67_clen.i9, 4
+  br i1 %min.iters.check102, label %scalar.ph101.preheader, label %vector.memcheck113
 
-vector.memcheck121:                               ; preds = %.lr.ph3.i10
-  %135 = add nsw i64 %__v95_lexpr, -1
-  %136 = icmp ult i64 %__v95_lexpr, %__v72___v2_A_len
-  %137 = select i1 %136, i64 %__v95_lexpr, i64 %__v72___v2_A_len
-  %138 = xor i64 %137, -1
-  %139 = sub nsw i64 %135, %138
-  %scevgep112 = getelementptr i64, i64* %__v8_W, i64 %139
-  %scevgep115 = getelementptr i64, i64* %__v2_A, i64 %__v67_clen.i9
-  %bound0117 = icmp ult i64* %132, %scevgep115
-  %bound1118 = icmp ugt i64* %scevgep112, %__v2_A
-  %memcheck.conflict120 = and i1 %bound0117, %bound1118
-  br i1 %memcheck.conflict120, label %scalar.ph109.preheader, label %vector.ph122
+vector.memcheck113:                               ; preds = %.lr.ph3.i10
+  %119 = add nsw i64 %__v95_lexpr, -1
+  %120 = icmp ult i64 %__v95_lexpr, %__v72___v2_A_len
+  %121 = select i1 %120, i64 %__v95_lexpr, i64 %__v72___v2_A_len
+  %122 = xor i64 %121, -1
+  %123 = sub nsw i64 %119, %122
+  %scevgep104 = getelementptr i64, i64* %__v8_W, i64 %123
+  %scevgep107 = getelementptr i64, i64* %__v2_A, i64 %__v67_clen.i9
+  %bound0109 = icmp ult i64* %116, %scevgep107
+  %bound1110 = icmp ugt i64* %scevgep104, %__v2_A
+  %memcheck.conflict112 = and i1 %bound0109, %bound1110
+  br i1 %memcheck.conflict112, label %scalar.ph101.preheader, label %vector.ph114
 
-vector.ph122:                                     ; preds = %vector.memcheck121
-  %n.vec124 = and i64 %__v67_clen.i9, 4294967280
-  %140 = add nsw i64 %n.vec124, -16
-  %141 = lshr exact i64 %140, 4
-  %142 = add nuw nsw i64 %141, 1
-  %xtraiter378 = and i64 %142, 1
-  %143 = icmp eq i64 %140, 0
-  br i1 %143, label %middle.block108.unr-lcssa, label %vector.ph122.new
+vector.ph114:                                     ; preds = %vector.memcheck113
+  %n.vec116 = and i64 %__v67_clen.i9, 4294967292
+  %124 = add nsw i64 %n.vec116, -4
+  %125 = lshr exact i64 %124, 2
+  %126 = add nuw nsw i64 %125, 1
+  %xtraiter334 = and i64 %126, 3
+  %127 = icmp ult i64 %124, 12
+  br i1 %127, label %middle.block100.unr-lcssa, label %vector.ph114.new
 
-vector.ph122.new:                                 ; preds = %vector.ph122
-  %unroll_iter = sub nsw i64 %142, %xtraiter378
-  br label %vector.body107
+vector.ph114.new:                                 ; preds = %vector.ph114
+  %unroll_iter336 = sub nsw i64 %126, %xtraiter334
+  br label %vector.body99
 
-vector.body107:                                   ; preds = %vector.body107, %vector.ph122.new
-  %index125 = phi i64 [ 0, %vector.ph122.new ], [ %index.next126.1, %vector.body107 ]
-  %niter = phi i64 [ %unroll_iter, %vector.ph122.new ], [ %niter.nsub.1, %vector.body107 ]
-  %144 = getelementptr i64, i64* %132, i64 %index125
-  %145 = getelementptr i64, i64* %__v2_A, i64 %index125
-  %146 = bitcast i64* %145 to <4 x i64>*
-  %wide.load135 = load <4 x i64>, <4 x i64>* %146, align 8, !alias.scope !25
-  %147 = getelementptr i64, i64* %145, i64 4
-  %148 = bitcast i64* %147 to <4 x i64>*
-  %wide.load136 = load <4 x i64>, <4 x i64>* %148, align 8, !alias.scope !25
-  %149 = getelementptr i64, i64* %145, i64 8
-  %150 = bitcast i64* %149 to <4 x i64>*
-  %wide.load137 = load <4 x i64>, <4 x i64>* %150, align 8, !alias.scope !25
-  %151 = getelementptr i64, i64* %145, i64 12
-  %152 = bitcast i64* %151 to <4 x i64>*
-  %wide.load138 = load <4 x i64>, <4 x i64>* %152, align 8, !alias.scope !25
-  %153 = bitcast i64* %144 to <4 x i64>*
-  store <4 x i64> %wide.load135, <4 x i64>* %153, align 8, !alias.scope !28, !noalias !25
-  %154 = getelementptr i64, i64* %144, i64 4
-  %155 = bitcast i64* %154 to <4 x i64>*
-  store <4 x i64> %wide.load136, <4 x i64>* %155, align 8, !alias.scope !28, !noalias !25
-  %156 = getelementptr i64, i64* %144, i64 8
-  %157 = bitcast i64* %156 to <4 x i64>*
-  store <4 x i64> %wide.load137, <4 x i64>* %157, align 8, !alias.scope !28, !noalias !25
-  %158 = getelementptr i64, i64* %144, i64 12
-  %159 = bitcast i64* %158 to <4 x i64>*
-  store <4 x i64> %wide.load138, <4 x i64>* %159, align 8, !alias.scope !28, !noalias !25
-  %index.next126 = or i64 %index125, 16
-  %160 = getelementptr i64, i64* %132, i64 %index.next126
-  %161 = getelementptr i64, i64* %__v2_A, i64 %index.next126
-  %162 = bitcast i64* %161 to <4 x i64>*
-  %wide.load135.1 = load <4 x i64>, <4 x i64>* %162, align 8, !alias.scope !25
-  %163 = getelementptr i64, i64* %161, i64 4
-  %164 = bitcast i64* %163 to <4 x i64>*
-  %wide.load136.1 = load <4 x i64>, <4 x i64>* %164, align 8, !alias.scope !25
-  %165 = getelementptr i64, i64* %161, i64 8
-  %166 = bitcast i64* %165 to <4 x i64>*
-  %wide.load137.1 = load <4 x i64>, <4 x i64>* %166, align 8, !alias.scope !25
-  %167 = getelementptr i64, i64* %161, i64 12
-  %168 = bitcast i64* %167 to <4 x i64>*
-  %wide.load138.1 = load <4 x i64>, <4 x i64>* %168, align 8, !alias.scope !25
-  %169 = bitcast i64* %160 to <4 x i64>*
-  store <4 x i64> %wide.load135.1, <4 x i64>* %169, align 8, !alias.scope !28, !noalias !25
-  %170 = getelementptr i64, i64* %160, i64 4
-  %171 = bitcast i64* %170 to <4 x i64>*
-  store <4 x i64> %wide.load136.1, <4 x i64>* %171, align 8, !alias.scope !28, !noalias !25
-  %172 = getelementptr i64, i64* %160, i64 8
-  %173 = bitcast i64* %172 to <4 x i64>*
-  store <4 x i64> %wide.load137.1, <4 x i64>* %173, align 8, !alias.scope !28, !noalias !25
-  %174 = getelementptr i64, i64* %160, i64 12
-  %175 = bitcast i64* %174 to <4 x i64>*
-  store <4 x i64> %wide.load138.1, <4 x i64>* %175, align 8, !alias.scope !28, !noalias !25
-  %index.next126.1 = add i64 %index125, 32
-  %niter.nsub.1 = add i64 %niter, -2
-  %niter.ncmp.1 = icmp eq i64 %niter.nsub.1, 0
-  br i1 %niter.ncmp.1, label %middle.block108.unr-lcssa, label %vector.body107, !llvm.loop !30
+vector.body99:                                    ; preds = %vector.body99, %vector.ph114.new
+  %index117 = phi i64 [ 0, %vector.ph114.new ], [ %index.next118.3, %vector.body99 ]
+  %niter337 = phi i64 [ %unroll_iter336, %vector.ph114.new ], [ %niter337.nsub.3, %vector.body99 ]
+  %128 = getelementptr i64, i64* %116, i64 %index117
+  %129 = getelementptr i64, i64* %__v2_A, i64 %index117
+  %130 = bitcast i64* %129 to <2 x i64>*
+  %wide.load125 = load <2 x i64>, <2 x i64>* %130, align 8, !alias.scope !28
+  %131 = getelementptr i64, i64* %129, i64 2
+  %132 = bitcast i64* %131 to <2 x i64>*
+  %wide.load126 = load <2 x i64>, <2 x i64>* %132, align 8, !alias.scope !28
+  %133 = bitcast i64* %128 to <2 x i64>*
+  store <2 x i64> %wide.load125, <2 x i64>* %133, align 8, !alias.scope !31, !noalias !28
+  %134 = getelementptr i64, i64* %128, i64 2
+  %135 = bitcast i64* %134 to <2 x i64>*
+  store <2 x i64> %wide.load126, <2 x i64>* %135, align 8, !alias.scope !31, !noalias !28
+  %index.next118 = or i64 %index117, 4
+  %136 = getelementptr i64, i64* %116, i64 %index.next118
+  %137 = getelementptr i64, i64* %__v2_A, i64 %index.next118
+  %138 = bitcast i64* %137 to <2 x i64>*
+  %wide.load125.1 = load <2 x i64>, <2 x i64>* %138, align 8, !alias.scope !28
+  %139 = getelementptr i64, i64* %137, i64 2
+  %140 = bitcast i64* %139 to <2 x i64>*
+  %wide.load126.1 = load <2 x i64>, <2 x i64>* %140, align 8, !alias.scope !28
+  %141 = bitcast i64* %136 to <2 x i64>*
+  store <2 x i64> %wide.load125.1, <2 x i64>* %141, align 8, !alias.scope !31, !noalias !28
+  %142 = getelementptr i64, i64* %136, i64 2
+  %143 = bitcast i64* %142 to <2 x i64>*
+  store <2 x i64> %wide.load126.1, <2 x i64>* %143, align 8, !alias.scope !31, !noalias !28
+  %index.next118.1 = or i64 %index117, 8
+  %144 = getelementptr i64, i64* %116, i64 %index.next118.1
+  %145 = getelementptr i64, i64* %__v2_A, i64 %index.next118.1
+  %146 = bitcast i64* %145 to <2 x i64>*
+  %wide.load125.2 = load <2 x i64>, <2 x i64>* %146, align 8, !alias.scope !28
+  %147 = getelementptr i64, i64* %145, i64 2
+  %148 = bitcast i64* %147 to <2 x i64>*
+  %wide.load126.2 = load <2 x i64>, <2 x i64>* %148, align 8, !alias.scope !28
+  %149 = bitcast i64* %144 to <2 x i64>*
+  store <2 x i64> %wide.load125.2, <2 x i64>* %149, align 8, !alias.scope !31, !noalias !28
+  %150 = getelementptr i64, i64* %144, i64 2
+  %151 = bitcast i64* %150 to <2 x i64>*
+  store <2 x i64> %wide.load126.2, <2 x i64>* %151, align 8, !alias.scope !31, !noalias !28
+  %index.next118.2 = or i64 %index117, 12
+  %152 = getelementptr i64, i64* %116, i64 %index.next118.2
+  %153 = getelementptr i64, i64* %__v2_A, i64 %index.next118.2
+  %154 = bitcast i64* %153 to <2 x i64>*
+  %wide.load125.3 = load <2 x i64>, <2 x i64>* %154, align 8, !alias.scope !28
+  %155 = getelementptr i64, i64* %153, i64 2
+  %156 = bitcast i64* %155 to <2 x i64>*
+  %wide.load126.3 = load <2 x i64>, <2 x i64>* %156, align 8, !alias.scope !28
+  %157 = bitcast i64* %152 to <2 x i64>*
+  store <2 x i64> %wide.load125.3, <2 x i64>* %157, align 8, !alias.scope !31, !noalias !28
+  %158 = getelementptr i64, i64* %152, i64 2
+  %159 = bitcast i64* %158 to <2 x i64>*
+  store <2 x i64> %wide.load126.3, <2 x i64>* %159, align 8, !alias.scope !31, !noalias !28
+  %index.next118.3 = add i64 %index117, 16
+  %niter337.nsub.3 = add i64 %niter337, -4
+  %niter337.ncmp.3 = icmp eq i64 %niter337.nsub.3, 0
+  br i1 %niter337.ncmp.3, label %middle.block100.unr-lcssa, label %vector.body99, !llvm.loop !33
 
-middle.block108.unr-lcssa:                        ; preds = %vector.body107, %vector.ph122
-  %index125.unr = phi i64 [ 0, %vector.ph122 ], [ %index.next126.1, %vector.body107 ]
-  %lcmp.mod379 = icmp eq i64 %xtraiter378, 0
-  br i1 %lcmp.mod379, label %middle.block108, label %vector.body107.epil
+middle.block100.unr-lcssa:                        ; preds = %vector.body99, %vector.ph114
+  %index117.unr = phi i64 [ 0, %vector.ph114 ], [ %index.next118.3, %vector.body99 ]
+  %lcmp.mod335 = icmp eq i64 %xtraiter334, 0
+  br i1 %lcmp.mod335, label %middle.block100, label %vector.body99.epil.preheader
 
-vector.body107.epil:                              ; preds = %middle.block108.unr-lcssa
-  %176 = getelementptr i64, i64* %132, i64 %index125.unr
-  %177 = getelementptr i64, i64* %__v2_A, i64 %index125.unr
-  %178 = bitcast i64* %177 to <4 x i64>*
-  %wide.load135.epil = load <4 x i64>, <4 x i64>* %178, align 8, !alias.scope !25
-  %179 = getelementptr i64, i64* %177, i64 4
-  %180 = bitcast i64* %179 to <4 x i64>*
-  %wide.load136.epil = load <4 x i64>, <4 x i64>* %180, align 8, !alias.scope !25
-  %181 = getelementptr i64, i64* %177, i64 8
-  %182 = bitcast i64* %181 to <4 x i64>*
-  %wide.load137.epil = load <4 x i64>, <4 x i64>* %182, align 8, !alias.scope !25
-  %183 = getelementptr i64, i64* %177, i64 12
-  %184 = bitcast i64* %183 to <4 x i64>*
-  %wide.load138.epil = load <4 x i64>, <4 x i64>* %184, align 8, !alias.scope !25
-  %185 = bitcast i64* %176 to <4 x i64>*
-  store <4 x i64> %wide.load135.epil, <4 x i64>* %185, align 8, !alias.scope !28, !noalias !25
-  %186 = getelementptr i64, i64* %176, i64 4
-  %187 = bitcast i64* %186 to <4 x i64>*
-  store <4 x i64> %wide.load136.epil, <4 x i64>* %187, align 8, !alias.scope !28, !noalias !25
-  %188 = getelementptr i64, i64* %176, i64 8
-  %189 = bitcast i64* %188 to <4 x i64>*
-  store <4 x i64> %wide.load137.epil, <4 x i64>* %189, align 8, !alias.scope !28, !noalias !25
-  %190 = getelementptr i64, i64* %176, i64 12
-  %191 = bitcast i64* %190 to <4 x i64>*
-  store <4 x i64> %wide.load138.epil, <4 x i64>* %191, align 8, !alias.scope !28, !noalias !25
-  br label %middle.block108
+vector.body99.epil.preheader:                     ; preds = %middle.block100.unr-lcssa
+  br label %vector.body99.epil
 
-middle.block108:                                  ; preds = %middle.block108.unr-lcssa, %vector.body107.epil
-  %cmp.n128 = icmp eq i64 %__v67_clen.i9, %n.vec124
-  br i1 %cmp.n128, label %._crit_edge4.i12, label %scalar.ph109.preheader
+vector.body99.epil:                               ; preds = %vector.body99.epil, %vector.body99.epil.preheader
+  %index117.epil = phi i64 [ %index117.unr, %vector.body99.epil.preheader ], [ %index.next118.epil, %vector.body99.epil ]
+  %epil.iter = phi i64 [ %xtraiter334, %vector.body99.epil.preheader ], [ %epil.iter.sub, %vector.body99.epil ]
+  %160 = getelementptr i64, i64* %116, i64 %index117.epil
+  %161 = getelementptr i64, i64* %__v2_A, i64 %index117.epil
+  %162 = bitcast i64* %161 to <2 x i64>*
+  %wide.load125.epil = load <2 x i64>, <2 x i64>* %162, align 8, !alias.scope !28
+  %163 = getelementptr i64, i64* %161, i64 2
+  %164 = bitcast i64* %163 to <2 x i64>*
+  %wide.load126.epil = load <2 x i64>, <2 x i64>* %164, align 8, !alias.scope !28
+  %165 = bitcast i64* %160 to <2 x i64>*
+  store <2 x i64> %wide.load125.epil, <2 x i64>* %165, align 8, !alias.scope !31, !noalias !28
+  %166 = getelementptr i64, i64* %160, i64 2
+  %167 = bitcast i64* %166 to <2 x i64>*
+  store <2 x i64> %wide.load126.epil, <2 x i64>* %167, align 8, !alias.scope !31, !noalias !28
+  %index.next118.epil = add i64 %index117.epil, 4
+  %epil.iter.sub = add i64 %epil.iter, -1
+  %epil.iter.cmp = icmp eq i64 %epil.iter.sub, 0
+  br i1 %epil.iter.cmp, label %middle.block100, label %vector.body99.epil, !llvm.loop !34
 
-scalar.ph109.preheader:                           ; preds = %middle.block108, %vector.memcheck121, %.lr.ph3.i10
-  %__v68_i2.i11.ph = phi i64 [ 0, %vector.memcheck121 ], [ 0, %.lr.ph3.i10 ], [ %n.vec124, %middle.block108 ]
-  br label %scalar.ph109
+middle.block100:                                  ; preds = %vector.body99.epil, %middle.block100.unr-lcssa
+  %cmp.n120 = icmp eq i64 %__v67_clen.i9, %n.vec116
+  br i1 %cmp.n120, label %._crit_edge4.i12, label %scalar.ph101.preheader
 
-scalar.ph109:                                     ; preds = %scalar.ph109.preheader, %scalar.ph109
-  %__v68_i2.i11 = phi i64 [ %195, %scalar.ph109 ], [ %__v68_i2.i11.ph, %scalar.ph109.preheader ]
-  %192 = getelementptr i64, i64* %132, i64 %__v68_i2.i11
-  %193 = getelementptr i64, i64* %__v2_A, i64 %__v68_i2.i11
-  %194 = load i64, i64* %193, align 8
-  store i64 %194, i64* %192, align 8
-  %195 = add nuw nsw i64 %__v68_i2.i11, 1
-  %196 = icmp ult i64 %195, %__v67_clen.i9
-  br i1 %196, label %scalar.ph109, label %._crit_edge4.i12, !llvm.loop !31
+scalar.ph101.preheader:                           ; preds = %middle.block100, %vector.memcheck113, %.lr.ph3.i10
+  %__v68_i2.i11.ph = phi i64 [ 0, %vector.memcheck113 ], [ 0, %.lr.ph3.i10 ], [ %n.vec116, %middle.block100 ]
+  br label %scalar.ph101
 
-._crit_edge4.i12:                                 ; preds = %scalar.ph109, %middle.block108, %_mpi_copy.exit8
-  %197 = icmp ugt i64 %__v95_lexpr, %__v72___v2_A_len
-  br i1 %197, label %.lr.ph.i13, label %_mpi_copy.exit15
+scalar.ph101:                                     ; preds = %scalar.ph101.preheader, %scalar.ph101
+  %__v68_i2.i11 = phi i64 [ %171, %scalar.ph101 ], [ %__v68_i2.i11.ph, %scalar.ph101.preheader ]
+  %168 = getelementptr i64, i64* %116, i64 %__v68_i2.i11
+  %169 = getelementptr i64, i64* %__v2_A, i64 %__v68_i2.i11
+  %170 = load i64, i64* %169, align 8
+  store i64 %170, i64* %168, align 8
+  %171 = add nuw nsw i64 %__v68_i2.i11, 1
+  %172 = icmp ult i64 %171, %__v67_clen.i9
+  br i1 %172, label %scalar.ph101, label %._crit_edge4.i12, !llvm.loop !35
+
+._crit_edge4.i12:                                 ; preds = %scalar.ph101, %middle.block100, %_mpi_copy.exit8
+  %173 = icmp ugt i64 %__v95_lexpr, %__v72___v2_A_len
+  br i1 %173, label %.lr.ph.i13, label %_mpi_copy.exit15
 
 .lr.ph.i13:                                       ; preds = %._crit_edge4.i12
-  %198 = add nsw i64 %__v95_lexpr, -1
-  %199 = xor i64 %__v72___v2_A_len, -1
-  %200 = sub i64 %198, %199
-  %scevgep = getelementptr i64, i64* %__v8_W, i64 %200
+  %174 = add nsw i64 %__v95_lexpr, -1
+  %175 = xor i64 %__v72___v2_A_len, -1
+  %176 = sub i64 %174, %175
+  %scevgep = getelementptr i64, i64* %__v8_W, i64 %176
   %scevgep54 = bitcast i64* %scevgep to i8*
-  %201 = add i64 %__v95_lexpr, %199
-  %202 = shl i64 %201, 3
-  %203 = add i64 %202, 8
-  call void @llvm.memset.p0i8.i64(i8* %scevgep54, i8 0, i64 %203, i32 8, i1 false)
+  %177 = add i64 %__v95_lexpr, %175
+  %178 = shl i64 %177, 3
+  %179 = add i64 %178, 8
+  call void @llvm.memset.p0i8.i64(i8* %scevgep54, i8 0, i64 %179, i32 8, i1 false)
   br label %_mpi_copy.exit15
 
 _mpi_copy.exit15:                                 ; preds = %.lr.ph.i13, %._crit_edge4.i12
-  %204 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
-  tail call fastcc void @_mpi_montmul(i64* %132, i64 %__v95_lexpr, i64* %__v6_RR, i64 %__v75___v6_RR_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
-  %205 = icmp eq i64 %__v95_lexpr, 0
-  %206 = shl nuw nsw i64 %0, 1
-  %207 = trunc i64 %206 to i32
-  %208 = trunc i64 %0 to i32
-  %scevgep146 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr
-  %209 = trunc i64 %0 to i32
-  %scevgep151 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr
-  %210 = add nsw i64 %__v95_lexpr, -1
-  %min.iters.check142 = icmp ult i64 %__v95_lexpr, 16
-  %n.mod.vf160 = and i64 %0, 15
-  %n.vec161 = sub nsw i64 %__v95_lexpr, %n.mod.vf160
-  %cmp.n165 = icmp eq i64 %n.mod.vf160, 0
-  br label %211
+  %180 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
+  tail call fastcc void @_mpi_montmul(i64* %116, i64 %__v95_lexpr, i64* %__v6_RR, i64 %__v75___v6_RR_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
+  %181 = icmp eq i64 %__v95_lexpr, 0
+  %182 = shl nuw nsw i64 %0, 1
+  %183 = trunc i64 %182 to i32
+  %184 = trunc i64 %0 to i32
+  %scevgep134 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr
+  %185 = trunc i64 %0 to i32
+  %scevgep139 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr
+  %186 = add nsw i64 %__v95_lexpr, -1
+  %min.iters.check130 = icmp ult i64 %__v95_lexpr, 4
+  %n.mod.vf148 = and i64 %0, 3
+  %n.vec149 = sub nsw i64 %__v95_lexpr, %n.mod.vf148
+  %cmp.n153 = icmp eq i64 %n.mod.vf148, 0
+  br label %187
 
-; <label>:211:                                    ; preds = %_mpi_copy.exit19, %_mpi_copy.exit15
+; <label>:187:                                    ; preds = %_mpi_copy.exit19, %_mpi_copy.exit15
   %indvar = phi i32 [ %indvar.next, %_mpi_copy.exit19 ], [ 0, %_mpi_copy.exit15 ]
   %indvars.iv51 = phi i64 [ %indvars.iv.next52, %_mpi_copy.exit19 ], [ 2, %_mpi_copy.exit15 ]
-  %212 = mul i32 %indvar, %208
-  %213 = add i32 %212, %207
-  %214 = zext i32 %213 to i64
-  %scevgep144 = getelementptr i64, i64* %__v8_W, i64 %214
-  %scevgep147 = getelementptr i64, i64* %scevgep146, i64 %214
-  %215 = add i32 %212, %209
-  %216 = zext i32 %215 to i64
-  %scevgep149 = getelementptr i64, i64* %__v8_W, i64 %216
-  %scevgep152 = getelementptr i64, i64* %scevgep151, i64 %216
-  %217 = mul i64 %indvars.iv51, %0
-  %__v104_lexpr = and i64 %217, 4294967295
-  %218 = add nuw i64 %indvars.iv51, 4294967295
-  %219 = mul i64 %218, %0
-  %__v108_lexpr = and i64 %219, 4294967295
-  %220 = getelementptr i64, i64* %__v8_W, i64 %__v104_lexpr
-  %221 = getelementptr i64, i64* %__v8_W, i64 %__v108_lexpr
-  br i1 %205, label %_mpi_copy.exit19, label %.lr.ph3.i16
+  %188 = mul i32 %indvar, %184
+  %189 = add i32 %188, %183
+  %190 = zext i32 %189 to i64
+  %scevgep132 = getelementptr i64, i64* %__v8_W, i64 %190
+  %scevgep135 = getelementptr i64, i64* %scevgep134, i64 %190
+  %191 = add i32 %188, %185
+  %192 = zext i32 %191 to i64
+  %scevgep137 = getelementptr i64, i64* %__v8_W, i64 %192
+  %scevgep140 = getelementptr i64, i64* %scevgep139, i64 %192
+  %193 = mul i64 %indvars.iv51, %0
+  %__v104_lexpr = and i64 %193, 4294967295
+  %194 = add nuw i64 %indvars.iv51, 4294967295
+  %195 = mul i64 %194, %0
+  %__v108_lexpr = and i64 %195, 4294967295
+  %196 = getelementptr i64, i64* %__v8_W, i64 %__v104_lexpr
+  %197 = getelementptr i64, i64* %__v8_W, i64 %__v108_lexpr
+  br i1 %181, label %_mpi_copy.exit19, label %.lr.ph3.i16
 
-.lr.ph3.i16:                                      ; preds = %211
-  br i1 %min.iters.check142, label %scalar.ph141.preheader, label %vector.memcheck158
+.lr.ph3.i16:                                      ; preds = %187
+  br i1 %min.iters.check130, label %scalar.ph129.preheader, label %vector.memcheck146
 
-vector.memcheck158:                               ; preds = %.lr.ph3.i16
-  %bound0154 = icmp ult i64* %scevgep144, %scevgep152
-  %bound1155 = icmp ult i64* %scevgep149, %scevgep147
-  %memcheck.conflict157 = and i1 %bound0154, %bound1155
-  br i1 %memcheck.conflict157, label %scalar.ph141.preheader, label %vector.ph159
+vector.memcheck146:                               ; preds = %.lr.ph3.i16
+  %bound0142 = icmp ult i64* %scevgep132, %scevgep140
+  %bound1143 = icmp ult i64* %scevgep137, %scevgep135
+  %memcheck.conflict145 = and i1 %bound0142, %bound1143
+  br i1 %memcheck.conflict145, label %scalar.ph129.preheader, label %vector.ph147
 
-vector.ph159:                                     ; preds = %vector.memcheck158
-  br label %vector.body139
+vector.ph147:                                     ; preds = %vector.memcheck146
+  br label %vector.body127
 
-vector.body139:                                   ; preds = %vector.body139, %vector.ph159
-  %index162 = phi i64 [ 0, %vector.ph159 ], [ %index.next163, %vector.body139 ]
-  %222 = getelementptr i64, i64* %220, i64 %index162
-  %223 = getelementptr i64, i64* %221, i64 %index162
-  %224 = bitcast i64* %223 to <4 x i64>*
-  %wide.load172 = load <4 x i64>, <4 x i64>* %224, align 8, !alias.scope !32
-  %225 = getelementptr i64, i64* %223, i64 4
-  %226 = bitcast i64* %225 to <4 x i64>*
-  %wide.load173 = load <4 x i64>, <4 x i64>* %226, align 8, !alias.scope !32
-  %227 = getelementptr i64, i64* %223, i64 8
-  %228 = bitcast i64* %227 to <4 x i64>*
-  %wide.load174 = load <4 x i64>, <4 x i64>* %228, align 8, !alias.scope !32
-  %229 = getelementptr i64, i64* %223, i64 12
-  %230 = bitcast i64* %229 to <4 x i64>*
-  %wide.load175 = load <4 x i64>, <4 x i64>* %230, align 8, !alias.scope !32
-  %231 = bitcast i64* %222 to <4 x i64>*
-  store <4 x i64> %wide.load172, <4 x i64>* %231, align 8, !alias.scope !35, !noalias !32
-  %232 = getelementptr i64, i64* %222, i64 4
-  %233 = bitcast i64* %232 to <4 x i64>*
-  store <4 x i64> %wide.load173, <4 x i64>* %233, align 8, !alias.scope !35, !noalias !32
-  %234 = getelementptr i64, i64* %222, i64 8
-  %235 = bitcast i64* %234 to <4 x i64>*
-  store <4 x i64> %wide.load174, <4 x i64>* %235, align 8, !alias.scope !35, !noalias !32
-  %236 = getelementptr i64, i64* %222, i64 12
-  %237 = bitcast i64* %236 to <4 x i64>*
-  store <4 x i64> %wide.load175, <4 x i64>* %237, align 8, !alias.scope !35, !noalias !32
-  %index.next163 = add i64 %index162, 16
-  %238 = icmp eq i64 %index.next163, %n.vec161
-  br i1 %238, label %middle.block140, label %vector.body139, !llvm.loop !37
+vector.body127:                                   ; preds = %vector.body127, %vector.ph147
+  %index150 = phi i64 [ 0, %vector.ph147 ], [ %index.next151, %vector.body127 ]
+  %198 = getelementptr i64, i64* %196, i64 %index150
+  %199 = getelementptr i64, i64* %197, i64 %index150
+  %200 = bitcast i64* %199 to <2 x i64>*
+  %wide.load158 = load <2 x i64>, <2 x i64>* %200, align 8, !alias.scope !36
+  %201 = getelementptr i64, i64* %199, i64 2
+  %202 = bitcast i64* %201 to <2 x i64>*
+  %wide.load159 = load <2 x i64>, <2 x i64>* %202, align 8, !alias.scope !36
+  %203 = bitcast i64* %198 to <2 x i64>*
+  store <2 x i64> %wide.load158, <2 x i64>* %203, align 8, !alias.scope !39, !noalias !36
+  %204 = getelementptr i64, i64* %198, i64 2
+  %205 = bitcast i64* %204 to <2 x i64>*
+  store <2 x i64> %wide.load159, <2 x i64>* %205, align 8, !alias.scope !39, !noalias !36
+  %index.next151 = add i64 %index150, 4
+  %206 = icmp eq i64 %index.next151, %n.vec149
+  br i1 %206, label %middle.block128, label %vector.body127, !llvm.loop !41
 
-middle.block140:                                  ; preds = %vector.body139
-  br i1 %cmp.n165, label %_mpi_copy.exit19, label %scalar.ph141.preheader
+middle.block128:                                  ; preds = %vector.body127
+  br i1 %cmp.n153, label %_mpi_copy.exit19, label %scalar.ph129.preheader
 
-scalar.ph141.preheader:                           ; preds = %middle.block140, %vector.memcheck158, %.lr.ph3.i16
-  %__v68_i2.i17.ph = phi i64 [ 0, %vector.memcheck158 ], [ 0, %.lr.ph3.i16 ], [ %n.vec161, %middle.block140 ]
-  %239 = sub nsw i64 %0, %__v68_i2.i17.ph
-  %240 = sub nsw i64 %210, %__v68_i2.i17.ph
-  %xtraiter375 = and i64 %239, 3
-  %lcmp.mod376 = icmp eq i64 %xtraiter375, 0
-  br i1 %lcmp.mod376, label %scalar.ph141.prol.loopexit, label %scalar.ph141.prol.preheader
+scalar.ph129.preheader:                           ; preds = %middle.block128, %vector.memcheck146, %.lr.ph3.i16
+  %__v68_i2.i17.ph = phi i64 [ 0, %vector.memcheck146 ], [ 0, %.lr.ph3.i16 ], [ %n.vec149, %middle.block128 ]
+  %207 = sub nsw i64 %0, %__v68_i2.i17.ph
+  %208 = sub nsw i64 %186, %__v68_i2.i17.ph
+  %xtraiter331 = and i64 %207, 3
+  %lcmp.mod332 = icmp eq i64 %xtraiter331, 0
+  br i1 %lcmp.mod332, label %scalar.ph129.prol.loopexit, label %scalar.ph129.prol.preheader
 
-scalar.ph141.prol.preheader:                      ; preds = %scalar.ph141.preheader
-  br label %scalar.ph141.prol
+scalar.ph129.prol.preheader:                      ; preds = %scalar.ph129.preheader
+  br label %scalar.ph129.prol
 
-scalar.ph141.prol:                                ; preds = %scalar.ph141.prol, %scalar.ph141.prol.preheader
-  %__v68_i2.i17.prol = phi i64 [ %244, %scalar.ph141.prol ], [ %__v68_i2.i17.ph, %scalar.ph141.prol.preheader ]
-  %prol.iter377 = phi i64 [ %prol.iter377.sub, %scalar.ph141.prol ], [ %xtraiter375, %scalar.ph141.prol.preheader ]
-  %241 = getelementptr i64, i64* %220, i64 %__v68_i2.i17.prol
-  %242 = getelementptr i64, i64* %221, i64 %__v68_i2.i17.prol
-  %243 = load i64, i64* %242, align 8
-  store i64 %243, i64* %241, align 8
-  %244 = add nuw nsw i64 %__v68_i2.i17.prol, 1
-  %prol.iter377.sub = add i64 %prol.iter377, -1
-  %prol.iter377.cmp = icmp eq i64 %prol.iter377.sub, 0
-  br i1 %prol.iter377.cmp, label %scalar.ph141.prol.loopexit, label %scalar.ph141.prol, !llvm.loop !38
+scalar.ph129.prol:                                ; preds = %scalar.ph129.prol, %scalar.ph129.prol.preheader
+  %__v68_i2.i17.prol = phi i64 [ %212, %scalar.ph129.prol ], [ %__v68_i2.i17.ph, %scalar.ph129.prol.preheader ]
+  %prol.iter333 = phi i64 [ %prol.iter333.sub, %scalar.ph129.prol ], [ %xtraiter331, %scalar.ph129.prol.preheader ]
+  %209 = getelementptr i64, i64* %196, i64 %__v68_i2.i17.prol
+  %210 = getelementptr i64, i64* %197, i64 %__v68_i2.i17.prol
+  %211 = load i64, i64* %210, align 8
+  store i64 %211, i64* %209, align 8
+  %212 = add nuw nsw i64 %__v68_i2.i17.prol, 1
+  %prol.iter333.sub = add i64 %prol.iter333, -1
+  %prol.iter333.cmp = icmp eq i64 %prol.iter333.sub, 0
+  br i1 %prol.iter333.cmp, label %scalar.ph129.prol.loopexit, label %scalar.ph129.prol, !llvm.loop !42
 
-scalar.ph141.prol.loopexit:                       ; preds = %scalar.ph141.prol, %scalar.ph141.preheader
-  %__v68_i2.i17.unr = phi i64 [ %__v68_i2.i17.ph, %scalar.ph141.preheader ], [ %244, %scalar.ph141.prol ]
-  %245 = icmp ult i64 %240, 3
-  br i1 %245, label %_mpi_copy.exit19, label %scalar.ph141.preheader.new
+scalar.ph129.prol.loopexit:                       ; preds = %scalar.ph129.prol, %scalar.ph129.preheader
+  %__v68_i2.i17.unr = phi i64 [ %__v68_i2.i17.ph, %scalar.ph129.preheader ], [ %212, %scalar.ph129.prol ]
+  %213 = icmp ult i64 %208, 3
+  br i1 %213, label %_mpi_copy.exit19, label %scalar.ph129.preheader.new
 
-scalar.ph141.preheader.new:                       ; preds = %scalar.ph141.prol.loopexit
-  br label %scalar.ph141
+scalar.ph129.preheader.new:                       ; preds = %scalar.ph129.prol.loopexit
+  br label %scalar.ph129
 
-scalar.ph141:                                     ; preds = %scalar.ph141, %scalar.ph141.preheader.new
-  %__v68_i2.i17 = phi i64 [ %__v68_i2.i17.unr, %scalar.ph141.preheader.new ], [ %261, %scalar.ph141 ]
-  %246 = getelementptr i64, i64* %220, i64 %__v68_i2.i17
-  %247 = getelementptr i64, i64* %221, i64 %__v68_i2.i17
-  %248 = load i64, i64* %247, align 8
-  store i64 %248, i64* %246, align 8
-  %249 = add nuw nsw i64 %__v68_i2.i17, 1
-  %250 = getelementptr i64, i64* %220, i64 %249
-  %251 = getelementptr i64, i64* %221, i64 %249
-  %252 = load i64, i64* %251, align 8
-  store i64 %252, i64* %250, align 8
-  %253 = add nsw i64 %__v68_i2.i17, 2
-  %254 = getelementptr i64, i64* %220, i64 %253
-  %255 = getelementptr i64, i64* %221, i64 %253
-  %256 = load i64, i64* %255, align 8
-  store i64 %256, i64* %254, align 8
-  %257 = add nsw i64 %__v68_i2.i17, 3
-  %258 = getelementptr i64, i64* %220, i64 %257
-  %259 = getelementptr i64, i64* %221, i64 %257
-  %260 = load i64, i64* %259, align 8
-  store i64 %260, i64* %258, align 8
-  %261 = add nsw i64 %__v68_i2.i17, 4
-  %exitcond49.3 = icmp eq i64 %261, %__v95_lexpr
-  br i1 %exitcond49.3, label %_mpi_copy.exit19, label %scalar.ph141, !llvm.loop !39
+scalar.ph129:                                     ; preds = %scalar.ph129, %scalar.ph129.preheader.new
+  %__v68_i2.i17 = phi i64 [ %__v68_i2.i17.unr, %scalar.ph129.preheader.new ], [ %229, %scalar.ph129 ]
+  %214 = getelementptr i64, i64* %196, i64 %__v68_i2.i17
+  %215 = getelementptr i64, i64* %197, i64 %__v68_i2.i17
+  %216 = load i64, i64* %215, align 8
+  store i64 %216, i64* %214, align 8
+  %217 = add nuw nsw i64 %__v68_i2.i17, 1
+  %218 = getelementptr i64, i64* %196, i64 %217
+  %219 = getelementptr i64, i64* %197, i64 %217
+  %220 = load i64, i64* %219, align 8
+  store i64 %220, i64* %218, align 8
+  %221 = add nsw i64 %__v68_i2.i17, 2
+  %222 = getelementptr i64, i64* %196, i64 %221
+  %223 = getelementptr i64, i64* %197, i64 %221
+  %224 = load i64, i64* %223, align 8
+  store i64 %224, i64* %222, align 8
+  %225 = add nsw i64 %__v68_i2.i17, 3
+  %226 = getelementptr i64, i64* %196, i64 %225
+  %227 = getelementptr i64, i64* %197, i64 %225
+  %228 = load i64, i64* %227, align 8
+  store i64 %228, i64* %226, align 8
+  %229 = add nsw i64 %__v68_i2.i17, 4
+  %exitcond49.3 = icmp eq i64 %229, %__v95_lexpr
+  br i1 %exitcond49.3, label %_mpi_copy.exit19, label %scalar.ph129, !llvm.loop !43
 
-_mpi_copy.exit19:                                 ; preds = %scalar.ph141.prol.loopexit, %scalar.ph141, %middle.block140, %211
-  %262 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
-  tail call fastcc void @_mpi_montmul(i64* %220, i64 %__v95_lexpr, i64* %132, i64 %__v95_lexpr, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
+_mpi_copy.exit19:                                 ; preds = %scalar.ph129.prol.loopexit, %scalar.ph129, %middle.block128, %187
+  %230 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 true, i32 0, i32 1) #0
+  tail call fastcc void @_mpi_montmul(i64* %196, i64 %__v95_lexpr, i64* %116, i64 %__v95_lexpr, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
   %indvars.iv.next52 = add nuw nsw i64 %indvars.iv51, 1
   %exitcond53 = icmp eq i64 %indvars.iv.next52, 16
   %indvar.next = add i32 %indvar, 1
-  br i1 %exitcond53, label %263, label %211
+  br i1 %exitcond53, label %231, label %187
 
-; <label>:263:                                    ; preds = %_mpi_copy.exit19
-  %264 = icmp eq i64 %__v73___v4_E_len, 0
-  br i1 %264, label %._crit_edge, label %.lr.ph
+; <label>:231:                                    ; preds = %_mpi_copy.exit19
+  %232 = icmp eq i64 %__v73___v4_E_len, 0
+  br i1 %232, label %._crit_edge, label %.lr.ph
 
-.lr.ph:                                           ; preds = %263
-  %265 = add i64 %__v73___v4_E_len, 4294967295
-  %266 = icmp ugt i64 %__v95_lexpr, %__v78___v9_TW_len
-  %__v67_clen.i33 = select i1 %266, i64 %__v78___v9_TW_len, i64 %__v95_lexpr
-  %267 = icmp eq i64 %__v67_clen.i33, 0
-  %268 = icmp ult i64 %__v95_lexpr, %__v78___v9_TW_len
-  %269 = icmp ult i64 %__v95_lexpr, %__v78___v9_TW_len
-  %270 = select i1 %269, i64 %__v95_lexpr, i64 %__v78___v9_TW_len
-  %271 = xor i64 %270, -1
-  %272 = add i64 %271, %__v78___v9_TW_len
-  %273 = add i64 %272, 1
-  %scevgep212 = getelementptr i64, i64* %__v9_TW, i64 %__v67_clen.i33
-  %scevgep216 = getelementptr i64, i64* %__v8_W, i64 %__v67_clen.i33
-  %min.iters.check209 = icmp ult i64 %__v67_clen.i33, 16
-  %min.iters.check180 = icmp ult i64 %273, 16
-  %n.vec183 = and i64 %273, -16
-  %ind.end = add i64 %__v67_clen.i33, %n.vec183
-  %n.vec226 = and i64 %__v67_clen.i33, 4294967280
-  %cmp.n187 = icmp eq i64 %273, %n.vec183
-  %cmp.n230 = icmp eq i64 %__v67_clen.i33, %n.vec226
-  br label %274
+.lr.ph:                                           ; preds = %231
+  %233 = add i64 %__v73___v4_E_len, 4294967295
+  %234 = icmp ugt i64 %__v95_lexpr, %__v78___v9_TW_len
+  %__v67_clen.i33 = select i1 %234, i64 %__v78___v9_TW_len, i64 %__v95_lexpr
+  %235 = icmp eq i64 %__v67_clen.i33, 0
+  %236 = icmp ult i64 %__v95_lexpr, %__v78___v9_TW_len
+  %237 = icmp ult i64 %__v95_lexpr, %__v78___v9_TW_len
+  %238 = select i1 %237, i64 %__v95_lexpr, i64 %__v78___v9_TW_len
+  %239 = xor i64 %238, -1
+  %240 = add i64 %239, %__v78___v9_TW_len
+  %241 = add i64 %240, 1
+  %scevgep188 = getelementptr i64, i64* %__v9_TW, i64 %__v67_clen.i33
+  %scevgep192 = getelementptr i64, i64* %__v8_W, i64 %__v67_clen.i33
+  %242 = and i64 %__v67_clen.i33, 4294967292
+  %243 = add nsw i64 %242, -4
+  %244 = lshr exact i64 %243, 2
+  %245 = add nuw nsw i64 %244, 1
+  %246 = add i64 %240, -3
+  %247 = lshr i64 %246, 2
+  %248 = add nuw nsw i64 %247, 1
+  %min.iters.check185 = icmp ult i64 %__v67_clen.i33, 4
+  %min.iters.check164 = icmp ult i64 %241, 4
+  %n.vec167 = and i64 %241, -4
+  %ind.end = add i64 %__v67_clen.i33, %n.vec167
+  %xtraiter327 = and i64 %248, 1
+  %249 = icmp eq i64 %247, 0
+  %n.vec202 = and i64 %__v67_clen.i33, 4294967292
+  %xtraiter323 = and i64 %245, 1
+  %250 = icmp eq i64 %243, 0
+  %unroll_iter329 = sub nsw i64 %248, %xtraiter327
+  %lcmp.mod328 = icmp eq i64 %xtraiter327, 0
+  %unroll_iter325 = sub nsw i64 %245, %xtraiter323
+  %lcmp.mod324 = icmp eq i64 %xtraiter323, 0
+  %cmp.n171 = icmp eq i64 %241, %n.vec167
+  %cmp.n206 = icmp eq i64 %__v67_clen.i33, %n.vec202
+  br label %251
 
-; <label>:274:                                    ; preds = %459, %.lr.ph
-  %__v14__limb42 = phi i64 [ 0, %.lr.ph ], [ %460, %459 ]
-  %275 = sub i64 %265, %__v14__limb42
-  %__v120_lexpr = and i64 %275, 4294967295
-  %276 = getelementptr i64, i64* %__v4_E, i64 %__v120_lexpr
-  br label %454
+; <label>:251:                                    ; preds = %479, %.lr.ph
+  %__v14__limb42 = phi i64 [ 0, %.lr.ph ], [ %480, %479 ]
+  %252 = sub i64 %233, %__v14__limb42
+  %__v120_lexpr = and i64 %252, 4294967295
+  %253 = getelementptr i64, i64* %__v4_E, i64 %__v120_lexpr
+  br label %474
 
-._crit_edge:                                      ; preds = %459, %263
-  %277 = bitcast i64* %__v24_one.i20 to i8*
-  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %277)
+._crit_edge:                                      ; preds = %479, %231
+  %254 = bitcast i64* %__v24_one.i20 to i8*
+  call void @llvm.lifetime.start.p0i8(i64 8, i8* nonnull %254)
   store i64 1, i64* %__v24_one.i20, align 8
   call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* nonnull %__v24_one.i20, i64 1, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len) #0
-  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %277)
-  %278 = icmp slt i32 %__v3_A_sgn, 0
-  %279 = load i64, i64* %__v4_E, align 8
-  %280 = trunc i64 %279 to i32
-  %281 = and i32 %280, 1
-  %282 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %278, i32 %281, i32 0) #0
-  %283 = and i32 %282, 1
-  %284 = icmp ne i32 %283, 0
-  %285 = shl nuw nsw i32 %283, 1
-  %286 = xor i32 %285, 2
-  %287 = add nsw i32 %286, -1
-  %288 = icmp ult i64 %__v76___v7_T_len, %__v74___v5_N_len
-  %__v67_clen.i21 = select i1 %288, i64 %__v76___v7_T_len, i64 %__v74___v5_N_len
-  %289 = icmp eq i64 %__v67_clen.i21, 0
-  br i1 %289, label %._crit_edge4.i24, label %.lr.ph3.i22
+  call void @llvm.lifetime.end.p0i8(i64 8, i8* nonnull %254)
+  %255 = icmp slt i32 %__v3_A_sgn, 0
+  %256 = load i64, i64* %__v4_E, align 8
+  %257 = trunc i64 %256 to i32
+  %258 = and i32 %257, 1
+  %259 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %255, i32 %258, i32 0) #0
+  %260 = and i32 %259, 1
+  %261 = icmp ne i32 %260, 0
+  %262 = shl nuw nsw i32 %260, 1
+  %263 = xor i32 %262, 2
+  %264 = add nsw i32 %263, -1
+  %265 = icmp ult i64 %__v76___v7_T_len, %__v74___v5_N_len
+  %__v67_clen.i21 = select i1 %265, i64 %__v76___v7_T_len, i64 %__v74___v5_N_len
+  %266 = icmp eq i64 %__v67_clen.i21, 0
+  br i1 %266, label %._crit_edge4.i24, label %.lr.ph3.i22
 
 .lr.ph3.i22:                                      ; preds = %._crit_edge
-  %min.iters.check256 = icmp ult i64 %__v67_clen.i21, 16
-  br i1 %min.iters.check256, label %scalar.ph255.preheader, label %vector.memcheck268
+  %min.iters.check222 = icmp ult i64 %__v67_clen.i21, 4
+  br i1 %min.iters.check222, label %scalar.ph221.preheader, label %vector.memcheck234
 
-vector.memcheck268:                               ; preds = %.lr.ph3.i22
-  %scevgep259 = getelementptr i64, i64* %__v7_T, i64 %__v67_clen.i21
-  %scevgep262 = getelementptr i64, i64* %__v5_N, i64 %__v67_clen.i21
-  %bound0264 = icmp ugt i64* %scevgep262, %__v7_T
-  %bound1265 = icmp ugt i64* %scevgep259, %__v5_N
-  %memcheck.conflict267 = and i1 %bound0264, %bound1265
-  br i1 %memcheck.conflict267, label %scalar.ph255.preheader, label %vector.ph269
+vector.memcheck234:                               ; preds = %.lr.ph3.i22
+  %scevgep225 = getelementptr i64, i64* %__v7_T, i64 %__v67_clen.i21
+  %scevgep228 = getelementptr i64, i64* %__v5_N, i64 %__v67_clen.i21
+  %bound0230 = icmp ugt i64* %scevgep228, %__v7_T
+  %bound1231 = icmp ugt i64* %scevgep225, %__v5_N
+  %memcheck.conflict233 = and i1 %bound0230, %bound1231
+  br i1 %memcheck.conflict233, label %scalar.ph221.preheader, label %vector.ph235
 
-vector.ph269:                                     ; preds = %vector.memcheck268
-  %n.vec271 = and i64 %__v67_clen.i21, -16
-  br label %vector.body253
+vector.ph235:                                     ; preds = %vector.memcheck234
+  %n.vec237 = and i64 %__v67_clen.i21, -4
+  %267 = add i64 %n.vec237, -4
+  %268 = lshr exact i64 %267, 2
+  %269 = add nuw nsw i64 %268, 1
+  %xtraiter319 = and i64 %269, 1
+  %270 = icmp eq i64 %267, 0
+  br i1 %270, label %middle.block220.unr-lcssa, label %vector.ph235.new
 
-vector.body253:                                   ; preds = %vector.body253, %vector.ph269
-  %index272 = phi i64 [ 0, %vector.ph269 ], [ %index.next273, %vector.body253 ]
-  %290 = getelementptr i64, i64* %__v7_T, i64 %index272
-  %291 = getelementptr i64, i64* %__v5_N, i64 %index272
-  %292 = bitcast i64* %291 to <4 x i64>*
-  %wide.load282 = load <4 x i64>, <4 x i64>* %292, align 8, !alias.scope !40
-  %293 = getelementptr i64, i64* %291, i64 4
-  %294 = bitcast i64* %293 to <4 x i64>*
-  %wide.load283 = load <4 x i64>, <4 x i64>* %294, align 8, !alias.scope !40
-  %295 = getelementptr i64, i64* %291, i64 8
-  %296 = bitcast i64* %295 to <4 x i64>*
-  %wide.load284 = load <4 x i64>, <4 x i64>* %296, align 8, !alias.scope !40
-  %297 = getelementptr i64, i64* %291, i64 12
-  %298 = bitcast i64* %297 to <4 x i64>*
-  %wide.load285 = load <4 x i64>, <4 x i64>* %298, align 8, !alias.scope !40
-  %299 = bitcast i64* %290 to <4 x i64>*
-  %wide.load286 = load <4 x i64>, <4 x i64>* %299, align 8, !alias.scope !43, !noalias !40
-  %300 = getelementptr i64, i64* %290, i64 4
-  %301 = bitcast i64* %300 to <4 x i64>*
-  %wide.load287 = load <4 x i64>, <4 x i64>* %301, align 8, !alias.scope !43, !noalias !40
-  %302 = getelementptr i64, i64* %290, i64 8
-  %303 = bitcast i64* %302 to <4 x i64>*
-  %wide.load288 = load <4 x i64>, <4 x i64>* %303, align 8, !alias.scope !43, !noalias !40
-  %304 = getelementptr i64, i64* %290, i64 12
-  %305 = bitcast i64* %304 to <4 x i64>*
-  %wide.load289 = load <4 x i64>, <4 x i64>* %305, align 8, !alias.scope !43, !noalias !40
-  %306 = select i1 %284, <4 x i64> %wide.load282, <4 x i64> %wide.load286
-  %307 = select i1 %284, <4 x i64> %wide.load283, <4 x i64> %wide.load287
-  %308 = select i1 %284, <4 x i64> %wide.load284, <4 x i64> %wide.load288
-  %309 = select i1 %284, <4 x i64> %wide.load285, <4 x i64> %wide.load289
-  %310 = bitcast i64* %290 to <4 x i64>*
-  store <4 x i64> %306, <4 x i64>* %310, align 8, !alias.scope !43, !noalias !40
-  %311 = bitcast i64* %300 to <4 x i64>*
-  store <4 x i64> %307, <4 x i64>* %311, align 8, !alias.scope !43, !noalias !40
-  %312 = bitcast i64* %302 to <4 x i64>*
-  store <4 x i64> %308, <4 x i64>* %312, align 8, !alias.scope !43, !noalias !40
-  %313 = bitcast i64* %304 to <4 x i64>*
-  store <4 x i64> %309, <4 x i64>* %313, align 8, !alias.scope !43, !noalias !40
-  %index.next273 = add i64 %index272, 16
-  %314 = icmp eq i64 %index.next273, %n.vec271
-  br i1 %314, label %middle.block254, label %vector.body253, !llvm.loop !45
+vector.ph235.new:                                 ; preds = %vector.ph235
+  %unroll_iter321 = sub nsw i64 %269, %xtraiter319
+  br label %vector.body219
 
-middle.block254:                                  ; preds = %vector.body253
-  %cmp.n275 = icmp eq i64 %__v67_clen.i21, %n.vec271
-  br i1 %cmp.n275, label %._crit_edge4.i24, label %scalar.ph255.preheader
+vector.body219:                                   ; preds = %vector.body219, %vector.ph235.new
+  %index238 = phi i64 [ 0, %vector.ph235.new ], [ %index.next239.1, %vector.body219 ]
+  %niter322 = phi i64 [ %unroll_iter321, %vector.ph235.new ], [ %niter322.nsub.1, %vector.body219 ]
+  %271 = getelementptr i64, i64* %__v7_T, i64 %index238
+  %272 = getelementptr i64, i64* %__v5_N, i64 %index238
+  %273 = bitcast i64* %272 to <2 x i64>*
+  %wide.load246 = load <2 x i64>, <2 x i64>* %273, align 8, !alias.scope !44
+  %274 = getelementptr i64, i64* %272, i64 2
+  %275 = bitcast i64* %274 to <2 x i64>*
+  %wide.load247 = load <2 x i64>, <2 x i64>* %275, align 8, !alias.scope !44
+  %276 = bitcast i64* %271 to <2 x i64>*
+  %wide.load248 = load <2 x i64>, <2 x i64>* %276, align 8, !alias.scope !47, !noalias !44
+  %277 = getelementptr i64, i64* %271, i64 2
+  %278 = bitcast i64* %277 to <2 x i64>*
+  %wide.load249 = load <2 x i64>, <2 x i64>* %278, align 8, !alias.scope !47, !noalias !44
+  %279 = select i1 %261, <2 x i64> %wide.load246, <2 x i64> %wide.load248
+  %280 = select i1 %261, <2 x i64> %wide.load247, <2 x i64> %wide.load249
+  %281 = bitcast i64* %271 to <2 x i64>*
+  store <2 x i64> %279, <2 x i64>* %281, align 8, !alias.scope !47, !noalias !44
+  %282 = bitcast i64* %277 to <2 x i64>*
+  store <2 x i64> %280, <2 x i64>* %282, align 8, !alias.scope !47, !noalias !44
+  %index.next239 = or i64 %index238, 4
+  %283 = getelementptr i64, i64* %__v7_T, i64 %index.next239
+  %284 = getelementptr i64, i64* %__v5_N, i64 %index.next239
+  %285 = bitcast i64* %284 to <2 x i64>*
+  %wide.load246.1 = load <2 x i64>, <2 x i64>* %285, align 8, !alias.scope !44
+  %286 = getelementptr i64, i64* %284, i64 2
+  %287 = bitcast i64* %286 to <2 x i64>*
+  %wide.load247.1 = load <2 x i64>, <2 x i64>* %287, align 8, !alias.scope !44
+  %288 = bitcast i64* %283 to <2 x i64>*
+  %wide.load248.1 = load <2 x i64>, <2 x i64>* %288, align 8, !alias.scope !47, !noalias !44
+  %289 = getelementptr i64, i64* %283, i64 2
+  %290 = bitcast i64* %289 to <2 x i64>*
+  %wide.load249.1 = load <2 x i64>, <2 x i64>* %290, align 8, !alias.scope !47, !noalias !44
+  %291 = select i1 %261, <2 x i64> %wide.load246.1, <2 x i64> %wide.load248.1
+  %292 = select i1 %261, <2 x i64> %wide.load247.1, <2 x i64> %wide.load249.1
+  %293 = bitcast i64* %283 to <2 x i64>*
+  store <2 x i64> %291, <2 x i64>* %293, align 8, !alias.scope !47, !noalias !44
+  %294 = bitcast i64* %289 to <2 x i64>*
+  store <2 x i64> %292, <2 x i64>* %294, align 8, !alias.scope !47, !noalias !44
+  %index.next239.1 = add i64 %index238, 8
+  %niter322.nsub.1 = add i64 %niter322, -2
+  %niter322.ncmp.1 = icmp eq i64 %niter322.nsub.1, 0
+  br i1 %niter322.ncmp.1, label %middle.block220.unr-lcssa, label %vector.body219, !llvm.loop !49
 
-scalar.ph255.preheader:                           ; preds = %middle.block254, %vector.memcheck268, %.lr.ph3.i22
-  %__v68_i2.i23.ph = phi i64 [ 0, %vector.memcheck268 ], [ 0, %.lr.ph3.i22 ], [ %n.vec271, %middle.block254 ]
-  br label %scalar.ph255
+middle.block220.unr-lcssa:                        ; preds = %vector.body219, %vector.ph235
+  %index238.unr = phi i64 [ 0, %vector.ph235 ], [ %index.next239.1, %vector.body219 ]
+  %lcmp.mod320 = icmp eq i64 %xtraiter319, 0
+  br i1 %lcmp.mod320, label %middle.block220, label %vector.body219.epil
 
-scalar.ph255:                                     ; preds = %scalar.ph255.preheader, %scalar.ph255
-  %__v68_i2.i23 = phi i64 [ %320, %scalar.ph255 ], [ %__v68_i2.i23.ph, %scalar.ph255.preheader ]
-  %315 = getelementptr i64, i64* %__v7_T, i64 %__v68_i2.i23
-  %316 = getelementptr i64, i64* %__v5_N, i64 %__v68_i2.i23
-  %317 = load i64, i64* %316, align 8
-  %318 = load i64, i64* %315, align 8
-  %319 = select i1 %284, i64 %317, i64 %318
-  store i64 %319, i64* %315, align 8
-  %320 = add nuw i64 %__v68_i2.i23, 1
-  %321 = icmp ult i64 %320, %__v67_clen.i21
-  br i1 %321, label %scalar.ph255, label %._crit_edge4.i24, !llvm.loop !46
+vector.body219.epil:                              ; preds = %middle.block220.unr-lcssa
+  %295 = getelementptr i64, i64* %__v7_T, i64 %index238.unr
+  %296 = getelementptr i64, i64* %__v5_N, i64 %index238.unr
+  %297 = bitcast i64* %296 to <2 x i64>*
+  %wide.load246.epil = load <2 x i64>, <2 x i64>* %297, align 8, !alias.scope !44
+  %298 = getelementptr i64, i64* %296, i64 2
+  %299 = bitcast i64* %298 to <2 x i64>*
+  %wide.load247.epil = load <2 x i64>, <2 x i64>* %299, align 8, !alias.scope !44
+  %300 = bitcast i64* %295 to <2 x i64>*
+  %wide.load248.epil = load <2 x i64>, <2 x i64>* %300, align 8, !alias.scope !47, !noalias !44
+  %301 = getelementptr i64, i64* %295, i64 2
+  %302 = bitcast i64* %301 to <2 x i64>*
+  %wide.load249.epil = load <2 x i64>, <2 x i64>* %302, align 8, !alias.scope !47, !noalias !44
+  %303 = select i1 %261, <2 x i64> %wide.load246.epil, <2 x i64> %wide.load248.epil
+  %304 = select i1 %261, <2 x i64> %wide.load247.epil, <2 x i64> %wide.load249.epil
+  %305 = bitcast i64* %295 to <2 x i64>*
+  store <2 x i64> %303, <2 x i64>* %305, align 8, !alias.scope !47, !noalias !44
+  %306 = bitcast i64* %301 to <2 x i64>*
+  store <2 x i64> %304, <2 x i64>* %306, align 8, !alias.scope !47, !noalias !44
+  br label %middle.block220
 
-._crit_edge4.i24:                                 ; preds = %scalar.ph255, %middle.block254, %._crit_edge
-  %322 = icmp ugt i64 %__v76___v7_T_len, %__v74___v5_N_len
-  br i1 %322, label %.lr.ph.i25, label %_mpi_copy.exit27
+middle.block220:                                  ; preds = %middle.block220.unr-lcssa, %vector.body219.epil
+  %cmp.n241 = icmp eq i64 %__v67_clen.i21, %n.vec237
+  br i1 %cmp.n241, label %._crit_edge4.i24, label %scalar.ph221.preheader
+
+scalar.ph221.preheader:                           ; preds = %middle.block220, %vector.memcheck234, %.lr.ph3.i22
+  %__v68_i2.i23.ph = phi i64 [ 0, %vector.memcheck234 ], [ 0, %.lr.ph3.i22 ], [ %n.vec237, %middle.block220 ]
+  br label %scalar.ph221
+
+scalar.ph221:                                     ; preds = %scalar.ph221.preheader, %scalar.ph221
+  %__v68_i2.i23 = phi i64 [ %312, %scalar.ph221 ], [ %__v68_i2.i23.ph, %scalar.ph221.preheader ]
+  %307 = getelementptr i64, i64* %__v7_T, i64 %__v68_i2.i23
+  %308 = getelementptr i64, i64* %__v5_N, i64 %__v68_i2.i23
+  %309 = load i64, i64* %308, align 8
+  %310 = load i64, i64* %307, align 8
+  %311 = select i1 %261, i64 %309, i64 %310
+  store i64 %311, i64* %307, align 8
+  %312 = add nuw i64 %__v68_i2.i23, 1
+  %313 = icmp ult i64 %312, %__v67_clen.i21
+  br i1 %313, label %scalar.ph221, label %._crit_edge4.i24, !llvm.loop !50
+
+._crit_edge4.i24:                                 ; preds = %scalar.ph221, %middle.block220, %._crit_edge
+  %314 = icmp ugt i64 %__v76___v7_T_len, %__v74___v5_N_len
+  br i1 %314, label %.lr.ph.i25, label %_mpi_copy.exit27
 
 .lr.ph.i25:                                       ; preds = %._crit_edge4.i24
-  %323 = xor i64 %__v74___v5_N_len, -1
-  %324 = add i64 %323, %__v76___v7_T_len
-  %325 = add i64 %324, 1
-  %min.iters.check302 = icmp ult i64 %325, 16
-  br i1 %min.iters.check302, label %scalar.ph300.preheader, label %vector.ph303
+  %315 = xor i64 %__v74___v5_N_len, -1
+  %316 = add i64 %315, %__v76___v7_T_len
+  %317 = add i64 %316, 1
+  %min.iters.check258 = icmp ult i64 %317, 4
+  br i1 %min.iters.check258, label %scalar.ph256.preheader, label %vector.ph259
 
-vector.ph303:                                     ; preds = %.lr.ph.i25
-  %n.vec305 = and i64 %325, -16
-  %ind.end309 = add i64 %__v67_clen.i21, %n.vec305
-  br label %vector.body298
+vector.ph259:                                     ; preds = %.lr.ph.i25
+  %n.vec261 = and i64 %317, -4
+  %ind.end265 = add i64 %__v67_clen.i21, %n.vec261
+  %318 = add i64 %n.vec261, -4
+  %319 = lshr exact i64 %318, 2
+  %320 = add nuw nsw i64 %319, 1
+  %xtraiter315 = and i64 %320, 1
+  %321 = icmp eq i64 %318, 0
+  br i1 %321, label %middle.block255.unr-lcssa, label %vector.ph259.new
 
-vector.body298:                                   ; preds = %vector.body298, %vector.ph303
-  %index306 = phi i64 [ 0, %vector.ph303 ], [ %index.next307, %vector.body298 ]
-  %326 = add i64 %__v67_clen.i21, %index306
-  %327 = getelementptr i64, i64* %__v7_T, i64 %326
-  %328 = bitcast i64* %327 to <4 x i64>*
-  %wide.load318 = load <4 x i64>, <4 x i64>* %328, align 8
-  %329 = getelementptr i64, i64* %327, i64 4
-  %330 = bitcast i64* %329 to <4 x i64>*
-  %wide.load319 = load <4 x i64>, <4 x i64>* %330, align 8
-  %331 = getelementptr i64, i64* %327, i64 8
-  %332 = bitcast i64* %331 to <4 x i64>*
-  %wide.load320 = load <4 x i64>, <4 x i64>* %332, align 8
-  %333 = getelementptr i64, i64* %327, i64 12
-  %334 = bitcast i64* %333 to <4 x i64>*
-  %wide.load321 = load <4 x i64>, <4 x i64>* %334, align 8
-  %335 = select i1 %284, <4 x i64> zeroinitializer, <4 x i64> %wide.load318
-  %336 = select i1 %284, <4 x i64> zeroinitializer, <4 x i64> %wide.load319
-  %337 = select i1 %284, <4 x i64> zeroinitializer, <4 x i64> %wide.load320
-  %338 = select i1 %284, <4 x i64> zeroinitializer, <4 x i64> %wide.load321
-  %339 = bitcast i64* %327 to <4 x i64>*
-  store <4 x i64> %335, <4 x i64>* %339, align 8
-  %340 = bitcast i64* %329 to <4 x i64>*
-  store <4 x i64> %336, <4 x i64>* %340, align 8
-  %341 = bitcast i64* %331 to <4 x i64>*
-  store <4 x i64> %337, <4 x i64>* %341, align 8
-  %342 = bitcast i64* %333 to <4 x i64>*
-  store <4 x i64> %338, <4 x i64>* %342, align 8
-  %index.next307 = add i64 %index306, 16
-  %343 = icmp eq i64 %index.next307, %n.vec305
-  br i1 %343, label %middle.block299, label %vector.body298, !llvm.loop !47
+vector.ph259.new:                                 ; preds = %vector.ph259
+  %unroll_iter317 = sub nsw i64 %320, %xtraiter315
+  br label %vector.body254
 
-middle.block299:                                  ; preds = %vector.body298
-  %cmp.n310 = icmp eq i64 %325, %n.vec305
-  br i1 %cmp.n310, label %_mpi_copy.exit27, label %scalar.ph300.preheader
+vector.body254:                                   ; preds = %vector.body254, %vector.ph259.new
+  %index262 = phi i64 [ 0, %vector.ph259.new ], [ %index.next263.1, %vector.body254 ]
+  %niter318 = phi i64 [ %unroll_iter317, %vector.ph259.new ], [ %niter318.nsub.1, %vector.body254 ]
+  %322 = add i64 %__v67_clen.i21, %index262
+  %323 = getelementptr i64, i64* %__v7_T, i64 %322
+  %324 = bitcast i64* %323 to <2 x i64>*
+  %wide.load272 = load <2 x i64>, <2 x i64>* %324, align 8
+  %325 = getelementptr i64, i64* %323, i64 2
+  %326 = bitcast i64* %325 to <2 x i64>*
+  %wide.load273 = load <2 x i64>, <2 x i64>* %326, align 8
+  %327 = select i1 %261, <2 x i64> zeroinitializer, <2 x i64> %wide.load272
+  %328 = select i1 %261, <2 x i64> zeroinitializer, <2 x i64> %wide.load273
+  %329 = bitcast i64* %323 to <2 x i64>*
+  store <2 x i64> %327, <2 x i64>* %329, align 8
+  %330 = bitcast i64* %325 to <2 x i64>*
+  store <2 x i64> %328, <2 x i64>* %330, align 8
+  %index.next263 = or i64 %index262, 4
+  %331 = add i64 %__v67_clen.i21, %index.next263
+  %332 = getelementptr i64, i64* %__v7_T, i64 %331
+  %333 = bitcast i64* %332 to <2 x i64>*
+  %wide.load272.1 = load <2 x i64>, <2 x i64>* %333, align 8
+  %334 = getelementptr i64, i64* %332, i64 2
+  %335 = bitcast i64* %334 to <2 x i64>*
+  %wide.load273.1 = load <2 x i64>, <2 x i64>* %335, align 8
+  %336 = select i1 %261, <2 x i64> zeroinitializer, <2 x i64> %wide.load272.1
+  %337 = select i1 %261, <2 x i64> zeroinitializer, <2 x i64> %wide.load273.1
+  %338 = bitcast i64* %332 to <2 x i64>*
+  store <2 x i64> %336, <2 x i64>* %338, align 8
+  %339 = bitcast i64* %334 to <2 x i64>*
+  store <2 x i64> %337, <2 x i64>* %339, align 8
+  %index.next263.1 = add i64 %index262, 8
+  %niter318.nsub.1 = add i64 %niter318, -2
+  %niter318.ncmp.1 = icmp eq i64 %niter318.nsub.1, 0
+  br i1 %niter318.ncmp.1, label %middle.block255.unr-lcssa, label %vector.body254, !llvm.loop !51
 
-scalar.ph300.preheader:                           ; preds = %middle.block299, %.lr.ph.i25
-  %__v69_i1.i26.ph = phi i64 [ %__v67_clen.i21, %.lr.ph.i25 ], [ %ind.end309, %middle.block299 ]
-  br label %scalar.ph300
+middle.block255.unr-lcssa:                        ; preds = %vector.body254, %vector.ph259
+  %index262.unr = phi i64 [ 0, %vector.ph259 ], [ %index.next263.1, %vector.body254 ]
+  %lcmp.mod316 = icmp eq i64 %xtraiter315, 0
+  br i1 %lcmp.mod316, label %middle.block255, label %vector.body254.epil
 
-scalar.ph300:                                     ; preds = %scalar.ph300.preheader, %scalar.ph300
-  %__v69_i1.i26 = phi i64 [ %347, %scalar.ph300 ], [ %__v69_i1.i26.ph, %scalar.ph300.preheader ]
-  %344 = getelementptr i64, i64* %__v7_T, i64 %__v69_i1.i26
-  %345 = load i64, i64* %344, align 8
-  %346 = select i1 %284, i64 0, i64 %345
-  store i64 %346, i64* %344, align 8
-  %347 = add i64 %__v69_i1.i26, 1
-  %348 = icmp ult i64 %347, %__v76___v7_T_len
-  br i1 %348, label %scalar.ph300, label %_mpi_copy.exit27, !llvm.loop !48
+vector.body254.epil:                              ; preds = %middle.block255.unr-lcssa
+  %340 = add i64 %__v67_clen.i21, %index262.unr
+  %341 = getelementptr i64, i64* %__v7_T, i64 %340
+  %342 = bitcast i64* %341 to <2 x i64>*
+  %wide.load272.epil = load <2 x i64>, <2 x i64>* %342, align 8
+  %343 = getelementptr i64, i64* %341, i64 2
+  %344 = bitcast i64* %343 to <2 x i64>*
+  %wide.load273.epil = load <2 x i64>, <2 x i64>* %344, align 8
+  %345 = select i1 %261, <2 x i64> zeroinitializer, <2 x i64> %wide.load272.epil
+  %346 = select i1 %261, <2 x i64> zeroinitializer, <2 x i64> %wide.load273.epil
+  %347 = bitcast i64* %341 to <2 x i64>*
+  store <2 x i64> %345, <2 x i64>* %347, align 8
+  %348 = bitcast i64* %343 to <2 x i64>*
+  store <2 x i64> %346, <2 x i64>* %348, align 8
+  br label %middle.block255
 
-_mpi_copy.exit27:                                 ; preds = %scalar.ph300, %middle.block299, %._crit_edge4.i24
-  %349 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %284, i32 0, i32 1) #0
-  %350 = icmp eq i64 %__v71___v1_X_len, 0
-  br i1 %350, label %._crit_edge8.i, label %.lr.ph7.i.preheader
+middle.block255:                                  ; preds = %middle.block255.unr-lcssa, %vector.body254.epil
+  %cmp.n266 = icmp eq i64 %317, %n.vec261
+  br i1 %cmp.n266, label %_mpi_copy.exit27, label %scalar.ph256.preheader
+
+scalar.ph256.preheader:                           ; preds = %middle.block255, %.lr.ph.i25
+  %__v69_i1.i26.ph = phi i64 [ %__v67_clen.i21, %.lr.ph.i25 ], [ %ind.end265, %middle.block255 ]
+  br label %scalar.ph256
+
+scalar.ph256:                                     ; preds = %scalar.ph256.preheader, %scalar.ph256
+  %__v69_i1.i26 = phi i64 [ %352, %scalar.ph256 ], [ %__v69_i1.i26.ph, %scalar.ph256.preheader ]
+  %349 = getelementptr i64, i64* %__v7_T, i64 %__v69_i1.i26
+  %350 = load i64, i64* %349, align 8
+  %351 = select i1 %261, i64 0, i64 %350
+  store i64 %351, i64* %349, align 8
+  %352 = add i64 %__v69_i1.i26, 1
+  %353 = icmp ult i64 %352, %__v76___v7_T_len
+  br i1 %353, label %scalar.ph256, label %_mpi_copy.exit27, !llvm.loop !52
+
+_mpi_copy.exit27:                                 ; preds = %scalar.ph256, %middle.block255, %._crit_edge4.i24
+  %354 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %261, i32 0, i32 1) #0
+  %355 = icmp eq i64 %__v71___v1_X_len, 0
+  br i1 %355, label %._crit_edge8.i, label %.lr.ph7.i.preheader
 
 .lr.ph7.i.preheader:                              ; preds = %_mpi_copy.exit27
   br label %.lr.ph7.i
 
 .lr.ph7.i:                                        ; preds = %.lr.ph7.i.preheader, %.lr.ph7.i
-  %__v63_i6.i = phi i64 [ %365, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
-  %__v61_c.04.i = phi i64 [ %362, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
-  %351 = getelementptr i64, i64* %__v7_T, i64 %__v63_i6.i
-  %352 = load i64, i64* %351, align 8
-  %353 = icmp ult i64 %352, %__v61_c.04.i
-  %354 = zext i1 %353 to i64
-  %355 = select i1 %284, i64 %__v61_c.04.i, i64 0
-  %356 = sub i64 %352, %355
-  store i64 %356, i64* %351, align 8
-  %357 = getelementptr i64, i64* %__v1_X, i64 %__v63_i6.i
-  %358 = load i64, i64* %357, align 8
-  %359 = icmp ult i64 %356, %358
-  %360 = zext i1 %359 to i64
-  %361 = add nuw nsw i64 %360, %354
-  %362 = select i1 %284, i64 %361, i64 %__v61_c.04.i
-  %363 = select i1 %284, i64 %358, i64 0
-  %364 = sub i64 %356, %363
-  store i64 %364, i64* %351, align 8
-  %365 = add nuw i64 %__v63_i6.i, 1
-  %exitcond11.i = icmp eq i64 %365, %__v71___v1_X_len
+  %__v63_i6.i = phi i64 [ %370, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
+  %__v61_c.04.i = phi i64 [ %367, %.lr.ph7.i ], [ 0, %.lr.ph7.i.preheader ]
+  %356 = getelementptr i64, i64* %__v7_T, i64 %__v63_i6.i
+  %357 = load i64, i64* %356, align 8
+  %358 = icmp ult i64 %357, %__v61_c.04.i
+  %359 = zext i1 %358 to i64
+  %360 = select i1 %261, i64 %__v61_c.04.i, i64 0
+  %361 = sub i64 %357, %360
+  store i64 %361, i64* %356, align 8
+  %362 = getelementptr i64, i64* %__v1_X, i64 %__v63_i6.i
+  %363 = load i64, i64* %362, align 8
+  %364 = icmp ult i64 %361, %363
+  %365 = zext i1 %364 to i64
+  %366 = add nuw nsw i64 %365, %359
+  %367 = select i1 %261, i64 %366, i64 %__v61_c.04.i
+  %368 = select i1 %261, i64 %363, i64 0
+  %369 = sub i64 %361, %368
+  store i64 %369, i64* %356, align 8
+  %370 = add nuw i64 %__v63_i6.i, 1
+  %exitcond11.i = icmp eq i64 %370, %__v71___v1_X_len
   br i1 %exitcond11.i, label %._crit_edge8.i, label %.lr.ph7.i
 
 ._crit_edge8.i:                                   ; preds = %.lr.ph7.i, %_mpi_copy.exit27
-  %__v61_c.0.lcssa.i = phi i64 [ 0, %_mpi_copy.exit27 ], [ %362, %.lr.ph7.i ]
-  %366 = icmp ugt i64 %__v76___v7_T_len, %__v71___v1_X_len
-  br i1 %366, label %.lr.ph.i28.preheader, label %_mpi_sub_hlp.exit
+  %__v61_c.0.lcssa.i = phi i64 [ 0, %_mpi_copy.exit27 ], [ %367, %.lr.ph7.i ]
+  %371 = icmp ugt i64 %__v76___v7_T_len, %__v71___v1_X_len
+  br i1 %371, label %.lr.ph.i28.preheader, label %_mpi_sub_hlp.exit
 
 .lr.ph.i28.preheader:                             ; preds = %._crit_edge8.i
-  %367 = sub i64 %__v76___v7_T_len, %__v71___v1_X_len
-  %368 = add i64 %__v76___v7_T_len, -1
-  %xtraiter373 = and i64 %367, 1
-  %lcmp.mod374 = icmp eq i64 %xtraiter373, 0
-  br i1 %lcmp.mod374, label %.lr.ph.i28.prol.loopexit, label %.lr.ph.i28.prol
+  %372 = sub i64 %__v76___v7_T_len, %__v71___v1_X_len
+  %373 = add i64 %__v76___v7_T_len, -1
+  %xtraiter313 = and i64 %372, 1
+  %lcmp.mod314 = icmp eq i64 %xtraiter313, 0
+  br i1 %lcmp.mod314, label %.lr.ph.i28.prol.loopexit, label %.lr.ph.i28.prol
 
 .lr.ph.i28.prol:                                  ; preds = %.lr.ph.i28.preheader
-  %369 = getelementptr i64, i64* %__v7_T, i64 %__v71___v1_X_len
-  %370 = load i64, i64* %369, align 8
-  %371 = icmp ult i64 %370, %__v61_c.0.lcssa.i
-  %372 = zext i1 %371 to i64
-  %373 = select i1 %284, i64 %__v61_c.0.lcssa.i, i64 0
-  %374 = sub i64 %370, %373
-  store i64 %374, i64* %369, align 8
-  %375 = select i1 %284, i64 %372, i64 %__v61_c.0.lcssa.i
-  %376 = add nuw i64 %__v71___v1_X_len, 1
+  %374 = getelementptr i64, i64* %__v7_T, i64 %__v71___v1_X_len
+  %375 = load i64, i64* %374, align 8
+  %376 = icmp ult i64 %375, %__v61_c.0.lcssa.i
+  %377 = zext i1 %376 to i64
+  %378 = select i1 %261, i64 %__v61_c.0.lcssa.i, i64 0
+  %379 = sub i64 %375, %378
+  store i64 %379, i64* %374, align 8
+  %380 = select i1 %261, i64 %377, i64 %__v61_c.0.lcssa.i
+  %381 = add nuw i64 %__v71___v1_X_len, 1
   br label %.lr.ph.i28.prol.loopexit
 
 .lr.ph.i28.prol.loopexit:                         ; preds = %.lr.ph.i28.preheader, %.lr.ph.i28.prol
-  %__v64_i3.i.unr = phi i64 [ %__v71___v1_X_len, %.lr.ph.i28.preheader ], [ %376, %.lr.ph.i28.prol ]
-  %__v61_c.11.i.unr = phi i64 [ %__v61_c.0.lcssa.i, %.lr.ph.i28.preheader ], [ %375, %.lr.ph.i28.prol ]
-  %377 = icmp eq i64 %368, %__v71___v1_X_len
-  br i1 %377, label %_mpi_sub_hlp.exit, label %.lr.ph.i28.preheader.new
+  %__v64_i3.i.unr = phi i64 [ %__v71___v1_X_len, %.lr.ph.i28.preheader ], [ %381, %.lr.ph.i28.prol ]
+  %__v61_c.11.i.unr = phi i64 [ %__v61_c.0.lcssa.i, %.lr.ph.i28.preheader ], [ %380, %.lr.ph.i28.prol ]
+  %382 = icmp eq i64 %373, %__v71___v1_X_len
+  br i1 %382, label %_mpi_sub_hlp.exit, label %.lr.ph.i28.preheader.new
 
 .lr.ph.i28.preheader.new:                         ; preds = %.lr.ph.i28.prol.loopexit
   br label %.lr.ph.i28
 
 .lr.ph.i28:                                       ; preds = %.lr.ph.i28, %.lr.ph.i28.preheader.new
-  %__v64_i3.i = phi i64 [ %__v64_i3.i.unr, %.lr.ph.i28.preheader.new ], [ %393, %.lr.ph.i28 ]
-  %__v61_c.11.i = phi i64 [ %__v61_c.11.i.unr, %.lr.ph.i28.preheader.new ], [ %392, %.lr.ph.i28 ]
-  %378 = getelementptr i64, i64* %__v7_T, i64 %__v64_i3.i
-  %379 = load i64, i64* %378, align 8
-  %380 = icmp ult i64 %379, %__v61_c.11.i
-  %381 = zext i1 %380 to i64
-  %382 = select i1 %284, i64 %__v61_c.11.i, i64 0
-  %383 = sub i64 %379, %382
-  store i64 %383, i64* %378, align 8
-  %384 = select i1 %284, i64 %381, i64 %__v61_c.11.i
-  %385 = add nuw i64 %__v64_i3.i, 1
-  %386 = getelementptr i64, i64* %__v7_T, i64 %385
-  %387 = load i64, i64* %386, align 8
-  %388 = icmp ult i64 %387, %384
-  %389 = zext i1 %388 to i64
-  %narrow = and i1 %284, %380
-  %390 = zext i1 %narrow to i64
-  %391 = sub i64 %387, %390
-  store i64 %391, i64* %386, align 8
-  %392 = select i1 %284, i64 %389, i64 %__v61_c.11.i
-  %393 = add i64 %__v64_i3.i, 2
-  %exitcond.i.1 = icmp eq i64 %393, %__v76___v7_T_len
+  %__v64_i3.i = phi i64 [ %__v64_i3.i.unr, %.lr.ph.i28.preheader.new ], [ %398, %.lr.ph.i28 ]
+  %__v61_c.11.i = phi i64 [ %__v61_c.11.i.unr, %.lr.ph.i28.preheader.new ], [ %397, %.lr.ph.i28 ]
+  %383 = getelementptr i64, i64* %__v7_T, i64 %__v64_i3.i
+  %384 = load i64, i64* %383, align 8
+  %385 = icmp ult i64 %384, %__v61_c.11.i
+  %386 = zext i1 %385 to i64
+  %387 = select i1 %261, i64 %__v61_c.11.i, i64 0
+  %388 = sub i64 %384, %387
+  store i64 %388, i64* %383, align 8
+  %389 = select i1 %261, i64 %386, i64 %__v61_c.11.i
+  %390 = add nuw i64 %__v64_i3.i, 1
+  %391 = getelementptr i64, i64* %__v7_T, i64 %390
+  %392 = load i64, i64* %391, align 8
+  %393 = icmp ult i64 %392, %389
+  %394 = zext i1 %393 to i64
+  %narrow = and i1 %261, %385
+  %395 = zext i1 %narrow to i64
+  %396 = sub i64 %392, %395
+  store i64 %396, i64* %391, align 8
+  %397 = select i1 %261, i64 %394, i64 %__v61_c.11.i
+  %398 = add i64 %__v64_i3.i, 2
+  %exitcond.i.1 = icmp eq i64 %398, %__v76___v7_T_len
   br i1 %exitcond.i.1, label %_mpi_sub_hlp.exit, label %.lr.ph.i28
 
 _mpi_sub_hlp.exit:                                ; preds = %.lr.ph.i28.prol.loopexit, %.lr.ph.i28, %._crit_edge8.i
-  %394 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %284, i32 0, i32 1) #0
-  br i1 %350, label %_mpi_copy.exit32, label %.lr.ph3.i29
+  %399 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %261, i32 0, i32 1) #0
+  br i1 %355, label %_mpi_copy.exit32, label %.lr.ph3.i29
 
 .lr.ph3.i29:                                      ; preds = %_mpi_sub_hlp.exit
-  %min.iters.check333 = icmp ult i64 %__v71___v1_X_len, 16
-  br i1 %min.iters.check333, label %scalar.ph332.preheader, label %vector.memcheck343
+  %min.iters.check281 = icmp ult i64 %__v71___v1_X_len, 4
+  br i1 %min.iters.check281, label %scalar.ph280.preheader, label %vector.memcheck291
 
-vector.memcheck343:                               ; preds = %.lr.ph3.i29
-  %scevgep335 = getelementptr i64, i64* %__v1_X, i64 %__v71___v1_X_len
-  %scevgep337 = getelementptr i64, i64* %__v7_T, i64 %__v71___v1_X_len
-  %bound0339 = icmp ugt i64* %scevgep337, %__v1_X
-  %bound1340 = icmp ugt i64* %scevgep335, %__v7_T
-  %memcheck.conflict342 = and i1 %bound0339, %bound1340
-  br i1 %memcheck.conflict342, label %scalar.ph332.preheader, label %vector.ph344
+vector.memcheck291:                               ; preds = %.lr.ph3.i29
+  %scevgep283 = getelementptr i64, i64* %__v1_X, i64 %__v71___v1_X_len
+  %scevgep285 = getelementptr i64, i64* %__v7_T, i64 %__v71___v1_X_len
+  %bound0287 = icmp ugt i64* %scevgep285, %__v1_X
+  %bound1288 = icmp ugt i64* %scevgep283, %__v7_T
+  %memcheck.conflict290 = and i1 %bound0287, %bound1288
+  br i1 %memcheck.conflict290, label %scalar.ph280.preheader, label %vector.ph292
 
-vector.ph344:                                     ; preds = %vector.memcheck343
-  %n.vec346 = and i64 %__v71___v1_X_len, -16
-  br label %vector.body330
+vector.ph292:                                     ; preds = %vector.memcheck291
+  %n.vec294 = and i64 %__v71___v1_X_len, -4
+  %400 = add i64 %n.vec294, -4
+  %401 = lshr exact i64 %400, 2
+  %402 = add nuw nsw i64 %401, 1
+  %xtraiter311 = and i64 %402, 1
+  %403 = icmp eq i64 %400, 0
+  br i1 %403, label %middle.block279.unr-lcssa, label %vector.ph292.new
 
-vector.body330:                                   ; preds = %vector.body330, %vector.ph344
-  %index347 = phi i64 [ 0, %vector.ph344 ], [ %index.next348, %vector.body330 ]
-  %395 = getelementptr i64, i64* %__v1_X, i64 %index347
-  %396 = getelementptr i64, i64* %__v7_T, i64 %index347
-  %397 = bitcast i64* %396 to <4 x i64>*
-  %wide.load357 = load <4 x i64>, <4 x i64>* %397, align 8, !alias.scope !50
-  %398 = getelementptr i64, i64* %396, i64 4
-  %399 = bitcast i64* %398 to <4 x i64>*
-  %wide.load358 = load <4 x i64>, <4 x i64>* %399, align 8, !alias.scope !50
-  %400 = getelementptr i64, i64* %396, i64 8
-  %401 = bitcast i64* %400 to <4 x i64>*
-  %wide.load359 = load <4 x i64>, <4 x i64>* %401, align 8, !alias.scope !50
-  %402 = getelementptr i64, i64* %396, i64 12
-  %403 = bitcast i64* %402 to <4 x i64>*
-  %wide.load360 = load <4 x i64>, <4 x i64>* %403, align 8, !alias.scope !50
-  %404 = bitcast i64* %395 to <4 x i64>*
-  %wide.load361 = load <4 x i64>, <4 x i64>* %404, align 8, !alias.scope !53, !noalias !50
-  %405 = getelementptr i64, i64* %395, i64 4
-  %406 = bitcast i64* %405 to <4 x i64>*
-  %wide.load362 = load <4 x i64>, <4 x i64>* %406, align 8, !alias.scope !53, !noalias !50
-  %407 = getelementptr i64, i64* %395, i64 8
-  %408 = bitcast i64* %407 to <4 x i64>*
-  %wide.load363 = load <4 x i64>, <4 x i64>* %408, align 8, !alias.scope !53, !noalias !50
-  %409 = getelementptr i64, i64* %395, i64 12
-  %410 = bitcast i64* %409 to <4 x i64>*
-  %wide.load364 = load <4 x i64>, <4 x i64>* %410, align 8, !alias.scope !53, !noalias !50
-  %411 = select i1 %284, <4 x i64> %wide.load357, <4 x i64> %wide.load361
-  %412 = select i1 %284, <4 x i64> %wide.load358, <4 x i64> %wide.load362
-  %413 = select i1 %284, <4 x i64> %wide.load359, <4 x i64> %wide.load363
-  %414 = select i1 %284, <4 x i64> %wide.load360, <4 x i64> %wide.load364
-  %415 = bitcast i64* %395 to <4 x i64>*
-  store <4 x i64> %411, <4 x i64>* %415, align 8, !alias.scope !53, !noalias !50
-  %416 = bitcast i64* %405 to <4 x i64>*
-  store <4 x i64> %412, <4 x i64>* %416, align 8, !alias.scope !53, !noalias !50
-  %417 = bitcast i64* %407 to <4 x i64>*
-  store <4 x i64> %413, <4 x i64>* %417, align 8, !alias.scope !53, !noalias !50
-  %418 = bitcast i64* %409 to <4 x i64>*
-  store <4 x i64> %414, <4 x i64>* %418, align 8, !alias.scope !53, !noalias !50
-  %index.next348 = add i64 %index347, 16
-  %419 = icmp eq i64 %index.next348, %n.vec346
-  br i1 %419, label %middle.block331, label %vector.body330, !llvm.loop !55
+vector.ph292.new:                                 ; preds = %vector.ph292
+  %unroll_iter = sub nsw i64 %402, %xtraiter311
+  br label %vector.body278
 
-middle.block331:                                  ; preds = %vector.body330
-  %cmp.n350 = icmp eq i64 %n.vec346, %__v71___v1_X_len
-  br i1 %cmp.n350, label %_mpi_copy.exit32, label %scalar.ph332.preheader
+vector.body278:                                   ; preds = %vector.body278, %vector.ph292.new
+  %index295 = phi i64 [ 0, %vector.ph292.new ], [ %index.next296.1, %vector.body278 ]
+  %niter = phi i64 [ %unroll_iter, %vector.ph292.new ], [ %niter.nsub.1, %vector.body278 ]
+  %404 = getelementptr i64, i64* %__v1_X, i64 %index295
+  %405 = getelementptr i64, i64* %__v7_T, i64 %index295
+  %406 = bitcast i64* %405 to <2 x i64>*
+  %wide.load303 = load <2 x i64>, <2 x i64>* %406, align 8, !alias.scope !54
+  %407 = getelementptr i64, i64* %405, i64 2
+  %408 = bitcast i64* %407 to <2 x i64>*
+  %wide.load304 = load <2 x i64>, <2 x i64>* %408, align 8, !alias.scope !54
+  %409 = bitcast i64* %404 to <2 x i64>*
+  %wide.load305 = load <2 x i64>, <2 x i64>* %409, align 8, !alias.scope !57, !noalias !54
+  %410 = getelementptr i64, i64* %404, i64 2
+  %411 = bitcast i64* %410 to <2 x i64>*
+  %wide.load306 = load <2 x i64>, <2 x i64>* %411, align 8, !alias.scope !57, !noalias !54
+  %412 = select i1 %261, <2 x i64> %wide.load303, <2 x i64> %wide.load305
+  %413 = select i1 %261, <2 x i64> %wide.load304, <2 x i64> %wide.load306
+  %414 = bitcast i64* %404 to <2 x i64>*
+  store <2 x i64> %412, <2 x i64>* %414, align 8, !alias.scope !57, !noalias !54
+  %415 = bitcast i64* %410 to <2 x i64>*
+  store <2 x i64> %413, <2 x i64>* %415, align 8, !alias.scope !57, !noalias !54
+  %index.next296 = or i64 %index295, 4
+  %416 = getelementptr i64, i64* %__v1_X, i64 %index.next296
+  %417 = getelementptr i64, i64* %__v7_T, i64 %index.next296
+  %418 = bitcast i64* %417 to <2 x i64>*
+  %wide.load303.1 = load <2 x i64>, <2 x i64>* %418, align 8, !alias.scope !54
+  %419 = getelementptr i64, i64* %417, i64 2
+  %420 = bitcast i64* %419 to <2 x i64>*
+  %wide.load304.1 = load <2 x i64>, <2 x i64>* %420, align 8, !alias.scope !54
+  %421 = bitcast i64* %416 to <2 x i64>*
+  %wide.load305.1 = load <2 x i64>, <2 x i64>* %421, align 8, !alias.scope !57, !noalias !54
+  %422 = getelementptr i64, i64* %416, i64 2
+  %423 = bitcast i64* %422 to <2 x i64>*
+  %wide.load306.1 = load <2 x i64>, <2 x i64>* %423, align 8, !alias.scope !57, !noalias !54
+  %424 = select i1 %261, <2 x i64> %wide.load303.1, <2 x i64> %wide.load305.1
+  %425 = select i1 %261, <2 x i64> %wide.load304.1, <2 x i64> %wide.load306.1
+  %426 = bitcast i64* %416 to <2 x i64>*
+  store <2 x i64> %424, <2 x i64>* %426, align 8, !alias.scope !57, !noalias !54
+  %427 = bitcast i64* %422 to <2 x i64>*
+  store <2 x i64> %425, <2 x i64>* %427, align 8, !alias.scope !57, !noalias !54
+  %index.next296.1 = add i64 %index295, 8
+  %niter.nsub.1 = add i64 %niter, -2
+  %niter.ncmp.1 = icmp eq i64 %niter.nsub.1, 0
+  br i1 %niter.ncmp.1, label %middle.block279.unr-lcssa, label %vector.body278, !llvm.loop !59
 
-scalar.ph332.preheader:                           ; preds = %middle.block331, %vector.memcheck343, %.lr.ph3.i29
-  %__v68_i2.i30.ph = phi i64 [ 0, %vector.memcheck343 ], [ 0, %.lr.ph3.i29 ], [ %n.vec346, %middle.block331 ]
-  %420 = add i64 %__v71___v1_X_len, -1
-  %421 = sub i64 %420, %__v68_i2.i30.ph
+middle.block279.unr-lcssa:                        ; preds = %vector.body278, %vector.ph292
+  %index295.unr = phi i64 [ 0, %vector.ph292 ], [ %index.next296.1, %vector.body278 ]
+  %lcmp.mod312 = icmp eq i64 %xtraiter311, 0
+  br i1 %lcmp.mod312, label %middle.block279, label %vector.body278.epil
+
+vector.body278.epil:                              ; preds = %middle.block279.unr-lcssa
+  %428 = getelementptr i64, i64* %__v1_X, i64 %index295.unr
+  %429 = getelementptr i64, i64* %__v7_T, i64 %index295.unr
+  %430 = bitcast i64* %429 to <2 x i64>*
+  %wide.load303.epil = load <2 x i64>, <2 x i64>* %430, align 8, !alias.scope !54
+  %431 = getelementptr i64, i64* %429, i64 2
+  %432 = bitcast i64* %431 to <2 x i64>*
+  %wide.load304.epil = load <2 x i64>, <2 x i64>* %432, align 8, !alias.scope !54
+  %433 = bitcast i64* %428 to <2 x i64>*
+  %wide.load305.epil = load <2 x i64>, <2 x i64>* %433, align 8, !alias.scope !57, !noalias !54
+  %434 = getelementptr i64, i64* %428, i64 2
+  %435 = bitcast i64* %434 to <2 x i64>*
+  %wide.load306.epil = load <2 x i64>, <2 x i64>* %435, align 8, !alias.scope !57, !noalias !54
+  %436 = select i1 %261, <2 x i64> %wide.load303.epil, <2 x i64> %wide.load305.epil
+  %437 = select i1 %261, <2 x i64> %wide.load304.epil, <2 x i64> %wide.load306.epil
+  %438 = bitcast i64* %428 to <2 x i64>*
+  store <2 x i64> %436, <2 x i64>* %438, align 8, !alias.scope !57, !noalias !54
+  %439 = bitcast i64* %434 to <2 x i64>*
+  store <2 x i64> %437, <2 x i64>* %439, align 8, !alias.scope !57, !noalias !54
+  br label %middle.block279
+
+middle.block279:                                  ; preds = %middle.block279.unr-lcssa, %vector.body278.epil
+  %cmp.n298 = icmp eq i64 %n.vec294, %__v71___v1_X_len
+  br i1 %cmp.n298, label %_mpi_copy.exit32, label %scalar.ph280.preheader
+
+scalar.ph280.preheader:                           ; preds = %middle.block279, %vector.memcheck291, %.lr.ph3.i29
+  %__v68_i2.i30.ph = phi i64 [ 0, %vector.memcheck291 ], [ 0, %.lr.ph3.i29 ], [ %n.vec294, %middle.block279 ]
+  %440 = add i64 %__v71___v1_X_len, -1
+  %441 = sub i64 %440, %__v68_i2.i30.ph
   %xtraiter = and i64 %__v71___v1_X_len, 3
   %lcmp.mod = icmp eq i64 %xtraiter, 0
-  br i1 %lcmp.mod, label %scalar.ph332.prol.loopexit, label %scalar.ph332.prol.preheader
+  br i1 %lcmp.mod, label %scalar.ph280.prol.loopexit, label %scalar.ph280.prol.preheader
 
-scalar.ph332.prol.preheader:                      ; preds = %scalar.ph332.preheader
-  br label %scalar.ph332.prol
+scalar.ph280.prol.preheader:                      ; preds = %scalar.ph280.preheader
+  br label %scalar.ph280.prol
 
-scalar.ph332.prol:                                ; preds = %scalar.ph332.prol, %scalar.ph332.prol.preheader
-  %__v68_i2.i30.prol = phi i64 [ %427, %scalar.ph332.prol ], [ %__v68_i2.i30.ph, %scalar.ph332.prol.preheader ]
-  %prol.iter = phi i64 [ %prol.iter.sub, %scalar.ph332.prol ], [ %xtraiter, %scalar.ph332.prol.preheader ]
-  %422 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i30.prol
-  %423 = getelementptr i64, i64* %__v7_T, i64 %__v68_i2.i30.prol
-  %424 = load i64, i64* %423, align 8
-  %425 = load i64, i64* %422, align 8
-  %426 = select i1 %284, i64 %424, i64 %425
-  store i64 %426, i64* %422, align 8
-  %427 = add nuw i64 %__v68_i2.i30.prol, 1
+scalar.ph280.prol:                                ; preds = %scalar.ph280.prol, %scalar.ph280.prol.preheader
+  %__v68_i2.i30.prol = phi i64 [ %447, %scalar.ph280.prol ], [ %__v68_i2.i30.ph, %scalar.ph280.prol.preheader ]
+  %prol.iter = phi i64 [ %prol.iter.sub, %scalar.ph280.prol ], [ %xtraiter, %scalar.ph280.prol.preheader ]
+  %442 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i30.prol
+  %443 = getelementptr i64, i64* %__v7_T, i64 %__v68_i2.i30.prol
+  %444 = load i64, i64* %443, align 8
+  %445 = load i64, i64* %442, align 8
+  %446 = select i1 %261, i64 %444, i64 %445
+  store i64 %446, i64* %442, align 8
+  %447 = add nuw i64 %__v68_i2.i30.prol, 1
   %prol.iter.sub = add i64 %prol.iter, -1
   %prol.iter.cmp = icmp eq i64 %prol.iter.sub, 0
-  br i1 %prol.iter.cmp, label %scalar.ph332.prol.loopexit, label %scalar.ph332.prol, !llvm.loop !56
+  br i1 %prol.iter.cmp, label %scalar.ph280.prol.loopexit, label %scalar.ph280.prol, !llvm.loop !60
 
-scalar.ph332.prol.loopexit:                       ; preds = %scalar.ph332.prol, %scalar.ph332.preheader
-  %__v68_i2.i30.unr = phi i64 [ %__v68_i2.i30.ph, %scalar.ph332.preheader ], [ %427, %scalar.ph332.prol ]
-  %428 = icmp ult i64 %421, 3
-  br i1 %428, label %_mpi_copy.exit32, label %scalar.ph332.preheader.new
+scalar.ph280.prol.loopexit:                       ; preds = %scalar.ph280.prol, %scalar.ph280.preheader
+  %__v68_i2.i30.unr = phi i64 [ %__v68_i2.i30.ph, %scalar.ph280.preheader ], [ %447, %scalar.ph280.prol ]
+  %448 = icmp ult i64 %441, 3
+  br i1 %448, label %_mpi_copy.exit32, label %scalar.ph280.preheader.new
 
-scalar.ph332.preheader.new:                       ; preds = %scalar.ph332.prol.loopexit
-  br label %scalar.ph332
+scalar.ph280.preheader.new:                       ; preds = %scalar.ph280.prol.loopexit
+  br label %scalar.ph280
 
-scalar.ph332:                                     ; preds = %scalar.ph332, %scalar.ph332.preheader.new
-  %__v68_i2.i30 = phi i64 [ %__v68_i2.i30.unr, %scalar.ph332.preheader.new ], [ %452, %scalar.ph332 ]
-  %429 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i30
-  %430 = getelementptr i64, i64* %__v7_T, i64 %__v68_i2.i30
-  %431 = load i64, i64* %430, align 8
-  %432 = load i64, i64* %429, align 8
-  %433 = select i1 %284, i64 %431, i64 %432
-  store i64 %433, i64* %429, align 8
-  %434 = add nuw i64 %__v68_i2.i30, 1
-  %435 = getelementptr i64, i64* %__v1_X, i64 %434
-  %436 = getelementptr i64, i64* %__v7_T, i64 %434
-  %437 = load i64, i64* %436, align 8
-  %438 = load i64, i64* %435, align 8
-  %439 = select i1 %284, i64 %437, i64 %438
-  store i64 %439, i64* %435, align 8
-  %440 = add i64 %__v68_i2.i30, 2
-  %441 = getelementptr i64, i64* %__v1_X, i64 %440
-  %442 = getelementptr i64, i64* %__v7_T, i64 %440
-  %443 = load i64, i64* %442, align 8
-  %444 = load i64, i64* %441, align 8
-  %445 = select i1 %284, i64 %443, i64 %444
-  store i64 %445, i64* %441, align 8
-  %446 = add i64 %__v68_i2.i30, 3
-  %447 = getelementptr i64, i64* %__v1_X, i64 %446
-  %448 = getelementptr i64, i64* %__v7_T, i64 %446
-  %449 = load i64, i64* %448, align 8
-  %450 = load i64, i64* %447, align 8
-  %451 = select i1 %284, i64 %449, i64 %450
-  store i64 %451, i64* %447, align 8
-  %452 = add i64 %__v68_i2.i30, 4
-  %exitcond.3 = icmp eq i64 %452, %__v71___v1_X_len
-  br i1 %exitcond.3, label %_mpi_copy.exit32, label %scalar.ph332, !llvm.loop !57
+scalar.ph280:                                     ; preds = %scalar.ph280, %scalar.ph280.preheader.new
+  %__v68_i2.i30 = phi i64 [ %__v68_i2.i30.unr, %scalar.ph280.preheader.new ], [ %472, %scalar.ph280 ]
+  %449 = getelementptr i64, i64* %__v1_X, i64 %__v68_i2.i30
+  %450 = getelementptr i64, i64* %__v7_T, i64 %__v68_i2.i30
+  %451 = load i64, i64* %450, align 8
+  %452 = load i64, i64* %449, align 8
+  %453 = select i1 %261, i64 %451, i64 %452
+  store i64 %453, i64* %449, align 8
+  %454 = add nuw i64 %__v68_i2.i30, 1
+  %455 = getelementptr i64, i64* %__v1_X, i64 %454
+  %456 = getelementptr i64, i64* %__v7_T, i64 %454
+  %457 = load i64, i64* %456, align 8
+  %458 = load i64, i64* %455, align 8
+  %459 = select i1 %261, i64 %457, i64 %458
+  store i64 %459, i64* %455, align 8
+  %460 = add i64 %__v68_i2.i30, 2
+  %461 = getelementptr i64, i64* %__v1_X, i64 %460
+  %462 = getelementptr i64, i64* %__v7_T, i64 %460
+  %463 = load i64, i64* %462, align 8
+  %464 = load i64, i64* %461, align 8
+  %465 = select i1 %261, i64 %463, i64 %464
+  store i64 %465, i64* %461, align 8
+  %466 = add i64 %__v68_i2.i30, 3
+  %467 = getelementptr i64, i64* %__v1_X, i64 %466
+  %468 = getelementptr i64, i64* %__v7_T, i64 %466
+  %469 = load i64, i64* %468, align 8
+  %470 = load i64, i64* %467, align 8
+  %471 = select i1 %261, i64 %469, i64 %470
+  store i64 %471, i64* %467, align 8
+  %472 = add i64 %__v68_i2.i30, 4
+  %exitcond.3 = icmp eq i64 %472, %__v71___v1_X_len
+  br i1 %exitcond.3, label %_mpi_copy.exit32, label %scalar.ph280, !llvm.loop !61
 
-_mpi_copy.exit32:                                 ; preds = %scalar.ph332.prol.loopexit, %scalar.ph332, %middle.block331, %_mpi_sub_hlp.exit
-  %453 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %284, i32 0, i32 1) #0
-  ret i32 %287
+_mpi_copy.exit32:                                 ; preds = %scalar.ph280.prol.loopexit, %scalar.ph280, %middle.block279, %_mpi_sub_hlp.exit
+  %473 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %261, i32 0, i32 1) #0
+  ret i32 %264
 
-; <label>:454:                                    ; preds = %522, %274
-  %indvars.iv45 = phi i64 [ 1, %274 ], [ %indvars.iv.next46, %522 ]
+; <label>:474:                                    ; preds = %562, %251
+  %indvars.iv45 = phi i64 [ 1, %251 ], [ %indvars.iv.next46, %562 ]
   tail call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
   tail call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
   tail call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
   tail call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
-  %455 = load i64, i64* %276, align 8
-  %456 = shl i64 %indvars.iv45, 2
-  %457 = sub nuw nsw i64 64, %456
-  %458 = lshr i64 %455, %457
-  %__v17_wbits = and i64 %458, 15
-  br label %461
+  %475 = load i64, i64* %253, align 8
+  %476 = shl i64 %indvars.iv45, 2
+  %477 = sub nuw nsw i64 64, %476
+  %478 = lshr i64 %475, %477
+  %__v17_wbits = and i64 %478, 15
+  br label %481
 
-; <label>:459:                                    ; preds = %522
-  %460 = add nuw i64 %__v14__limb42, 1
-  %exitcond48 = icmp eq i64 %460, %__v73___v4_E_len
-  br i1 %exitcond48, label %._crit_edge, label %274
+; <label>:479:                                    ; preds = %562
+  %480 = add nuw i64 %__v14__limb42, 1
+  %exitcond48 = icmp eq i64 %480, %__v73___v4_E_len
+  br i1 %exitcond48, label %._crit_edge, label %251
 
-; <label>:461:                                    ; preds = %_mpi_copy.exit39, %454
-  %indvars.iv = phi i64 [ 0, %454 ], [ %indvars.iv.next, %_mpi_copy.exit39 ]
-  %462 = mul i64 %0, %indvars.iv
-  %463 = and i64 %462, 4294967295
-  %scevgep214 = getelementptr i64, i64* %__v8_W, i64 %463
-  %scevgep217 = getelementptr i64, i64* %scevgep216, i64 %463
+; <label>:481:                                    ; preds = %_mpi_copy.exit39, %474
+  %indvars.iv = phi i64 [ 0, %474 ], [ %indvars.iv.next, %_mpi_copy.exit39 ]
+  %482 = mul i64 %0, %indvars.iv
+  %483 = and i64 %482, 4294967295
+  %scevgep190 = getelementptr i64, i64* %__v8_W, i64 %483
+  %scevgep193 = getelementptr i64, i64* %scevgep192, i64 %483
   %__m3 = icmp eq i64 %__v17_wbits, %indvars.iv
-  %464 = mul i64 %indvars.iv, %0
-  %__v121_lexpr = and i64 %464, 4294967295
-  %465 = getelementptr i64, i64* %__v8_W, i64 %__v121_lexpr
-  br i1 %267, label %._crit_edge4.i36, label %.lr.ph3.i34
+  %484 = mul i64 %indvars.iv, %0
+  %__v121_lexpr = and i64 %484, 4294967295
+  %485 = getelementptr i64, i64* %__v8_W, i64 %__v121_lexpr
+  br i1 %235, label %._crit_edge4.i36, label %.lr.ph3.i34
 
-.lr.ph3.i34:                                      ; preds = %461
-  br i1 %min.iters.check209, label %scalar.ph208.preheader, label %vector.memcheck223
+.lr.ph3.i34:                                      ; preds = %481
+  br i1 %min.iters.check185, label %scalar.ph184.preheader, label %vector.memcheck199
 
-vector.memcheck223:                               ; preds = %.lr.ph3.i34
-  %bound0219 = icmp ugt i64* %scevgep217, %__v9_TW
-  %bound1220 = icmp ult i64* %scevgep214, %scevgep212
-  %memcheck.conflict222 = and i1 %bound0219, %bound1220
-  br i1 %memcheck.conflict222, label %scalar.ph208.preheader, label %vector.ph224
+vector.memcheck199:                               ; preds = %.lr.ph3.i34
+  %bound0195 = icmp ugt i64* %scevgep193, %__v9_TW
+  %bound1196 = icmp ult i64* %scevgep190, %scevgep188
+  %memcheck.conflict198 = and i1 %bound0195, %bound1196
+  br i1 %memcheck.conflict198, label %scalar.ph184.preheader, label %vector.ph200
 
-vector.ph224:                                     ; preds = %vector.memcheck223
-  br label %vector.body206
+vector.ph200:                                     ; preds = %vector.memcheck199
+  br i1 %250, label %middle.block183.unr-lcssa, label %vector.ph200.new
 
-vector.body206:                                   ; preds = %vector.body206, %vector.ph224
-  %index227 = phi i64 [ 0, %vector.ph224 ], [ %index.next228, %vector.body206 ]
-  %466 = getelementptr i64, i64* %__v9_TW, i64 %index227
-  %467 = getelementptr i64, i64* %465, i64 %index227
-  %468 = bitcast i64* %467 to <4 x i64>*
-  %wide.load237 = load <4 x i64>, <4 x i64>* %468, align 8, !alias.scope !58
-  %469 = getelementptr i64, i64* %467, i64 4
-  %470 = bitcast i64* %469 to <4 x i64>*
-  %wide.load238 = load <4 x i64>, <4 x i64>* %470, align 8, !alias.scope !58
-  %471 = getelementptr i64, i64* %467, i64 8
-  %472 = bitcast i64* %471 to <4 x i64>*
-  %wide.load239 = load <4 x i64>, <4 x i64>* %472, align 8, !alias.scope !58
-  %473 = getelementptr i64, i64* %467, i64 12
-  %474 = bitcast i64* %473 to <4 x i64>*
-  %wide.load240 = load <4 x i64>, <4 x i64>* %474, align 8, !alias.scope !58
-  %475 = bitcast i64* %466 to <4 x i64>*
-  %wide.load241 = load <4 x i64>, <4 x i64>* %475, align 8, !alias.scope !61, !noalias !58
-  %476 = getelementptr i64, i64* %466, i64 4
-  %477 = bitcast i64* %476 to <4 x i64>*
-  %wide.load242 = load <4 x i64>, <4 x i64>* %477, align 8, !alias.scope !61, !noalias !58
-  %478 = getelementptr i64, i64* %466, i64 8
-  %479 = bitcast i64* %478 to <4 x i64>*
-  %wide.load243 = load <4 x i64>, <4 x i64>* %479, align 8, !alias.scope !61, !noalias !58
-  %480 = getelementptr i64, i64* %466, i64 12
-  %481 = bitcast i64* %480 to <4 x i64>*
-  %wide.load244 = load <4 x i64>, <4 x i64>* %481, align 8, !alias.scope !61, !noalias !58
-  %482 = select i1 %__m3, <4 x i64> %wide.load237, <4 x i64> %wide.load241
-  %483 = select i1 %__m3, <4 x i64> %wide.load238, <4 x i64> %wide.load242
-  %484 = select i1 %__m3, <4 x i64> %wide.load239, <4 x i64> %wide.load243
-  %485 = select i1 %__m3, <4 x i64> %wide.load240, <4 x i64> %wide.load244
-  %486 = bitcast i64* %466 to <4 x i64>*
-  store <4 x i64> %482, <4 x i64>* %486, align 8, !alias.scope !61, !noalias !58
-  %487 = bitcast i64* %476 to <4 x i64>*
-  store <4 x i64> %483, <4 x i64>* %487, align 8, !alias.scope !61, !noalias !58
-  %488 = bitcast i64* %478 to <4 x i64>*
-  store <4 x i64> %484, <4 x i64>* %488, align 8, !alias.scope !61, !noalias !58
-  %489 = bitcast i64* %480 to <4 x i64>*
-  store <4 x i64> %485, <4 x i64>* %489, align 8, !alias.scope !61, !noalias !58
-  %index.next228 = add i64 %index227, 16
-  %490 = icmp eq i64 %index.next228, %n.vec226
-  br i1 %490, label %middle.block207, label %vector.body206, !llvm.loop !63
+vector.ph200.new:                                 ; preds = %vector.ph200
+  br label %vector.body182
 
-middle.block207:                                  ; preds = %vector.body206
-  br i1 %cmp.n230, label %._crit_edge4.i36, label %scalar.ph208.preheader
+vector.body182:                                   ; preds = %vector.body182, %vector.ph200.new
+  %index203 = phi i64 [ 0, %vector.ph200.new ], [ %index.next204.1, %vector.body182 ]
+  %niter326 = phi i64 [ %unroll_iter325, %vector.ph200.new ], [ %niter326.nsub.1, %vector.body182 ]
+  %486 = getelementptr i64, i64* %__v9_TW, i64 %index203
+  %487 = getelementptr i64, i64* %485, i64 %index203
+  %488 = bitcast i64* %487 to <2 x i64>*
+  %wide.load211 = load <2 x i64>, <2 x i64>* %488, align 8, !alias.scope !62
+  %489 = getelementptr i64, i64* %487, i64 2
+  %490 = bitcast i64* %489 to <2 x i64>*
+  %wide.load212 = load <2 x i64>, <2 x i64>* %490, align 8, !alias.scope !62
+  %491 = bitcast i64* %486 to <2 x i64>*
+  %wide.load213 = load <2 x i64>, <2 x i64>* %491, align 8, !alias.scope !65, !noalias !62
+  %492 = getelementptr i64, i64* %486, i64 2
+  %493 = bitcast i64* %492 to <2 x i64>*
+  %wide.load214 = load <2 x i64>, <2 x i64>* %493, align 8, !alias.scope !65, !noalias !62
+  %494 = select i1 %__m3, <2 x i64> %wide.load211, <2 x i64> %wide.load213
+  %495 = select i1 %__m3, <2 x i64> %wide.load212, <2 x i64> %wide.load214
+  %496 = bitcast i64* %486 to <2 x i64>*
+  store <2 x i64> %494, <2 x i64>* %496, align 8, !alias.scope !65, !noalias !62
+  %497 = bitcast i64* %492 to <2 x i64>*
+  store <2 x i64> %495, <2 x i64>* %497, align 8, !alias.scope !65, !noalias !62
+  %index.next204 = or i64 %index203, 4
+  %498 = getelementptr i64, i64* %__v9_TW, i64 %index.next204
+  %499 = getelementptr i64, i64* %485, i64 %index.next204
+  %500 = bitcast i64* %499 to <2 x i64>*
+  %wide.load211.1 = load <2 x i64>, <2 x i64>* %500, align 8, !alias.scope !62
+  %501 = getelementptr i64, i64* %499, i64 2
+  %502 = bitcast i64* %501 to <2 x i64>*
+  %wide.load212.1 = load <2 x i64>, <2 x i64>* %502, align 8, !alias.scope !62
+  %503 = bitcast i64* %498 to <2 x i64>*
+  %wide.load213.1 = load <2 x i64>, <2 x i64>* %503, align 8, !alias.scope !65, !noalias !62
+  %504 = getelementptr i64, i64* %498, i64 2
+  %505 = bitcast i64* %504 to <2 x i64>*
+  %wide.load214.1 = load <2 x i64>, <2 x i64>* %505, align 8, !alias.scope !65, !noalias !62
+  %506 = select i1 %__m3, <2 x i64> %wide.load211.1, <2 x i64> %wide.load213.1
+  %507 = select i1 %__m3, <2 x i64> %wide.load212.1, <2 x i64> %wide.load214.1
+  %508 = bitcast i64* %498 to <2 x i64>*
+  store <2 x i64> %506, <2 x i64>* %508, align 8, !alias.scope !65, !noalias !62
+  %509 = bitcast i64* %504 to <2 x i64>*
+  store <2 x i64> %507, <2 x i64>* %509, align 8, !alias.scope !65, !noalias !62
+  %index.next204.1 = add i64 %index203, 8
+  %niter326.nsub.1 = add i64 %niter326, -2
+  %niter326.ncmp.1 = icmp eq i64 %niter326.nsub.1, 0
+  br i1 %niter326.ncmp.1, label %middle.block183.unr-lcssa, label %vector.body182, !llvm.loop !67
 
-scalar.ph208.preheader:                           ; preds = %middle.block207, %vector.memcheck223, %.lr.ph3.i34
-  %__v68_i2.i35.ph = phi i64 [ 0, %vector.memcheck223 ], [ 0, %.lr.ph3.i34 ], [ %n.vec226, %middle.block207 ]
-  br label %scalar.ph208
+middle.block183.unr-lcssa:                        ; preds = %vector.body182, %vector.ph200
+  %index203.unr = phi i64 [ 0, %vector.ph200 ], [ %index.next204.1, %vector.body182 ]
+  br i1 %lcmp.mod324, label %middle.block183, label %vector.body182.epil
 
-scalar.ph208:                                     ; preds = %scalar.ph208.preheader, %scalar.ph208
-  %__v68_i2.i35 = phi i64 [ %496, %scalar.ph208 ], [ %__v68_i2.i35.ph, %scalar.ph208.preheader ]
-  %491 = getelementptr i64, i64* %__v9_TW, i64 %__v68_i2.i35
-  %492 = getelementptr i64, i64* %465, i64 %__v68_i2.i35
-  %493 = load i64, i64* %492, align 8
-  %494 = load i64, i64* %491, align 8
-  %495 = select i1 %__m3, i64 %493, i64 %494
-  store i64 %495, i64* %491, align 8
-  %496 = add nuw nsw i64 %__v68_i2.i35, 1
-  %497 = icmp ult i64 %496, %__v67_clen.i33
-  br i1 %497, label %scalar.ph208, label %._crit_edge4.i36, !llvm.loop !64
+vector.body182.epil:                              ; preds = %middle.block183.unr-lcssa
+  %510 = getelementptr i64, i64* %__v9_TW, i64 %index203.unr
+  %511 = getelementptr i64, i64* %485, i64 %index203.unr
+  %512 = bitcast i64* %511 to <2 x i64>*
+  %wide.load211.epil = load <2 x i64>, <2 x i64>* %512, align 8, !alias.scope !62
+  %513 = getelementptr i64, i64* %511, i64 2
+  %514 = bitcast i64* %513 to <2 x i64>*
+  %wide.load212.epil = load <2 x i64>, <2 x i64>* %514, align 8, !alias.scope !62
+  %515 = bitcast i64* %510 to <2 x i64>*
+  %wide.load213.epil = load <2 x i64>, <2 x i64>* %515, align 8, !alias.scope !65, !noalias !62
+  %516 = getelementptr i64, i64* %510, i64 2
+  %517 = bitcast i64* %516 to <2 x i64>*
+  %wide.load214.epil = load <2 x i64>, <2 x i64>* %517, align 8, !alias.scope !65, !noalias !62
+  %518 = select i1 %__m3, <2 x i64> %wide.load211.epil, <2 x i64> %wide.load213.epil
+  %519 = select i1 %__m3, <2 x i64> %wide.load212.epil, <2 x i64> %wide.load214.epil
+  %520 = bitcast i64* %510 to <2 x i64>*
+  store <2 x i64> %518, <2 x i64>* %520, align 8, !alias.scope !65, !noalias !62
+  %521 = bitcast i64* %516 to <2 x i64>*
+  store <2 x i64> %519, <2 x i64>* %521, align 8, !alias.scope !65, !noalias !62
+  br label %middle.block183
 
-._crit_edge4.i36:                                 ; preds = %scalar.ph208, %middle.block207, %461
-  br i1 %268, label %.lr.ph.i37, label %_mpi_copy.exit39
+middle.block183:                                  ; preds = %middle.block183.unr-lcssa, %vector.body182.epil
+  br i1 %cmp.n206, label %._crit_edge4.i36, label %scalar.ph184.preheader
+
+scalar.ph184.preheader:                           ; preds = %middle.block183, %vector.memcheck199, %.lr.ph3.i34
+  %__v68_i2.i35.ph = phi i64 [ 0, %vector.memcheck199 ], [ 0, %.lr.ph3.i34 ], [ %n.vec202, %middle.block183 ]
+  br label %scalar.ph184
+
+scalar.ph184:                                     ; preds = %scalar.ph184.preheader, %scalar.ph184
+  %__v68_i2.i35 = phi i64 [ %527, %scalar.ph184 ], [ %__v68_i2.i35.ph, %scalar.ph184.preheader ]
+  %522 = getelementptr i64, i64* %__v9_TW, i64 %__v68_i2.i35
+  %523 = getelementptr i64, i64* %485, i64 %__v68_i2.i35
+  %524 = load i64, i64* %523, align 8
+  %525 = load i64, i64* %522, align 8
+  %526 = select i1 %__m3, i64 %524, i64 %525
+  store i64 %526, i64* %522, align 8
+  %527 = add nuw nsw i64 %__v68_i2.i35, 1
+  %528 = icmp ult i64 %527, %__v67_clen.i33
+  br i1 %528, label %scalar.ph184, label %._crit_edge4.i36, !llvm.loop !68
+
+._crit_edge4.i36:                                 ; preds = %scalar.ph184, %middle.block183, %481
+  br i1 %236, label %.lr.ph.i37, label %_mpi_copy.exit39
 
 .lr.ph.i37:                                       ; preds = %._crit_edge4.i36
-  br i1 %min.iters.check180, label %scalar.ph178.preheader, label %vector.ph181
+  br i1 %min.iters.check164, label %scalar.ph162.preheader, label %vector.ph165
 
-vector.ph181:                                     ; preds = %.lr.ph.i37
-  br label %vector.body176
+vector.ph165:                                     ; preds = %.lr.ph.i37
+  br i1 %249, label %middle.block161.unr-lcssa, label %vector.ph165.new
 
-vector.body176:                                   ; preds = %vector.body176, %vector.ph181
-  %index184 = phi i64 [ 0, %vector.ph181 ], [ %index.next185, %vector.body176 ]
-  %498 = add i64 %__v67_clen.i33, %index184
-  %499 = getelementptr i64, i64* %__v9_TW, i64 %498
-  %500 = bitcast i64* %499 to <4 x i64>*
-  %wide.load194 = load <4 x i64>, <4 x i64>* %500, align 8
-  %501 = getelementptr i64, i64* %499, i64 4
-  %502 = bitcast i64* %501 to <4 x i64>*
-  %wide.load195 = load <4 x i64>, <4 x i64>* %502, align 8
-  %503 = getelementptr i64, i64* %499, i64 8
-  %504 = bitcast i64* %503 to <4 x i64>*
-  %wide.load196 = load <4 x i64>, <4 x i64>* %504, align 8
-  %505 = getelementptr i64, i64* %499, i64 12
-  %506 = bitcast i64* %505 to <4 x i64>*
-  %wide.load197 = load <4 x i64>, <4 x i64>* %506, align 8
-  %507 = select i1 %__m3, <4 x i64> zeroinitializer, <4 x i64> %wide.load194
-  %508 = select i1 %__m3, <4 x i64> zeroinitializer, <4 x i64> %wide.load195
-  %509 = select i1 %__m3, <4 x i64> zeroinitializer, <4 x i64> %wide.load196
-  %510 = select i1 %__m3, <4 x i64> zeroinitializer, <4 x i64> %wide.load197
-  %511 = bitcast i64* %499 to <4 x i64>*
-  store <4 x i64> %507, <4 x i64>* %511, align 8
-  %512 = bitcast i64* %501 to <4 x i64>*
-  store <4 x i64> %508, <4 x i64>* %512, align 8
-  %513 = bitcast i64* %503 to <4 x i64>*
-  store <4 x i64> %509, <4 x i64>* %513, align 8
-  %514 = bitcast i64* %505 to <4 x i64>*
-  store <4 x i64> %510, <4 x i64>* %514, align 8
-  %index.next185 = add i64 %index184, 16
-  %515 = icmp eq i64 %index.next185, %n.vec183
-  br i1 %515, label %middle.block177, label %vector.body176, !llvm.loop !65
+vector.ph165.new:                                 ; preds = %vector.ph165
+  br label %vector.body160
 
-middle.block177:                                  ; preds = %vector.body176
-  br i1 %cmp.n187, label %_mpi_copy.exit39, label %scalar.ph178.preheader
+vector.body160:                                   ; preds = %vector.body160, %vector.ph165.new
+  %index168 = phi i64 [ 0, %vector.ph165.new ], [ %index.next169.1, %vector.body160 ]
+  %niter330 = phi i64 [ %unroll_iter329, %vector.ph165.new ], [ %niter330.nsub.1, %vector.body160 ]
+  %529 = add i64 %__v67_clen.i33, %index168
+  %530 = getelementptr i64, i64* %__v9_TW, i64 %529
+  %531 = bitcast i64* %530 to <2 x i64>*
+  %wide.load176 = load <2 x i64>, <2 x i64>* %531, align 8
+  %532 = getelementptr i64, i64* %530, i64 2
+  %533 = bitcast i64* %532 to <2 x i64>*
+  %wide.load177 = load <2 x i64>, <2 x i64>* %533, align 8
+  %534 = select i1 %__m3, <2 x i64> zeroinitializer, <2 x i64> %wide.load176
+  %535 = select i1 %__m3, <2 x i64> zeroinitializer, <2 x i64> %wide.load177
+  %536 = bitcast i64* %530 to <2 x i64>*
+  store <2 x i64> %534, <2 x i64>* %536, align 8
+  %537 = bitcast i64* %532 to <2 x i64>*
+  store <2 x i64> %535, <2 x i64>* %537, align 8
+  %index.next169 = or i64 %index168, 4
+  %538 = add i64 %__v67_clen.i33, %index.next169
+  %539 = getelementptr i64, i64* %__v9_TW, i64 %538
+  %540 = bitcast i64* %539 to <2 x i64>*
+  %wide.load176.1 = load <2 x i64>, <2 x i64>* %540, align 8
+  %541 = getelementptr i64, i64* %539, i64 2
+  %542 = bitcast i64* %541 to <2 x i64>*
+  %wide.load177.1 = load <2 x i64>, <2 x i64>* %542, align 8
+  %543 = select i1 %__m3, <2 x i64> zeroinitializer, <2 x i64> %wide.load176.1
+  %544 = select i1 %__m3, <2 x i64> zeroinitializer, <2 x i64> %wide.load177.1
+  %545 = bitcast i64* %539 to <2 x i64>*
+  store <2 x i64> %543, <2 x i64>* %545, align 8
+  %546 = bitcast i64* %541 to <2 x i64>*
+  store <2 x i64> %544, <2 x i64>* %546, align 8
+  %index.next169.1 = add i64 %index168, 8
+  %niter330.nsub.1 = add i64 %niter330, -2
+  %niter330.ncmp.1 = icmp eq i64 %niter330.nsub.1, 0
+  br i1 %niter330.ncmp.1, label %middle.block161.unr-lcssa, label %vector.body160, !llvm.loop !69
 
-scalar.ph178.preheader:                           ; preds = %middle.block177, %.lr.ph.i37
-  %__v69_i1.i38.ph = phi i64 [ %__v67_clen.i33, %.lr.ph.i37 ], [ %ind.end, %middle.block177 ]
-  br label %scalar.ph178
+middle.block161.unr-lcssa:                        ; preds = %vector.body160, %vector.ph165
+  %index168.unr = phi i64 [ 0, %vector.ph165 ], [ %index.next169.1, %vector.body160 ]
+  br i1 %lcmp.mod328, label %middle.block161, label %vector.body160.epil
 
-scalar.ph178:                                     ; preds = %scalar.ph178.preheader, %scalar.ph178
-  %__v69_i1.i38 = phi i64 [ %519, %scalar.ph178 ], [ %__v69_i1.i38.ph, %scalar.ph178.preheader ]
-  %516 = getelementptr i64, i64* %__v9_TW, i64 %__v69_i1.i38
-  %517 = load i64, i64* %516, align 8
-  %518 = select i1 %__m3, i64 0, i64 %517
-  store i64 %518, i64* %516, align 8
-  %519 = add i64 %__v69_i1.i38, 1
-  %520 = icmp ult i64 %519, %__v78___v9_TW_len
-  br i1 %520, label %scalar.ph178, label %_mpi_copy.exit39, !llvm.loop !66
+vector.body160.epil:                              ; preds = %middle.block161.unr-lcssa
+  %547 = add i64 %__v67_clen.i33, %index168.unr
+  %548 = getelementptr i64, i64* %__v9_TW, i64 %547
+  %549 = bitcast i64* %548 to <2 x i64>*
+  %wide.load176.epil = load <2 x i64>, <2 x i64>* %549, align 8
+  %550 = getelementptr i64, i64* %548, i64 2
+  %551 = bitcast i64* %550 to <2 x i64>*
+  %wide.load177.epil = load <2 x i64>, <2 x i64>* %551, align 8
+  %552 = select i1 %__m3, <2 x i64> zeroinitializer, <2 x i64> %wide.load176.epil
+  %553 = select i1 %__m3, <2 x i64> zeroinitializer, <2 x i64> %wide.load177.epil
+  %554 = bitcast i64* %548 to <2 x i64>*
+  store <2 x i64> %552, <2 x i64>* %554, align 8
+  %555 = bitcast i64* %550 to <2 x i64>*
+  store <2 x i64> %553, <2 x i64>* %555, align 8
+  br label %middle.block161
 
-_mpi_copy.exit39:                                 ; preds = %scalar.ph178, %middle.block177, %._crit_edge4.i36
-  %521 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 0, i32 1) #0
+middle.block161:                                  ; preds = %middle.block161.unr-lcssa, %vector.body160.epil
+  br i1 %cmp.n171, label %_mpi_copy.exit39, label %scalar.ph162.preheader
+
+scalar.ph162.preheader:                           ; preds = %middle.block161, %.lr.ph.i37
+  %__v69_i1.i38.ph = phi i64 [ %__v67_clen.i33, %.lr.ph.i37 ], [ %ind.end, %middle.block161 ]
+  br label %scalar.ph162
+
+scalar.ph162:                                     ; preds = %scalar.ph162.preheader, %scalar.ph162
+  %__v69_i1.i38 = phi i64 [ %559, %scalar.ph162 ], [ %__v69_i1.i38.ph, %scalar.ph162.preheader ]
+  %556 = getelementptr i64, i64* %__v9_TW, i64 %__v69_i1.i38
+  %557 = load i64, i64* %556, align 8
+  %558 = select i1 %__m3, i64 0, i64 %557
+  store i64 %558, i64* %556, align 8
+  %559 = add i64 %__v69_i1.i38, 1
+  %560 = icmp ult i64 %559, %__v78___v9_TW_len
+  br i1 %560, label %scalar.ph162, label %_mpi_copy.exit39, !llvm.loop !70
+
+_mpi_copy.exit39:                                 ; preds = %scalar.ph162, %middle.block161, %._crit_edge4.i36
+  %561 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 0, i32 1) #0
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
   %exitcond44 = icmp eq i64 %indvars.iv.next, 16
-  br i1 %exitcond44, label %522, label %461
+  br i1 %exitcond44, label %562, label %481
 
-; <label>:522:                                    ; preds = %_mpi_copy.exit39
+; <label>:562:                                    ; preds = %_mpi_copy.exit39
   tail call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v9_TW, i64 %__v78___v9_TW_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len)
   %indvars.iv.next46 = add nuw nsw i64 %indvars.iv45, 1
   %exitcond47 = icmp eq i64 %indvars.iv.next46, 17
-  br i1 %exitcond47, label %459, label %454
+  br i1 %exitcond47, label %479, label %474
 }
 
 ; Function Attrs: argmemonly nounwind
@@ -1983,60 +2148,64 @@ attributes #1 = { argmemonly nounwind }
 !7 = distinct !{!7, !8}
 !8 = !{!"llvm.loop.isvectorized", i32 1}
 !9 = distinct !{!9, !1}
-!10 = distinct !{!10, !8}
-!11 = !{!12}
-!12 = distinct !{!12, !13}
-!13 = distinct !{!13, !"LVerDomain"}
-!14 = !{!15}
-!15 = distinct !{!15, !13}
-!16 = distinct !{!16, !8}
+!10 = distinct !{!10, !1}
+!11 = distinct !{!11, !8}
+!12 = !{!13}
+!13 = distinct !{!13, !14}
+!14 = distinct !{!14, !"LVerDomain"}
+!15 = !{!16}
+!16 = distinct !{!16, !14}
 !17 = distinct !{!17, !8}
-!18 = !{!19}
-!19 = distinct !{!19, !20}
-!20 = distinct !{!20, !"LVerDomain"}
-!21 = !{!22}
-!22 = distinct !{!22, !20}
-!23 = distinct !{!23, !8}
-!24 = distinct !{!24, !8}
-!25 = !{!26}
-!26 = distinct !{!26, !27}
-!27 = distinct !{!27, !"LVerDomain"}
+!18 = distinct !{!18, !1}
+!19 = distinct !{!19, !8}
+!20 = !{!21}
+!21 = distinct !{!21, !22}
+!22 = distinct !{!22, !"LVerDomain"}
+!23 = !{!24}
+!24 = distinct !{!24, !22}
+!25 = distinct !{!25, !8}
+!26 = distinct !{!26, !1}
+!27 = distinct !{!27, !8}
 !28 = !{!29}
-!29 = distinct !{!29, !27}
-!30 = distinct !{!30, !8}
-!31 = distinct !{!31, !8}
-!32 = !{!33}
-!33 = distinct !{!33, !34}
-!34 = distinct !{!34, !"LVerDomain"}
-!35 = !{!36}
-!36 = distinct !{!36, !34}
-!37 = distinct !{!37, !8}
-!38 = distinct !{!38, !1}
-!39 = distinct !{!39, !8}
-!40 = !{!41}
-!41 = distinct !{!41, !42}
-!42 = distinct !{!42, !"LVerDomain"}
-!43 = !{!44}
-!44 = distinct !{!44, !42}
-!45 = distinct !{!45, !8}
-!46 = distinct !{!46, !8}
-!47 = distinct !{!47, !8}
-!48 = distinct !{!48, !49, !8}
-!49 = !{!"llvm.loop.unroll.runtime.disable"}
-!50 = !{!51}
-!51 = distinct !{!51, !52}
-!52 = distinct !{!52, !"LVerDomain"}
-!53 = !{!54}
-!54 = distinct !{!54, !52}
-!55 = distinct !{!55, !8}
-!56 = distinct !{!56, !1}
-!57 = distinct !{!57, !8}
-!58 = !{!59}
-!59 = distinct !{!59, !60}
-!60 = distinct !{!60, !"LVerDomain"}
-!61 = !{!62}
-!62 = distinct !{!62, !60}
-!63 = distinct !{!63, !8}
-!64 = distinct !{!64, !8}
-!65 = distinct !{!65, !8}
-!66 = distinct !{!66, !49, !8}
+!29 = distinct !{!29, !30}
+!30 = distinct !{!30, !"LVerDomain"}
+!31 = !{!32}
+!32 = distinct !{!32, !30}
+!33 = distinct !{!33, !8}
+!34 = distinct !{!34, !1}
+!35 = distinct !{!35, !8}
+!36 = !{!37}
+!37 = distinct !{!37, !38}
+!38 = distinct !{!38, !"LVerDomain"}
+!39 = !{!40}
+!40 = distinct !{!40, !38}
+!41 = distinct !{!41, !8}
+!42 = distinct !{!42, !1}
+!43 = distinct !{!43, !8}
+!44 = !{!45}
+!45 = distinct !{!45, !46}
+!46 = distinct !{!46, !"LVerDomain"}
+!47 = !{!48}
+!48 = distinct !{!48, !46}
+!49 = distinct !{!49, !8}
+!50 = distinct !{!50, !8}
+!51 = distinct !{!51, !8}
+!52 = distinct !{!52, !53, !8}
+!53 = !{!"llvm.loop.unroll.runtime.disable"}
+!54 = !{!55}
+!55 = distinct !{!55, !56}
+!56 = distinct !{!56, !"LVerDomain"}
+!57 = !{!58}
+!58 = distinct !{!58, !56}
+!59 = distinct !{!59, !8}
+!60 = distinct !{!60, !1}
+!61 = distinct !{!61, !8}
+!62 = !{!63}
+!63 = distinct !{!63, !64}
+!64 = distinct !{!64, !"LVerDomain"}
+!65 = !{!66}
+!66 = distinct !{!66, !64}
+!67 = distinct !{!67, !8}
+!68 = distinct !{!68, !8}
+!69 = distinct !{!69, !8}
+!70 = distinct !{!70, !53, !8}
