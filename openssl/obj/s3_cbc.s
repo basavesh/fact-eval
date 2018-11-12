@@ -16,12 +16,11 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	subq	$288, %rsp              # imm = 0x120
 	.cfi_offset %rbx, -32
 	.cfi_offset %r14, -24
-	movq	24(%rbp), %rax
-	movq	16(%rbp), %rdx
+	movq	16(%rbp), %rax
 	movl	$0, -20(%rbp)
 	movb	$1, -21(%rbp)
-	movq	%rdx, %r10
-	addq	%r8, %r10
+	movq	%r9, %r10
+	addq	%rcx, %r10
 	subq	$20, %r10
 	subq	$1, %r10
 	addq	$1, %r10
@@ -29,7 +28,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	addq	$64, %r10
 	subq	$1, %r10
 	shrq	$6, %r10
-	addq	%r8, %rax
+	addq	%rcx, %rax
 	subq	$20, %rax
 	movq	%rax, %r11
 	andq	$63, %r11
@@ -41,12 +40,12 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	$0, -32(%rbp)
 	movq	$0, -40(%rbp)
 	cmpq	$3, %r10
-	movq	%rdx, -48(%rbp)         # 8-byte Spill
+	movq	%r10, -48(%rbp)         # 8-byte Spill
 	movq	%r9, -56(%rbp)          # 8-byte Spill
 	movq	%r8, -64(%rbp)          # 8-byte Spill
 	movq	%rcx, -72(%rbp)         # 8-byte Spill
-	movq	%rsi, -80(%rbp)         # 8-byte Spill
-	movq	%r10, -88(%rbp)         # 8-byte Spill
+	movq	%rdx, -80(%rbp)         # 8-byte Spill
+	movq	%rsi, -88(%rbp)         # 8-byte Spill
 	movq	%rdi, -96(%rbp)         # 8-byte Spill
 	movq	%rax, -104(%rbp)        # 8-byte Spill
 	movq	%r11, -112(%rbp)        # 8-byte Spill
@@ -54,7 +53,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%r14, -128(%rbp)        # 8-byte Spill
 	jbe	.LBB0_2
 # %bb.1:
-	movq	-88(%rbp), %rax         # 8-byte Reload
+	movq	-48(%rbp), %rax         # 8-byte Reload
 	subq	$2, %rax
 	movq	%rax, -32(%rbp)
 	movq	-32(%rbp), %rax
@@ -99,7 +98,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%rdx, -144(%rbp)        # 8-byte Spill
 	jbe	.LBB0_5
 # %bb.4:
-	movq	-64(%rbp), %rax         # 8-byte Reload
+	movq	-72(%rbp), %rax         # 8-byte Reload
 	cmpq	$64, %rax
 	jbe	.LBB0_7
 	jmp	.LBB0_8
@@ -124,16 +123,16 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 .LBB0_8:
 	jmp	.LBB0_9
 .LBB0_9:
-	movq	-64(%rbp), %rax         # 8-byte Reload
+	movq	-72(%rbp), %rax         # 8-byte Reload
 	subq	$64, %rax
 	movq	-96(%rbp), %rdi         # 8-byte Reload
-	movq	-72(%rbp), %rsi         # 8-byte Reload
+	movq	-80(%rbp), %rsi         # 8-byte Reload
 	movq	%rax, -168(%rbp)        # 8-byte Spill
 	vzeroupper
 	callq	SHA1_Transform
 	movl	$64, %ecx
 	movl	%ecx, %eax
-	movq	-72(%rbp), %rsi         # 8-byte Reload
+	movq	-80(%rbp), %rsi         # 8-byte Reload
 	addq	$64, %rsi
 	movq	-136(%rbp), %rdi        # 8-byte Reload
 	movq	-168(%rbp), %rdx        # 8-byte Reload
@@ -144,7 +143,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	subq	%rsi, %rdx
 	movq	-136(%rbp), %rdi        # 8-byte Reload
 	addq	%rsi, %rdi
-	movq	-56(%rbp), %rsi         # 8-byte Reload
+	movq	-64(%rbp), %rsi         # 8-byte Reload
 	movq	%rax, -184(%rbp)        # 8-byte Spill
 	callq	memcpy
 	movq	-96(%rbp), %rdi         # 8-byte Reload
@@ -169,7 +168,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	shlq	$6, %rax
 	movq	-168(%rbp), %rcx        # 8-byte Reload
 	subq	%rcx, %rax
-	movq	-56(%rbp), %rdx         # 8-byte Reload
+	movq	-64(%rbp), %rdx         # 8-byte Reload
 	addq	%rax, %rdx
 	movq	-96(%rbp), %rdi         # 8-byte Reload
 	movq	%rdx, %rsi
@@ -237,7 +236,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%rax, %rsp
 	movb	$0, (%rax)
 	movq	-40(%rbp), %rcx
-	movq	-64(%rbp), %rdx         # 8-byte Reload
+	movq	-72(%rbp), %rdx         # 8-byte Reload
 	cmpq	%rdx, %rcx
 	movq	%rax, -272(%rbp)        # 8-byte Spill
 	movq	%rcx, -280(%rbp)        # 8-byte Spill
@@ -261,15 +260,15 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%rsi, -288(%rbp)        # 8-byte Spill
 	jmp	.LBB0_31
 .LBB0_22:                               #   in Loop: Header=BB0_18 Depth=2
-	movq	-72(%rbp), %rax         # 8-byte Reload
+	movq	-80(%rbp), %rax         # 8-byte Reload
 	movq	-280(%rbp), %rcx        # 8-byte Reload
 	movb	(%rax,%rcx), %dl
 	movq	-272(%rbp), %rsi        # 8-byte Reload
 	movb	%dl, (%rsi)
 	jmp	.LBB0_24
 .LBB0_23:                               #   in Loop: Header=BB0_18 Depth=2
-	movq	-48(%rbp), %rax         # 8-byte Reload
-	movq	-64(%rbp), %rcx         # 8-byte Reload
+	movq	-56(%rbp), %rax         # 8-byte Reload
+	movq	-72(%rbp), %rcx         # 8-byte Reload
 	addq	%rcx, %rax
 	movq	-280(%rbp), %rdx        # 8-byte Reload
 	cmpq	%rax, %rdx
@@ -351,9 +350,9 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	jmp	.LBB0_29
 .LBB0_25:                               #   in Loop: Header=BB0_18 Depth=2
 	movq	-280(%rbp), %rax        # 8-byte Reload
-	movq	-64(%rbp), %rcx         # 8-byte Reload
+	movq	-72(%rbp), %rcx         # 8-byte Reload
 	subq	%rcx, %rax
-	movq	-56(%rbp), %rdx         # 8-byte Reload
+	movq	-64(%rbp), %rdx         # 8-byte Reload
 	movb	(%rdx,%rax), %sil
 	movq	-272(%rbp), %rax        # 8-byte Reload
 	movb	%sil, (%rax)
@@ -396,7 +395,7 @@ __ssl3_cbc_digest_record:               # @__ssl3_cbc_digest_record
 	movq	%rax, -296(%rbp)        # 8-byte Spill
 	jae	.LBB0_34
 # %bb.32:                               #   in Loop: Header=BB0_31 Depth=2
-	movq	-80(%rbp), %rax         # 8-byte Reload
+	movq	-88(%rbp), %rax         # 8-byte Reload
 	movq	-296(%rbp), %rcx        # 8-byte Reload
 	movb	(%rax,%rcx), %dl
 	movq	-240(%rbp), %rsi        # 8-byte Reload

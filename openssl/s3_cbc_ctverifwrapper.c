@@ -4,7 +4,6 @@
 /*secret*/ int32_t __ssl3_cbc_digest_record(
   /*secret*/ uint8_t __v1_md_state[216],
   /*secret*/ uint8_t __v2_mac_out[64],
-  /*secret*/ uint8_t __v3_hmac_pad[128],
   const /*secret*/ uint8_t __v4_header[],
   /*public*/ uint64_t __v47___v4_header_len,
   const /*secret*/ uint8_t __v5_data[],
@@ -14,7 +13,6 @@
 /*secret*/ int32_t __ssl3_cbc_digest_record_wrapper(
   /*secret*/ uint8_t __v1_md_state[216],
   /*secret*/ uint8_t __v2_mac_out[64],
-  /*secret*/ uint8_t __v3_hmac_pad[128],
   const /*secret*/ uint8_t __v4_header[],
   /*public*/ uint64_t __v47___v4_header_len,
   const /*secret*/ uint8_t __v5_data[],
@@ -35,7 +33,6 @@
     return  __ssl3_cbc_digest_record(
       __v1_md_state,
       __v2_mac_out,
-      __v3_hmac_pad,
       __v4_header,
       __v47___v4_header_len,
       __v5_data,
