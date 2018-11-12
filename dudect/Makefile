@@ -11,8 +11,8 @@ all: dut_donna \
 OBJS = src/cpucycles.o src/fixture.o src/random.o \
 src/ttest.o src/percentile.o
 OBJS_donna = dut/donna/curve25519-c64.O2.o
-OBJS_secretbox_cref = dut/secretbox/crypto_secretbox.cref.O2.fpic.o
-OBJS_secretbox_asm = dut/secretbox/crypto_secretbox.asm.O2.fpic.o
+OBJS_secretbox_cref = dut/secretbox/crypto_secretbox.cref.O2.o
+OBJS_secretbox_asm = dut/secretbox/crypto_secretbox.asm.O2.o
 OBJS_saga =
 CC=clang-6.0
 OPTIMIZATION=-O2
