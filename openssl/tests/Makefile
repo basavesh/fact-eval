@@ -10,6 +10,10 @@ bench: compile
 	cd openssl-fact/apps && ./bench.sh
 	@echo "results are in the distributions in openssl-{c,fact}/apps/{client,server}.time" | tee bench
 
+recompile:
+	rm -f compile
+	make compile
+
 rebench:
 	rm -f bench
 	make bench
