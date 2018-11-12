@@ -20,11 +20,6 @@ generate:
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
 
-ctverify_secretbox:
-	$(VERIFSH) -v _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.cref.ll
-	# TODO: Everything else
+ctverify:
+	./ctverify.sh > ctverif.results
 
-ctverify_secretbox_open:
-	# TODO: USE LOOP UNROLL BOUND 20 TO GET THIS TO FAIL
-	$(VERIFSH) -v _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.cref.ll
-	# TODO: Everything else
