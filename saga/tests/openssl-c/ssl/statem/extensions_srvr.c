@@ -563,7 +563,7 @@ int tls_parse_ctos_etm(SSL *s, PACKET *pkt, unsigned int context, X509 *x,
                        size_t chainidx)
 {
     if (!(s->options & SSL_OP_NO_ENCRYPT_THEN_MAC))
-        s->ext.use_etm = 1;
+    {} // FaCT s->ext.use_etm = 1;
 
     return 1;
 }
