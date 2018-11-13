@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <stddef.h>
 
+#define IN_LEN 32
+
 # define AES_MAXNR 14
 struct aes_key_st {
     /*sec*/ unsigned int rd_key[4 * (AES_MAXNR + 1)];
@@ -101,7 +103,7 @@ assume(i < len pmac);
     public_in(__SMACK_value(__v70___v4__in_len));
     public_in(__SMACK_value(__v6_tls_ver));
     public_in(__SMACK_values(__v1_iv, 16));
-    assume(__v70___v4__in_len == 500); public_in(__SMACK_values(__v4__in,500)); // ctverif doesn't handle variable lengths
+    assume(__v70___v4__in_len == IN_LEN); public_in(__SMACK_values(__v4__in,IN_LEN)); // ctverif doesn't handle variable lengths
 
     // struct fields --- pointers and public vals are public
     public_in(__SMACK_value(__v2_key->ks.rounds));

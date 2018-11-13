@@ -30,7 +30,7 @@ grep -v "llvm\.lifetime" ll/crypto_secretbox.asm.O2.fpic.ll > ll/crypto_secretbo
 rm -f $LOGFILE
 
 # Run ctverif on crypto_secretbox for all files
-CTVERIF_SECRETBOX_ARGS="-v 1 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c"
+CTVERIF_SECRETBOX_ARGS="-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c"
 run_ctverif "$CTVERIF_SECRETBOX_ARGS ll/crypto_secretbox.cref.ll"
 run_ctverif "$CTVERIF_SECRETBOX_ARGS ll/crypto_secretbox.cref.O2.nolifetime.ll"
 run_ctverif "$CTVERIF_SECRETBOX_ARGS ll/crypto_secretbox.cref.O2.fpic.nolifetime.ll"
@@ -39,7 +39,7 @@ run_ctverif "$CTVERIF_SECRETBOX_ARGS ll/crypto_secretbox.asm.O2.nolifetime.ll"
 run_ctverif "$CTVERIF_SECRETBOX_ARGS ll/crypto_secretbox.asm.O2.fpic.nolifetime.ll"
 
 # Run ctverif on crypto_secretbox_open for all files
-CTVERIF_SECRETBOX_OPEN_ARGS="-v 1 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c"
+CTVERIF_SECRETBOX_OPEN_ARGS="-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c"
 run_ctverif "$CTVERIF_SECRETBOX_OPEN_ARGS ll/crypto_secretbox.cref.ll"
 run_ctverif "$CTVERIF_SECRETBOX_OPEN_ARGS ll/crypto_secretbox.cref.O2.nolifetime.ll"
 run_ctverif "$CTVERIF_SECRETBOX_OPEN_ARGS ll/crypto_secretbox.cref.O2.fpic.nolifetime.ll"

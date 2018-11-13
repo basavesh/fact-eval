@@ -1,0 +1,140 @@
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 5 _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c ll/bignum.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+SMACK found no errors with unroll bound 5.
+SMACK found no errors
+
+real	4m24.838s
+user	0m0.223s
+sys	0m0.025s
+//////////////////////////////////////////////////////////////////////////
+
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 5 _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c ll/bignum.O2.fpic.nolifetime.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _mpi_montmul
+in function:
+  _f_mpi_exp_mod
+in block:
+  _mpi_copy.exit8
+at instruction:
+  %131 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr, !verifier.code !17
+at value:
+  %131 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _mpi_montmul
+in function:
+  _f_mpi_exp_mod
+at instruction:
+  tail call fastcc void @_mpi_montmul(i64* %__v1_X, i64 %__v71___v1_X_len, i64* %__v9_TW, i64 %__v78___v9_TW_len, i64* %__v5_N, i64 %__v74___v5_N_len, i64 %__v10_mm, i64* %__v7_T, i64 %__v76___v7_T_len), !verifier.code !17
+at value:
+i64* %__v5_N
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _mpi_montmul
+in function:
+  _f_mpi_exp_mod
+in block:
+  _mpi_copy.exit8
+at instruction:
+  %131 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr, !verifier.code !17
+at value:
+  %131 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _mpi_montmul
+in function:
+  _f_mpi_exp_mod
+in block:
+  vector.body253
+at instruction:
+  %295 = getelementptr i64, i64* %__v5_N, i64 %.sum103, !verifier.code !17
+at value:
+i64* %__v5_N
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _mpi_montmul
+in function:
+  _f_mpi_exp_mod
+in block:
+  _mpi_copy.exit8
+at instruction:
+  %131 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr, !verifier.code !17
+at value:
+  %131 = getelementptr i64, i64* %__v8_W, i64 %__v95_lexpr, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _mpi_montmul
+in function:
+  _f_mpi_exp_mod
+in block:
+  vector.body253
+at instruction:
+  %295 = getelementptr i64, i64* %__v5_N, i64 %.sum103, !verifier.code !17
+at value:
+i64* %__v5_N
+node:
+  0: i64,   array: R
+
+
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+SMACK timed out.
+
+real	20m7.337s
+user	0m0.235s
+sys	0m0.022s
+//////////////////////////////////////////////////////////////////////////
+

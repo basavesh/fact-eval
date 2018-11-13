@@ -22,11 +22,11 @@ if [ -z ${VERIFSH} ]; then err "VERIFSH variable is not defined"; fi
 rm -f $LOGFILE
 
 # Run ctverif
-CTVERIF_ARGS="-v 1 _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c"
-run_ctverif "$CTVERIF_ARGS ll/20110823_fast.ll"
-run_ctverif "$CTVERIF_ARGS ll/20110823_fast.O3.ll"
+CTVERIF_ARGS="-v 40 _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c"
 run_ctverif "$CTVERIF_ARGS ll/20170717_latest.ll"
 run_ctverif "$CTVERIF_ARGS ll/20170717_latest.O3.ll"
-run_ctverif "$CTVERIF_ARGS ll/20170717_latest_raw.ll"
-run_ctverif "$CTVERIF_ARGS ll/20170717_latest_raw.O3.ll"
+#run_ctverif "$CTVERIF_ARGS ll/20110823_fast.ll"
+#run_ctverif "$CTVERIF_ARGS ll/20110823_fast.O3.ll"
+#run_ctverif "$CTVERIF_ARGS ll/20170717_latest_raw.ll"
+#run_ctverif "$CTVERIF_ARGS ll/20170717_latest_raw.O3.ll"
 

@@ -1,0 +1,2 @@
+SUCCESS with args "-v 40 curve25519_donna_wrapper curve25519_ctverifwrapper.c ll/curve25519-c64.ll"
+ERROR with args "-v 40 curve25519_donna_wrapper curve25519_ctverifwrapper.c ll/curve25519-c64.O2.nolifetime.ll"

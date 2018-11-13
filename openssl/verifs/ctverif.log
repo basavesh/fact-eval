@@ -1,0 +1,122 @@
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 40 __ssl3_cbc_digest_record_wrapper s3_cbc_ctverifwrapper.c s3_cbc_stub.c ll/s3_cbc.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function SHA1_Transform
+in function:
+  __ssl3_cbc_digest_record
+at instruction:
+  %61 = getelementptr i8, i8* %__v4_header, i64 %__v24_k.2, !verifier.code !19
+at value:
+i8* %__v4_header
+node:
+  0: i8,   array: SMR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function SHA1_Transform
+in function:
+  __ssl3_cbc_digest_record
+at instruction:
+  %61 = getelementptr i8, i8* %__v4_header, i64 %__v24_k.2, !verifier.code !19
+at value:
+i8* %__v4_header
+node:
+  0: i8,   array: SMR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function SHA1_Transform
+in function:
+  __ssl3_cbc_digest_record
+at instruction:
+  %61 = getelementptr i8, i8* %__v4_header, i64 %__v24_k.2, !verifier.code !19
+at value:
+i8* %__v4_header
+node:
+  0: i8,   array: SMR
+
+
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+SMACK found no errors with unroll bound 40.
+SMACK found no errors
+
+real	0m9.940s
+user	0m0.259s
+sys	0m0.044s
+//////////////////////////////////////////////////////////////////////////
+
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 40 __ssl3_cbc_digest_record_wrapper s3_cbc_ctverifwrapper.c s3_cbc_stub.c ll/s3_cbc.O2.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function SHA1_Transform
+in function:
+  __ssl3_cbc_digest_record
+at instruction:
+  %39 = getelementptr i8, i8* %__v4_header, i64 %__v24_k.210, !verifier.code !19
+at value:
+i8* %__v4_header
+node:
+  0: i8,   array: SMR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function SHA1_Transform
+in function:
+  __ssl3_cbc_digest_record
+at instruction:
+  %39 = getelementptr i8, i8* %__v4_header, i64 %__v24_k.210, !verifier.code !19
+at value:
+i8* %__v4_header
+node:
+  0: i8,   array: SMR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function SHA1_Transform
+in function:
+  __ssl3_cbc_digest_record
+at instruction:
+  %39 = getelementptr i8, i8* %__v4_header, i64 %__v24_k.210, !verifier.code !19
+at value:
+i8* %__v4_header
+node:
+  0: i8,   array: SMR
+
+
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+SMACK found no errors with unroll bound 40.
+SMACK found no errors
+
+real	0m8.168s
+user	0m0.286s
+sys	0m0.026s
+//////////////////////////////////////////////////////////////////////////
+

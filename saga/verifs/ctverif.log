@@ -1,0 +1,543 @@
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 40 _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20170717_latest.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: comparison of distinct pointer types ('uint8_t *' (aka 'unsigned char *') and 'struct EVP_AES_HMAC_SHA1 *') [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v1_iv,16,__v2_key,1);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:33:40: note: expanded from macro '__disjoint_regions'
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: comparison of distinct pointer types ('struct EVP_AES_HMAC_SHA1 *' and 'uint8_t *' (aka 'unsigned char *')) [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v1_iv,16,__v2_key,1);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:34:40: note: expanded from macro '__disjoint_regions'
+         addr2 + len2 * sizeof(*addr2) < addr1)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:91:5: warning: comparison of distinct pointer types ('struct EVP_AES_HMAC_SHA1 *' and 'uint8_t *' (aka 'unsigned char *')) [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v3__out,__v69___v3__out_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:33:40: note: expanded from macro '__disjoint_regions'
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:91:5: warning: comparison of distinct pointer types ('uint8_t *' (aka 'unsigned char *') and 'struct EVP_AES_HMAC_SHA1 *') [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v3__out,__v69___v3__out_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:34:40: note: expanded from macro '__disjoint_regions'
+         addr2 + len2 * sizeof(*addr2) < addr1)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:92:5: warning: comparison of distinct pointer types ('struct EVP_AES_HMAC_SHA1 *' and 'const uint8_t *' (aka 'const unsigned char *')) [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v4__in,__v70___v4__in_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:33:40: note: expanded from macro '__disjoint_regions'
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:92:5: warning: comparison of distinct pointer types ('const uint8_t *' (aka 'const unsigned char *') and 'struct EVP_AES_HMAC_SHA1 *') [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v4__in,__v70___v4__in_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:34:40: note: expanded from macro '__disjoint_regions'
+         addr2 + len2 * sizeof(*addr2) < addr1)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:106:68: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+    assume(__v70___v4__in_len == IN_LEN); public_in(__SMACK_values(__v4__in,IN_LEN)); // ctverif doesn't handle variable lengths
+                                                                   ^~~~~~~~
+/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
+smack_value_t __SMACK_values(void* ary, unsigned count);
+                                   ^
+7 warnings generated.
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher_wrapper
+at instruction:
+  %12 = getelementptr inbounds i8, i8* %0, i64 16, !dbg !95, !verifier.code !79
+at value:
+i8* %0
+node:
+  VOID array: MR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3, !verifier.code !23
+at value:
+  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %140 = bitcast [64 x i8]* %139 to i8*, !verifier.code !23
+at value:
+  %140 = bitcast [64 x i8]* %139 to i8*, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+at value:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %436 = getelementptr i32, i32* %435, i64 0, !verifier.code !23
+at value:
+  %436 = getelementptr i32, i32* %435, i64 0, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %432 = getelementptr i32, i32* %431, i64 0, !verifier.code !23
+at value:
+  %432 = getelementptr i32, i32* %431, i64 0, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+at value:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %8 = getelementptr i8, i8* %__v4__in, i64 %__v76_lexpr, !verifier.code !23
+at value:
+  %8 = getelementptr i8, i8* %__v4__in, i64 %__v76_lexpr, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %13 = bitcast [60 x i32]* %12 to i32*, !verifier.code !23
+at value:
+  %13 = bitcast [60 x i32]* %12 to i32*, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %__v1_iv, i8* %53, i64 16, i32 1, i1 false), !verifier.code !23
+at value:
+i8* %__v1_iv
+node:
+  VOID
+
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher_wrapper
+at instruction:
+  %12 = getelementptr inbounds i8, i8* %0, i64 16, !dbg !95, !verifier.code !79
+at value:
+i8* %0
+node:
+  VOID array: MR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3, !verifier.code !23
+at value:
+  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %140 = bitcast [64 x i8]* %139 to i8*, !verifier.code !23
+at value:
+  %140 = bitcast [64 x i8]* %139 to i8*, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+at value:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %436 = getelementptr i32, i32* %435, i64 0, !verifier.code !23
+at value:
+  %436 = getelementptr i32, i32* %435, i64 0, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %432 = getelementptr i32, i32* %431, i64 0, !verifier.code !23
+at value:
+  %432 = getelementptr i32, i32* %431, i64 0, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+at value:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %8 = getelementptr i8, i8* %__v4__in, i64 %__v76_lexpr, !verifier.code !23
+at value:
+  %8 = getelementptr i8, i8* %__v4__in, i64 %__v76_lexpr, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %13 = bitcast [60 x i32]* %12 to i32*, !verifier.code !23
+at value:
+  %13 = bitcast [60 x i32]* %12 to i32*, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %__v1_iv, i8* %53, i64 16, i32 1, i1 false), !verifier.code !23
+at value:
+i8* %__v1_iv
+node:
+  VOID
+
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher_wrapper
+at instruction:
+  %12 = getelementptr inbounds i8, i8* %0, i64 16, !dbg !95, !verifier.code !79
+at value:
+i8* %0
+node:
+  VOID array: MR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3, !verifier.code !23
+at value:
+  %137 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %140 = bitcast [64 x i8]* %139 to i8*, !verifier.code !23
+at value:
+  %140 = bitcast [64 x Warning: could not resolve constant/variable $load.i8
+Warning: could not resolve constant/variable $load.i32
+Warning: could not resolve constant/variable $load.i64
+i8]* %139 to i8*, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+at value:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %436 = getelementptr i32, i32* %435, i64 0, !verifier.code !23
+at value:
+  %436 = getelementptr i32, i32* %435, i64 0, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %432 = getelementptr i32, i32* %431, i64 0, !verifier.code !23
+at value:
+  %432 = getelementptr i32, i32* %431, i64 0, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+at value:
+  %__v23_pmac = alloca i8, i64 20, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %8 = getelementptr i8, i8* %__v4__in, i64 %__v76_lexpr, !verifier.code !23
+at value:
+  %8 = getelementptr i8, i8* %__v4__in, i64 %__v76_lexpr, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  %13 = bitcast [60 x i32]* %12 to i32*, !verifier.code !23
+at value:
+  %13 = bitcast [60 x i32]* %12 to i32*, !verifier.code !23
+node:
+  VOID
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function (unknown)
+in function:
+  _aesni_cbc_hmac_sha1_cipher
+at instruction:
+  call void @llvm.memcpy.p0i8.p0i8.i64(i8* %__v1_iv, i8* %53, i64 16, i32 1, i1 false), !verifier.code !23
+at value:
+i8* %__v1_iv
+node:
+  VOID
+
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+    /root/verifs/saga_ctverifwrapper.c(76,5): 
+    /usr/local/share/smack/lib/smack.c(1456,3): 
+    /root/verifs/saga_ctverifwrapper.c(76,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(76,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(76,5): 
+    /root/verifs/saga_ctverifwrapper.c(88,5): 
+    /root/verifs/saga_ctverifwrapper.c(88,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(88,5): 
+    /root/verifs/saga_ctverifwrapper.c(89,5): 
+    /root/verifs/saga_ctverifwrapper.c(89,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(89,5): 
+    /root/verifs/saga_ctverifwrapper.c(90,5): 
+    /root/verifs/saga_ctverifwrapper.c(90,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(90,5): 
+    /root/verifs/saga_ctverifwrapper.c(91,5): 
+    /root/verifs/saga_ctverifwrapper.c(91,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(91,5): 
+    /root/verifs/saga_ctverifwrapper.c(92,5): 
+    /root/verifs/saga_ctverifwrapper.c(92,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(92,5): 
+    /root/verifs/saga_ctverifwrapper.c(93,5): 
+    /root/verifs/saga_ctverifwrapper.c(93,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(93,5): 
+    /usr/local/share/smack/lib/smack.c(261,3): 
+    /root/verifs/saga_ctverifwrapper.c(93,5): 
+    /root/verifs/saga_stub.c(18,142): 
+    /root/verifs/saga_stub.c(20,69): 
+    /root/verifs/saga_stub.c(25,75): 
+    /root/verifs/saga_stub.c(20,69): 
+    /root/verifs/saga_stub.c(23,56): 
+
+SMACK found an error.
+
+real	0m13.320s
+user	0m0.271s
+sys	0m0.041s
+//////////////////////////////////////////////////////////////////////////
+
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 40 _aesni_cbc_hmac_sha1_cipher_wrapper saga_ctverifwrapper.c saga_stub.c ll/20170717_latest.O3.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: comparison of distinct pointer types ('uint8_t *' (aka 'unsigned char *') and 'struct EVP_AES_HMAC_SHA1 *') [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v1_iv,16,__v2_key,1);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:33:40: note: expanded from macro '__disjoint_regions'
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:88:5: warning: comparison of distinct pointer types ('struct EVP_AES_HMAC_SHA1 *' and 'uint8_t *' (aka 'unsigned char *')) [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v1_iv,16,__v2_key,1);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:34:40: note: expanded from macro '__disjoint_regions'
+         addr2 + len2 * sizeof(*addr2) < addr1)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:91:5: warning: comparison of distinct pointer types ('struct EVP_AES_HMAC_SHA1 *' and 'uint8_t *' (aka 'unsigned char *')) [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v3__out,__v69___v3__out_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:33:40: note: expanded from macro '__disjoint_regions'
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:91:5: warning: comparison of distinct pointer types ('uint8_t *' (aka 'unsigned char *') and 'struct EVP_AES_HMAC_SHA1 *') [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v3__out,__v69___v3__out_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:34:40: note: expanded from macro '__disjoint_regions'
+         addr2 + len2 * sizeof(*addr2) < addr1)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:92:5: warning: comparison of distinct pointer types ('struct EVP_AES_HMAC_SHA1 *' and 'const uint8_t *' (aka 'const unsigned char *')) [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v4__in,__v70___v4__in_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:33:40: note: expanded from macro '__disjoint_regions'
+  assume(addr1 + len1 * sizeof(*addr1) < addr2 || \
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:92:5: warning: comparison of distinct pointer types ('const uint8_t *' (aka 'const unsigned char *') and 'struct EVP_AES_HMAC_SHA1 *') [-Wcompare-distinct-pointer-types]
+    __disjoint_regions(__v2_key,1,__v4__in,__v70___v4__in_len);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/local/lib/node_modules/ctverif/resources/include/ctverif.h:34:40: note: expanded from macro '__disjoint_regions'
+         addr2 + len2 * sizeof(*addr2) < addr1)
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+/usr/local/share/smack/include/smack.h:61:38: note: expanded from macro 'assume'
+#define assume(EX) __VERIFIER_assume(EX)
+                                     ^~
+/root/verifs/saga_ctverifwrapper.c:106:68: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+    assume(__v70___v4__in_len == IN_LEN); public_in(__SMACK_values(__v4__in,IN_LEN)); // ctverif doesn't handle variable lengths
+                                                                   ^~~~~~~~
+/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
+smack_value_t __SMACK_values(void* ary, unsigned count);
+                                   ^
+7 warnings generated.
+Traceback (most recent call last):
+  File "/usr/local/bin/smack", line 13, in <module>
+    smack.top.main()
+  File "/usr/local/bin/../share/smack/top.py", line 585, in main
+    frontend(args)
+  File "/usr/local/bin/../share/smack/top.py", line 290, in frontend
+    return link_bc_files(bitcodes,libs,args)
+  File "/usr/local/bin/../share/smack/frontend.py", line 294, in link_bc_files
+    try_command(['llvm-link', '-o', args.bc_file] + bitcodes)
+  File "/usr/local/bin/../share/smack/utils.py", line 69, in try_command
+    raise Exception(output)
+Exception: llvm-link: /root/verifs/20170717_latest.O3.ll:363:37: error: unterminated attribute group
+attributes #1 = { nounwind readnone speculatable }
+                                    ^
+llvm-link: error loading file '/root/verifs/20170717_latest.O3.ll'
+
+
+real	0m2.112s
+user	0m0.254s
+sys	0m0.045s
+//////////////////////////////////////////////////////////////////////////
+
