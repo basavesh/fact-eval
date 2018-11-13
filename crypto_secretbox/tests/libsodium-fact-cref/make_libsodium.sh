@@ -24,15 +24,14 @@ make -j4
 
 cd $LIBSODIUM/src/libsodium/crypto_secretbox
 # copy the object files
-cp $OBJ_DIR/obj/crypto_secretbox.cref.O2.o crypto_secretbox.o
-cp $OBJ_DIR/obj/crypto_secretbox.cref.O2.fpic.o crypto_secretbox.fpic.o
+cp $OBJ_DIR/obj/crypto_secretbox.asm.O2.o crypto_secretbox.o
 cp libsodium_la-crypto_secretbox.o secretbox.o
 ld -r secretbox.o crypto_secretbox.o -o libsodium_la-crypto_secretbox.o
 
 # libsodium hides more object files in hidden directories
 cd .libs
 cp libsodium_la-crypto_secretbox.o secretbox.o
-ld -r secretbox.o ../crypto_secretbox.fpic.o -o libsodium_la-crypto_secretbox.o
+ld -r secretbox.o ../crypto_secretbox.o -o libsodium_la-crypto_secretbox.o
 
 # build libsodium with new object files
 cd $LIBSODIUM

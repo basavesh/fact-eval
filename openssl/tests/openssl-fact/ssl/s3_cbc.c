@@ -263,7 +263,6 @@ if (is_sslv3 && sha_type == NID_sha1) {
         // outputs
         md_state.c,
         mac_out,
-        hmac_pad,
         // inputs
         header,
         header_length,

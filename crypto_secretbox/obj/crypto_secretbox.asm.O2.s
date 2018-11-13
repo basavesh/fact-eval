@@ -12,79 +12,97 @@
 	.type	_crypto_core_hsalsa20,@function
 _crypto_core_hsalsa20:                  # @_crypto_core_hsalsa20
 # %bb.0:                                # %entry
-	vmovd	4(%rdx), %xmm0          # xmm0 = mem[0],zero,zero,zero
-	vpinsrd	$1, 4(%rsi), %xmm0, %xmm0
-	vpinsrd	$2, 8(%rsi), %xmm0, %xmm0
-	vpinsrd	$3, 24(%rdx), %xmm0, %xmm1
-	vmovd	(%rdx), %xmm0           # xmm0 = mem[0],zero,zero,zero
-	vpinsrd	$1, (%rsi), %xmm0, %xmm0
-	vpinsrd	$2, 16(%rdx), %xmm0, %xmm0
-	vpinsrd	$3, 20(%rdx), %xmm0, %xmm0
-	vmovd	8(%rdx), %xmm2          # xmm2 = mem[0],zero,zero,zero
-	vpinsrd	$1, 12(%rdx), %xmm2, %xmm2
-	vpinsrd	$2, 12(%rsi), %xmm2, %xmm2
-	vpinsrd	$3, 28(%rdx), %xmm2, %xmm3
-	vmovdqa	.LCPI0_0(%rip), %xmm2   # xmm2 = [1797285236,1634760805,857760878,2036477234]
+	movd	24(%rdx), %xmm0         # xmm0 = mem[0],zero,zero,zero
+	movd	8(%rsi), %xmm2          # xmm2 = mem[0],zero,zero,zero
+	punpckldq	%xmm0, %xmm2    # xmm2 = xmm2[0],xmm0[0],xmm2[1],xmm0[1]
+	movd	4(%rsi), %xmm0          # xmm0 = mem[0],zero,zero,zero
+	movd	4(%rdx), %xmm1          # xmm1 = mem[0],zero,zero,zero
+	punpckldq	%xmm0, %xmm1    # xmm1 = xmm1[0],xmm0[0],xmm1[1],xmm0[1]
+	punpcklqdq	%xmm2, %xmm1    # xmm1 = xmm1[0],xmm2[0]
+	movd	(%rsi), %xmm2           # xmm2 = mem[0],zero,zero,zero
+	movd	(%rdx), %xmm0           # xmm0 = mem[0],zero,zero,zero
+	punpckldq	%xmm2, %xmm0    # xmm0 = xmm0[0],xmm2[0],xmm0[1],xmm2[1]
+	movq	16(%rdx), %xmm2         # xmm2 = mem[0],zero
+	punpcklqdq	%xmm2, %xmm0    # xmm0 = xmm0[0],xmm2[0]
+	movd	28(%rdx), %xmm2         # xmm2 = mem[0],zero,zero,zero
+	movd	12(%rsi), %xmm3         # xmm3 = mem[0],zero,zero,zero
+	punpckldq	%xmm2, %xmm3    # xmm3 = xmm3[0],xmm2[0],xmm3[1],xmm2[1]
+	movq	8(%rdx), %xmm4          # xmm4 = mem[0],zero
+	punpcklqdq	%xmm3, %xmm4    # xmm4 = xmm4[0],xmm3[0]
+	movdqa	.LCPI0_0(%rip), %xmm3   # xmm3 = [1797285236,1634760805,857760878,2036477234]
 	movl	$10, %eax
 	.p2align	4, 0x90
 .LBB0_1:                                # =>This Inner Loop Header: Depth=1
-	vpshufd	$78, %xmm0, %xmm4       # xmm4 = xmm0[2,3,0,1]
-	vpaddd	%xmm2, %xmm4, %xmm4
-	vpslld	$7, %xmm4, %xmm5
-	vpsrld	$25, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpxor	%xmm3, %xmm4, %xmm3
-	vpaddd	%xmm2, %xmm3, %xmm4
-	vpslld	$9, %xmm4, %xmm5
-	vpsrld	$23, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpshufd	$147, %xmm4, %xmm4      # xmm4 = xmm4[3,0,1,2]
-	vpxor	%xmm1, %xmm4, %xmm1
-	vpshufd	$147, %xmm1, %xmm4      # xmm4 = xmm1[3,0,1,2]
-	vpshufd	$78, %xmm3, %xmm5       # xmm5 = xmm3[2,3,0,1]
-	vpaddd	%xmm5, %xmm4, %xmm4
-	vpslld	$13, %xmm4, %xmm5
-	vpsrld	$19, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpxor	%xmm0, %xmm4, %xmm0
-	vpshufd	$147, %xmm0, %xmm4      # xmm4 = xmm0[3,0,1,2]
-	vpshufd	$78, %xmm1, %xmm5       # xmm5 = xmm1[2,3,0,1]
-	vpaddd	%xmm5, %xmm4, %xmm4
-	vpslld	$18, %xmm4, %xmm5
-	vpsrld	$14, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpshufd	$57, %xmm2, %xmm2       # xmm2 = xmm2[1,2,3,0]
-	vpxor	%xmm2, %xmm4, %xmm2
-	vpaddd	%xmm3, %xmm2, %xmm4
-	vpslld	$7, %xmm4, %xmm5
-	vpsrld	$25, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpxor	%xmm0, %xmm4, %xmm0
-	vpaddd	%xmm2, %xmm0, %xmm4
-	vpslld	$9, %xmm4, %xmm5
-	vpsrld	$23, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpxor	%xmm1, %xmm4, %xmm1
-	vpaddd	%xmm0, %xmm1, %xmm4
-	vpslld	$13, %xmm4, %xmm5
-	vpsrld	$19, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpxor	%xmm3, %xmm4, %xmm3
-	vpaddd	%xmm1, %xmm3, %xmm4
-	vpslld	$18, %xmm4, %xmm5
-	vpsrld	$14, %xmm4, %xmm4
-	vpor	%xmm5, %xmm4, %xmm4
-	vpxor	%xmm2, %xmm4, %xmm4
-	vpshufd	$147, %xmm4, %xmm2      # xmm2 = xmm4[3,0,1,2]
+	pshufd	$78, %xmm0, %xmm2       # xmm2 = xmm0[2,3,0,1]
+	paddd	%xmm3, %xmm2
+	movdqa	%xmm2, %xmm5
+	pslld	$7, %xmm5
+	psrld	$25, %xmm2
+	por	%xmm5, %xmm2
+	pxor	%xmm4, %xmm2
+	movdqa	%xmm2, %xmm4
+	paddd	%xmm3, %xmm4
+	movdqa	%xmm4, %xmm5
+	pslld	$9, %xmm5
+	psrld	$23, %xmm4
+	por	%xmm5, %xmm4
+	pshufd	$147, %xmm4, %xmm4      # xmm4 = xmm4[3,0,1,2]
+	pxor	%xmm1, %xmm4
+	pshufd	$147, %xmm4, %xmm5      # xmm5 = xmm4[3,0,1,2]
+	pshufd	$78, %xmm2, %xmm1       # xmm1 = xmm2[2,3,0,1]
+	paddd	%xmm5, %xmm1
+	movdqa	%xmm1, %xmm5
+	pslld	$13, %xmm5
+	psrld	$19, %xmm1
+	por	%xmm5, %xmm1
+	pxor	%xmm0, %xmm1
+	pshufd	$147, %xmm1, %xmm0      # xmm0 = xmm1[3,0,1,2]
+	pshufd	$78, %xmm4, %xmm5       # xmm5 = xmm4[2,3,0,1]
+	paddd	%xmm0, %xmm5
+	movdqa	%xmm5, %xmm0
+	pslld	$18, %xmm0
+	psrld	$14, %xmm5
+	por	%xmm0, %xmm5
+	pshufd	$57, %xmm3, %xmm3       # xmm3 = xmm3[1,2,3,0]
+	pxor	%xmm5, %xmm3
+	movdqa	%xmm3, %xmm0
+	paddd	%xmm2, %xmm0
+	movdqa	%xmm0, %xmm5
+	pslld	$7, %xmm5
+	psrld	$25, %xmm0
+	por	%xmm5, %xmm0
+	pxor	%xmm1, %xmm0
+	movdqa	%xmm0, %xmm1
+	paddd	%xmm3, %xmm1
+	movdqa	%xmm1, %xmm5
+	pslld	$9, %xmm5
+	psrld	$23, %xmm1
+	por	%xmm5, %xmm1
+	pxor	%xmm4, %xmm1
+	movdqa	%xmm1, %xmm4
+	paddd	%xmm0, %xmm4
+	movdqa	%xmm4, %xmm5
+	pslld	$13, %xmm5
+	psrld	$19, %xmm4
+	por	%xmm5, %xmm4
+	pxor	%xmm2, %xmm4
+	movdqa	%xmm4, %xmm2
+	paddd	%xmm1, %xmm2
+	movdqa	%xmm2, %xmm5
+	pslld	$18, %xmm5
+	psrld	$14, %xmm2
+	por	%xmm5, %xmm2
+	pxor	%xmm3, %xmm2
+	pshufd	$147, %xmm2, %xmm3      # xmm3 = xmm2[3,0,1,2]
 	addl	$-1, %eax
 	jne	.LBB0_1
 # %bb.2:
-	vmovdqu	%xmm4, (%rdi)
-	vpshufd	$229, %xmm0, %xmm0      # xmm0 = xmm0[1,1,2,3]
-	vpblendw	$3, %xmm0, %xmm1, %xmm0 # xmm0 = xmm0[0,1],xmm1[2,3,4,5,6,7]
-	vpshufd	$164, %xmm3, %xmm1      # xmm1 = xmm3[0,1,2,2]
-	vpblendw	$192, %xmm1, %xmm0, %xmm0 # xmm0 = xmm0[0,1,2,3,4,5],xmm1[6,7]
-	vmovdqu	%xmm0, 16(%rdi)
+	movdqu	%xmm2, (%rdi)
+	shufps	$17, %xmm1, %xmm0       # xmm0 = xmm0[1,0],xmm1[1,0]
+	shufps	$232, %xmm1, %xmm0      # xmm0 = xmm0[0,2],xmm1[2,3]
+	shufps	$34, %xmm0, %xmm4       # xmm4 = xmm4[2,0],xmm0[2,0]
+	shufps	$36, %xmm4, %xmm0       # xmm0 = xmm0[0,1],xmm4[2,0]
+	movups	%xmm0, 16(%rdi)
 	retq
 .Lfunc_end0:
 	.size	_crypto_core_hsalsa20, .Lfunc_end0-_crypto_core_hsalsa20
@@ -239,46 +257,44 @@ _poly1305_blocks:                       # @_poly1305_blocks
 _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 # %bb.0:
 	pushq	%rbp
-	movq	%rsp, %rbp
 	pushq	%r15
 	pushq	%r14
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	andq	$-32, %rsp
-	subq	$128, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%xmm0, 72(%rsp)
+	subq	$104, %rsp
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 72(%rsp)
 	movq	(%rcx), %rax
-	movq	8(%rcx), %r8
-	movabsq	$17575274610687, %rbx   # imm = 0xFFC0FFFFFFF
-	andq	%rax, %rbx
-	movq	%rbx, (%rsp)
+	movq	8(%rcx), %rbx
+	movabsq	$17575274610687, %rbp   # imm = 0xFFC0FFFFFFF
+	andq	%rax, %rbp
+	movq	%rbp, (%rsp)
 	movabsq	$17592186044415, %r14   # imm = 0xFFFFFFFFFFF
-	shrdq	$44, %r8, %rax
-	leaq	-4128768(%r14), %rbx
-	andq	%rax, %rbx
-	movq	%rbx, 8(%rsp)
-	shrq	$24, %r8
+	shrdq	$44, %rbx, %rax
+	leaq	-4128768(%r14), %rbp
+	andq	%rax, %rbp
+	movq	%rbp, 8(%rsp)
+	shrq	$24, %rbx
 	movabsq	$68719475727, %rax      # imm = 0xFFFFFFC0F
-	andq	%r8, %rax
+	andq	%rbx, %rax
 	movq	%rax, 16(%rsp)
 	movq	%rdx, %r13
-	movq	%rsi, %rbx
-	vmovups	%xmm0, 24(%rsp)
+	movq	%rsi, %r15
+	movups	%xmm0, 24(%rsp)
 	movq	$0, 40(%rsp)
-	vmovups	16(%rcx), %xmm0
-	vmovups	%xmm0, 48(%rsp)
+	movups	16(%rcx), %xmm0
+	movups	%xmm0, 48(%rsp)
 	movq	$0, 64(%rsp)
 	movb	$0, 88(%rsp)
-	movq	%rdi, %r15
+	movq	%rdi, %rbp
 	cmpq	$16, %r13
 	jb	.LBB2_1
 # %bb.2:
 	movq	%r13, %r12
 	andq	$-16, %r12
 	movq	%rsp, %rdi
-	movq	%rbx, %rsi
+	movq	%r15, %rsi
 	movq	%r12, %rdx
 	callq	_poly1305_blocks
 	cmpq	%r13, %r12
@@ -302,7 +318,6 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	cmpq	%r12, %r13
 	jne	.LBB2_7
 # %bb.6:
-	movq	%rbx, %r10
 	xorl	%esi, %esi
 	testq	%r8, %r8
 	jne	.LBB2_10
@@ -310,8 +325,7 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 .LBB2_7:                                # %.lr.ph.i4.preheader.new
 	movq	%r9, %rdi
 	subq	%r8, %rdi
-	movq	%rbx, %r10
-	leaq	(%rbx,%r12), %rdx
+	leaq	(%r15,%r12), %rdx
 	addq	$1, %rdx
 	xorl	%esi, %esi
 	movq	%rsp, %rcx
@@ -335,14 +349,14 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 .LBB2_10:                               # %.lr.ph.i4.epil
 	addq	%rsi, %rax
 	addq	%rsi, %r12
-	movb	(%r10,%r12), %cl
+	movb	(%r15,%r12), %cl
 	movb	%cl, 72(%rsp,%rax)
 	movq	64(%rsp), %rax
 .LBB2_11:                               # %._crit_edge.i5
 	addq	%r9, %rax
 	movq	%rax, 64(%rsp)
 .LBB2_13:                               # %_poly1305_update.exit
-	movq	%r15, %r12
+	movq	%rbp, %r12
 	testq	%rax, %rax
 	je	.LBB2_17
 # %bb.14:
@@ -357,7 +371,7 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movl	$15, %edx
 	subq	%rax, %rdx
 	xorl	%esi, %esi
-	callq	memset
+	callq	memset@PLT
 .LBB2_16:                               # %._crit_edge.i
 	movb	$1, 88(%rsp)
 	movq	%rsp, %rdi
@@ -369,54 +383,54 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movq	48(%rsp), %r8
 	movq	%rcx, %rdx
 	shrq	$44, %rdx
+	andq	%r14, %rcx
 	addq	40(%rsp), %rdx
 	movabsq	$4398046511103, %rdi    # imm = 0x3FFFFFFFFFF
 	andq	%rdx, %rdi
 	shrq	$42, %rdx
-	leaq	(%rdx,%rdx,4), %rax
-	addq	24(%rsp), %rax
-	andq	%r14, %rcx
-	movq	%rax, %rbx
+	leaq	(%rdx,%rdx,4), %rbp
+	addq	24(%rsp), %rbp
+	movq	%rbp, %rbx
 	shrq	$44, %rbx
 	addq	%rcx, %rbx
-	andq	%r14, %rax
-	movq	%rbx, %r10
-	shrq	$44, %r10
-	addq	%rdi, %r10
+	andq	%r14, %rbp
+	movq	%rbx, %rsi
+	shrq	$44, %rsi
+	addq	%rdi, %rsi
 	andq	%r14, %rbx
-	movq	%r10, %rdx
+	movq	%rsi, %rdx
 	shrq	$42, %rdx
 	negl	%edx
 	andl	$5, %edx
-	addq	%rax, %rdx
+	addq	%rbp, %rdx
 	movq	%rdx, %rcx
 	shrq	$44, %rcx
 	addq	%rbx, %rcx
 	andq	%r14, %rdx
 	leaq	5(%rdx), %r9
-	movq	%r9, %rax
+	movq	%r9, %rbp
+	shrq	$44, %rbp
+	addq	%rcx, %rbp
+	movq	%rbp, %rax
 	shrq	$44, %rax
-	addq	%rcx, %rax
-	movq	%rax, %rbx
-	shrq	$44, %rbx
 	movabsq	$-4398046511104, %rdi   # imm = 0xFFFFFC0000000000
-	orq	%r10, %rdi
-	addq	%rbx, %rdi
-	movq	%rdi, %rbx
-	shrq	$63, %rbx
-	addq	$-1, %rbx
-	movq	%rbx, %rsi
-	andq	%r14, %rsi
-	andq	%rsi, %r9
-	andq	%rax, %rsi
-	andq	%rdi, %rbx
+	orq	%rsi, %rdi
+	addq	%rax, %rdi
+	movq	%rdi, %rax
+	shrq	$63, %rax
+	addq	$-1, %rax
+	movq	%rax, %rbx
+	andq	%r14, %rbx
+	andq	%rbx, %r9
+	andq	%rbp, %rbx
+	andq	%rdi, %rax
 	sarq	$63, %rdi
 	andq	%rdi, %rdx
 	orq	%r9, %rdx
 	andq	%rdi, %rcx
-	orq	%rsi, %rcx
-	andq	%r10, %rdi
-	orq	%rbx, %rdi
+	orq	%rbx, %rcx
+	andq	%rsi, %rdi
+	orq	%rax, %rdi
 	movq	56(%rsp), %rsi
 	movq	%r8, %rax
 	andq	%r14, %rax
@@ -425,10 +439,10 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	shrq	$44, %rdx
 	andq	%r14, %rax
 	shrq	$44, %r8
-	movq	%rsi, %rbx
-	shlq	$20, %rbx
+	movq	%rsi, %rbp
+	shlq	$20, %rbp
 	addq	$-1048575, %r14         # imm = 0xFFF00001
-	andq	%rbx, %r14
+	andq	%rbp, %r14
 	orq	%r8, %r14
 	addq	%rcx, %r14
 	addq	%rdx, %r14
@@ -443,21 +457,23 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	shrq	$20, %r14
 	andl	$16777215, %r14d        # imm = 0xFFFFFF
 	shlq	$24, %rsi
-	orq	%r14, %rsi
 	movq	%rcx, (%r12)
+	orq	%r14, %rsi
 	movq	%rsi, 8(%r12)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 64(%rsp)
-	vmovaps	%ymm0, 32(%rsp)
-	vmovaps	%ymm0, (%rsp)
-	leaq	-40(%rbp), %rsp
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 80(%rsp)
+	movaps	%xmm0, 64(%rsp)
+	movaps	%xmm0, 48(%rsp)
+	movaps	%xmm0, 32(%rsp)
+	movaps	%xmm0, 16(%rsp)
+	movaps	%xmm0, (%rsp)
+	addq	$104, %rsp
 	popq	%rbx
 	popq	%r12
 	popq	%r13
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end2:
 	.size	_crypto_onetimeauth_poly1305, .Lfunc_end2-_crypto_onetimeauth_poly1305
@@ -470,10 +486,8 @@ u0:                                     # @u0
 	movq	%rsp, %rbp
 	pushq	%r15
 	pushq	%r14
-	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	pushq	%rax
 	movq	%rdx, %r8
 	shrq	$6, %r8
 	je	.LBB3_5
@@ -482,123 +496,147 @@ u0:                                     # @u0
 	.p2align	4, 0x90
 .LBB3_2:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB3_3 Depth 2
-	vmovdqa	(%rdi), %xmm8
-	vmovdqa	16(%rdi), %xmm9
-	vmovdqa	32(%rdi), %xmm2
-	vmovdqa	48(%rdi), %xmm3
+	movdqa	(%rdi), %xmm11
+	movdqa	16(%rdi), %xmm10
+	movdqa	32(%rdi), %xmm9
+	movdqa	48(%rdi), %xmm8
 	movl	$5, %eax
-	vmovdqa	%xmm9, %xmm4
-	vmovdqa	%xmm2, %xmm6
-	vmovdqa	%xmm3, %xmm7
-	vmovdqa	%xmm8, %xmm5
+	movdqa	%xmm10, %xmm4
+	movdqa	%xmm9, %xmm6
+	movdqa	%xmm8, %xmm7
+	movdqa	%xmm11, %xmm0
 	.p2align	4, 0x90
 .LBB3_3:                                #   Parent Loop BB3_2 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
-	vpaddd	%xmm4, %xmm5, %xmm0
-	vpslld	$7, %xmm0, %xmm1
-	vpxor	%xmm7, %xmm1, %xmm1
-	vpsrld	$25, %xmm0, %xmm0
-	vpxor	%xmm0, %xmm1, %xmm0
-	vpaddd	%xmm5, %xmm0, %xmm1
-	vpslld	$9, %xmm1, %xmm7
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpsrld	$23, %xmm1, %xmm1
-	vpxor	%xmm1, %xmm6, %xmm1
-	vpshufd	$147, %xmm0, %xmm6      # xmm6 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm4, %xmm7, %xmm4
-	vpxor	%xmm0, %xmm4, %xmm0
-	vpshufd	$78, %xmm1, %xmm4       # xmm4 = xmm1[2,3,0,1]
-	vpaddd	%xmm1, %xmm0, %xmm1
-	vpslld	$18, %xmm1, %xmm7
-	vpsrld	$14, %xmm1, %xmm1
-	vpxor	%xmm5, %xmm7, %xmm5
-	vpxor	%xmm1, %xmm5, %xmm1
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vpaddd	%xmm6, %xmm1, %xmm5
-	vpslld	$7, %xmm5, %xmm7
-	vpxor	%xmm0, %xmm7, %xmm0
-	vpsrld	$25, %xmm5, %xmm5
-	vpxor	%xmm5, %xmm0, %xmm0
-	vpaddd	%xmm1, %xmm0, %xmm5
-	vpslld	$9, %xmm5, %xmm7
-	vpxor	%xmm4, %xmm7, %xmm4
-	vpsrld	$23, %xmm5, %xmm5
-	vpxor	%xmm5, %xmm4, %xmm4
-	vpshufd	$147, %xmm0, %xmm5      # xmm5 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm4, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpxor	%xmm0, %xmm6, %xmm0
-	vpshufd	$78, %xmm4, %xmm6       # xmm6 = xmm4[2,3,0,1]
-	vpaddd	%xmm4, %xmm0, %xmm4
-	vpslld	$18, %xmm4, %xmm7
-	vpsrld	$14, %xmm4, %xmm4
-	vpxor	%xmm1, %xmm7, %xmm1
-	vpxor	%xmm4, %xmm1, %xmm1
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vpaddd	%xmm5, %xmm1, %xmm4
-	vpslld	$7, %xmm4, %xmm7
-	vpxor	%xmm0, %xmm7, %xmm0
-	vpsrld	$25, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm0, %xmm0
-	vpaddd	%xmm1, %xmm0, %xmm4
-	vpslld	$9, %xmm4, %xmm7
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpsrld	$23, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm6, %xmm4
-	vpshufd	$147, %xmm0, %xmm6      # xmm6 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm4, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm5, %xmm7, %xmm5
-	vpxor	%xmm0, %xmm5, %xmm0
-	vpshufd	$78, %xmm4, %xmm5       # xmm5 = xmm4[2,3,0,1]
-	vpaddd	%xmm4, %xmm0, %xmm4
-	vpslld	$18, %xmm4, %xmm7
-	vpsrld	$14, %xmm4, %xmm4
-	vpxor	%xmm1, %xmm7, %xmm1
-	vpxor	%xmm4, %xmm1, %xmm1
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vpaddd	%xmm6, %xmm1, %xmm4
-	vpslld	$7, %xmm4, %xmm7
-	vpxor	%xmm0, %xmm7, %xmm0
-	vpsrld	$25, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm0, %xmm0
-	vpaddd	%xmm1, %xmm0, %xmm4
-	vpslld	$9, %xmm4, %xmm7
-	vpxor	%xmm5, %xmm7, %xmm5
-	vpsrld	$23, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm5, %xmm5
-	vpshufd	$147, %xmm0, %xmm4      # xmm4 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm5, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpxor	%xmm0, %xmm6, %xmm0
-	vpshufd	$78, %xmm5, %xmm6       # xmm6 = xmm5[2,3,0,1]
-	vpaddd	%xmm5, %xmm0, %xmm5
-	vpslld	$18, %xmm5, %xmm7
-	vpsrld	$14, %xmm5, %xmm5
-	vpxor	%xmm1, %xmm7, %xmm1
-	vpxor	%xmm5, %xmm1, %xmm5
-	vpshufd	$57, %xmm0, %xmm7       # xmm7 = xmm0[1,2,3,0]
+	movdqa	%xmm0, %xmm5
+	paddd	%xmm4, %xmm5
+	movdqa	%xmm5, %xmm1
+	pslld	$7, %xmm1
+	pxor	%xmm7, %xmm1
+	psrld	$25, %xmm5
+	pxor	%xmm1, %xmm5
+	movdqa	%xmm5, %xmm1
+	paddd	%xmm0, %xmm1
+	movdqa	%xmm1, %xmm7
+	pslld	$9, %xmm7
+	pxor	%xmm6, %xmm7
+	psrld	$23, %xmm1
+	pxor	%xmm7, %xmm1
+	pshufd	$147, %xmm5, %xmm6      # xmm6 = xmm5[3,0,1,2]
+	paddd	%xmm1, %xmm5
+	movdqa	%xmm5, %xmm2
+	pslld	$13, %xmm2
+	psrld	$19, %xmm5
+	pxor	%xmm4, %xmm2
+	pxor	%xmm5, %xmm2
+	pshufd	$78, %xmm1, %xmm4       # xmm4 = xmm1[2,3,0,1]
+	paddd	%xmm2, %xmm1
+	movdqa	%xmm1, %xmm7
+	pslld	$18, %xmm7
+	psrld	$14, %xmm1
+	pxor	%xmm0, %xmm7
+	pxor	%xmm1, %xmm7
+	pshufd	$57, %xmm2, %xmm0       # xmm0 = xmm2[1,2,3,0]
+	movdqa	%xmm7, %xmm1
+	paddd	%xmm6, %xmm1
+	movdqa	%xmm1, %xmm2
+	pslld	$7, %xmm2
+	pxor	%xmm0, %xmm2
+	psrld	$25, %xmm1
+	pxor	%xmm2, %xmm1
+	movdqa	%xmm1, %xmm0
+	paddd	%xmm7, %xmm0
+	movdqa	%xmm0, %xmm2
+	pslld	$9, %xmm2
+	pxor	%xmm4, %xmm2
+	psrld	$23, %xmm0
+	pxor	%xmm2, %xmm0
+	pshufd	$147, %xmm1, %xmm4      # xmm4 = xmm1[3,0,1,2]
+	paddd	%xmm0, %xmm1
+	movdqa	%xmm1, %xmm2
+	pslld	$13, %xmm2
+	psrld	$19, %xmm1
+	pxor	%xmm6, %xmm2
+	pxor	%xmm1, %xmm2
+	pshufd	$78, %xmm0, %xmm1       # xmm1 = xmm0[2,3,0,1]
+	paddd	%xmm2, %xmm0
+	movdqa	%xmm0, %xmm6
+	pslld	$18, %xmm6
+	psrld	$14, %xmm0
+	pxor	%xmm7, %xmm6
+	pxor	%xmm0, %xmm6
+	pshufd	$57, %xmm2, %xmm0       # xmm0 = xmm2[1,2,3,0]
+	movdqa	%xmm6, %xmm2
+	paddd	%xmm4, %xmm2
+	movdqa	%xmm2, %xmm5
+	pslld	$7, %xmm5
+	pxor	%xmm0, %xmm5
+	psrld	$25, %xmm2
+	pxor	%xmm5, %xmm2
+	movdqa	%xmm2, %xmm0
+	paddd	%xmm6, %xmm0
+	movdqa	%xmm0, %xmm5
+	pslld	$9, %xmm5
+	pxor	%xmm1, %xmm5
+	psrld	$23, %xmm0
+	pxor	%xmm5, %xmm0
+	pshufd	$147, %xmm2, %xmm5      # xmm5 = xmm2[3,0,1,2]
+	paddd	%xmm0, %xmm2
+	movdqa	%xmm2, %xmm1
+	pslld	$13, %xmm1
+	psrld	$19, %xmm2
+	pxor	%xmm4, %xmm1
+	pxor	%xmm2, %xmm1
+	pshufd	$78, %xmm0, %xmm2       # xmm2 = xmm0[2,3,0,1]
+	paddd	%xmm1, %xmm0
+	movdqa	%xmm0, %xmm7
+	pslld	$18, %xmm7
+	psrld	$14, %xmm0
+	pxor	%xmm6, %xmm7
+	pxor	%xmm0, %xmm7
+	pshufd	$57, %xmm1, %xmm0       # xmm0 = xmm1[1,2,3,0]
+	movdqa	%xmm7, %xmm1
+	paddd	%xmm5, %xmm1
+	movdqa	%xmm1, %xmm4
+	pslld	$7, %xmm4
+	pxor	%xmm0, %xmm4
+	psrld	$25, %xmm1
+	pxor	%xmm4, %xmm1
+	movdqa	%xmm1, %xmm3
+	paddd	%xmm7, %xmm3
+	movdqa	%xmm3, %xmm0
+	pslld	$9, %xmm0
+	pxor	%xmm2, %xmm0
+	psrld	$23, %xmm3
+	pxor	%xmm0, %xmm3
+	pshufd	$147, %xmm1, %xmm4      # xmm4 = xmm1[3,0,1,2]
+	paddd	%xmm3, %xmm1
+	movdqa	%xmm1, %xmm2
+	pslld	$13, %xmm2
+	psrld	$19, %xmm1
+	pxor	%xmm5, %xmm2
+	pxor	%xmm1, %xmm2
+	pshufd	$78, %xmm3, %xmm6       # xmm6 = xmm3[2,3,0,1]
+	paddd	%xmm2, %xmm3
+	movdqa	%xmm3, %xmm0
+	pslld	$18, %xmm0
+	psrld	$14, %xmm3
+	pxor	%xmm7, %xmm0
+	pxor	%xmm3, %xmm0
+	pshufd	$57, %xmm2, %xmm7       # xmm7 = xmm2[1,2,3,0]
 	addl	$-1, %eax
 	jne	.LBB3_3
 # %bb.4:                                #   in Loop: Header=BB3_2 Depth=1
 	movq	%r9, %rax
 	shlq	$6, %rax
-	vpaddd	%xmm8, %xmm5, %xmm0
-	vpaddd	%xmm9, %xmm4, %xmm1
-	vpaddd	%xmm2, %xmm6, %xmm2
-	vpaddd	%xmm3, %xmm7, %xmm3
-	vmovd	%xmm0, %ebx
-	vmovd	%xmm1, %r10d
-	vmovd	%xmm2, %r11d
-	vmovd	%xmm3, %r14d
+	paddd	%xmm11, %xmm0
+	paddd	%xmm10, %xmm4
+	paddd	%xmm9, %xmm6
+	paddd	%xmm8, %xmm7
+	movd	%xmm0, %ebx
+	movd	%xmm4, %r10d
+	movd	%xmm6, %r11d
+	movd	%xmm7, %r14d
 	xorl	(%rsi,%rax), %ebx
 	xorl	48(%rsi,%rax), %r10d
 	xorl	32(%rsi,%rax), %r11d
@@ -607,42 +645,54 @@ u0:                                     # @u0
 	movl	%r10d, 48(%rcx,%rax)
 	movl	%r11d, 32(%rcx,%rax)
 	movl	%r14d, 16(%rcx,%rax)
-	vpextrd	$1, %xmm0, %ebx
-	vpextrd	$1, %xmm1, %r10d
-	vpextrd	$1, %xmm2, %r11d
-	vpextrd	$1, %xmm3, %r14d
-	xorl	20(%rsi,%rax), %ebx
-	xorl	4(%rsi,%rax), %r10d
-	xorl	52(%rsi,%rax), %r11d
-	xorl	36(%rsi,%rax), %r14d
-	movl	%ebx, 20(%rcx,%rax)
-	movl	%r10d, 4(%rcx,%rax)
-	movl	%r11d, 52(%rcx,%rax)
-	movl	%r14d, 36(%rcx,%rax)
-	vpextrd	$2, %xmm0, %ebx
-	vpextrd	$2, %xmm1, %r10d
-	vpextrd	$2, %xmm2, %r11d
-	vpextrd	$2, %xmm3, %r14d
-	xorl	40(%rsi,%rax), %ebx
-	xorl	24(%rsi,%rax), %r10d
-	xorl	8(%rsi,%rax), %r11d
-	xorl	56(%rsi,%rax), %r14d
-	movl	%ebx, 40(%rcx,%rax)
-	movl	%r10d, 24(%rcx,%rax)
-	movl	%r11d, 8(%rcx,%rax)
-	movl	%r14d, 56(%rcx,%rax)
-	vpextrd	$3, %xmm0, %ebx
-	vpextrd	$3, %xmm1, %r10d
-	vpextrd	$3, %xmm2, %r11d
-	vpextrd	$3, %xmm3, %r14d
-	xorl	60(%rsi,%rax), %ebx
-	xorl	44(%rsi,%rax), %r10d
-	xorl	28(%rsi,%rax), %r11d
-	xorl	12(%rsi,%rax), %r14d
-	movl	%ebx, 60(%rcx,%rax)
-	movl	%r10d, 44(%rcx,%rax)
-	movl	%r11d, 28(%rcx,%rax)
-	movl	%r14d, 12(%rcx,%rax)
+	pshufd	$229, %xmm0, %xmm1      # xmm1 = xmm0[1,1,2,3]
+	movd	%xmm1, %r10d
+	pshufd	$229, %xmm4, %xmm1      # xmm1 = xmm4[1,1,2,3]
+	movd	%xmm1, %r11d
+	pshufd	$229, %xmm6, %xmm1      # xmm1 = xmm6[1,1,2,3]
+	movd	%xmm1, %r14d
+	pshufd	$229, %xmm7, %xmm1      # xmm1 = xmm7[1,1,2,3]
+	movd	%xmm1, %ebx
+	xorl	20(%rsi,%rax), %r10d
+	xorl	4(%rsi,%rax), %r11d
+	xorl	52(%rsi,%rax), %r14d
+	xorl	36(%rsi,%rax), %ebx
+	movl	%r10d, 20(%rcx,%rax)
+	movl	%r11d, 4(%rcx,%rax)
+	movl	%r14d, 52(%rcx,%rax)
+	movl	%ebx, 36(%rcx,%rax)
+	pshufd	$78, %xmm0, %xmm1       # xmm1 = xmm0[2,3,0,1]
+	movd	%xmm1, %r10d
+	pshufd	$78, %xmm4, %xmm1       # xmm1 = xmm4[2,3,0,1]
+	movd	%xmm1, %r11d
+	pshufd	$78, %xmm6, %xmm1       # xmm1 = xmm6[2,3,0,1]
+	movd	%xmm1, %r14d
+	pshufd	$78, %xmm7, %xmm1       # xmm1 = xmm7[2,3,0,1]
+	movd	%xmm1, %ebx
+	xorl	40(%rsi,%rax), %r10d
+	xorl	24(%rsi,%rax), %r11d
+	xorl	8(%rsi,%rax), %r14d
+	xorl	56(%rsi,%rax), %ebx
+	movl	%r10d, 40(%rcx,%rax)
+	movl	%r11d, 24(%rcx,%rax)
+	movl	%r14d, 8(%rcx,%rax)
+	movl	%ebx, 56(%rcx,%rax)
+	pshufd	$231, %xmm0, %xmm0      # xmm0 = xmm0[3,1,2,3]
+	movd	%xmm0, %r10d
+	pshufd	$231, %xmm4, %xmm0      # xmm0 = xmm4[3,1,2,3]
+	movd	%xmm0, %r11d
+	pshufd	$231, %xmm6, %xmm0      # xmm0 = xmm6[3,1,2,3]
+	movd	%xmm0, %r14d
+	pshufd	$231, %xmm7, %xmm0      # xmm0 = xmm7[3,1,2,3]
+	movd	%xmm0, %ebx
+	xorl	60(%rsi,%rax), %r10d
+	xorl	44(%rsi,%rax), %r11d
+	xorl	28(%rsi,%rax), %r14d
+	xorl	12(%rsi,%rax), %ebx
+	movl	%r10d, 60(%rcx,%rax)
+	movl	%r11d, 44(%rcx,%rax)
+	movl	%r14d, 28(%rcx,%rax)
+	movl	%ebx, 12(%rcx,%rax)
 	xorl	%eax, %eax
 	addl	$1, 32(%rdi)
 	sete	%al
@@ -655,255 +705,323 @@ u0:                                     # @u0
 	andq	$-64, %r8
 	movq	%rdx, %r10
 	subq	%r8, %r10
-	je	.LBB3_24
+	je	.LBB3_28
 # %bb.6:
 	leaq	(%rsi,%r8), %r9
 	leaq	(%rcx,%r8), %r11
-	vmovdqa	(%rdi), %xmm8
-	vmovdqa	16(%rdi), %xmm9
-	vmovdqa	32(%rdi), %xmm2
-	vmovdqa	48(%rdi), %xmm3
+	movdqa	(%rdi), %xmm11
+	movdqa	16(%rdi), %xmm10
+	movdqa	32(%rdi), %xmm9
+	movdqa	48(%rdi), %xmm8
 	movl	$5, %edi
-	vmovdqa	%xmm9, %xmm4
-	vmovdqa	%xmm2, %xmm6
-	vmovdqa	%xmm3, %xmm7
-	vmovdqa	%xmm8, %xmm5
+	movdqa	%xmm10, %xmm4
+	movdqa	%xmm9, %xmm6
+	movdqa	%xmm8, %xmm7
+	movdqa	%xmm11, %xmm0
 	.p2align	4, 0x90
 .LBB3_7:                                # =>This Inner Loop Header: Depth=1
-	vpaddd	%xmm4, %xmm5, %xmm0
-	vpslld	$7, %xmm0, %xmm1
-	vpxor	%xmm7, %xmm1, %xmm1
-	vpsrld	$25, %xmm0, %xmm0
-	vpxor	%xmm0, %xmm1, %xmm0
-	vpaddd	%xmm5, %xmm0, %xmm1
-	vpslld	$9, %xmm1, %xmm7
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpsrld	$23, %xmm1, %xmm1
-	vpxor	%xmm1, %xmm6, %xmm1
-	vpshufd	$147, %xmm0, %xmm6      # xmm6 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm1, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm4, %xmm7, %xmm4
-	vpxor	%xmm0, %xmm4, %xmm0
-	vpshufd	$78, %xmm1, %xmm4       # xmm4 = xmm1[2,3,0,1]
-	vpaddd	%xmm1, %xmm0, %xmm1
-	vpslld	$18, %xmm1, %xmm7
-	vpsrld	$14, %xmm1, %xmm1
-	vpxor	%xmm5, %xmm7, %xmm5
-	vpxor	%xmm1, %xmm5, %xmm1
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vpaddd	%xmm6, %xmm1, %xmm5
-	vpslld	$7, %xmm5, %xmm7
-	vpxor	%xmm0, %xmm7, %xmm0
-	vpsrld	$25, %xmm5, %xmm5
-	vpxor	%xmm5, %xmm0, %xmm0
-	vpaddd	%xmm1, %xmm0, %xmm5
-	vpslld	$9, %xmm5, %xmm7
-	vpxor	%xmm4, %xmm7, %xmm4
-	vpsrld	$23, %xmm5, %xmm5
-	vpxor	%xmm5, %xmm4, %xmm4
-	vpshufd	$147, %xmm0, %xmm5      # xmm5 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm4, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpxor	%xmm0, %xmm6, %xmm0
-	vpshufd	$78, %xmm4, %xmm6       # xmm6 = xmm4[2,3,0,1]
-	vpaddd	%xmm4, %xmm0, %xmm4
-	vpslld	$18, %xmm4, %xmm7
-	vpsrld	$14, %xmm4, %xmm4
-	vpxor	%xmm1, %xmm7, %xmm1
-	vpxor	%xmm4, %xmm1, %xmm1
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vpaddd	%xmm5, %xmm1, %xmm4
-	vpslld	$7, %xmm4, %xmm7
-	vpxor	%xmm0, %xmm7, %xmm0
-	vpsrld	$25, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm0, %xmm0
-	vpaddd	%xmm1, %xmm0, %xmm4
-	vpslld	$9, %xmm4, %xmm7
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpsrld	$23, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm6, %xmm4
-	vpshufd	$147, %xmm0, %xmm6      # xmm6 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm4, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm5, %xmm7, %xmm5
-	vpxor	%xmm0, %xmm5, %xmm0
-	vpshufd	$78, %xmm4, %xmm5       # xmm5 = xmm4[2,3,0,1]
-	vpaddd	%xmm4, %xmm0, %xmm4
-	vpslld	$18, %xmm4, %xmm7
-	vpsrld	$14, %xmm4, %xmm4
-	vpxor	%xmm1, %xmm7, %xmm1
-	vpxor	%xmm4, %xmm1, %xmm1
-	vpshufd	$57, %xmm0, %xmm0       # xmm0 = xmm0[1,2,3,0]
-	vpaddd	%xmm6, %xmm1, %xmm4
-	vpslld	$7, %xmm4, %xmm7
-	vpxor	%xmm0, %xmm7, %xmm0
-	vpsrld	$25, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm0, %xmm0
-	vpaddd	%xmm1, %xmm0, %xmm4
-	vpslld	$9, %xmm4, %xmm7
-	vpxor	%xmm5, %xmm7, %xmm5
-	vpsrld	$23, %xmm4, %xmm4
-	vpxor	%xmm4, %xmm5, %xmm5
-	vpshufd	$147, %xmm0, %xmm4      # xmm4 = xmm0[3,0,1,2]
-	vpaddd	%xmm0, %xmm5, %xmm0
-	vpslld	$13, %xmm0, %xmm7
-	vpsrld	$19, %xmm0, %xmm0
-	vpxor	%xmm6, %xmm7, %xmm6
-	vpxor	%xmm0, %xmm6, %xmm0
-	vpshufd	$78, %xmm5, %xmm6       # xmm6 = xmm5[2,3,0,1]
-	vpaddd	%xmm5, %xmm0, %xmm5
-	vpslld	$18, %xmm5, %xmm7
-	vpsrld	$14, %xmm5, %xmm5
-	vpxor	%xmm1, %xmm7, %xmm1
-	vpxor	%xmm5, %xmm1, %xmm5
-	vpshufd	$57, %xmm0, %xmm7       # xmm7 = xmm0[1,2,3,0]
+	movdqa	%xmm0, %xmm5
+	paddd	%xmm4, %xmm5
+	movdqa	%xmm5, %xmm1
+	pslld	$7, %xmm1
+	pxor	%xmm7, %xmm1
+	psrld	$25, %xmm5
+	pxor	%xmm1, %xmm5
+	movdqa	%xmm5, %xmm1
+	paddd	%xmm0, %xmm1
+	movdqa	%xmm1, %xmm7
+	pslld	$9, %xmm7
+	pxor	%xmm6, %xmm7
+	psrld	$23, %xmm1
+	pxor	%xmm7, %xmm1
+	pshufd	$147, %xmm5, %xmm6      # xmm6 = xmm5[3,0,1,2]
+	paddd	%xmm1, %xmm5
+	movdqa	%xmm5, %xmm2
+	pslld	$13, %xmm2
+	psrld	$19, %xmm5
+	pxor	%xmm4, %xmm2
+	pxor	%xmm5, %xmm2
+	pshufd	$78, %xmm1, %xmm4       # xmm4 = xmm1[2,3,0,1]
+	paddd	%xmm2, %xmm1
+	movdqa	%xmm1, %xmm7
+	pslld	$18, %xmm7
+	psrld	$14, %xmm1
+	pxor	%xmm0, %xmm7
+	pxor	%xmm1, %xmm7
+	pshufd	$57, %xmm2, %xmm0       # xmm0 = xmm2[1,2,3,0]
+	movdqa	%xmm7, %xmm1
+	paddd	%xmm6, %xmm1
+	movdqa	%xmm1, %xmm2
+	pslld	$7, %xmm2
+	pxor	%xmm0, %xmm2
+	psrld	$25, %xmm1
+	pxor	%xmm2, %xmm1
+	movdqa	%xmm1, %xmm0
+	paddd	%xmm7, %xmm0
+	movdqa	%xmm0, %xmm2
+	pslld	$9, %xmm2
+	pxor	%xmm4, %xmm2
+	psrld	$23, %xmm0
+	pxor	%xmm2, %xmm0
+	pshufd	$147, %xmm1, %xmm4      # xmm4 = xmm1[3,0,1,2]
+	paddd	%xmm0, %xmm1
+	movdqa	%xmm1, %xmm2
+	pslld	$13, %xmm2
+	psrld	$19, %xmm1
+	pxor	%xmm6, %xmm2
+	pxor	%xmm1, %xmm2
+	pshufd	$78, %xmm0, %xmm1       # xmm1 = xmm0[2,3,0,1]
+	paddd	%xmm2, %xmm0
+	movdqa	%xmm0, %xmm6
+	pslld	$18, %xmm6
+	psrld	$14, %xmm0
+	pxor	%xmm7, %xmm6
+	pxor	%xmm0, %xmm6
+	pshufd	$57, %xmm2, %xmm0       # xmm0 = xmm2[1,2,3,0]
+	movdqa	%xmm6, %xmm2
+	paddd	%xmm4, %xmm2
+	movdqa	%xmm2, %xmm5
+	pslld	$7, %xmm5
+	pxor	%xmm0, %xmm5
+	psrld	$25, %xmm2
+	pxor	%xmm5, %xmm2
+	movdqa	%xmm2, %xmm0
+	paddd	%xmm6, %xmm0
+	movdqa	%xmm0, %xmm5
+	pslld	$9, %xmm5
+	pxor	%xmm1, %xmm5
+	psrld	$23, %xmm0
+	pxor	%xmm5, %xmm0
+	pshufd	$147, %xmm2, %xmm5      # xmm5 = xmm2[3,0,1,2]
+	paddd	%xmm0, %xmm2
+	movdqa	%xmm2, %xmm1
+	pslld	$13, %xmm1
+	psrld	$19, %xmm2
+	pxor	%xmm4, %xmm1
+	pxor	%xmm2, %xmm1
+	pshufd	$78, %xmm0, %xmm2       # xmm2 = xmm0[2,3,0,1]
+	paddd	%xmm1, %xmm0
+	movdqa	%xmm0, %xmm7
+	pslld	$18, %xmm7
+	psrld	$14, %xmm0
+	pxor	%xmm6, %xmm7
+	pxor	%xmm0, %xmm7
+	pshufd	$57, %xmm1, %xmm0       # xmm0 = xmm1[1,2,3,0]
+	movdqa	%xmm7, %xmm1
+	paddd	%xmm5, %xmm1
+	movdqa	%xmm1, %xmm4
+	pslld	$7, %xmm4
+	pxor	%xmm0, %xmm4
+	psrld	$25, %xmm1
+	pxor	%xmm4, %xmm1
+	movdqa	%xmm1, %xmm3
+	paddd	%xmm7, %xmm3
+	movdqa	%xmm3, %xmm0
+	pslld	$9, %xmm0
+	pxor	%xmm2, %xmm0
+	psrld	$23, %xmm3
+	pxor	%xmm0, %xmm3
+	pshufd	$147, %xmm1, %xmm4      # xmm4 = xmm1[3,0,1,2]
+	paddd	%xmm3, %xmm1
+	movdqa	%xmm1, %xmm2
+	pslld	$13, %xmm2
+	psrld	$19, %xmm1
+	pxor	%xmm5, %xmm2
+	pxor	%xmm1, %xmm2
+	pshufd	$78, %xmm3, %xmm6       # xmm6 = xmm3[2,3,0,1]
+	paddd	%xmm2, %xmm3
+	movdqa	%xmm3, %xmm0
+	pslld	$18, %xmm0
+	psrld	$14, %xmm3
+	pxor	%xmm7, %xmm0
+	pxor	%xmm3, %xmm0
+	pshufd	$57, %xmm2, %xmm7       # xmm7 = xmm2[1,2,3,0]
 	addl	$-1, %edi
 	jne	.LBB3_7
 # %bb.8:                                # %.lr.ph.i1
-	vpaddd	%xmm8, %xmm5, %xmm0
-	vpaddd	%xmm9, %xmm4, %xmm1
-	vpaddd	%xmm2, %xmm6, %xmm2
-	vpaddd	%xmm3, %xmm7, %xmm3
+	paddd	%xmm11, %xmm0
+	paddd	%xmm10, %xmm4
+	paddd	%xmm9, %xmm6
+	paddd	%xmm8, %xmm7
 	movq	%rsp, %rax
 	leaq	-64(%rax), %r12
 	movq	%r12, %rsp
-	vinsertf128	$1, %xmm3, %ymm2, %ymm2
-	vinsertf128	$1, %xmm1, %ymm0, %ymm1
-	vblendps	$156, %ymm2, %ymm1, %ymm3 # ymm3 = ymm1[0,1],ymm2[2,3,4],ymm1[5,6],ymm2[7]
-	vperm2f128	$1, %ymm0, %ymm3, %ymm4 # ymm4 = ymm3[2,3,0,1]
-	vblendps	$170, %ymm4, %ymm3, %ymm3 # ymm3 = ymm3[0],ymm4[1],ymm3[2],ymm4[3],ymm3[4],ymm4[5],ymm3[6],ymm4[7]
-	vmovups	%ymm3, -64(%rax)
-	vblendps	$156, %ymm1, %ymm2, %ymm1 # ymm1 = ymm2[0,1],ymm1[2,3,4],ymm2[5,6],ymm1[7]
-	vperm2f128	$1, %ymm0, %ymm1, %ymm2 # ymm2 = ymm1[2,3,0,1]
-	vblendps	$170, %ymm2, %ymm1, %ymm1 # ymm1 = ymm1[0],ymm2[1],ymm1[2],ymm2[3],ymm1[4],ymm2[5],ymm1[6],ymm2[7]
-	vmovups	%ymm1, -32(%rax)
-	vpextrb	$0, %xmm0, %eax
+	pshufd	$229, %xmm4, %xmm1      # xmm1 = xmm4[1,1,2,3]
+	movdqa	%xmm0, %xmm2
+	punpckldq	%xmm1, %xmm2    # xmm2 = xmm2[0],xmm1[0],xmm2[1],xmm1[1]
+	pshufd	$164, %xmm6, %xmm1      # xmm1 = xmm6[0,1,2,2]
+	punpckhdq	%xmm7, %xmm1    # xmm1 = xmm1[2],xmm7[2],xmm1[3],xmm7[3]
+	movsd	%xmm2, %xmm1            # xmm1 = xmm2[0],xmm1[1]
+	movupd	%xmm1, -64(%rax)
+	pshufd	$229, %xmm6, %xmm1      # xmm1 = xmm6[1,1,2,3]
+	movdqa	%xmm4, %xmm2
+	punpckldq	%xmm1, %xmm2    # xmm2 = xmm2[0],xmm1[0],xmm2[1],xmm1[1]
+	pshufd	$164, %xmm7, %xmm1      # xmm1 = xmm7[0,1,2,2]
+	punpckhdq	%xmm0, %xmm1    # xmm1 = xmm1[2],xmm0[2],xmm1[3],xmm0[3]
+	movsd	%xmm2, %xmm1            # xmm1 = xmm2[0],xmm1[1]
+	movupd	%xmm1, -16(%rax)
+	pshufd	$229, %xmm7, %xmm1      # xmm1 = xmm7[1,1,2,3]
+	movdqa	%xmm6, %xmm2
+	punpckldq	%xmm1, %xmm2    # xmm2 = xmm2[0],xmm1[0],xmm2[1],xmm1[1]
+	pshufd	$164, %xmm0, %xmm1      # xmm1 = xmm0[0,1,2,2]
+	punpckhdq	%xmm4, %xmm1    # xmm1 = xmm1[2],xmm4[2],xmm1[3],xmm4[3]
+	movsd	%xmm2, %xmm1            # xmm1 = xmm2[0],xmm1[1]
+	movupd	%xmm1, -32(%rax)
+	pshufd	$229, %xmm0, %xmm1      # xmm1 = xmm0[1,1,2,3]
+	punpckldq	%xmm1, %xmm7    # xmm7 = xmm7[0],xmm1[0],xmm7[1],xmm1[1]
+	pshufd	$164, %xmm4, %xmm1      # xmm1 = xmm4[0,1,2,2]
+	punpckhdq	%xmm6, %xmm1    # xmm1 = xmm1[2],xmm6[2],xmm1[3],xmm6[3]
+	movsd	%xmm7, %xmm1            # xmm1 = xmm7[0],xmm1[1]
+	movupd	%xmm1, -48(%rax)
+	movd	%xmm0, %eax
 	xorb	(%r9), %al
 	movb	%al, (%r11)
 	cmpq	$1, %r10
-	je	.LBB3_23
+	je	.LBB3_27
 # %bb.9:                                # %._crit_edge12.i.lr.ph
-	leaq	-1(%rdx), %rdi
-	movq	%rdi, %r14
-	subq	%r8, %r14
-	cmpq	$128, %r14
+	leaq	-1(%rdx), %r10
+	movq	%r10, %r15
+	subq	%r8, %r15
+	cmpq	$32, %r15
 	jb	.LBB3_10
 # %bb.11:                               # %vector.memcheck
 	movq	%r8, %rax
 	orq	$1, %rax
-	leaq	(%rcx,%rax), %r10
+	leaq	(%rcx,%rax), %rdi
 	leaq	(%rsi,%rdx), %rbx
-	cmpq	%rbx, %r10
+	cmpq	%rbx, %rdi
 	jae	.LBB3_14
 # %bb.12:                               # %vector.memcheck
-	leaq	(%rcx,%rdx), %rbx
+	leaq	(%rcx,%rdx), %rdi
 	addq	%rsi, %rax
-	cmpq	%rbx, %rax
+	cmpq	%rdi, %rax
 	jae	.LBB3_14
 .LBB3_10:
-	movl	$1, %r10d
-.LBB3_17:                               # %._crit_edge12.i.preheader
-	movl	%edx, %ebx
-	subl	%r10d, %ebx
-	subq	%r10, %rdi
-	subq	%r8, %rdi
-	andq	$3, %rbx
-	je	.LBB3_20
-# %bb.18:                               # %._crit_edge12.i.prol.preheader
-	negq	%rbx
+	movl	$1, %eax
+.LBB3_21:                               # %._crit_edge12.i.preheader
+	movl	%edx, %edi
+	subl	%eax, %edi
+	subq	%rax, %r10
+	subq	%r8, %r10
+	andq	$3, %rdi
+	je	.LBB3_24
+# %bb.22:                               # %._crit_edge12.i.prol.preheader
+	negq	%rdi
 	.p2align	4, 0x90
-.LBB3_19:                               # %._crit_edge12.i.prol
+.LBB3_23:                               # %._crit_edge12.i.prol
                                         # =>This Inner Loop Header: Depth=1
-	movzbl	(%r9,%r10), %eax
-	xorb	(%r12,%r10), %al
-	movb	%al, (%r11,%r10)
-	addq	$1, %r10
-	addq	$1, %rbx
-	jne	.LBB3_19
-.LBB3_20:                               # %._crit_edge12.i.prol.loopexit
-	cmpq	$3, %rdi
-	jb	.LBB3_23
-# %bb.21:                               # %._crit_edge12.i.preheader.new
-	subq	%r10, %rdx
+	movzbl	(%r9,%rax), %ebx
+	xorb	(%r12,%rax), %bl
+	movb	%bl, (%r11,%rax)
+	addq	$1, %rax
+	addq	$1, %rdi
+	jne	.LBB3_23
+.LBB3_24:                               # %._crit_edge12.i.prol.loopexit
+	cmpq	$3, %r10
+	jb	.LBB3_27
+# %bb.25:                               # %._crit_edge12.i.preheader.new
+	subq	%rax, %rdx
 	subq	%r8, %rdx
-	addq	%r10, %r8
+	addq	%rax, %r8
 	addq	%r8, %rsi
 	addq	$3, %rsi
-	leaq	(%rcx,%r8), %rdi
-	addq	$3, %rdi
-	leaq	(%r12,%r10), %rax
+	addq	%r8, %rcx
+	addq	$3, %rcx
+	addq	%r12, %rax
 	addq	$3, %rax
-	xorl	%ebx, %ebx
+	xorl	%edi, %edi
 	.p2align	4, 0x90
-.LBB3_22:                               # %._crit_edge12.i
+.LBB3_26:                               # %._crit_edge12.i
                                         # =>This Inner Loop Header: Depth=1
-	movzbl	-3(%rsi,%rbx), %ecx
-	xorb	-3(%rax,%rbx), %cl
-	movb	%cl, -3(%rdi,%rbx)
-	movzbl	-2(%rsi,%rbx), %ecx
-	xorb	-2(%rax,%rbx), %cl
-	movb	%cl, -2(%rdi,%rbx)
-	movzbl	-1(%rsi,%rbx), %ecx
-	xorb	-1(%rax,%rbx), %cl
-	movb	%cl, -1(%rdi,%rbx)
-	movzbl	(%rsi,%rbx), %ecx
-	xorb	(%rax,%rbx), %cl
-	movb	%cl, (%rdi,%rbx)
-	addq	$4, %rbx
-	cmpq	%rbx, %rdx
-	jne	.LBB3_22
-	jmp	.LBB3_23
+	movzbl	-3(%rsi,%rdi), %ebx
+	xorb	-3(%rax,%rdi), %bl
+	movb	%bl, -3(%rcx,%rdi)
+	movzbl	-2(%rsi,%rdi), %ebx
+	xorb	-2(%rax,%rdi), %bl
+	movb	%bl, -2(%rcx,%rdi)
+	movzbl	-1(%rsi,%rdi), %ebx
+	xorb	-1(%rax,%rdi), %bl
+	movb	%bl, -1(%rcx,%rdi)
+	movzbl	(%rsi,%rdi), %ebx
+	xorb	(%rax,%rdi), %bl
+	movb	%bl, (%rcx,%rdi)
+	addq	$4, %rdi
+	cmpq	%rdi, %rdx
+	jne	.LBB3_26
+	jmp	.LBB3_27
 .LBB3_14:                               # %vector.ph
-	movq	%rdi, %rax
-	movq	%r14, %r15
-	andq	$-128, %r15
-	leaq	1(%r15), %r10
-	leaq	(%rcx,%r8), %r13
-	addq	$97, %r13
-	leaq	(%rsi,%r8), %rdi
-	addq	$97, %rdi
-	xorl	%ebx, %ebx
+	movq	%r15, %rax
+	andq	$-32, %rax
+	leaq	-32(%rax), %rdi
+	movq	%rdi, %rbx
+	shrq	$5, %rbx
+	leal	1(%rbx), %r14d
+	andl	$1, %r14d
+	testq	%rdi, %rdi
+	je	.LBB3_29
+# %bb.15:                               # %vector.ph.new
+	leaq	-1(%r14), %rdi
+	subq	%rbx, %rdi
+	movl	$1, %ebx
 	.p2align	4, 0x90
-.LBB3_15:                               # %vector.body
+.LBB3_16:                               # %vector.body
                                         # =>This Inner Loop Header: Depth=1
-	vmovups	-96(%rdi,%rbx), %ymm0
-	vmovups	-64(%rdi,%rbx), %ymm1
-	vmovups	-32(%rdi,%rbx), %ymm2
-	vmovups	(%rdi,%rbx), %ymm3
-	vxorps	1(%r12,%rbx), %ymm0, %ymm0
-	vxorps	33(%r12,%rbx), %ymm1, %ymm1
-	vxorps	65(%r12,%rbx), %ymm2, %ymm2
-	vxorps	97(%r12,%rbx), %ymm3, %ymm3
-	vmovups	%ymm0, -96(%r13,%rbx)
-	vmovups	%ymm1, -64(%r13,%rbx)
-	vmovups	%ymm2, -32(%r13,%rbx)
-	vmovups	%ymm3, (%r13,%rbx)
-	subq	$-128, %rbx
-	cmpq	%rbx, %r15
-	jne	.LBB3_15
-# %bb.16:                               # %middle.block
-	cmpq	%r15, %r14
-	movq	%rax, %rdi
-	jne	.LBB3_17
-.LBB3_23:                               # %._crit_edge.i
-	vpxor	%xmm0, %xmm0, %xmm0
-	vmovdqu	%ymm0, 32(%r12)
-	vmovdqu	%ymm0, (%r12)
-.LBB3_24:                               # %_u0.exit
-	leaq	-40(%rbp), %rsp
+	movups	(%r12,%rbx), %xmm0
+	movups	16(%r12,%rbx), %xmm1
+	movups	(%r9,%rbx), %xmm2
+	xorps	%xmm0, %xmm2
+	movups	16(%r9,%rbx), %xmm0
+	xorps	%xmm1, %xmm0
+	movups	%xmm2, (%r11,%rbx)
+	movups	%xmm0, 16(%r11,%rbx)
+	movupd	32(%r12,%rbx), %xmm0
+	movdqu	48(%r12,%rbx), %xmm1
+	movupd	32(%r9,%rbx), %xmm2
+	xorpd	%xmm0, %xmm2
+	movdqu	48(%r9,%rbx), %xmm0
+	pxor	%xmm1, %xmm0
+	movupd	%xmm2, 32(%r11,%rbx)
+	movdqu	%xmm0, 48(%r11,%rbx)
+	addq	$64, %rbx
+	addq	$2, %rdi
+	jne	.LBB3_16
+# %bb.17:                               # %middle.block.unr-lcssa
+	testq	%r14, %r14
+	je	.LBB3_19
+.LBB3_18:                               # %vector.body.epil
+	movupd	(%r12,%rbx), %xmm0
+	movdqu	16(%r12,%rbx), %xmm1
+	movupd	(%r9,%rbx), %xmm2
+	xorpd	%xmm0, %xmm2
+	movdqu	16(%r9,%rbx), %xmm0
+	pxor	%xmm1, %xmm0
+	movupd	%xmm2, (%r11,%rbx)
+	movdqu	%xmm0, 16(%r11,%rbx)
+.LBB3_19:                               # %middle.block
+	cmpq	%rax, %r15
+	jne	.LBB3_20
+.LBB3_27:                               # %._crit_edge.i
+	pxor	%xmm0, %xmm0
+	movdqu	%xmm0, 48(%r12)
+	movdqu	%xmm0, 32(%r12)
+	movdqu	%xmm0, 16(%r12)
+	movdqu	%xmm0, (%r12)
+.LBB3_28:                               # %_u0.exit
+	leaq	-32(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
-	popq	%r13
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
+.LBB3_20:
+	orq	$1, %rax
+	jmp	.LBB3_21
+.LBB3_29:
+	movl	$1, %ebx
+	testq	%r14, %r14
+	jne	.LBB3_18
+	jmp	.LBB3_19
 .Lfunc_end3:
 	.size	u0, .Lfunc_end3-u0
                                         # -- End function
@@ -947,8 +1065,8 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movl	%esi, -28(%rbx)
 	movl	28(%r9), %esi
 	movl	%esi, -8(%rbx)
-	vmovaps	.LCPI4_0(%rip), %xmm0   # xmm0 = [1634760805,857760878,2036477234,1797285236]
-	vmovaps	%xmm0, -64(%rbx)
+	movaps	.LCPI4_0(%rip), %xmm0   # xmm0 = [1634760805,857760878,2036477234,1797285236]
+	movaps	%xmm0, -64(%rbx)
 	movl	(%r8), %esi
 	movl	%esi, -40(%rbx)
 	movl	4(%r8), %esi
@@ -960,23 +1078,24 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movq	%rax, %rcx
 	movq	%r10, %r8
 	callq	u0
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, -32(%rbx)
-	vmovups	%ymm0, -64(%rbx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, -16(%rbx)
+	movups	%xmm0, -32(%rbx)
+	movups	%xmm0, -48(%rbx)
+	movups	%xmm0, -64(%rbx)
 	leaq	-8(%rbp), %rsp
 	popq	%rbx
 	popq	%rbp
-	vzeroupper
 	retq
 .LBB4_1:
 	retq
 .Lfunc_end4:
 	.size	_crypto_stream_salsa20_xor_ic, .Lfunc_end4-_crypto_stream_salsa20_xor_ic
                                         # -- End function
-	.section	.rodata.cst32,"aM",@progbits,32
-	.p2align	5               # -- Begin function _crypto_secretbox
+	.section	.rodata.cst16,"aM",@progbits,16
+	.p2align	4               # -- Begin function _crypto_secretbox
 .LCPI5_0:
-	.zero	32
+	.zero	16
 	.text
 	.globl	_crypto_secretbox
 	.p2align	4, 0x90
@@ -984,14 +1103,12 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 _crypto_secretbox:                      # @_crypto_secretbox
 # %bb.0:                                # %entry
 	pushq	%rbp
-	movq	%rsp, %rbp
 	pushq	%r15
 	pushq	%r14
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	andq	$-32, %rsp
-	subq	$64, %rsp
+	subq	$40, %rsp
 	movq	%r8, %rbx
 	movq	%rcx, %r12
 	movq	%rdx, %r13
@@ -1003,12 +1120,13 @@ _crypto_secretbox:                      # @_crypto_secretbox
 	xorl	%eax, %eax
 	jmp	.LBB5_3
 .LBB5_2:                                # %.loopexit.loopexit.i
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, (%rsp)
-	movq	%rsp, %rdi
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 16(%rsp)
+	movaps	%xmm0, (%rsp)
+	movq	%rsp, %rbp
+	movq	%rbp, %rdi
 	movq	%rbx, %rsi
 	movq	%r9, %rdx
-	vzeroupper
 	callq	_crypto_core_hsalsa20
 	addq	$16, %rbx
 	movq	%r15, %rdi
@@ -1016,23 +1134,23 @@ _crypto_secretbox:                      # @_crypto_secretbox
 	movq	%r13, %rdx
 	movq	%r12, %rcx
 	movq	%rbx, %r8
-	movq	%rsp, %r9
+	movq	%rbp, %r9
 	callq	_crypto_stream_salsa20_xor_ic
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, (%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 16(%rsp)
+	movaps	%xmm0, (%rsp)
 	leaq	16(%r15), %rdi
 	addq	$-32, %r14
 	leaq	32(%r15), %rsi
 	movq	%r14, %rdx
 	movq	%r15, %rcx
-	vzeroupper
 	callq	_crypto_onetimeauth_poly1305
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%xmm0, (%r15)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%r15)
 	movb	$1, %al
 .LBB5_3:                                # %_crypto_secretbox_xsalsa20poly1305.exit
                                         # kill: def %al killed %al killed %eax
-	leaq	-40(%rbp), %rsp
+	addq	$40, %rsp
 	popq	%rbx
 	popq	%r12
 	popq	%r13
@@ -1050,10 +1168,6 @@ _crypto_secretbox:                      # @_crypto_secretbox
 	.long	857760878               # 0x3320646e
 	.long	2036477234              # 0x79622d32
 	.long	1797285236              # 0x6b206574
-	.section	.rodata.cst32,"aM",@progbits,32
-	.p2align	5
-.LCPI6_1:
-	.zero	32
 	.text
 	.p2align	4, 0x90
 	.type	_crypto_secretbox_xsalsa20poly1305_open,@function
@@ -1066,102 +1180,102 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	andq	$-32, %rsp
-	subq	$192, %rsp
-	movq	%rsp, %rbx
+	subq	$152, %rsp
+	movq	%rcx, %rbx
 	movq	%rdx, %r12
-	xorl	%r13d, %r13d
-	cmpq	$31, %rcx
+	xorl	%r14d, %r14d
+	cmpq	$31, %rbx
 	jbe	.LBB6_6
 # %bb.1:
-	movq	%rsi, 136(%rbx)         # 8-byte Spill
-	movq	%rdi, 144(%rbx)         # 8-byte Spill
-	movq	%rcx, 160(%rbx)         # 8-byte Spill
-	movq	%rsp, %rax
-	movq	%rax, 152(%rbx)         # 8-byte Spill
-	leaq	-32(%rax), %r15
-	movq	%r15, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, (%rbx)
-	movq	%rbx, %rdi
+	movq	%rsi, -176(%rbp)        # 8-byte Spill
+	movq	%rdi, -184(%rbp)        # 8-byte Spill
+	movq	%rsp, %r15
+	leaq	-32(%r15), %rax
+	movq	%rax, -192(%rbp)        # 8-byte Spill
+	movq	%rax, %rsp
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, -64(%rbp)
+	movaps	%xmm0, -80(%rbp)
+	leaq	-80(%rbp), %rdi
 	movq	%r8, %rsi
-	movq	%r9, 128(%rbx)          # 8-byte Spill
+	movq	%r9, -168(%rbp)         # 8-byte Spill
 	movq	%r9, %rdx
-	movq	%r8, %r14
-	vzeroupper
+	movq	%r8, %r13
 	callq	_crypto_core_hsalsa20
-	movl	(%rbx), %eax
-	movl	4(%rbx), %ecx
-	movl	%eax, 52(%rbx)
-	movl	%ecx, 72(%rbx)
-	movl	8(%rbx), %eax
-	movl	%eax, 92(%rbx)
-	movl	12(%rbx), %eax
-	movl	%eax, 80(%rbx)
-	movl	16(%rbx), %eax
-	movl	%eax, 60(%rbx)
-	movl	20(%rbx), %eax
-	movl	%eax, 48(%rbx)
-	movl	24(%rbx), %eax
-	movl	%eax, 68(%rbx)
-	movl	28(%rbx), %eax
-	movl	%eax, 88(%rbx)
-	vmovaps	.LCPI6_0(%rip), %xmm0   # xmm0 = [1634760805,857760878,2036477234,1797285236]
-	vmovaps	%xmm0, 32(%rbx)
-	movl	16(%r14), %eax
-	movl	%eax, 56(%rbx)
-	leaq	16(%r14), %rax
-	movq	%rax, 112(%rbx)         # 8-byte Spill
-	movq	%r14, 120(%rbx)         # 8-byte Spill
-	movl	20(%r14), %eax
-	movl	%eax, 76(%rbx)
-	movl	$0, 64(%rbx)
-	movl	$0, 84(%rbx)
-	movq	152(%rbx), %rax         # 8-byte Reload
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, -32(%rax)
-	movq	160(%rbx), %r14         # 8-byte Reload
-	leaq	32(%rbx), %rdi
+	movl	-80(%rbp), %eax
+	movl	-76(%rbp), %ecx
+	movl	%eax, -124(%rbp)
+	movl	%ecx, -104(%rbp)
+	movl	-72(%rbp), %eax
+	movl	%eax, -84(%rbp)
+	movl	-68(%rbp), %eax
+	movl	%eax, -96(%rbp)
+	movl	-64(%rbp), %eax
+	movl	%eax, -116(%rbp)
+	movl	-60(%rbp), %eax
+	movl	%eax, -128(%rbp)
+	movl	-56(%rbp), %eax
+	movl	%eax, -108(%rbp)
+	movl	-52(%rbp), %eax
+	movl	%eax, -88(%rbp)
+	leaq	16(%r13), %rax
+	movq	%rax, -152(%rbp)        # 8-byte Spill
+	movaps	.LCPI6_0(%rip), %xmm0   # xmm0 = [1634760805,857760878,2036477234,1797285236]
+	movaps	%xmm0, -144(%rbp)
+	movl	16(%r13), %eax
+	movl	%eax, -120(%rbp)
+	movq	%r13, -160(%rbp)        # 8-byte Spill
+	movl	20(%r13), %eax
+	movl	%eax, -100(%rbp)
+	movl	$0, -112(%rbp)
+	movl	$0, -92(%rbp)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, -32(%r15)
+	movups	%xmm0, -16(%r15)
+	leaq	-144(%rbp), %rdi
 	movl	$32, %edx
 	movl	$32, %r8d
-	movq	%r15, %rsi
-	movq	%r15, %rcx
-	vzeroupper
+	movq	-192(%rbp), %r13        # 8-byte Reload
+	movq	%r13, %rsi
+	movq	%r13, %rcx
 	callq	u0
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 64(%rbx)
-	vmovaps	%ymm0, 32(%rbx)
-	vmovaps	%ymm0, (%rbx)
-	leaq	-32(%r14), %rdx
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, -96(%rbp)
+	movaps	%xmm0, -112(%rbp)
+	movaps	%xmm0, -128(%rbp)
+	movaps	%xmm0, -144(%rbp)
+	movaps	%xmm0, -64(%rbp)
+	movaps	%xmm0, -80(%rbp)
+	xorps	%xmm0, %xmm0
+	movq	%rbx, %r15
+	leaq	-32(%rbx), %rdx
 	leaq	32(%r12), %rsi
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%xmm0, 32(%rbx)
-	leaq	32(%rbx), %rdi
-	movq	%r15, %rcx
-	vzeroupper
+	movaps	%xmm0, -144(%rbp)
+	leaq	-144(%rbp), %rdi
+	movq	%r13, %rcx
 	callq	_crypto_onetimeauth_poly1305
 	movb	$1, %cl
-	movq	$-16, %rsi
+	movq	$-16, %rdx
 	xorl	%eax, %eax
 	.p2align	4, 0x90
 .LBB6_2:                                # =>This Inner Loop Header: Depth=1
-	movzbl	32(%r12,%rsi), %edx
-	cmpb	48(%rbx,%rsi), %dl
-	setne	%dl
-	andb	%cl, %dl
+	movzbl	32(%r12,%rdx), %ebx
+	cmpb	-128(%rbp,%rdx), %bl
+	setne	%bl
+	andb	%cl, %bl
 	#APP
-	testb	%dl, %dl
-	cmovnel	%r13d, %eax
+	testb	%bl, %bl
+	cmovnel	%r14d, %eax
 	#NO_APP
 	andl	$1, %eax
 	andb	$1, %cl
 	movzbl	%cl, %ecx
 	#APP
-	testb	%dl, %dl
-	cmovnel	%r13d, %ecx
+	testb	%bl, %bl
+	cmovnel	%r14d, %ecx
 	#NO_APP
 	andl	$1, %ecx
-	addq	$1, %rsi
+	addq	$1, %rdx
 	jne	.LBB6_2
 # %bb.3:                                # %_crypto_onetimeauth_poly1305_verify.exit
 	testl	%ecx, %ecx
@@ -1174,31 +1288,33 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	testb	$1, %al
 	jne	.LBB6_5
 # %bb.4:
-	xorl	%r13d, %r13d
+	xorl	%r14d, %r14d
 	jmp	.LBB6_6
 .LBB6_5:                                # %.loopexit.loopexit
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, (%rbx)
-	movq	%rbx, %r15
-	movq	%r15, %rdi
-	movq	120(%rbx), %rsi         # 8-byte Reload
-	movq	128(%rbx), %rdx         # 8-byte Reload
-	vzeroupper
-	callq	_crypto_core_hsalsa20
-	movq	%r14, %rcx
-	movq	144(%rbx), %r14         # 8-byte Reload
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, -64(%rbp)
+	movaps	%xmm0, -80(%rbp)
+	leaq	-80(%rbp), %r14
 	movq	%r14, %rdi
-	movq	136(%rbx), %rsi         # 8-byte Reload
+	movq	-160(%rbp), %rsi        # 8-byte Reload
+	movq	-168(%rbp), %rdx        # 8-byte Reload
+	callq	_crypto_core_hsalsa20
+	movq	-184(%rbp), %rbx        # 8-byte Reload
+	movq	%rbx, %rdi
+	movq	-176(%rbp), %rsi        # 8-byte Reload
 	movq	%r12, %rdx
-	movq	112(%rbx), %r8          # 8-byte Reload
-	movq	%r15, %r9
+	movq	%r15, %rcx
+	movq	-152(%rbp), %r8         # 8-byte Reload
+	movq	%r14, %r9
 	callq	_crypto_stream_salsa20_xor_ic
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, (%rbx)
-	vmovups	%ymm0, (%r14)
-	movb	$1, %r13b
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, -64(%rbp)
+	movaps	%xmm0, -80(%rbp)
+	movups	%xmm0, 16(%rbx)
+	movups	%xmm0, (%rbx)
+	movb	$1, %r14b
 .LBB6_6:                                # %.loopexit
-	movl	%r13d, %eax
+	movl	%r14d, %eax
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
@@ -1206,7 +1322,6 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .Lfunc_end6:
 	.size	_crypto_secretbox_xsalsa20poly1305_open, .Lfunc_end6-_crypto_secretbox_xsalsa20poly1305_open

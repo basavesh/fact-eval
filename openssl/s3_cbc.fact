@@ -4,7 +4,6 @@ extern void _md_final_raw(secret mut uint8[216] ctx, secret uint8[] input); // `
 export secret int32 __ssl3_cbc_digest_record(
     secret mut uint8[216] md_state,
     secret mut uint8[64] mac_out,
-    secret mut uint8[128] hmac_pad, // `MAX_HASH_BLOCK_SIZE`
     /* ~~~ */
     secret uint8[] header,
     secret uint8[] data,

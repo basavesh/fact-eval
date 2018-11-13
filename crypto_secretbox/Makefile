@@ -8,15 +8,15 @@ FINAL := crypto_secretbox.fact
 CREF_SRC := $(BASE) $(SALSA20) $(FINAL)
 ASM_SRC := $(BASE) $(AVX) $(FINAL)
 
+FFLAGS = -addl "-mretpoline -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow -fstack-protector"
+
 all:
 
 generate:
-	$(FACTC) -llvm-out -generate-header $(CREF_SRC) -o crypto_secretbox.cref.o
-	$(FACTC) -llvm-out -generate-header -opt O2 $(CREF_SRC) -o crypto_secretbox.cref.O2.o
-	$(FACTC) -llvm-out -generate-header -opt O2 -fpic $(CREF_SRC) -o crypto_secretbox.cref.O2.fpic.o
-	$(FACTC) -llvm-out -generate-header $(ASM_SRC) -o crypto_secretbox.asm.o
-	$(FACTC) -llvm-out -generate-header -opt O2 $(ASM_SRC) -o crypto_secretbox.asm.O2.o
-	$(FACTC) -llvm-out -generate-header -opt O2 -fpic $(ASM_SRC) -o crypto_secretbox.asm.O2.fpic.o
+	$(FACTC) -llvm-out -generate-header $(FFLAGS) $(CREF_SRC) -o crypto_secretbox.cref.o
+	$(FACTC) -llvm-out -generate-header $(FFLAGS) -opt O2 $(CREF_SRC) -o crypto_secretbox.cref.O2.o
+	$(FACTC) -llvm-out -generate-header $(FFLAGS) $(ASM_SRC) -o crypto_secretbox.asm.o
+	$(FACTC) -llvm-out -generate-header $(FFLAGS) -opt O2 $(ASM_SRC) -o crypto_secretbox.asm.O2.o
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
 

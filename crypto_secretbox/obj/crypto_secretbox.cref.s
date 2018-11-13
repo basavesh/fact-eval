@@ -1291,10 +1291,13 @@ _poly1305_finish:                       # @_poly1305_finish
 	movq	%rax, (%rcx)
 	movq	(%r10), %rax
 	movq	%rax, 8(%rcx)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 64(%rdx)
-	vmovups	%ymm0, 32(%rdx)
-	vmovups	%ymm0, (%rdx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 80(%rdx)
+	movups	%xmm0, 64(%rdx)
+	movups	%xmm0, 48(%rdx)
+	movups	%xmm0, 32(%rdx)
+	movups	%xmm0, 16(%rdx)
+	movups	%xmm0, (%rdx)
 	leaq	-40(%rbp), %rsp
 	popq	%rbx
 	popq	%r12
@@ -1302,7 +1305,6 @@ _poly1305_finish:                       # @_poly1305_finish
 	popq	%r14
 	popq	%r15
 	popq	%rbp
-	vzeroupper
 	retq
 .LBB3_4:                                # =>This Inner Loop Header: Depth=1
 	movq	-72(%rbp), %rax         # 8-byte Reload
@@ -1549,8 +1551,8 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	leaq	88(%rsp), %r9
 	movl	$0, 212(%rsp)
 	movb	$1, 211(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqu	%xmm0, (%r9)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%r9)
 	movq	$0, 16(%r9)
 	movq	88(%rsp), %r9
 	movq	%r9, 112(%rsp)
@@ -1558,8 +1560,8 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movq	%r9, 120(%rsp)
 	movq	104(%rsp), %r9
 	movq	%r9, 128(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqu	%xmm0, (%r8)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%r8)
 	movq	$0, 16(%r8)
 	movq	64(%rsp), %r8
 	movq	%r8, 136(%rsp)
@@ -1567,15 +1569,15 @@ _crypto_onetimeauth_poly1305:           # @_crypto_onetimeauth_poly1305
 	movq	%r8, 144(%rsp)
 	movq	80(%rsp), %r8
 	movq	%r8, 152(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqu	%xmm0, (%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rax)
 	movq	48(%rsp), %rax
 	movq	%rax, 160(%rsp)
 	movq	56(%rsp), %rax
 	movq	%rax, 168(%rsp)
 	movq	$0, 176(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqa	%xmm0, 32(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 32(%rsp)
 	movq	32(%rsp), %rax
 	movq	%rax, 184(%rsp)
 	movq	40(%rsp), %rax
@@ -1701,8 +1703,8 @@ _crypto_onetimeauth_poly1305_verify:    # @_crypto_onetimeauth_poly1305_verify
 	.cfi_def_cfa_offset 64
 	movb	$0, 55(%rsp)
 	movb	$1, 54(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovdqa	%xmm0, 32(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 32(%rsp)
 	leaq	32(%rsp), %rax
 	movq	%rdi, 24(%rsp)          # 8-byte Spill
 	movq	%rax, %rdi
@@ -1762,13 +1764,15 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	addq	$-32, %rdi
 	movq	%rdi, %rsp
 	movq	-16(%rbp), %r8          # 8-byte Reload
-	vmovups	(%r8), %ymm0
-	vmovups	%ymm0, -32(%rcx)
+	movups	(%r8), %xmm0
+	movups	16(%r8), %xmm1
+	movups	%xmm1, -16(%rcx)
+	movups	%xmm0, -32(%rcx)
 	movq	%rsp, %rcx
 	addq	$-16, %rcx
 	movq	%rcx, %rsp
-	vxorps	%xmm1, %xmm1, %xmm1
-	vmovdqu	%xmm1, (%rcx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rcx)
 	movq	%rcx, -64(%rbp)         # 8-byte Spill
 	movq	%rdx, -72(%rbp)         # 8-byte Spill
 	movq	%rdi, -80(%rbp)         # 8-byte Spill
@@ -1827,9 +1831,11 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movq	%rsp, %rsi
 	addq	$-64, %rsi
 	movq	%rsi, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%rsi)
-	vmovups	%ymm0, (%rsi)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%rsi)
+	movups	%xmm0, 32(%rsi)
+	movups	%xmm0, 16(%rsi)
+	movups	%xmm0, (%rsi)
 	movq	%rsi, -104(%rbp)        # 8-byte Spill
 	movq	%rdx, -112(%rbp)        # 8-byte Spill
 	movq	%rcx, -120(%rbp)        # 8-byte Spill
@@ -1845,7 +1851,6 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movq	-104(%rbp), %rdi        # 8-byte Reload
 	movq	-64(%rbp), %rsi         # 8-byte Reload
 	movq	-80(%rbp), %rdx         # 8-byte Reload
-	vzeroupper
 	callq	_crypto_core_salsa20
 	xorl	%eax, %eax
 	movq	-128(%rbp), %rdx        # 8-byte Reload
@@ -1945,7 +1950,6 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	movq	-64(%rbp), %rsi         # 8-byte Reload
 	movq	-80(%rbp), %rdx         # 8-byte Reload
 	movq	%rcx, -176(%rbp)        # 8-byte Spill
-	vzeroupper
 	callq	_crypto_core_salsa20
 	xorl	%r8d, %r8d
 	movl	%r8d, %eax
@@ -1965,16 +1969,18 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 	jmp	.LBB9_26
 .LBB9_26:
 	xorl	%eax, %eax
-	vxorps	%xmm0, %xmm0, %xmm0
+	xorps	%xmm0, %xmm0
 	movq	-104(%rbp), %rcx        # 8-byte Reload
-	vmovups	%ymm0, 32(%rcx)
-	vmovups	%ymm0, (%rcx)
-	vxorps	%xmm0, %xmm0, %xmm0
+	movups	%xmm0, 48(%rcx)
+	movups	%xmm0, 32(%rcx)
+	movups	%xmm0, 16(%rcx)
+	movups	%xmm0, (%rcx)
+	xorps	%xmm0, %xmm0
 	movq	-80(%rbp), %rdx         # 8-byte Reload
-	vmovups	%ymm0, (%rdx)
+	movups	%xmm0, 16(%rdx)
+	movups	%xmm0, (%rdx)
 	movq	%rbp, %rsp
 	popq	%rbp
-	vzeroupper
 	retq
 .LBB9_27:                               # =>This Inner Loop Header: Depth=1
 	movq	-200(%rbp), %rax        # 8-byte Reload
@@ -2006,18 +2012,14 @@ _crypto_stream_salsa20_xor_ic:          # @_crypto_stream_salsa20_xor_ic
 _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	.cfi_startproc
 # %bb.0:                                # %entry
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	andq	$-32, %rsp
-	subq	$128, %rsp
-	movq	16(%rbp), %rax
-	movl	$0, 108(%rsp)
-	movb	$1, 107(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 64(%rsp)
+	subq	$104, %rsp
+	.cfi_def_cfa_offset 112
+	movq	112(%rsp), %rax
+	movl	$0, 100(%rsp)
+	movb	$1, 99(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 80(%rsp)
+	movaps	%xmm0, 64(%rsp)
 	leaq	64(%rsp), %r10
 	movq	%rdi, 56(%rsp)          # 8-byte Spill
 	movq	%r10, %rdi
@@ -2028,7 +2030,6 @@ _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	movq	%rcx, 32(%rsp)          # 8-byte Spill
 	movq	%r9, 24(%rsp)           # 8-byte Spill
 	movq	%r8, 16(%rsp)           # 8-byte Spill
-	vzeroupper
 	callq	_crypto_core_hsalsa20
 	movq	16(%rsp), %rax          # 8-byte Reload
 	addq	$16, %rax
@@ -2042,11 +2043,10 @@ _crypto_stream_xsalsa20_xor_ic:         # @_crypto_stream_xsalsa20_xor_ic
 	movq	%rax, %r8
 	movq	24(%rsp), %r9           # 8-byte Reload
 	callq	_crypto_stream_salsa20_xor_ic
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 64(%rsp)
-	movq	%rbp, %rsp
-	popq	%rbp
-	vzeroupper
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 80(%rsp)
+	movaps	%xmm0, 64(%rsp)
+	addq	$104, %rsp
 	retq
 .Lfunc_end10:
 	.size	_crypto_stream_xsalsa20_xor_ic, .Lfunc_end10-_crypto_stream_xsalsa20_xor_ic
@@ -2193,13 +2193,15 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	addq	$-32, %rdx
 	movq	%rdx, %rsp
 	movq	-40(%rbp), %rsi         # 8-byte Reload
-	vmovups	(%rsi), %ymm0
-	vmovups	%ymm0, -32(%rcx)
+	movups	(%rsi), %xmm0
+	movups	16(%rsi), %xmm1
+	movups	%xmm1, -16(%rcx)
+	movups	%xmm0, -32(%rcx)
 	movq	%rsp, %rcx
 	addq	$-16, %rcx
 	movq	%rcx, %rsp
-	vxorps	%xmm1, %xmm1, %xmm1
-	vmovdqu	%xmm1, (%rcx)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, (%rcx)
 	movq	%rcx, -48(%rbp)         # 8-byte Spill
 	movq	%rdx, -56(%rbp)         # 8-byte Spill
 	movl	%eax, -60(%rbp)         # 4-byte Spill
@@ -2248,7 +2250,6 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	movq	-56(%rbp), %rdx         # 8-byte Reload
 	movl	%eax, -80(%rbp)         # 4-byte Spill
-	vzeroupper
 	callq	_crypto_core_salsa20
 	movq	%rsp, %rdx
 	addq	$-16, %rdx
@@ -2267,9 +2268,11 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	movq	%rsp, %rax
 	addq	$-64, %rax
 	movq	%rax, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, 32(%rax)
-	vmovups	%ymm0, (%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 48(%rax)
+	movups	%xmm0, 32(%rax)
+	movups	%xmm0, 16(%rax)
+	movups	%xmm0, (%rax)
 	movl	-68(%rbp), %ecx         # 4-byte Reload
 	shll	$6, %ecx
 	movl	%ecx, %ecx
@@ -2314,7 +2317,6 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	movq	-104(%rbp), %rdi        # 8-byte Reload
 	movq	-48(%rbp), %rsi         # 8-byte Reload
 	movq	-56(%rbp), %rdx         # 8-byte Reload
-	vzeroupper
 	callq	_crypto_core_salsa20
 	xorl	%eax, %eax
 	movl	-68(%rbp), %ecx         # 4-byte Reload
@@ -2338,16 +2340,18 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 	jmp	.LBB14_18
 .LBB14_18:
 	xorl	%eax, %eax
-	vxorps	%xmm0, %xmm0, %xmm0
+	xorps	%xmm0, %xmm0
 	movq	-104(%rbp), %rcx        # 8-byte Reload
-	vmovups	%ymm0, 32(%rcx)
-	vmovups	%ymm0, (%rcx)
-	vxorps	%xmm0, %xmm0, %xmm0
+	movups	%xmm0, 48(%rcx)
+	movups	%xmm0, 32(%rcx)
+	movups	%xmm0, 16(%rcx)
+	movups	%xmm0, (%rcx)
+	xorps	%xmm0, %xmm0
 	movq	-56(%rbp), %rdx         # 8-byte Reload
-	vmovups	%ymm0, (%rdx)
+	movups	%xmm0, 16(%rdx)
+	movups	%xmm0, (%rdx)
 	movq	%rbp, %rsp
 	popq	%rbp
-	vzeroupper
 	retq
 .LBB14_19:                              # =>This Inner Loop Header: Depth=1
 	movl	-128(%rbp), %eax        # 4-byte Reload
@@ -2381,17 +2385,13 @@ _crypto_stream_salsa20:                 # @_crypto_stream_salsa20
 _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	.cfi_startproc
 # %bb.0:                                # %entry
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset %rbp, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register %rbp
-	andq	$-32, %rsp
-	subq	$96, %rsp
-	movl	$0, 76(%rsp)
-	movb	$1, 75(%rsp)
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 32(%rsp)
+	subq	$72, %rsp
+	.cfi_def_cfa_offset 80
+	movl	$0, 68(%rsp)
+	movb	$1, 67(%rsp)
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 48(%rsp)
+	movaps	%xmm0, 32(%rsp)
 	leaq	32(%rsp), %rax
 	movq	%rdi, 24(%rsp)          # 8-byte Spill
 	movq	%rax, %rdi
@@ -2399,7 +2399,6 @@ _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	movq	%rdx, %rsi
 	movq	%rdx, 8(%rsp)           # 8-byte Spill
 	movq	%rcx, %rdx
-	vzeroupper
 	callq	_crypto_core_hsalsa20
 	movq	8(%rsp), %rax           # 8-byte Reload
 	addq	$16, %rax
@@ -2408,11 +2407,10 @@ _crypto_stream_xsalsa20:                # @_crypto_stream_xsalsa20
 	movq	16(%rsp), %rsi          # 8-byte Reload
 	movq	%rax, %rdx
 	callq	_crypto_stream_salsa20
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovaps	%ymm0, 32(%rsp)
-	movq	%rbp, %rsp
-	popq	%rbp
-	vzeroupper
+	xorps	%xmm0, %xmm0
+	movaps	%xmm0, 48(%rsp)
+	movaps	%xmm0, 32(%rsp)
+	addq	$72, %rsp
 	retq
 .Lfunc_end15:
 	.size	_crypto_stream_xsalsa20, .Lfunc_end15-_crypto_stream_xsalsa20
@@ -2452,15 +2450,15 @@ _crypto_secretbox_xsalsa20poly1305_open: # @_crypto_secretbox_xsalsa20poly1305_o
 	movq	%rsp, %rax
 	addq	$-32, %rax
 	movq	%rax, %rsp
-	vxorps	%xmm0, %xmm0, %xmm0
-	vmovups	%ymm0, (%rax)
+	xorps	%xmm0, %xmm0
+	movups	%xmm0, 16(%rax)
+	movups	%xmm0, (%rax)
 	movl	$32, %ecx
 	movl	%ecx, %esi
 	movq	%rax, %rdi
 	movq	-16(%rbp), %rdx         # 8-byte Reload
 	movq	-56(%rbp), %rcx         # 8-byte Reload
 	movq	%rax, -64(%rbp)         # 8-byte Spill
-	vzeroupper
 	callq	_crypto_stream_xsalsa20
 	movq	-32(%rbp), %rcx         # 8-byte Reload
 	addq	$16, %rcx

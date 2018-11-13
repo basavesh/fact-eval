@@ -13,7 +13,7 @@ all:
 
 generate:
 	$(FACTC) $(_FACT_OPTS) bignum.fact -o bignum.o
-	$(FACTC) $(_FACT_OPTS) -opt O2 -fpic bignum.fact -o bignum.O2.fpic.o
+	$(FACTC) $(_FACT_OPTS) -opt O2 -addl -fpic bignum.fact -o bignum.O2.fpic.o
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
 
