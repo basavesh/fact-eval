@@ -25,16 +25,16 @@ define i32 @_aesni_cbc_hmac_sha1_cipher(i8* %__v1_iv, %EVP_AES_HMAC_SHA1* %__v2_
 entry:
   %__rval.i22 = alloca i32
   %__rctx.i23 = alloca i1
-  %__rctx.i21 = alloca i1
-  %__rval.i16 = alloca i32
-  %__rctx.i17 = alloca i1
-  %__rval.i11 = alloca i32
-  %__rctx.i12 = alloca i1
-  %__rval.i6 = alloca i32
-  %__rctx.i7 = alloca i1
-  %__rval.i1 = alloca i32
-  %__rctx.i2 = alloca i1
+  %__rval.i17 = alloca i32
+  %__rctx.i18 = alloca i1
+  %__rval.i12 = alloca i32
+  %__rctx.i13 = alloca i1
+  %__rval.i7 = alloca i32
+  %__rctx.i8 = alloca i1
+  %__rval.i2 = alloca i32
+  %__rctx.i3 = alloca i1
   %__rval.i = alloca i32
+  %__rctx.i1 = alloca i1
   %__rctx.i = alloca i1
   %__rval = alloca i32
   store i32 0, i32* %__rval
@@ -94,11 +94,11 @@ entry:
   %__m1 = icmp ugt i32 %26, %__v19_maxpad
   %27 = and i1 true, %__m1
   %28 = load i32, i32* %__v17_pad
-  %29 = select i1 %27, i32 %__v19_maxpad, i32 %28
+  %29 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %27, i32 %__v19_maxpad, i32 %28)
   store i32 %29, i32* %__v17_pad
   %30 = and i1 true, %__m1
   %31 = load i32, i32* %__v16_ret
-  %32 = select i1 %30, i32 0, i32 %31
+  %32 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %30, i32 0, i32 %31)
   store i32 %32, i32* %__v16_ret
   %__m2 = xor i1 %__m1, true
   %33 = load i32, i32* %__v15__len
@@ -113,7 +113,7 @@ entry:
   %40 = getelementptr i8, i8* %39, i64 11
   %41 = load i32, i32* %__v20_inp_len
   %42 = trunc i32 %41 to i16
-  store i1 true, i1* %__rctx.i21
+  store i1 true, i1* %__rctx.i
   %43 = lshr i16 %42, 8
   %44 = trunc i16 %43 to i8
   store i8 %44, i8* %40
@@ -209,20 +209,20 @@ entry:
   %101 = load i32, i32* %__v20_inp_len
   %102 = shl i32 %101, 3
   %103 = add i32 %100, %102
-  store i32 0, i32* %__rval.i22
-  store i1 true, i1* %__rctx.i23
+  store i32 0, i32* %__rval.i
+  store i1 true, i1* %__rctx.i1
   %104 = and i32 %103, 255
-  %__v47_x4.i24 = shl i32 %104, 24
+  %__v47_x4.i = shl i32 %104, 24
   %105 = lshr i32 %103, 8
   %106 = and i32 %105, 255
-  %__v48_x3.i25 = shl i32 %106, 16
+  %__v48_x3.i = shl i32 %106, 16
   %107 = lshr i32 %103, 16
   %108 = and i32 %107, 255
-  %__v49_x2.i26 = shl i32 %108, 8
+  %__v49_x2.i = shl i32 %108, 8
   %109 = lshr i32 %103, 24
-  %110 = or i32 %109, %__v49_x2.i26
-  %111 = or i32 %110, %__v48_x3.i25
-  %112 = or i32 %111, %__v47_x4.i24
+  %110 = or i32 %109, %__v49_x2.i
+  %111 = or i32 %110, %__v48_x3.i
+  %112 = or i32 %111, %__v47_x4.i
   %__v23_pmac = alloca i8, i64 20
   call void @llvm.memset.p0i8.i64(i8* %__v23_pmac, i8 0, i64 20, i32 1, i1 false)
   %113 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -290,7 +290,7 @@ entry:
   %155 = and i1 true, %__m17
   %156 = bitcast i8* %154 to i32*
   %157 = load i32, i32* %156
-  %158 = select i1 %155, i32 %112, i32 %157
+  %158 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %155, i32 %112, i32 %157)
   store i32 %158, i32* %156
   %__m18 = xor i1 %__m17, true
   %159 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -313,7 +313,7 @@ entry:
   %175 = and i1 true, %168
   %176 = bitcast i8* %169 to i32*
   %177 = load i32, i32* %176
-  %178 = select i1 %175, i32 %174, i32 %177
+  %178 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %175, i32 %174, i32 %177)
   store i32 %178, i32* %176
   %179 = getelementptr i8, i8* %__v23_pmac, i64 4
   %180 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -324,7 +324,7 @@ entry:
   %185 = and i1 true, %168
   %186 = bitcast i8* %179 to i32*
   %187 = load i32, i32* %186
-  %188 = select i1 %185, i32 %184, i32 %187
+  %188 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %185, i32 %184, i32 %187)
   store i32 %188, i32* %186
   %189 = getelementptr i8, i8* %__v23_pmac, i64 8
   %190 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -335,7 +335,7 @@ entry:
   %195 = and i1 true, %168
   %196 = bitcast i8* %189 to i32*
   %197 = load i32, i32* %196
-  %198 = select i1 %195, i32 %194, i32 %197
+  %198 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %195, i32 %194, i32 %197)
   store i32 %198, i32* %196
   %199 = getelementptr i8, i8* %__v23_pmac, i64 12
   %200 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -346,7 +346,7 @@ entry:
   %205 = and i1 true, %168
   %206 = bitcast i8* %199 to i32*
   %207 = load i32, i32* %206
-  %208 = select i1 %205, i32 %204, i32 %207
+  %208 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %205, i32 %204, i32 %207)
   store i32 %208, i32* %206
   %209 = getelementptr i8, i8* %__v23_pmac, i64 16
   %210 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -357,7 +357,7 @@ entry:
   %215 = and i1 true, %168
   %216 = bitcast i8* %209 to i32*
   %217 = load i32, i32* %216
-  %218 = select i1 %215, i32 %214, i32 %217
+  %218 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %215, i32 %214, i32 %217)
   store i32 %218, i32* %216
   %__m20 = xor i1 %168, true
   store i32 0, i32* %__v24_p_res
@@ -407,7 +407,7 @@ entry:
   %243 = and i1 true, %__m13
   %244 = bitcast i8* %242 to i32*
   %245 = load i32, i32* %244
-  %246 = select i1 %243, i32 %112, i32 %245
+  %246 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %243, i32 %112, i32 %245)
   store i32 %246, i32* %244
   %__m14 = xor i1 %__m13, true
   %247 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -431,7 +431,7 @@ entry:
   %264 = and i1 true, %257
   %265 = bitcast i8* %258 to i32*
   %266 = load i32, i32* %265
-  %267 = select i1 %264, i32 %263, i32 %266
+  %267 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %264, i32 %263, i32 %266)
   store i32 %267, i32* %265
   %268 = getelementptr i8, i8* %__v23_pmac, i64 4
   %269 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -442,7 +442,7 @@ entry:
   %274 = and i1 true, %257
   %275 = bitcast i8* %268 to i32*
   %276 = load i32, i32* %275
-  %277 = select i1 %274, i32 %273, i32 %276
+  %277 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %274, i32 %273, i32 %276)
   store i32 %277, i32* %275
   %278 = getelementptr i8, i8* %__v23_pmac, i64 8
   %279 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -453,7 +453,7 @@ entry:
   %284 = and i1 true, %257
   %285 = bitcast i8* %278 to i32*
   %286 = load i32, i32* %285
-  %287 = select i1 %284, i32 %283, i32 %286
+  %287 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %284, i32 %283, i32 %286)
   store i32 %287, i32* %285
   %288 = getelementptr i8, i8* %__v23_pmac, i64 12
   %289 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -464,7 +464,7 @@ entry:
   %294 = and i1 true, %257
   %295 = bitcast i8* %288 to i32*
   %296 = load i32, i32* %295
-  %297 = select i1 %294, i32 %293, i32 %296
+  %297 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %294, i32 %293, i32 %296)
   store i32 %297, i32* %295
   %298 = getelementptr i8, i8* %__v23_pmac, i64 16
   %299 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -475,7 +475,7 @@ entry:
   %304 = and i1 true, %257
   %305 = bitcast i8* %298 to i32*
   %306 = load i32, i32* %305
-  %307 = select i1 %304, i32 %303, i32 %306
+  %307 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %304, i32 %303, i32 %306)
   store i32 %307, i32* %305
   %__m16 = xor i1 %257, true
   %308 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -515,7 +515,7 @@ entry:
   %333 = and i1 true, %__m3
   %334 = bitcast i8* %327 to i32*
   %335 = load i32, i32* %334
-  %336 = select i1 %333, i32 %332, i32 %335
+  %336 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %333, i32 %332, i32 %335)
   store i32 %336, i32* %334
   %337 = getelementptr i8, i8* %__v23_pmac, i64 4
   %338 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -526,7 +526,7 @@ entry:
   %343 = and i1 true, %__m3
   %344 = bitcast i8* %337 to i32*
   %345 = load i32, i32* %344
-  %346 = select i1 %343, i32 %342, i32 %345
+  %346 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %343, i32 %342, i32 %345)
   store i32 %346, i32* %344
   %347 = getelementptr i8, i8* %__v23_pmac, i64 8
   %348 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -537,7 +537,7 @@ entry:
   %353 = and i1 true, %__m3
   %354 = bitcast i8* %347 to i32*
   %355 = load i32, i32* %354
-  %356 = select i1 %353, i32 %352, i32 %355
+  %356 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %353, i32 %352, i32 %355)
   store i32 %356, i32* %354
   %357 = getelementptr i8, i8* %__v23_pmac, i64 12
   %358 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -548,7 +548,7 @@ entry:
   %363 = and i1 true, %__m3
   %364 = bitcast i8* %357 to i32*
   %365 = load i32, i32* %364
-  %366 = select i1 %363, i32 %362, i32 %365
+  %366 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %363, i32 %362, i32 %365)
   store i32 %366, i32* %364
   %367 = getelementptr i8, i8* %__v23_pmac, i64 16
   %368 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i32 0, i32 3
@@ -559,106 +559,106 @@ entry:
   %373 = and i1 true, %__m3
   %374 = bitcast i8* %367 to i32*
   %375 = load i32, i32* %374
-  %376 = select i1 %373, i32 %372, i32 %375
+  %376 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %373, i32 %372, i32 %375)
   store i32 %376, i32* %374
   %__m4 = xor i1 %__m3, true
   %377 = getelementptr i8, i8* %__v23_pmac, i64 0
   %378 = bitcast i8* %377 to i32*
   %379 = load i32, i32* %378
-  store i32 0, i32* %__rval.i16
-  store i1 true, i1* %__rctx.i17
+  store i32 0, i32* %__rval.i22
+  store i1 true, i1* %__rctx.i23
   %380 = and i32 %379, 255
-  %__v47_x4.i18 = shl i32 %380, 24
+  %__v47_x4.i24 = shl i32 %380, 24
   %381 = lshr i32 %379, 8
   %382 = and i32 %381, 255
-  %__v48_x3.i19 = shl i32 %382, 16
+  %__v48_x3.i25 = shl i32 %382, 16
   %383 = lshr i32 %379, 16
   %384 = and i32 %383, 255
-  %__v49_x2.i20 = shl i32 %384, 8
+  %__v49_x2.i26 = shl i32 %384, 8
   %385 = lshr i32 %379, 24
-  %386 = or i32 %385, %__v49_x2.i20
-  %387 = or i32 %386, %__v48_x3.i19
-  %388 = or i32 %387, %__v47_x4.i18
+  %386 = or i32 %385, %__v49_x2.i26
+  %387 = or i32 %386, %__v48_x3.i25
+  %388 = or i32 %387, %__v47_x4.i24
   %389 = getelementptr i8, i8* %__v23_pmac, i64 0
   %390 = bitcast i8* %389 to i32*
   store i32 %388, i32* %390
   %391 = getelementptr i8, i8* %__v23_pmac, i64 4
   %392 = bitcast i8* %391 to i32*
   %393 = load i32, i32* %392
-  store i32 0, i32* %__rval.i11
-  store i1 true, i1* %__rctx.i12
+  store i32 0, i32* %__rval.i17
+  store i1 true, i1* %__rctx.i18
   %394 = and i32 %393, 255
-  %__v47_x4.i13 = shl i32 %394, 24
+  %__v47_x4.i19 = shl i32 %394, 24
   %395 = lshr i32 %393, 8
   %396 = and i32 %395, 255
-  %__v48_x3.i14 = shl i32 %396, 16
+  %__v48_x3.i20 = shl i32 %396, 16
   %397 = lshr i32 %393, 16
   %398 = and i32 %397, 255
-  %__v49_x2.i15 = shl i32 %398, 8
+  %__v49_x2.i21 = shl i32 %398, 8
   %399 = lshr i32 %393, 24
-  %400 = or i32 %399, %__v49_x2.i15
-  %401 = or i32 %400, %__v48_x3.i14
-  %402 = or i32 %401, %__v47_x4.i13
+  %400 = or i32 %399, %__v49_x2.i21
+  %401 = or i32 %400, %__v48_x3.i20
+  %402 = or i32 %401, %__v47_x4.i19
   %403 = getelementptr i8, i8* %__v23_pmac, i64 4
   %404 = bitcast i8* %403 to i32*
   store i32 %402, i32* %404
   %405 = getelementptr i8, i8* %__v23_pmac, i64 8
   %406 = bitcast i8* %405 to i32*
   %407 = load i32, i32* %406
-  store i32 0, i32* %__rval.i6
-  store i1 true, i1* %__rctx.i7
+  store i32 0, i32* %__rval.i12
+  store i1 true, i1* %__rctx.i13
   %408 = and i32 %407, 255
-  %__v47_x4.i8 = shl i32 %408, 24
+  %__v47_x4.i14 = shl i32 %408, 24
   %409 = lshr i32 %407, 8
   %410 = and i32 %409, 255
-  %__v48_x3.i9 = shl i32 %410, 16
+  %__v48_x3.i15 = shl i32 %410, 16
   %411 = lshr i32 %407, 16
   %412 = and i32 %411, 255
-  %__v49_x2.i10 = shl i32 %412, 8
+  %__v49_x2.i16 = shl i32 %412, 8
   %413 = lshr i32 %407, 24
-  %414 = or i32 %413, %__v49_x2.i10
-  %415 = or i32 %414, %__v48_x3.i9
-  %416 = or i32 %415, %__v47_x4.i8
+  %414 = or i32 %413, %__v49_x2.i16
+  %415 = or i32 %414, %__v48_x3.i15
+  %416 = or i32 %415, %__v47_x4.i14
   %417 = getelementptr i8, i8* %__v23_pmac, i64 8
   %418 = bitcast i8* %417 to i32*
   store i32 %416, i32* %418
   %419 = getelementptr i8, i8* %__v23_pmac, i64 12
   %420 = bitcast i8* %419 to i32*
   %421 = load i32, i32* %420
-  store i32 0, i32* %__rval.i1
-  store i1 true, i1* %__rctx.i2
+  store i32 0, i32* %__rval.i7
+  store i1 true, i1* %__rctx.i8
   %422 = and i32 %421, 255
-  %__v47_x4.i3 = shl i32 %422, 24
+  %__v47_x4.i9 = shl i32 %422, 24
   %423 = lshr i32 %421, 8
   %424 = and i32 %423, 255
-  %__v48_x3.i4 = shl i32 %424, 16
+  %__v48_x3.i10 = shl i32 %424, 16
   %425 = lshr i32 %421, 16
   %426 = and i32 %425, 255
-  %__v49_x2.i5 = shl i32 %426, 8
+  %__v49_x2.i11 = shl i32 %426, 8
   %427 = lshr i32 %421, 24
-  %428 = or i32 %427, %__v49_x2.i5
-  %429 = or i32 %428, %__v48_x3.i4
-  %430 = or i32 %429, %__v47_x4.i3
+  %428 = or i32 %427, %__v49_x2.i11
+  %429 = or i32 %428, %__v48_x3.i10
+  %430 = or i32 %429, %__v47_x4.i9
   %431 = getelementptr i8, i8* %__v23_pmac, i64 12
   %432 = bitcast i8* %431 to i32*
   store i32 %430, i32* %432
   %433 = getelementptr i8, i8* %__v23_pmac, i64 16
   %434 = bitcast i8* %433 to i32*
   %435 = load i32, i32* %434
-  store i32 0, i32* %__rval.i
-  store i1 true, i1* %__rctx.i
+  store i32 0, i32* %__rval.i2
+  store i1 true, i1* %__rctx.i3
   %436 = and i32 %435, 255
-  %__v47_x4.i = shl i32 %436, 24
+  %__v47_x4.i4 = shl i32 %436, 24
   %437 = lshr i32 %435, 8
   %438 = and i32 %437, 255
-  %__v48_x3.i = shl i32 %438, 16
+  %__v48_x3.i5 = shl i32 %438, 16
   %439 = lshr i32 %435, 16
   %440 = and i32 %439, 255
-  %__v49_x2.i = shl i32 %440, 8
+  %__v49_x2.i6 = shl i32 %440, 8
   %441 = lshr i32 %435, 24
-  %442 = or i32 %441, %__v49_x2.i
-  %443 = or i32 %442, %__v48_x3.i
-  %444 = or i32 %443, %__v47_x4.i
+  %442 = or i32 %441, %__v49_x2.i6
+  %443 = or i32 %442, %__v48_x3.i5
+  %444 = or i32 %443, %__v47_x4.i4
   %445 = getelementptr i8, i8* %__v23_pmac, i64 16
   %446 = bitcast i8* %445 to i32*
   store i32 %444, i32* %446
@@ -713,7 +713,7 @@ entry:
   %478 = and i1 true, %__m6
   %479 = and i1 %478, %__m5
   %480 = load i32, i32* %__v16_ret
-  %481 = select i1 %479, i32 0, i32 %480
+  %481 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %479, i32 0, i32 %480)
   store i32 %481, i32* %__v16_ret
   %__m7 = xor i1 %__m6, true
   %__m8 = xor i1 %__m5, true
@@ -730,7 +730,7 @@ entry:
   %489 = and i1 %488, %__m9
   %490 = and i1 %489, %__m8
   %491 = load i32, i32* %__v16_ret
-  %492 = select i1 %490, i32 0, i32 %491
+  %492 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %490, i32 0, i32 %491)
   store i32 %492, i32* %__v16_ret
   %__m11 = xor i1 %__m10, true
   %493 = load i32, i32* %__v32_i
@@ -738,7 +738,7 @@ entry:
   %495 = and i1 true, %__m9
   %496 = and i1 %495, %__m8
   %497 = load i32, i32* %__v32_i
-  %498 = select i1 %496, i32 %494, i32 %497
+  %498 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %496, i32 %494, i32 %497)
   store i32 %498, i32* %__v32_i
   %__m12 = xor i1 %__m9, true
   br label %499

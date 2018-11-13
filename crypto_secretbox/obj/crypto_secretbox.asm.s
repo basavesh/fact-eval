@@ -382,31 +382,38 @@ _poly1305_blocks:                       # @_poly1305_blocks
 	.cfi_offset %r15, -24
 	xorl	%eax, %eax
 	movl	%eax, %ecx
-	movabsq	$1099511627776, %r8     # imm = 0x10000000000
 	movb	$1, -41(%rbp)
 	cmpb	$0, 88(%rdi)
-	cmovneq	%rcx, %r8
+	setne	%r8b
+	xorl	%eax, %eax
+	movl	%eax, %r9d
+	movabsq	$1099511627776, %r10    # imm = 0x10000000000
+	#APP
+	testb	%r8b, %r8b
+	movq	%r10, %r11
+	cmovneq	%r9, %r11
+	#NO_APP
 	movq	(%rdi), %r9
 	movq	8(%rdi), %r10
-	movq	16(%rdi), %r11
-	movq	24(%rdi), %rbx
-	movq	%rbx, -56(%rbp)
-	movq	32(%rdi), %rbx
-	movq	%rbx, -64(%rbp)
-	movq	40(%rdi), %rbx
-	movq	%rbx, -72(%rbp)
-	imulq	$20, %r10, %rbx
-	imulq	$20, %r11, %r14
+	movq	16(%rdi), %rbx
+	movq	24(%rdi), %r14
+	movq	%r14, -56(%rbp)
+	movq	32(%rdi), %r14
+	movq	%r14, -64(%rbp)
+	movq	40(%rdi), %r14
+	movq	%r14, -72(%rbp)
+	imulq	$20, %r10, %r14
+	imulq	$20, %rbx, %r15
 	shrq	$4, %rdx
 	movq	%rsi, -80(%rbp)         # 8-byte Spill
 	movq	%rdi, -88(%rbp)         # 8-byte Spill
-	movq	%r14, -96(%rbp)         # 8-byte Spill
+	movq	%r15, -96(%rbp)         # 8-byte Spill
 	movq	%rdx, -104(%rbp)        # 8-byte Spill
-	movq	%r8, -112(%rbp)         # 8-byte Spill
+	movq	%r11, -112(%rbp)        # 8-byte Spill
 	movq	%r9, -120(%rbp)         # 8-byte Spill
 	movq	%r10, -128(%rbp)        # 8-byte Spill
-	movq	%r11, -136(%rbp)        # 8-byte Spill
-	movq	%rbx, -144(%rbp)        # 8-byte Spill
+	movq	%rbx, -136(%rbp)        # 8-byte Spill
+	movq	%r14, -144(%rbp)        # 8-byte Spill
 	movq	%rcx, -152(%rbp)        # 8-byte Spill
 .LBB1_1:                                # =>This Inner Loop Header: Depth=1
 	movq	-152(%rbp), %rax        # 8-byte Reload
@@ -2126,16 +2133,21 @@ u0:                                     # @u0
 	movl	(%r11), %r8d
 	addl	$1, %r8d
 	movl	%r8d, (%r11)
-	movl	(%r11), %r8d
+	cmpl	$0, (%r11)
+	sete	%al
+	movl	(%r10), %r8d
+	addl	$1, %r8d
 	movl	(%r10), %r12d
-	addl	$1, %r12d
-	cmpl	$0, %r8d
-	cmovnel	(%r10), %r12d
+	#APP
+	testb	%al, %al
+	cmovnel	%r8d, %r12d
+	#NO_APP
 	movl	%r12d, (%r10)
 	movl	(%r11), %r8d
-	movl	%r8d, 32(%rax)
+	movq	-96(%rbp), %r11         # 8-byte Reload
+	movl	%r8d, 32(%r11)
 	movl	(%r10), %r8d
-	movl	%r8d, 52(%rax)
+	movl	%r8d, 52(%r11)
 	movq	-136(%rbp), %r10        # 8-byte Reload
 	addq	$1, %r10
 	movq	%r10, -128(%rbp)        # 8-byte Spill

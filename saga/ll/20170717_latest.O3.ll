@@ -53,9 +53,8 @@ entry:
   %14 = icmp ult i32 %__v18_tmppad, 255
   %__v19_maxpad = select i1 %14, i32 %__v18_tmppad, i32 255
   %__m1 = icmp ult i32 %__v19_maxpad, %13
-  %15 = select i1 %__m1, i32 %__v19_maxpad, i32 %13
-  %not.__m1 = xor i1 %__m1, true
-  %16 = zext i1 %not.__m1 to i32
+  %15 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1, i32 %__v19_maxpad, i32 %13) #2
+  %16 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1, i32 0, i32 1) #2
   %17 = sub i32 %__v18_tmppad, %15
   %18 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 5, i64 0
   %19 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 5, i64 11
@@ -81,8 +80,8 @@ entry:
   %.pre = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 4
   br label %43
 
-.loopexit:                                        ; preds = %179, %4, %2
-  %merge = phi i32 [ 0, %4 ], [ 0, %2 ], [ %187, %179 ]
+.loopexit:                                        ; preds = %201, %4, %2
+  %merge = phi i32 [ 0, %4 ], [ 0, %2 ], [ %211, %201 ]
   ret i32 %merge
 
 ; <label>:32:                                     ; preds = %2
@@ -113,9 +112,9 @@ entry:
   %47 = shl i32 %44, 3
   %48 = add i32 %47, %46
   %49 = tail call i32 @llvm.bswap.i32(i32 %48) #2
-  %__v23_pmac23 = alloca [20 x i8], align 16
+  %__v23_pmac23 = alloca [20 x i8], align 4
   %__v23_pmac23.sub = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 0
-  call void @llvm.memset.p0i8.i64(i8* nonnull %__v23_pmac23.sub, i8 0, i64 20, i32 16, i1 false) #2
+  call void @llvm.memset.p0i8.i64(i8* nonnull %__v23_pmac23.sub, i8 0, i64 20, i32 4, i1 false) #2
   %50 = load i32, i32* %.pre-phi, align 4
   %51 = icmp eq i32 %__v27_j.promoted, 0
   br i1 %51, label %._crit_edge33, label %.lr.ph32
@@ -126,234 +125,272 @@ entry:
   %54 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 60
   %55 = bitcast i8* %54 to i32*
   %56 = add i32 %44, 72
-  %57 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 16
-  %58 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 4
-  %59 = bitcast i8* %57 to i32*
-  %60 = zext i32 %56 to i64
-  %61 = zext i32 %53 to i64
-  %62 = zext i32 %44 to i64
+  %57 = bitcast [20 x i8]* %__v23_pmac23 to i32*
+  %58 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 4
+  %59 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 1
+  %60 = bitcast i8* %58 to i32*
+  %61 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 8
+  %62 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 2
+  %63 = bitcast i8* %61 to i32*
+  %64 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 12
+  %65 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 3
+  %66 = bitcast i8* %64 to i32*
+  %67 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 16
+  %68 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 4
+  %69 = bitcast i8* %67 to i32*
+  %70 = zext i32 %56 to i64
+  %71 = zext i32 %53 to i64
+  %72 = zext i32 %44 to i64
   %wide.trip.count = zext i32 %__v27_j.promoted to i64
-  %63 = bitcast %SHA_CTX* %25 to <4 x i32>*
-  %64 = bitcast [20 x i8]* %__v23_pmac23 to <4 x i32>*
-  br label %65
+  br label %73
 
-; <label>:65:                                     ; preds = %101, %.lr.ph32
-  %66 = phi i32 [ 0, %.lr.ph32 ], [ %102, %101 ]
-  %indvars.iv40 = phi i64 [ 0, %.lr.ph32 ], [ %indvars.iv.next41, %101 ]
-  %67 = phi i32 [ %50, %.lr.ph32 ], [ %103, %101 ]
-  %68 = phi <4 x i32> [ zeroinitializer, %.lr.ph32 ], [ %104, %101 ]
-  %__v84_lexpr = zext i32 %67 to i64
-  %69 = trunc i64 %indvars.iv40 to i32
-  %70 = add i32 %__v14_outp.1, %69
-  %__v85_lexpr = zext i32 %70 to i64
-  %71 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 %__v84_lexpr
-  %72 = icmp ult i64 %indvars.iv40, %62
-  %73 = getelementptr i8, i8* %__v3__out, i64 %__v85_lexpr
-  %74 = load i8, i8* %73, align 1
-  %75 = icmp eq i64 %indvars.iv40, %62
-  %76 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %75, i32 128, i32 0) #2
-  %77 = zext i8 %74 to i32
-  %78 = and i32 %76, 255
-  %79 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %72, i32 %77, i32 %78) #2
-  %80 = trunc i32 %79 to i8
-  store i8 %80, i8* %71, align 1
-  %81 = add i32 %67, 1
-  %82 = icmp eq i32 %81, 64
-  br i1 %82, label %87, label %101
+; <label>:73:                                     ; preds = %119, %.lr.ph32
+  %74 = phi i32 [ 0, %.lr.ph32 ], [ %120, %119 ]
+  %75 = phi i32 [ 0, %.lr.ph32 ], [ %121, %119 ]
+  %76 = phi i32 [ 0, %.lr.ph32 ], [ %122, %119 ]
+  %77 = phi i32 [ 0, %.lr.ph32 ], [ %123, %119 ]
+  %78 = phi i32 [ 0, %.lr.ph32 ], [ %124, %119 ]
+  %indvars.iv40 = phi i64 [ 0, %.lr.ph32 ], [ %indvars.iv.next41, %119 ]
+  %79 = phi i32 [ %50, %.lr.ph32 ], [ %125, %119 ]
+  %__v84_lexpr = zext i32 %79 to i64
+  %80 = trunc i64 %indvars.iv40 to i32
+  %81 = add i32 %__v14_outp.1, %80
+  %__v85_lexpr = zext i32 %81 to i64
+  %82 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 %__v84_lexpr
+  %83 = icmp ult i64 %indvars.iv40, %72
+  %84 = getelementptr i8, i8* %__v3__out, i64 %__v85_lexpr
+  %85 = load i8, i8* %84, align 1
+  %86 = icmp eq i64 %indvars.iv40, %72
+  %87 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %86, i32 128, i32 0) #2
+  %88 = zext i8 %85 to i32
+  %89 = and i32 %87, 255
+  %90 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %83, i32 %88, i32 %89) #2
+  %91 = trunc i32 %90 to i8
+  store i8 %91, i8* %82, align 1
+  %92 = add i32 %79, 1
+  %93 = icmp eq i32 %92, 64
+  br i1 %93, label %101, label %119
 
-._crit_edge33:                                    ; preds = %101, %43
-  %83 = phi i32 [ 0, %43 ], [ %102, %101 ]
-  %84 = phi i32 [ %50, %43 ], [ %103, %101 ]
-  %85 = phi <4 x i32> [ zeroinitializer, %43 ], [ %104, %101 ]
-  %86 = icmp ult i32 %84, 64
-  br i1 %86, label %105, label %.thread
+._crit_edge33:                                    ; preds = %119, %43
+  %94 = phi i32 [ 0, %43 ], [ %120, %119 ]
+  %95 = phi i32 [ 0, %43 ], [ %121, %119 ]
+  %96 = phi i32 [ 0, %43 ], [ %122, %119 ]
+  %97 = phi i32 [ 0, %43 ], [ %123, %119 ]
+  %98 = phi i32 [ 0, %43 ], [ %124, %119 ]
+  %99 = phi i32 [ %50, %43 ], [ %125, %119 ]
+  %100 = icmp ult i32 %99, 64
+  br i1 %100, label %126, label %.thread
 
-; <label>:87:                                     ; preds = %65
-  %__m17 = icmp ugt i64 %indvars.iv40, %61
-  %88 = load i32, i32* %55, align 4
-  %89 = select i1 %__m17, i32 %49, i32 %88
-  store i32 %89, i32* %55, align 4
+; <label>:101:                                    ; preds = %73
+  %__m17 = icmp ugt i64 %indvars.iv40, %71
+  %102 = load i32, i32* %55, align 4
+  %103 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m17, i32 %49, i32 %102) #2
+  store i32 %103, i32* %55, align 4
   tail call void @sha1_block_data_order(%SHA_CTX* nonnull %25, i8* nonnull %52, i32 1)
-  %90 = icmp ult i64 %indvars.iv40, %60
-  %91 = zext i1 %90 to i32
-  %92 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__m17, i32 %91, i32 0) #2
-  %93 = and i32 %92, 1
-  %94 = icmp ne i32 %93, 0
-  %95 = load <4 x i32>, <4 x i32>* %63, align 4
-  %96 = insertelement <4 x i1> undef, i1 %94, i32 0
-  %97 = shufflevector <4 x i1> %96, <4 x i1> undef, <4 x i32> zeroinitializer
-  %98 = select <4 x i1> %97, <4 x i32> %95, <4 x i32> %68
-  store <4 x i32> %98, <4 x i32>* %64, align 16
-  %99 = load i32, i32* %58, align 4
-  %100 = select i1 %94, i32 %99, i32 %66
-  store i32 %100, i32* %59, align 16
-  br label %101
+  %104 = icmp ult i64 %indvars.iv40, %70
+  %105 = zext i1 %104 to i32
+  %106 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__m17, i32 %105, i32 0) #2
+  %107 = and i32 %106, 1
+  %108 = icmp ne i32 %107, 0
+  %109 = load i32, i32* %29, align 4
+  %110 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %108, i32 %109, i32 %78) #2
+  store i32 %110, i32* %57, align 4
+  %111 = load i32, i32* %59, align 4
+  %112 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %108, i32 %111, i32 %77) #2
+  store i32 %112, i32* %60, align 4
+  %113 = load i32, i32* %62, align 4
+  %114 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %108, i32 %113, i32 %76) #2
+  store i32 %114, i32* %63, align 4
+  %115 = load i32, i32* %65, align 4
+  %116 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %108, i32 %115, i32 %75) #2
+  store i32 %116, i32* %66, align 4
+  %117 = load i32, i32* %68, align 4
+  %118 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %108, i32 %117, i32 %74) #2
+  store i32 %118, i32* %69, align 4
+  br label %119
 
-; <label>:101:                                    ; preds = %65, %87
-  %102 = phi i32 [ %66, %65 ], [ %100, %87 ]
-  %103 = phi i32 [ %81, %65 ], [ 0, %87 ]
-  %104 = phi <4 x i32> [ %68, %65 ], [ %98, %87 ]
+; <label>:119:                                    ; preds = %73, %101
+  %120 = phi i32 [ %74, %73 ], [ %118, %101 ]
+  %121 = phi i32 [ %75, %73 ], [ %116, %101 ]
+  %122 = phi i32 [ %76, %73 ], [ %114, %101 ]
+  %123 = phi i32 [ %77, %73 ], [ %112, %101 ]
+  %124 = phi i32 [ %78, %73 ], [ %110, %101 ]
+  %125 = phi i32 [ %92, %73 ], [ 0, %101 ]
   %indvars.iv.next41 = add nuw nsw i64 %indvars.iv40, 1
   %exitcond = icmp eq i64 %indvars.iv.next41, %wide.trip.count
-  br i1 %exitcond, label %._crit_edge33, label %65
+  br i1 %exitcond, label %._crit_edge33, label %73
 
-; <label>:105:                                    ; preds = %._crit_edge33
-  %106 = zext i32 %84 to i64
-  %107 = add i32 %__v27_j.promoted, 64
+; <label>:126:                                    ; preds = %._crit_edge33
+  %127 = zext i32 %99 to i64
+  %128 = add i32 %__v27_j.promoted, 64
   %scevgep = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 0, i32 0, i64 116
   %scevgep39 = bitcast i32* %scevgep to i8*
-  %uglygep = getelementptr i8, i8* %scevgep39, i64 %106
-  %108 = sub i32 63, %84
-  %109 = zext i32 %108 to i64
-  %110 = add nuw nsw i64 %109, 1
-  call void @llvm.memset.p0i8.i64(i8* %uglygep, i8 0, i64 %110, i32 1, i1 false)
-  %111 = sub i32 %107, %84
-  %112 = icmp ugt i32 %84, 56
-  br i1 %112, label %.thread, label %._crit_edge
+  %uglygep = getelementptr i8, i8* %scevgep39, i64 %127
+  %129 = sub i32 63, %99
+  %130 = zext i32 %129 to i64
+  %131 = add nuw nsw i64 %130, 1
+  call void @llvm.memset.p0i8.i64(i8* %uglygep, i8 0, i64 %131, i32 1, i1 false)
+  %132 = sub i32 %128, %99
+  %133 = icmp ugt i32 %99, 56
+  br i1 %133, label %.thread, label %._crit_edge
 
-._crit_edge:                                      ; preds = %105
+._crit_edge:                                      ; preds = %126
   %.pre43 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 0
   %.pre45 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 60
   %.pre47 = bitcast i8* %.pre45 to i32*
   %.pre49 = add i32 %44, 73
+  %.pre51 = bitcast [20 x i8]* %__v23_pmac23 to i32*
   %.pre53 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 4
+  %.pre55 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 1
+  %.pre57 = bitcast i8* %.pre53 to i32*
   %.pre59 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 8
+  %.pre61 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 2
+  %.pre63 = bitcast i8* %.pre59 to i32*
   %.pre65 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 12
+  %.pre67 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 3
+  %.pre69 = bitcast i8* %.pre65 to i32*
   %.pre71 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 16
   %.pre73 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 4
   %.pre75 = bitcast i8* %.pre71 to i32*
-  %113 = extractelement <4 x i32> %85, i32 0
-  %114 = extractelement <4 x i32> %85, i32 1
-  %115 = extractelement <4 x i32> %85, i32 2
-  %116 = extractelement <4 x i32> %85, i32 3
-  br label %149
+  br label %171
 
-.thread:                                          ; preds = %._crit_edge33, %105
-  %117 = phi i32 [ %111, %105 ], [ %__v27_j.promoted, %._crit_edge33 ]
-  %118 = add i32 %44, 8
-  %__m13 = icmp ult i32 %118, %117
-  %119 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 0
-  %120 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 60
-  %121 = bitcast i8* %120 to i32*
-  %122 = load i32, i32* %121, align 4
-  %123 = select i1 %__m13, i32 %49, i32 %122
-  store i32 %123, i32* %121, align 4
-  tail call void @sha1_block_data_order(%SHA_CTX* nonnull %25, i8* nonnull %119, i32 1)
-  %124 = add i32 %44, 73
-  %125 = icmp ult i32 %117, %124
-  %126 = zext i1 %125 to i32
-  %127 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__m13, i32 %126, i32 0) #2
-  %128 = and i32 %127, 1
-  %129 = icmp ne i32 %128, 0
-  %130 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 4
-  %131 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 8
-  %132 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 12
-  %133 = bitcast %SHA_CTX* %25 to <4 x i32>*
-  %134 = load <4 x i32>, <4 x i32>* %133, align 4
-  %135 = insertelement <4 x i1> undef, i1 %129, i32 0
-  %136 = shufflevector <4 x i1> %135, <4 x i1> undef, <4 x i32> zeroinitializer
-  %137 = select <4 x i1> %136, <4 x i32> %134, <4 x i32> %85
-  %138 = bitcast [20 x i8]* %__v23_pmac23 to <4 x i32>*
-  store <4 x i32> %137, <4 x i32>* %138, align 16
-  %139 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 16
-  %140 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 4
-  %141 = load i32, i32* %140, align 4
-  %142 = bitcast i8* %139 to i32*
-  %143 = select i1 %129, i32 %141, i32 %83
-  store i32 %143, i32* %142, align 16
-  tail call void @llvm.memset.p0i8.i64(i8* nonnull %119, i8 0, i64 64, i32 1, i1 false) #2
-  %144 = add i32 %117, 64
-  %145 = extractelement <4 x i32> %137, i32 0
-  %146 = extractelement <4 x i32> %137, i32 1
-  %147 = extractelement <4 x i32> %137, i32 2
-  %148 = extractelement <4 x i32> %137, i32 3
-  br label %149
+.thread:                                          ; preds = %._crit_edge33, %126
+  %134 = phi i32 [ %132, %126 ], [ %__v27_j.promoted, %._crit_edge33 ]
+  %135 = add i32 %44, 8
+  %__m13 = icmp ult i32 %135, %134
+  %136 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 0
+  %137 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 3, i64 60
+  %138 = bitcast i8* %137 to i32*
+  %139 = load i32, i32* %138, align 4
+  %140 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m13, i32 %49, i32 %139) #2
+  store i32 %140, i32* %138, align 4
+  tail call void @sha1_block_data_order(%SHA_CTX* nonnull %25, i8* nonnull %136, i32 1)
+  %141 = add i32 %44, 73
+  %142 = icmp ult i32 %134, %141
+  %143 = zext i1 %142 to i32
+  %144 = tail call i32 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %__m13, i32 %143, i32 0) #2
+  %145 = and i32 %144, 1
+  %146 = icmp ne i32 %145, 0
+  %147 = load i32, i32* %29, align 4
+  %148 = bitcast [20 x i8]* %__v23_pmac23 to i32*
+  %149 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %146, i32 %147, i32 %98) #2
+  store i32 %149, i32* %148, align 4
+  %150 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 4
+  %151 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 1
+  %152 = load i32, i32* %151, align 4
+  %153 = bitcast i8* %150 to i32*
+  %154 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %146, i32 %152, i32 %97) #2
+  store i32 %154, i32* %153, align 4
+  %155 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 8
+  %156 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 2
+  %157 = load i32, i32* %156, align 4
+  %158 = bitcast i8* %155 to i32*
+  %159 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %146, i32 %157, i32 %96) #2
+  store i32 %159, i32* %158, align 4
+  %160 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 12
+  %161 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 3
+  %162 = load i32, i32* %161, align 4
+  %163 = bitcast i8* %160 to i32*
+  %164 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %146, i32 %162, i32 %95) #2
+  store i32 %164, i32* %163, align 4
+  %165 = getelementptr inbounds [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 16
+  %166 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 4
+  %167 = load i32, i32* %166, align 4
+  %168 = bitcast i8* %165 to i32*
+  %169 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %146, i32 %167, i32 %94) #2
+  store i32 %169, i32* %168, align 4
+  tail call void @llvm.memset.p0i8.i64(i8* nonnull %136, i8 0, i64 64, i32 1, i1 false) #2
+  %170 = add i32 %134, 64
+  br label %171
 
-; <label>:149:                                    ; preds = %._crit_edge, %.thread
-  %.pre-phi76 = phi i32* [ %.pre75, %._crit_edge ], [ %142, %.thread ]
-  %.pre-phi74 = phi i32* [ %.pre73, %._crit_edge ], [ %140, %.thread ]
-  %.pre-phi70.in = phi i8* [ %.pre65, %._crit_edge ], [ %132, %.thread ]
-  %.pre-phi64.in = phi i8* [ %.pre59, %._crit_edge ], [ %131, %.thread ]
-  %.pre-phi58.in = phi i8* [ %.pre53, %._crit_edge ], [ %130, %.thread ]
-  %.pre-phi50 = phi i32 [ %.pre49, %._crit_edge ], [ %124, %.thread ]
-  %.pre-phi48 = phi i32* [ %.pre47, %._crit_edge ], [ %121, %.thread ]
-  %.pre-phi44 = phi i8* [ %.pre43, %._crit_edge ], [ %119, %.thread ]
-  %150 = phi i32 [ %83, %._crit_edge ], [ %143, %.thread ]
-  %151 = phi i32 [ %116, %._crit_edge ], [ %148, %.thread ]
-  %152 = phi i32 [ %115, %._crit_edge ], [ %147, %.thread ]
-  %153 = phi i32 [ %114, %._crit_edge ], [ %146, %.thread ]
-  %154 = phi i32 [ %113, %._crit_edge ], [ %145, %.thread ]
-  %155 = phi i32 [ %111, %._crit_edge ], [ %144, %.thread ]
-  %.pre-phi52 = bitcast [20 x i8]* %__v23_pmac23 to i32*
-  %.pre-phi56 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 1
-  %.pre-phi58 = bitcast i8* %.pre-phi58.in to i32*
-  %.pre-phi62 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 2
-  %.pre-phi64 = bitcast i8* %.pre-phi64.in to i32*
-  %.pre-phi68 = getelementptr %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 3, i32 0, i64 3
-  %.pre-phi70 = bitcast i8* %.pre-phi70.in to i32*
+; <label>:171:                                    ; preds = %._crit_edge, %.thread
+  %.pre-phi76 = phi i32* [ %.pre75, %._crit_edge ], [ %168, %.thread ]
+  %.pre-phi74 = phi i32* [ %.pre73, %._crit_edge ], [ %166, %.thread ]
+  %.pre-phi70 = phi i32* [ %.pre69, %._crit_edge ], [ %163, %.thread ]
+  %.pre-phi68 = phi i32* [ %.pre67, %._crit_edge ], [ %161, %.thread ]
+  %.pre-phi64 = phi i32* [ %.pre63, %._crit_edge ], [ %158, %.thread ]
+  %.pre-phi62 = phi i32* [ %.pre61, %._crit_edge ], [ %156, %.thread ]
+  %.pre-phi58 = phi i32* [ %.pre57, %._crit_edge ], [ %153, %.thread ]
+  %.pre-phi56 = phi i32* [ %.pre55, %._crit_edge ], [ %151, %.thread ]
+  %.pre-phi52 = phi i32* [ %.pre51, %._crit_edge ], [ %148, %.thread ]
+  %.pre-phi50 = phi i32 [ %.pre49, %._crit_edge ], [ %141, %.thread ]
+  %.pre-phi48 = phi i32* [ %.pre47, %._crit_edge ], [ %138, %.thread ]
+  %.pre-phi44 = phi i8* [ %.pre43, %._crit_edge ], [ %136, %.thread ]
+  %172 = phi i32 [ %94, %._crit_edge ], [ %169, %.thread ]
+  %173 = phi i32 [ %95, %._crit_edge ], [ %164, %.thread ]
+  %174 = phi i32 [ %96, %._crit_edge ], [ %159, %.thread ]
+  %175 = phi i32 [ %97, %._crit_edge ], [ %154, %.thread ]
+  %176 = phi i32 [ %98, %._crit_edge ], [ %149, %.thread ]
+  %177 = phi i32 [ %132, %._crit_edge ], [ %170, %.thread ]
   store i32 %49, i32* %.pre-phi48, align 4
   tail call void @sha1_block_data_order(%SHA_CTX* nonnull %25, i8* nonnull %.pre-phi44, i32 1)
-  %__m3 = icmp ult i32 %155, %.pre-phi50
-  %156 = load i32, i32* %29, align 4
-  %157 = select i1 %__m3, i32 %156, i32 %154
-  %158 = load i32, i32* %.pre-phi56, align 4
-  %159 = select i1 %__m3, i32 %158, i32 %153
-  %160 = load i32, i32* %.pre-phi62, align 4
-  %161 = select i1 %__m3, i32 %160, i32 %152
-  %162 = load i32, i32* %.pre-phi68, align 4
-  %163 = select i1 %__m3, i32 %162, i32 %151
-  %164 = load i32, i32* %.pre-phi74, align 4
-  %165 = select i1 %__m3, i32 %164, i32 %150
-  %166 = tail call i32 @llvm.bswap.i32(i32 %157) #2
-  store i32 %166, i32* %.pre-phi52, align 16
-  %167 = tail call i32 @llvm.bswap.i32(i32 %159) #2
-  store i32 %167, i32* %.pre-phi58, align 4
-  %168 = tail call i32 @llvm.bswap.i32(i32 %161) #2
-  store i32 %168, i32* %.pre-phi64, align 4
-  %169 = tail call i32 @llvm.bswap.i32(i32 %163) #2
-  store i32 %169, i32* %.pre-phi70, align 4
-  %170 = tail call i32 @llvm.bswap.i32(i32 %165) #2
-  store i32 %170, i32* %.pre-phi76, align 4
-  %171 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 2
-  %172 = bitcast %SHA_CTX* %171 to i8*
-  tail call void @llvm.memcpy.p0i8.p0i8.i64(i8* nonnull %27, i8* nonnull %172, i64 96, i32 1, i1 false) #2
+  %__m3 = icmp ult i32 %177, %.pre-phi50
+  %178 = load i32, i32* %29, align 4
+  %179 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 %178, i32 %176) #2
+  store i32 %179, i32* %.pre-phi52, align 4
+  %180 = load i32, i32* %.pre-phi56, align 4
+  %181 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 %180, i32 %175) #2
+  store i32 %181, i32* %.pre-phi58, align 4
+  %182 = load i32, i32* %.pre-phi62, align 4
+  %183 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 %182, i32 %174) #2
+  store i32 %183, i32* %.pre-phi64, align 4
+  %184 = load i32, i32* %.pre-phi68, align 4
+  %185 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 %184, i32 %173) #2
+  store i32 %185, i32* %.pre-phi70, align 4
+  %186 = load i32, i32* %.pre-phi74, align 4
+  %187 = tail call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m3, i32 %186, i32 %172) #2
+  %188 = tail call i32 @llvm.bswap.i32(i32 %179) #2
+  store i32 %188, i32* %.pre-phi52, align 4
+  %189 = tail call i32 @llvm.bswap.i32(i32 %181) #2
+  store i32 %189, i32* %.pre-phi58, align 4
+  %190 = tail call i32 @llvm.bswap.i32(i32 %183) #2
+  store i32 %190, i32* %.pre-phi64, align 4
+  %191 = tail call i32 @llvm.bswap.i32(i32 %185) #2
+  store i32 %191, i32* %.pre-phi70, align 4
+  %192 = tail call i32 @llvm.bswap.i32(i32 %187) #2
+  store i32 %192, i32* %.pre-phi76, align 4
+  %193 = getelementptr inbounds %EVP_AES_HMAC_SHA1, %EVP_AES_HMAC_SHA1* %__v2_key, i64 0, i32 2
+  %194 = bitcast %SHA_CTX* %193 to i8*
+  tail call void @llvm.memcpy.p0i8.p0i8.i64(i8* nonnull %27, i8* nonnull %194, i64 96, i32 1, i1 false) #2
   call void @_sha1_update(i32* nonnull %29, i8* nonnull %__v23_pmac23.sub, i64 20)
   call void @SHA1_Final(i8* nonnull %__v23_pmac23.sub, i32* nonnull %29)
-  %173 = add i32 %44, %__v14_outp.1
-  %__v30_s_outp = zext i32 %173 to i64
-  %174 = zext i32 %__v19_maxpad to i64
-  %175 = add nuw nsw i32 %__v19_maxpad, 20
-  %176 = add i64 %__v69___v3__out_len, -21
-  %__v31_p_outp = sub i64 %176, %174
-  %177 = add nuw nsw i64 %__v30_s_outp, 20
-  %178 = zext i32 %175 to i64
-  br label %179
+  %195 = add i32 %44, %__v14_outp.1
+  %__v30_s_outp = zext i32 %195 to i64
+  %196 = zext i32 %__v19_maxpad to i64
+  %197 = add nuw nsw i32 %__v19_maxpad, 20
+  %198 = add i64 %__v69___v3__out_len, -21
+  %__v31_p_outp = sub i64 %198, %196
+  %199 = add nuw nsw i64 %__v30_s_outp, 20
+  %200 = zext i32 %197 to i64
+  br label %201
 
-; <label>:179:                                    ; preds = %149, %179
-  %indvars.iv = phi i64 [ 0, %149 ], [ %indvars.iv.next, %179 ]
-  %180 = phi i32 [ 0, %149 ], [ %190, %179 ]
-  %__v16_ret.026 = phi i32 [ %16, %149 ], [ %187, %179 ]
+; <label>:201:                                    ; preds = %171, %201
+  %indvars.iv = phi i64 [ 0, %171 ], [ %indvars.iv.next, %201 ]
+  %202 = phi i32 [ 0, %171 ], [ %214, %201 ]
+  %__v16_ret.026 = phi i32 [ %16, %171 ], [ %211, %201 ]
   %__v93_lexpr = add i64 %__v31_p_outp, %indvars.iv
-  %181 = getelementptr i8, i8* %__v3__out, i64 %__v93_lexpr
-  %182 = load i8, i8* %181, align 1
-  %__v34_c = zext i8 %182 to i32
-  %__m5 = icmp uge i64 %__v93_lexpr, %177
+  %203 = getelementptr i8, i8* %__v3__out, i64 %__v93_lexpr
+  %204 = load i8, i8* %203, align 1
+  %__v34_c = zext i8 %204 to i32
+  %__m5 = icmp uge i64 %__v93_lexpr, %199
   %__m6 = icmp ne i32 %15, %__v34_c
+  %205 = and i1 %__m5, %__m6
+  %206 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %205, i32 0, i32 %__v16_ret.026) #2
   %__m8 = xor i1 %__m5, true
   %__m9 = icmp uge i64 %__v93_lexpr, %__v30_s_outp
-  %__v94_lexpr = zext i32 %180 to i64
-  %183 = getelementptr [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 %__v94_lexpr
-  %184 = load i8, i8* %183, align 1
-  %__m10 = icmp ne i8 %182, %184
-  %185 = and i1 %__m9, %__m10
-  %186 = select i1 %__m5, i1 %__m6, i1 %185
-  %187 = select i1 %186, i32 0, i32 %__v16_ret.026
-  %188 = and i1 %__m9, %__m8
-  %189 = zext i1 %188 to i32
-  %190 = add i32 %180, %189
+  %__v94_lexpr = zext i32 %202 to i64
+  %207 = getelementptr [20 x i8], [20 x i8]* %__v23_pmac23, i64 0, i64 %__v94_lexpr
+  %208 = load i8, i8* %207, align 1
+  %__m10 = icmp ne i8 %204, %208
+  %209 = and i1 %__m9, %__m10
+  %210 = and i1 %209, %__m8
+  %211 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %210, i32 0, i32 %206) #2
+  %212 = add i32 %202, 1
+  %213 = and i1 %__m9, %__m8
+  %214 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %213, i32 %212, i32 %202) #2
   %indvars.iv.next = add nuw nsw i64 %indvars.iv, 1
-  %191 = icmp ult i64 %indvars.iv.next, %178
-  br i1 %191, label %179, label %.loopexit
+  %215 = icmp ult i64 %indvars.iv.next, %200
+  br i1 %215, label %201, label %.loopexit
 }
 
 ; Function Attrs: nounwind readnone speculatable

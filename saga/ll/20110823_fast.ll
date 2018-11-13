@@ -413,7 +413,7 @@ entry:
   %116 = load i32, i32* %115
   %117 = and i1 true, %__m23
   %118 = load i32, i32* %114
-  %119 = select i1 %117, i32 %116, i32 %118
+  %119 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %117, i32 %116, i32 %118)
   store i32 %119, i32* %114
   br label %120
 
@@ -488,9 +488,9 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal i32 @fact.cmov.sel.i32(i1 %cond, i32 %x, i32 %y) #1 {
+define internal i32 @fact.cmov.asm.i32(i1 %cond, i32 %x, i32 %y) #1 {
 entry:
-  %0 = select i1 %cond, i32 %x, i32 %y
+  %0 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %cond, i32 %x, i32 %y)
   ret i32 %0
 }
 
@@ -647,7 +647,7 @@ entry:
   %81 = load i32, i32* %80
   %82 = and i1 true, %__m19
   %83 = load i32, i32* %79
-  %84 = call i32 @fact.cmov.sel.i32(i1 %82, i32 %81, i32 %83)
+  %84 = call i32 @fact.cmov.asm.i32(i1 %82, i32 %81, i32 %83)
   store i32 %84, i32* %79
   br label %85
 
@@ -658,7 +658,7 @@ entry:
 ; <label>:87:                                     ; preds = %74
   %__m20 = xor i1 %__m19, true
   %88 = zext i32 %__v62_slen to i64
-  %89 = call i64 @fact.select.sel.i64(i1 %__v72_len_in_first_block, i64 0, i64 64)
+  %89 = call i64 @fact.select.asm.i64(i1 %__v72_len_in_first_block, i64 0, i64 64)
   %90 = add i64 %88, %89
   %__m21 = icmp ugt i64 %__v74_i, %90
   %91 = and i1 true, %__m21
@@ -680,9 +680,9 @@ entry:
 }
 
 ; Function Attrs: alwaysinline
-define internal i64 @fact.select.sel.i64(i1 %cond, i64 %x, i64 %y) #1 {
+define internal i64 @fact.select.asm.i64(i1 %cond, i64 %x, i64 %y) #1 {
 entry:
-  %0 = select i1 %cond, i64 %x, i64 %y
+  %0 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %cond, i64 %x, i64 %y)
   ret i64 %0
 }
 
@@ -937,7 +937,7 @@ entry:
   %60 = load i32, i32* %59
   %61 = and i1 true, %__m11
   %62 = load i32, i32* %58
-  %63 = select i1 %61, i32 %60, i32 %62
+  %63 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %61, i32 %60, i32 %62)
   store i32 %63, i32* %58
   br label %64
 
@@ -1022,11 +1022,11 @@ entry:
   %__m1 = icmp ugt i32 %29, %__v19_maxpad
   %30 = and i1 true, %__m1
   %31 = load i32, i32* %__v13_ret
-  %32 = select i1 %30, i32 0, i32 %31
+  %32 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %30, i32 0, i32 %31)
   store i32 %32, i32* %__v13_ret
   %33 = and i1 true, %__m1
   %34 = load i32, i32* %__v17_pad
-  %35 = select i1 %33, i32 %__v19_maxpad, i32 %34
+  %35 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %33, i32 %__v19_maxpad, i32 %34)
   store i32 %35, i32* %__v17_pad
   %__m2 = xor i1 %__m1, true
   %36 = load i32, i32* %__v16__len
@@ -1158,7 +1158,7 @@ entry:
   %__m3 = icmp ugt i32 %112, %113
   %114 = and i1 true, %__m3
   %115 = load i32, i32* %__v13_ret
-  %116 = select i1 %114, i32 0, i32 %115
+  %116 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %114, i32 0, i32 %115)
   store i32 %116, i32* %__v13_ret
   %__m4 = xor i1 %__m3, true
   %117 = load i32, i32* %__v15_outp
@@ -1189,7 +1189,7 @@ entry:
   %135 = sub i32 %__v25_i, %134
   %136 = and i1 true, %132
   %137 = load i32, i32* %__v26_j
-  %138 = select i1 %136, i32 %135, i32 %137
+  %138 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %136, i32 %135, i32 %137)
   store i32 %138, i32* %__v26_j
   %__v125_lexpr = zext i32 %__v25_i to i64
   %139 = load i32, i32* %__v26_j
@@ -1202,7 +1202,7 @@ entry:
   %144 = and i1 true, %__m6
   %145 = and i1 %144, %132
   %146 = load i32, i32* %__v13_ret
-  %147 = select i1 %145, i32 0, i32 %146
+  %147 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %145, i32 0, i32 %146)
   store i32 %147, i32* %__v13_ret
   %__m7 = xor i1 %__m6, true
   %__m8 = xor i1 %132, true

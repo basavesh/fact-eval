@@ -32,16 +32,22 @@ swap_conditional:                       # @swap_conditional
 	movq	(%r9,%r8,8), %r8
 	movb	-25(%rsp), %r10b        # 1-byte Reload
 	andb	$1, %r10b
-	testb	$1, %r10b
-	cmoveq	(%rsi,%rdi,8), %r8
-	movq	%r8, (%rsi,%rdi,8)
+	movq	(%rsi,%rdi,8), %r11
+	#APP
+	testb	%r10b, %r10b
+	cmovneq	%r8, %r11
+	#NO_APP
+	movq	%r11, (%rsi,%rdi,8)
 	movl	%eax, %ecx
 	movl	%ecx, %edi
 	movb	-25(%rsp), %r10b        # 1-byte Reload
 	andb	$1, %r10b
-	testb	$1, %r10b
-	cmoveq	(%r9,%rdi,8), %rdx
-	movq	%rdx, (%r9,%rdi,8)
+	movq	(%r9,%rdi,8), %r8
+	#APP
+	testb	%r10b, %r10b
+	cmovneq	%rdx, %r8
+	#NO_APP
+	movq	%r8, (%r9,%rdi,8)
 # %bb.3:                                #   in Loop: Header=BB0_1 Depth=1
 	movl	-36(%rsp), %eax         # 4-byte Reload
 	addl	$1, %eax

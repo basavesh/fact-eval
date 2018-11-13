@@ -813,7 +813,7 @@ entry:
   %__v38_j52.i = phi i32 [ 0, %227 ], [ %360, %358 ]
   %233 = and i32 %__v38_j52.i, 1
   %234 = icmp eq i32 %233, 0
-  %__m1.i45.i = icmp slt i8 %232, 0
+  %__m1.i9.i = icmp slt i8 %232, 0
   br i1 %234, label %236, label %297
 
 ; <label>:235:                                    ; preds = %358
@@ -822,255 +822,254 @@ entry:
   br i1 %exitcond57.i, label %cmult.exit, label %227
 
 ; <label>:236:                                    ; preds = %231
-  %__v104_x.i46.i = load i64, i64* %__v29_c3.sub.i, align 16
+  %__v104_x.i10.i = load i64, i64* %__v29_c3.sub.i, align 16
   %237 = load i64, i64* %__v27_a1.sub.i, align 8
-  %238 = select i1 %__m1.i45.i, i64 %237, i64 %__v104_x.i46.i
+  %238 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %237, i64 %__v104_x.i10.i) #0
   store i64 %238, i64* %__v29_c3.sub.i, align 16
-  %239 = select i1 %__m1.i45.i, i64 %__v104_x.i46.i, i64 %237
+  %239 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i10.i, i64 %237) #0
   store i64 %239, i64* %__v27_a1.sub.i, align 8
-  %__v104_x.1.i47.i = load i64, i64* %193, align 8
+  %__v104_x.1.i11.i = load i64, i64* %193, align 8
   %240 = load i64, i64* %199, align 8
-  %241 = select i1 %__m1.i45.i, i64 %240, i64 %__v104_x.1.i47.i
+  %241 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %240, i64 %__v104_x.1.i11.i) #0
   store i64 %241, i64* %193, align 8
-  %242 = select i1 %__m1.i45.i, i64 %__v104_x.1.i47.i, i64 %240
+  %242 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i11.i, i64 %240) #0
   store i64 %242, i64* %199, align 8
-  %__v104_x.2.i48.i = load i64, i64* %200, align 16
+  %__v104_x.2.i12.i = load i64, i64* %200, align 16
   %243 = load i64, i64* %201, align 8
-  %244 = select i1 %__m1.i45.i, i64 %243, i64 %__v104_x.2.i48.i
+  %244 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %243, i64 %__v104_x.2.i12.i) #0
   store i64 %244, i64* %200, align 16
-  %245 = select i1 %__m1.i45.i, i64 %__v104_x.2.i48.i, i64 %243
+  %245 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i12.i, i64 %243) #0
   store i64 %245, i64* %201, align 8
-  %__v104_x.3.i49.i = load i64, i64* %202, align 8
+  %__v104_x.3.i13.i = load i64, i64* %202, align 8
   %246 = load i64, i64* %203, align 8
-  %247 = select i1 %__m1.i45.i, i64 %246, i64 %__v104_x.3.i49.i
+  %247 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %246, i64 %__v104_x.3.i13.i) #0
   store i64 %247, i64* %202, align 8
-  %248 = select i1 %__m1.i45.i, i64 %__v104_x.3.i49.i, i64 %246
+  %248 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i13.i, i64 %246) #0
   store i64 %248, i64* %203, align 8
-  %__v104_x.4.i50.i = load i64, i64* %204, align 16
+  %__v104_x.4.i14.i = load i64, i64* %204, align 16
   %249 = load i64, i64* %205, align 8
-  %250 = select i1 %__m1.i45.i, i64 %249, i64 %__v104_x.4.i50.i
+  %250 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %249, i64 %__v104_x.4.i14.i) #0
   store i64 %250, i64* %204, align 16
-  %251 = select i1 %__m1.i45.i, i64 %__v104_x.4.i50.i, i64 %249
+  %251 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i14.i, i64 %249) #0
   store i64 %251, i64* %205, align 8
-  %__v104_x.i40.i = load i64, i64* %__v30_d4.sub.i, align 16
+  %__v104_x.i16.i = load i64, i64* %__v30_d4.sub.i, align 16
   %252 = load i64, i64* %__v28_b2.sub.i, align 8
-  %253 = select i1 %__m1.i45.i, i64 %252, i64 %__v104_x.i40.i
+  %253 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %252, i64 %__v104_x.i16.i) #0
   store i64 %253, i64* %__v30_d4.sub.i, align 16
-  %254 = select i1 %__m1.i45.i, i64 %__v104_x.i40.i, i64 %252
+  %254 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i16.i, i64 %252) #0
   store i64 %254, i64* %__v28_b2.sub.i, align 8
-  %__v104_x.1.i41.i = load i64, i64* %206, align 8
+  %__v104_x.1.i17.i = load i64, i64* %206, align 8
   %255 = load i64, i64* %191, align 8
-  %256 = select i1 %__m1.i45.i, i64 %255, i64 %__v104_x.1.i41.i
+  %256 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %255, i64 %__v104_x.1.i17.i) #0
   store i64 %256, i64* %206, align 8
-  %257 = select i1 %__m1.i45.i, i64 %__v104_x.1.i41.i, i64 %255
+  %257 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i17.i, i64 %255) #0
   store i64 %257, i64* %191, align 8
-  %__v104_x.2.i42.i = load i64, i64* %207, align 16
+  %__v104_x.2.i18.i = load i64, i64* %207, align 16
   %258 = load i64, i64* %208, align 8
-  %259 = select i1 %__m1.i45.i, i64 %258, i64 %__v104_x.2.i42.i
+  %259 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %258, i64 %__v104_x.2.i18.i) #0
   store i64 %259, i64* %207, align 16
-  %260 = select i1 %__m1.i45.i, i64 %__v104_x.2.i42.i, i64 %258
+  %260 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i18.i, i64 %258) #0
   store i64 %260, i64* %208, align 8
-  %__v104_x.3.i43.i = load i64, i64* %209, align 8
+  %__v104_x.3.i19.i = load i64, i64* %209, align 8
   %261 = load i64, i64* %210, align 8
-  %262 = select i1 %__m1.i45.i, i64 %261, i64 %__v104_x.3.i43.i
+  %262 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %261, i64 %__v104_x.3.i19.i) #0
   store i64 %262, i64* %209, align 8
-  %263 = select i1 %__m1.i45.i, i64 %__v104_x.3.i43.i, i64 %261
+  %263 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i19.i, i64 %261) #0
   store i64 %263, i64* %210, align 8
-  %__v104_x.4.i44.i = load i64, i64* %211, align 16
+  %__v104_x.4.i20.i = load i64, i64* %211, align 16
   %264 = load i64, i64* %212, align 8
-  %265 = select i1 %__m1.i45.i, i64 %264, i64 %__v104_x.4.i44.i
+  %265 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %264, i64 %__v104_x.4.i20.i) #0
   store i64 %265, i64* %211, align 16
-  %266 = select i1 %__m1.i45.i, i64 %__v104_x.4.i44.i, i64 %264
+  %266 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i20.i, i64 %264) #0
   store i64 %266, i64* %212, align 8
   call fastcc void @fmonty(i64* nonnull %__v33_g7.sub.i, i64* nonnull %__v34_h8.sub.i, i64* nonnull %__v31_e5.sub.i, i64* nonnull %__v32_f6.sub.i, i64* nonnull %__v29_c3.sub.i, i64* nonnull %__v30_d4.sub.i, i64* nonnull %__v27_a1.sub.i, i64* nonnull %__v28_b2.sub.i, i64* nonnull %__v4_bp1.sub) #0
-  %__v104_x.i34.i = load i64, i64* %__v33_g7.sub.i, align 8
+  %__v104_x.i22.i = load i64, i64* %__v33_g7.sub.i, align 8
   %267 = load i64, i64* %__v31_e5.sub.i, align 8
-  %268 = select i1 %__m1.i45.i, i64 %267, i64 %__v104_x.i34.i
+  %268 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %267, i64 %__v104_x.i22.i) #0
   store i64 %268, i64* %__v33_g7.sub.i, align 8
-  %269 = select i1 %__m1.i45.i, i64 %__v104_x.i34.i, i64 %267
+  %269 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i22.i, i64 %267) #0
   store i64 %269, i64* %__v31_e5.sub.i, align 8
-  %__v104_x.1.i35.i = load i64, i64* %213, align 8
+  %__v104_x.1.i23.i = load i64, i64* %213, align 8
   %270 = load i64, i64* %214, align 8
-  %271 = select i1 %__m1.i45.i, i64 %270, i64 %__v104_x.1.i35.i
+  %271 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %270, i64 %__v104_x.1.i23.i) #0
   store i64 %271, i64* %213, align 8
-  %272 = select i1 %__m1.i45.i, i64 %__v104_x.1.i35.i, i64 %270
+  %272 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i23.i, i64 %270) #0
   store i64 %272, i64* %214, align 8
-  %__v104_x.2.i36.i = load i64, i64* %215, align 8
+  %__v104_x.2.i24.i = load i64, i64* %215, align 8
   %273 = load i64, i64* %216, align 8
-  %274 = select i1 %__m1.i45.i, i64 %273, i64 %__v104_x.2.i36.i
+  %274 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %273, i64 %__v104_x.2.i24.i) #0
   store i64 %274, i64* %215, align 8
-  %275 = select i1 %__m1.i45.i, i64 %__v104_x.2.i36.i, i64 %273
+  %275 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i24.i, i64 %273) #0
   store i64 %275, i64* %216, align 8
-  %__v104_x.3.i37.i = load i64, i64* %217, align 8
+  %__v104_x.3.i25.i = load i64, i64* %217, align 8
   %276 = load i64, i64* %218, align 8
-  %277 = select i1 %__m1.i45.i, i64 %276, i64 %__v104_x.3.i37.i
+  %277 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %276, i64 %__v104_x.3.i25.i) #0
   store i64 %277, i64* %217, align 8
-  %278 = select i1 %__m1.i45.i, i64 %__v104_x.3.i37.i, i64 %276
+  %278 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i25.i, i64 %276) #0
   store i64 %278, i64* %218, align 8
-  %__v104_x.4.i38.i = load i64, i64* %219, align 8
+  %__v104_x.4.i26.i = load i64, i64* %219, align 8
   %279 = load i64, i64* %220, align 8
-  %280 = select i1 %__m1.i45.i, i64 %279, i64 %__v104_x.4.i38.i
+  %280 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %279, i64 %__v104_x.4.i26.i) #0
   store i64 %280, i64* %219, align 8
-  %281 = select i1 %__m1.i45.i, i64 %__v104_x.4.i38.i, i64 %279
+  %281 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i26.i, i64 %279) #0
   store i64 %281, i64* %220, align 8
   %__v104_x.i28.i = load i64, i64* %__v34_h8.sub.i, align 8
   %282 = load i64, i64* %__v32_f6.sub.i, align 8
-  %283 = select i1 %__m1.i45.i, i64 %282, i64 %__v104_x.i28.i
+  %283 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %282, i64 %__v104_x.i28.i) #0
   store i64 %283, i64* %__v34_h8.sub.i, align 8
-  %284 = select i1 %__m1.i45.i, i64 %__v104_x.i28.i, i64 %282
+  %284 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i28.i, i64 %282) #0
   store i64 %284, i64* %__v32_f6.sub.i, align 8
   %__v104_x.1.i29.i = load i64, i64* %197, align 8
   %285 = load i64, i64* %195, align 8
-  %286 = select i1 %__m1.i45.i, i64 %285, i64 %__v104_x.1.i29.i
+  %286 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %285, i64 %__v104_x.1.i29.i) #0
   store i64 %286, i64* %197, align 8
-  %287 = select i1 %__m1.i45.i, i64 %__v104_x.1.i29.i, i64 %285
+  %287 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i29.i, i64 %285) #0
   store i64 %287, i64* %195, align 8
   %__v104_x.2.i30.i = load i64, i64* %221, align 8
   %288 = load i64, i64* %222, align 8
-  %289 = select i1 %__m1.i45.i, i64 %288, i64 %__v104_x.2.i30.i
+  %289 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %288, i64 %__v104_x.2.i30.i) #0
   store i64 %289, i64* %221, align 8
-  %290 = select i1 %__m1.i45.i, i64 %__v104_x.2.i30.i, i64 %288
+  %290 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i30.i, i64 %288) #0
   store i64 %290, i64* %222, align 8
   %__v104_x.3.i31.i = load i64, i64* %223, align 8
   %291 = load i64, i64* %224, align 8
-  %292 = select i1 %__m1.i45.i, i64 %291, i64 %__v104_x.3.i31.i
+  %292 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %291, i64 %__v104_x.3.i31.i) #0
   store i64 %292, i64* %223, align 8
-  %293 = select i1 %__m1.i45.i, i64 %__v104_x.3.i31.i, i64 %291
+  %293 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i31.i, i64 %291) #0
   store i64 %293, i64* %224, align 8
   %__v104_x.4.i32.i = load i64, i64* %225, align 8
   %294 = load i64, i64* %226, align 8
-  %295 = select i1 %__m1.i45.i, i64 %294, i64 %__v104_x.4.i32.i
+  %295 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %294, i64 %__v104_x.4.i32.i) #0
   store i64 %295, i64* %225, align 8
-  %296 = select i1 %__m1.i45.i, i64 %__v104_x.4.i32.i, i64 %294
+  %296 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i32.i, i64 %294) #0
+  store i64 %296, i64* %226, align 8
   br label %358
 
 ; <label>:297:                                    ; preds = %231
-  %__v104_x.i22.i = load i64, i64* %__v33_g7.sub.i, align 8
+  %__v104_x.i34.i = load i64, i64* %__v33_g7.sub.i, align 8
   %298 = load i64, i64* %__v31_e5.sub.i, align 8
-  %299 = select i1 %__m1.i45.i, i64 %298, i64 %__v104_x.i22.i
+  %299 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %298, i64 %__v104_x.i34.i) #0
   store i64 %299, i64* %__v33_g7.sub.i, align 8
-  %300 = select i1 %__m1.i45.i, i64 %__v104_x.i22.i, i64 %298
+  %300 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i34.i, i64 %298) #0
   store i64 %300, i64* %__v31_e5.sub.i, align 8
-  %__v104_x.1.i23.i = load i64, i64* %213, align 8
+  %__v104_x.1.i35.i = load i64, i64* %213, align 8
   %301 = load i64, i64* %214, align 8
-  %302 = select i1 %__m1.i45.i, i64 %301, i64 %__v104_x.1.i23.i
+  %302 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %301, i64 %__v104_x.1.i35.i) #0
   store i64 %302, i64* %213, align 8
-  %303 = select i1 %__m1.i45.i, i64 %__v104_x.1.i23.i, i64 %301
+  %303 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i35.i, i64 %301) #0
   store i64 %303, i64* %214, align 8
-  %__v104_x.2.i24.i = load i64, i64* %215, align 8
+  %__v104_x.2.i36.i = load i64, i64* %215, align 8
   %304 = load i64, i64* %216, align 8
-  %305 = select i1 %__m1.i45.i, i64 %304, i64 %__v104_x.2.i24.i
+  %305 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %304, i64 %__v104_x.2.i36.i) #0
   store i64 %305, i64* %215, align 8
-  %306 = select i1 %__m1.i45.i, i64 %__v104_x.2.i24.i, i64 %304
+  %306 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i36.i, i64 %304) #0
   store i64 %306, i64* %216, align 8
-  %__v104_x.3.i25.i = load i64, i64* %217, align 8
+  %__v104_x.3.i37.i = load i64, i64* %217, align 8
   %307 = load i64, i64* %218, align 8
-  %308 = select i1 %__m1.i45.i, i64 %307, i64 %__v104_x.3.i25.i
+  %308 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %307, i64 %__v104_x.3.i37.i) #0
   store i64 %308, i64* %217, align 8
-  %309 = select i1 %__m1.i45.i, i64 %__v104_x.3.i25.i, i64 %307
+  %309 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i37.i, i64 %307) #0
   store i64 %309, i64* %218, align 8
-  %__v104_x.4.i26.i = load i64, i64* %219, align 8
+  %__v104_x.4.i38.i = load i64, i64* %219, align 8
   %310 = load i64, i64* %220, align 8
-  %311 = select i1 %__m1.i45.i, i64 %310, i64 %__v104_x.4.i26.i
+  %311 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %310, i64 %__v104_x.4.i38.i) #0
   store i64 %311, i64* %219, align 8
-  %312 = select i1 %__m1.i45.i, i64 %__v104_x.4.i26.i, i64 %310
+  %312 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i38.i, i64 %310) #0
   store i64 %312, i64* %220, align 8
-  %__v104_x.i16.i = load i64, i64* %__v34_h8.sub.i, align 8
+  %__v104_x.i40.i = load i64, i64* %__v34_h8.sub.i, align 8
   %313 = load i64, i64* %__v32_f6.sub.i, align 8
-  %314 = select i1 %__m1.i45.i, i64 %313, i64 %__v104_x.i16.i
+  %314 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %313, i64 %__v104_x.i40.i) #0
   store i64 %314, i64* %__v34_h8.sub.i, align 8
-  %315 = select i1 %__m1.i45.i, i64 %__v104_x.i16.i, i64 %313
+  %315 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i40.i, i64 %313) #0
   store i64 %315, i64* %__v32_f6.sub.i, align 8
-  %__v104_x.1.i17.i = load i64, i64* %197, align 8
+  %__v104_x.1.i41.i = load i64, i64* %197, align 8
   %316 = load i64, i64* %195, align 8
-  %317 = select i1 %__m1.i45.i, i64 %316, i64 %__v104_x.1.i17.i
+  %317 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %316, i64 %__v104_x.1.i41.i) #0
   store i64 %317, i64* %197, align 8
-  %318 = select i1 %__m1.i45.i, i64 %__v104_x.1.i17.i, i64 %316
+  %318 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i41.i, i64 %316) #0
   store i64 %318, i64* %195, align 8
-  %__v104_x.2.i18.i = load i64, i64* %221, align 8
+  %__v104_x.2.i42.i = load i64, i64* %221, align 8
   %319 = load i64, i64* %222, align 8
-  %320 = select i1 %__m1.i45.i, i64 %319, i64 %__v104_x.2.i18.i
+  %320 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %319, i64 %__v104_x.2.i42.i) #0
   store i64 %320, i64* %221, align 8
-  %321 = select i1 %__m1.i45.i, i64 %__v104_x.2.i18.i, i64 %319
+  %321 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i42.i, i64 %319) #0
   store i64 %321, i64* %222, align 8
-  %__v104_x.3.i19.i = load i64, i64* %223, align 8
+  %__v104_x.3.i43.i = load i64, i64* %223, align 8
   %322 = load i64, i64* %224, align 8
-  %323 = select i1 %__m1.i45.i, i64 %322, i64 %__v104_x.3.i19.i
+  %323 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %322, i64 %__v104_x.3.i43.i) #0
   store i64 %323, i64* %223, align 8
-  %324 = select i1 %__m1.i45.i, i64 %__v104_x.3.i19.i, i64 %322
+  %324 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i43.i, i64 %322) #0
   store i64 %324, i64* %224, align 8
-  %__v104_x.4.i20.i = load i64, i64* %225, align 8
+  %__v104_x.4.i44.i = load i64, i64* %225, align 8
   %325 = load i64, i64* %226, align 8
-  %326 = select i1 %__m1.i45.i, i64 %325, i64 %__v104_x.4.i20.i
+  %326 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %325, i64 %__v104_x.4.i44.i) #0
   store i64 %326, i64* %225, align 8
-  %327 = select i1 %__m1.i45.i, i64 %__v104_x.4.i20.i, i64 %325
+  %327 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i44.i, i64 %325) #0
   store i64 %327, i64* %226, align 8
   call fastcc void @fmonty(i64* nonnull %__v29_c3.sub.i, i64* nonnull %__v30_d4.sub.i, i64* nonnull %__v27_a1.sub.i, i64* nonnull %__v28_b2.sub.i, i64* nonnull %__v33_g7.sub.i, i64* nonnull %__v34_h8.sub.i, i64* nonnull %__v31_e5.sub.i, i64* nonnull %__v32_f6.sub.i, i64* nonnull %__v4_bp1.sub) #0
-  %__v104_x.i10.i = load i64, i64* %__v29_c3.sub.i, align 16
+  %__v104_x.i46.i = load i64, i64* %__v29_c3.sub.i, align 16
   %328 = load i64, i64* %__v27_a1.sub.i, align 8
-  %329 = select i1 %__m1.i45.i, i64 %328, i64 %__v104_x.i10.i
+  %329 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %328, i64 %__v104_x.i46.i) #0
   store i64 %329, i64* %__v29_c3.sub.i, align 16
-  %330 = select i1 %__m1.i45.i, i64 %__v104_x.i10.i, i64 %328
+  %330 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i46.i, i64 %328) #0
   store i64 %330, i64* %__v27_a1.sub.i, align 8
-  %__v104_x.1.i11.i = load i64, i64* %193, align 8
+  %__v104_x.1.i47.i = load i64, i64* %193, align 8
   %331 = load i64, i64* %199, align 8
-  %332 = select i1 %__m1.i45.i, i64 %331, i64 %__v104_x.1.i11.i
+  %332 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %331, i64 %__v104_x.1.i47.i) #0
   store i64 %332, i64* %193, align 8
-  %333 = select i1 %__m1.i45.i, i64 %__v104_x.1.i11.i, i64 %331
+  %333 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i47.i, i64 %331) #0
   store i64 %333, i64* %199, align 8
-  %__v104_x.2.i12.i = load i64, i64* %200, align 16
+  %__v104_x.2.i48.i = load i64, i64* %200, align 16
   %334 = load i64, i64* %201, align 8
-  %335 = select i1 %__m1.i45.i, i64 %334, i64 %__v104_x.2.i12.i
+  %335 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %334, i64 %__v104_x.2.i48.i) #0
   store i64 %335, i64* %200, align 16
-  %336 = select i1 %__m1.i45.i, i64 %__v104_x.2.i12.i, i64 %334
+  %336 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i48.i, i64 %334) #0
   store i64 %336, i64* %201, align 8
-  %__v104_x.3.i13.i = load i64, i64* %202, align 8
+  %__v104_x.3.i49.i = load i64, i64* %202, align 8
   %337 = load i64, i64* %203, align 8
-  %338 = select i1 %__m1.i45.i, i64 %337, i64 %__v104_x.3.i13.i
+  %338 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %337, i64 %__v104_x.3.i49.i) #0
   store i64 %338, i64* %202, align 8
-  %339 = select i1 %__m1.i45.i, i64 %__v104_x.3.i13.i, i64 %337
+  %339 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i49.i, i64 %337) #0
   store i64 %339, i64* %203, align 8
-  %__v104_x.4.i14.i = load i64, i64* %204, align 16
+  %__v104_x.4.i50.i = load i64, i64* %204, align 16
   %340 = load i64, i64* %205, align 8
-  %341 = select i1 %__m1.i45.i, i64 %340, i64 %__v104_x.4.i14.i
+  %341 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %340, i64 %__v104_x.4.i50.i) #0
   store i64 %341, i64* %204, align 16
-  %342 = select i1 %__m1.i45.i, i64 %__v104_x.4.i14.i, i64 %340
+  %342 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i50.i, i64 %340) #0
   store i64 %342, i64* %205, align 8
   %__v104_x.i.i = load i64, i64* %__v30_d4.sub.i, align 16
   %343 = load i64, i64* %__v28_b2.sub.i, align 8
-  %344 = select i1 %__m1.i45.i, i64 %343, i64 %__v104_x.i.i
+  %344 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %343, i64 %__v104_x.i.i) #0
   store i64 %344, i64* %__v30_d4.sub.i, align 16
-  %345 = select i1 %__m1.i45.i, i64 %__v104_x.i.i, i64 %343
+  %345 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.i.i, i64 %343) #0
   store i64 %345, i64* %__v28_b2.sub.i, align 8
   %__v104_x.1.i.i = load i64, i64* %206, align 8
   %346 = load i64, i64* %191, align 8
-  %347 = select i1 %__m1.i45.i, i64 %346, i64 %__v104_x.1.i.i
+  %347 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %346, i64 %__v104_x.1.i.i) #0
   store i64 %347, i64* %206, align 8
-  %348 = select i1 %__m1.i45.i, i64 %__v104_x.1.i.i, i64 %346
+  %348 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.1.i.i, i64 %346) #0
   store i64 %348, i64* %191, align 8
   %__v104_x.2.i.i = load i64, i64* %207, align 16
   %349 = load i64, i64* %208, align 8
-  %350 = select i1 %__m1.i45.i, i64 %349, i64 %__v104_x.2.i.i
+  %350 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %349, i64 %__v104_x.2.i.i) #0
   store i64 %350, i64* %207, align 16
-  %351 = select i1 %__m1.i45.i, i64 %__v104_x.2.i.i, i64 %349
+  %351 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.2.i.i, i64 %349) #0
   store i64 %351, i64* %208, align 8
   %__v104_x.3.i.i = load i64, i64* %209, align 8
   %352 = load i64, i64* %210, align 8
-  %353 = select i1 %__m1.i45.i, i64 %352, i64 %__v104_x.3.i.i
+  %353 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %352, i64 %__v104_x.3.i.i) #0
   store i64 %353, i64* %209, align 8
-  %354 = select i1 %__m1.i45.i, i64 %__v104_x.3.i.i, i64 %352
+  %354 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.3.i.i, i64 %352) #0
   store i64 %354, i64* %210, align 8
   %__v104_x.4.i.i = load i64, i64* %211, align 16
   %355 = load i64, i64* %212, align 8
-  %356 = select i1 %__m1.i45.i, i64 %355, i64 %__v104_x.4.i.i
+  %356 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %355, i64 %__v104_x.4.i.i) #0
   store i64 %356, i64* %211, align 16
-  %357 = select i1 %__m1.i45.i, i64 %__v104_x.4.i.i, i64 %355
+  %357 = tail call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %__m1.i9.i, i64 %__v104_x.4.i.i, i64 %355) #0
+  store i64 %357, i64* %212, align 8
   br label %358
 
 ; <label>:358:                                    ; preds = %297, %236
-  %.sink6 = phi i64* [ %212, %297 ], [ %226, %236 ]
-  %.sink = phi i64 [ %357, %297 ], [ %296, %236 ]
-  store i64 %.sink, i64* %.sink6, align 8
   %359 = shl i8 %232, 1
   %360 = add nuw nsw i32 %__v38_j52.i, 1
   %exitcond.i = icmp eq i32 %360, 8

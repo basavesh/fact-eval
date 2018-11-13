@@ -683,28 +683,28 @@ curve25519_donna:                       # @curve25519_donna
 	pushq	%r13
 	pushq	%r12
 	pushq	%rbx
-	subq	$568, %rsp              # imm = 0x238
+	subq	$584, %rsp              # imm = 0x248
 	xorps	%xmm0, %xmm0
-	movups	%xmm0, 408(%rsp)
+	movups	%xmm0, 424(%rsp)
+	movaps	%xmm0, 512(%rsp)
+	movq	$0, 440(%rsp)
 	movaps	%xmm0, 496(%rsp)
-	movq	$0, 424(%rsp)
-	movaps	%xmm0, 480(%rsp)
-	movq	$0, 512(%rsp)
+	movq	$0, 528(%rsp)
+	movaps	%xmm0, 384(%rsp)
 	movaps	%xmm0, 368(%rsp)
-	movaps	%xmm0, 352(%rsp)
+	movaps	%xmm0, 560(%rsp)
 	movaps	%xmm0, 544(%rsp)
-	movaps	%xmm0, 528(%rsp)
-	movq	$0, 384(%rsp)
-	movq	$0, 560(%rsp)
+	movq	$0, 400(%rsp)
+	movq	$0, 576(%rsp)
 	movups	(%rsi), %xmm1
 	movups	16(%rsi), %xmm2
-	movaps	%xmm1, 448(%rsp)
-	movaps	%xmm2, 464(%rsp)
-	andb	$-8, 448(%rsp)
-	movb	479(%rsp), %al
+	movaps	%xmm1, 464(%rsp)
+	movaps	%xmm2, 480(%rsp)
+	andb	$-8, 464(%rsp)
+	movb	495(%rsp), %al
 	andb	$63, %al
 	orb	$64, %al
-	movb	%al, 479(%rsp)
+	movb	%al, 495(%rsp)
 	movzbl	(%rdx), %eax
 	movzbl	1(%rdx), %ecx
 	shlq	$8, %rcx
@@ -727,7 +727,7 @@ curve25519_donna:                       # @curve25519_donna
 	orq	%rcx, %rsi
 	movabsq	$2251799813685247, %rbx # imm = 0x7FFFFFFFFFFFF
 	andq	%rbx, %rsi
-	movq	%rsi, 392(%rsp)
+	movq	%rsi, 408(%rsp)
 	movzbl	7(%rdx), %ecx
 	shlq	$8, %rcx
 	orq	%rax, %rcx
@@ -749,7 +749,7 @@ curve25519_donna:                       # @curve25519_donna
 	orq	%rcx, %rsi
 	shrq	$3, %rsi
 	andq	%rbx, %rsi
-	movq	%rsi, 400(%rsp)
+	movq	%rsi, 416(%rsp)
 	movzbl	13(%rdx), %ecx
 	shlq	$8, %rcx
 	orq	%rax, %rcx
@@ -774,7 +774,8 @@ curve25519_donna:                       # @curve25519_donna
 	orq	%rcx, %rsi
 	shrq	$6, %rsi
 	andq	%rbx, %rsi
-	movq	%rsi, 408(%rsp)
+	movq	%rsi, 424(%rsp)
+	movq	%rdi, 448(%rsp)         # 8-byte Spill
 	movzbl	20(%rdx), %eax
 	shlq	$8, %rax
 	orq	%rbp, %rax
@@ -796,8 +797,7 @@ curve25519_donna:                       # @curve25519_donna
 	orq	%rax, %rsi
 	shrq	%rsi
 	andq	%rbx, %rsi
-	movq	%rsi, 416(%rsp)
-	movq	%rdi, 432(%rsp)         # 8-byte Spill
+	movq	%rsi, 432(%rsp)
 	shlq	$8, %rcx
 	movzbl	26(%rdx), %eax
 	shlq	$16, %rax
@@ -819,46 +819,44 @@ curve25519_donna:                       # @curve25519_donna
 	orq	%rax, %rcx
 	shrq	$12, %rcx
 	andq	%rbx, %rcx
-	movq	%rcx, 424(%rsp)
+	movq	%rcx, 440(%rsp)
 	movups	%xmm0, 120(%rsp)
 	movups	%xmm0, 104(%rsp)
 	movups	%xmm0, 72(%rsp)
 	movups	%xmm0, 56(%rsp)
 	movaps	%xmm0, 16(%rsp)
 	movaps	%xmm0, (%rsp)
-	movaps	%xmm0, 288(%rsp)
-	movaps	%xmm0, 272(%rsp)
+	movaps	%xmm0, 256(%rsp)
 	movq	$0, 32(%rsp)
-	movq	$0, 304(%rsp)
+	movaps	%xmm0, 240(%rsp)
+	movq	$0, 272(%rsp)
+	movups	%xmm0, 352(%rsp)
 	movups	%xmm0, 336(%rsp)
-	movups	%xmm0, 320(%rsp)
 	movaps	%xmm0, 208(%rsp)
 	movaps	%xmm0, 192(%rsp)
-	movups	%xmm0, 256(%rsp)
+	movups	%xmm0, 312(%rsp)
+	movups	%xmm0, 296(%rsp)
 	movq	$0, 224(%rsp)
-	movups	%xmm0, 240(%rsp)
 	movq	$1, 96(%rsp)
 	movq	$1, 48(%rsp)
-	movq	$1, 312(%rsp)
-	movq	$1, 232(%rsp)
-	movq	424(%rsp), %rax
+	movq	$1, 328(%rsp)
+	movq	$1, 288(%rsp)
+	movq	440(%rsp), %rax
 	movq	%rax, 176(%rsp)
-	movups	392(%rsp), %xmm0
-	movups	408(%rsp), %xmm1
+	movups	408(%rsp), %xmm0
+	movups	424(%rsp), %xmm1
 	movaps	%xmm1, 160(%rsp)
 	movaps	%xmm0, 144(%rsp)
 	xorl	%ecx, %ecx
-	leaq	272(%rsp), %rbx
-	leaq	312(%rsp), %rbp
 	leaq	48(%rsp), %r14
 	movq	%rsp, %r15
 	.p2align	4, 0x90
 .LBB3_1:                                # =>This Loop Header: Depth=1
                                         #     Child Loop BB3_2 Depth 2
 	movl	$31, %eax
-	movq	%rcx, 440(%rsp)         # 8-byte Spill
+	movq	%rcx, 456(%rsp)         # 8-byte Spill
 	subq	%rcx, %rax
-	movb	448(%rsp,%rax), %r12b
+	movb	464(%rsp,%rax), %bpl
 	xorl	%r13d, %r13d
 	.p2align	4, 0x90
 .LBB3_2:                                #   Parent Loop BB3_1 Depth=1
@@ -866,85 +864,146 @@ curve25519_donna:                       # @curve25519_donna
 	testb	$1, %r13b
 	jne	.LBB3_4
 # %bb.3:                                #   in Loop: Header=BB3_2 Depth=2
-	testb	%r12b, %r12b
+	movl	%ebp, %ebx
+	shrb	$7, %bl
 	movq	48(%rsp), %rax
 	movq	56(%rsp), %rcx
 	movq	144(%rsp), %rdx
+	movq	%rax, %rsi
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rdx, %rsi
+	#NO_APP
+	movq	%rsi, 48(%rsp)
 	movq	152(%rsp), %rsi
-	movq	%rax, %rdi
-	cmovsq	%rdx, %rdi
-	movq	%rdi, 48(%rsp)
-	cmovsq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rdx
+	#NO_APP
 	movq	%rdx, 144(%rsp)
 	movq	%rcx, %rax
-	cmovsq	%rsi, %rax
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rsi, %rax
+	#NO_APP
 	movq	%rax, 56(%rsp)
-	cmovsq	%rcx, %rsi
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rsi
+	#NO_APP
 	movq	%rsi, 152(%rsp)
 	movq	64(%rsp), %rax
 	movq	160(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 64(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 160(%rsp)
 	movq	72(%rsp), %rax
 	movq	168(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 72(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 168(%rsp)
 	movq	80(%rsp), %rax
 	movq	176(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 80(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 176(%rsp)
 	movq	(%rsp), %rax
 	movq	96(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, (%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 96(%rsp)
 	movq	8(%rsp), %rax
 	movq	104(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 8(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 104(%rsp)
 	movq	16(%rsp), %rax
 	movq	112(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 16(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 112(%rsp)
 	movq	24(%rsp), %rax
 	movq	120(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 24(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 120(%rsp)
 	movq	32(%rsp), %rax
 	movq	128(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 32(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 128(%rsp)
 	subq	$8, %rsp
 	leaq	200(%rsp), %rdi
-	leaq	240(%rsp), %rsi
-	movq	%rbx, %rdx
-	movq	%rbp, %rcx
+	leaq	296(%rsp), %rsi
+	leaq	248(%rsp), %rdx
+	leaq	336(%rsp), %rcx
 	movq	%r14, %r8
 	movq	%r15, %r9
-	leaq	400(%rsp), %rax
+	leaq	416(%rsp), %rax
 	pushq	%rax
 	leaq	112(%rsp), %rax
 	pushq	%rax
@@ -952,259 +1011,439 @@ curve25519_donna:                       # @curve25519_donna
 	pushq	%rax
 	callq	fmonty
 	addq	$32, %rsp
-	testb	%r12b, %r12b
 	movq	192(%rsp), %rax
 	movq	200(%rsp), %rcx
-	movq	272(%rsp), %rdx
-	movq	280(%rsp), %rsi
-	movq	%rax, %rdi
-	cmovsq	%rdx, %rdi
-	movq	%rdi, 192(%rsp)
-	cmovsq	%rax, %rdx
-	movq	%rdx, 272(%rsp)
-	movq	%rcx, %rax
-	cmovsq	%rsi, %rax
-	movq	%rax, 200(%rsp)
-	cmovsq	%rcx, %rsi
-	movq	%rsi, 280(%rsp)
-	movq	208(%rsp), %rax
-	movq	288(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 208(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 288(%rsp)
-	movq	216(%rsp), %rax
-	movq	296(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 216(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 296(%rsp)
-	movq	224(%rsp), %rax
-	movq	304(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 224(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 304(%rsp)
-	movq	232(%rsp), %rax
-	movq	312(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 232(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 312(%rsp)
-	movq	240(%rsp), %rax
-	movq	320(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	movq	240(%rsp), %rdx
+	movq	%rax, %rsi
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rdx, %rsi
+	#NO_APP
+	movq	%rsi, 192(%rsp)
+	movq	248(%rsp), %rsi
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rdx
+	#NO_APP
 	movq	%rdx, 240(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 320(%rsp)
-	movq	248(%rsp), %rax
+	movq	%rcx, %rax
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rsi, %rax
+	#NO_APP
+	movq	%rax, 200(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rsi
+	#NO_APP
+	movq	%rsi, 248(%rsp)
+	movq	208(%rsp), %rax
+	movq	256(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 208(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 256(%rsp)
+	movq	216(%rsp), %rax
+	movq	264(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 216(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 264(%rsp)
+	movq	224(%rsp), %rax
+	movq	272(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 224(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 272(%rsp)
+	movq	288(%rsp), %rax
 	movq	328(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 248(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 288(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 328(%rsp)
-	movq	256(%rsp), %rax
+	movq	296(%rsp), %rax
 	movq	336(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 256(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 296(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 336(%rsp)
-	movq	264(%rsp), %rcx
-	movq	344(%rsp), %rax
-	movq	%rcx, %rdx
-	cmovsq	%rax, %rdx
-	movq	%rdx, 264(%rsp)
-	cmovsq	%rcx, %rax
-	leaq	344(%rsp), %rcx
+	movq	304(%rsp), %rax
+	movq	344(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 304(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 344(%rsp)
+	movq	312(%rsp), %rax
+	movq	352(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 312(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 352(%rsp)
+	movq	320(%rsp), %rax
+	movq	360(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 320(%rsp)
+	#APP
+	testb	%bl, %bl
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 360(%rsp)
 	jmp	.LBB3_5
 	.p2align	4, 0x90
 .LBB3_4:                                #   in Loop: Header=BB3_2 Depth=2
-	testb	%r12b, %r12b
+	movl	%ebp, %r12d
+	shrb	$7, %r12b
 	movq	192(%rsp), %rax
 	movq	200(%rsp), %rcx
-	movq	272(%rsp), %rdx
-	movq	280(%rsp), %rsi
-	movq	%rax, %rdi
-	cmovsq	%rdx, %rdi
-	movq	%rdi, 192(%rsp)
-	cmovsq	%rax, %rdx
-	movq	%rdx, 272(%rsp)
-	movq	%rcx, %rax
-	cmovsq	%rsi, %rax
-	movq	%rax, 200(%rsp)
-	cmovsq	%rcx, %rsi
-	movq	%rsi, 280(%rsp)
-	movq	208(%rsp), %rax
-	movq	288(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 208(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 288(%rsp)
-	movq	216(%rsp), %rax
-	movq	296(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 216(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 296(%rsp)
-	movq	224(%rsp), %rax
-	movq	304(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 224(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 304(%rsp)
-	movq	232(%rsp), %rax
-	movq	312(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 232(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 312(%rsp)
-	movq	240(%rsp), %rax
-	movq	320(%rsp), %rcx
-	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	movq	240(%rsp), %rdx
+	movq	%rax, %rsi
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rdx, %rsi
+	#NO_APP
+	movq	%rsi, 192(%rsp)
+	movq	248(%rsp), %rsi
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rdx
+	#NO_APP
 	movq	%rdx, 240(%rsp)
-	cmovsq	%rax, %rcx
-	movq	%rcx, 320(%rsp)
-	movq	248(%rsp), %rax
+	movq	%rcx, %rax
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rsi, %rax
+	#NO_APP
+	movq	%rax, 200(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rsi
+	#NO_APP
+	movq	%rsi, 248(%rsp)
+	movq	208(%rsp), %rax
+	movq	256(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 208(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 256(%rsp)
+	movq	216(%rsp), %rax
+	movq	264(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 216(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 264(%rsp)
+	movq	224(%rsp), %rax
+	movq	272(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 224(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 272(%rsp)
+	movq	288(%rsp), %rax
 	movq	328(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 248(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 288(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 328(%rsp)
-	movq	256(%rsp), %rax
+	movq	296(%rsp), %rax
 	movq	336(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 256(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 296(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 336(%rsp)
-	movq	264(%rsp), %rax
+	movq	304(%rsp), %rax
 	movq	344(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
-	movq	%rdx, 264(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 304(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 344(%rsp)
+	movq	312(%rsp), %rax
+	movq	352(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 312(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 352(%rsp)
+	movq	320(%rsp), %rax
+	movq	360(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
+	movq	%rdx, 320(%rsp)
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 360(%rsp)
 	subq	$8, %rsp
 	movq	%r14, %rdi
 	movq	%r15, %rsi
 	leaq	152(%rsp), %rdx
 	leaq	104(%rsp), %rcx
 	leaq	200(%rsp), %r8
-	leaq	240(%rsp), %r9
-	leaq	400(%rsp), %rax
+	leaq	296(%rsp), %r9
+	leaq	416(%rsp), %rax
 	pushq	%rax
-	pushq	%rbp
-	pushq	%rbx
+	leaq	344(%rsp), %rax
+	pushq	%rax
+	leaq	264(%rsp), %rax
+	pushq	%rax
 	callq	fmonty
 	addq	$32, %rsp
-	testb	%r12b, %r12b
 	movq	48(%rsp), %rax
 	movq	56(%rsp), %rcx
 	movq	144(%rsp), %rdx
+	movq	%rax, %rsi
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rdx, %rsi
+	#NO_APP
+	movq	%rsi, 48(%rsp)
 	movq	152(%rsp), %rsi
-	movq	%rax, %rdi
-	cmovsq	%rdx, %rdi
-	movq	%rdi, 48(%rsp)
-	cmovsq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rdx
+	#NO_APP
 	movq	%rdx, 144(%rsp)
 	movq	%rcx, %rax
-	cmovsq	%rsi, %rax
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rsi, %rax
+	#NO_APP
 	movq	%rax, 56(%rsp)
-	cmovsq	%rcx, %rsi
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rsi
+	#NO_APP
 	movq	%rsi, 152(%rsp)
 	movq	64(%rsp), %rax
 	movq	160(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 64(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 160(%rsp)
 	movq	72(%rsp), %rax
 	movq	168(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 72(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 168(%rsp)
 	movq	80(%rsp), %rax
 	movq	176(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 80(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 176(%rsp)
 	movq	(%rsp), %rax
 	movq	96(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, (%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 96(%rsp)
 	movq	8(%rsp), %rax
 	movq	104(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 8(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 104(%rsp)
 	movq	16(%rsp), %rax
 	movq	112(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 16(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 112(%rsp)
 	movq	24(%rsp), %rax
 	movq	120(%rsp), %rcx
 	movq	%rax, %rdx
-	cmovsq	%rcx, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 24(%rsp)
-	cmovsq	%rax, %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
 	movq	%rcx, 120(%rsp)
-	movq	32(%rsp), %rcx
-	movq	128(%rsp), %rax
-	movq	%rcx, %rdx
-	cmovsq	%rax, %rdx
+	movq	32(%rsp), %rax
+	movq	128(%rsp), %rcx
+	movq	%rax, %rdx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rcx, %rdx
+	#NO_APP
 	movq	%rdx, 32(%rsp)
-	cmovsq	%rcx, %rax
-	leaq	128(%rsp), %rcx
+	#APP
+	testb	%r12b, %r12b
+	cmovneq	%rax, %rcx
+	#NO_APP
+	movq	%rcx, 128(%rsp)
 .LBB3_5:                                #   in Loop: Header=BB3_2 Depth=2
-	movq	%rax, (%rcx)
-	addb	%r12b, %r12b
+	addb	%bpl, %bpl
 	addl	$1, %r13d
 	cmpl	$8, %r13d
 	jne	.LBB3_2
 # %bb.6:                                #   in Loop: Header=BB3_1 Depth=1
-	movq	440(%rsp), %rcx         # 8-byte Reload
+	movq	456(%rsp), %rcx         # 8-byte Reload
 	addq	$1, %rcx
 	cmpq	$32, %rcx
 	jne	.LBB3_1
 # %bb.7:                                # %cmult.exit
 	movaps	48(%rsp), %xmm0
 	movaps	64(%rsp), %xmm1
-	movaps	%xmm0, 480(%rsp)
+	movaps	%xmm0, 496(%rsp)
 	movaps	(%rsp), %xmm0
 	movaps	16(%rsp), %xmm2
-	movaps	%xmm0, 352(%rsp)
-	movaps	%xmm1, 496(%rsp)
-	movaps	%xmm2, 368(%rsp)
+	movaps	%xmm0, 368(%rsp)
+	movaps	%xmm1, 512(%rsp)
+	movaps	%xmm2, 384(%rsp)
 	movq	80(%rsp), %rax
-	movq	%rax, 512(%rsp)
+	movq	%rax, 528(%rsp)
 	movq	32(%rsp), %rax
-	movq	%rax, 384(%rsp)
+	movq	%rax, 400(%rsp)
 	xorps	%xmm0, %xmm0
 	movaps	%xmm0, 160(%rsp)
 	movaps	%xmm0, 144(%rsp)
@@ -1219,7 +1458,7 @@ curve25519_donna:                       # @curve25519_donna
 	movaps	%xmm0, (%rsp)
 	movq	$0, 32(%rsp)
 	leaq	144(%rsp), %r15
-	leaq	352(%rsp), %r14
+	leaq	368(%rsp), %r14
 	movl	$1, %edx
 	movq	%r15, %rdi
 	movq	%r14, %rsi
@@ -1307,36 +1546,36 @@ curve25519_donna:                       # @curve25519_donna
 	movq	%rbx, %rdi
 	movq	%rbx, %rsi
 	callq	fsquare_times
-	leaq	528(%rsp), %rbp
+	leaq	544(%rsp), %rbp
 	movq	%rbp, %rdi
 	movq	%rbx, %rsi
 	movq	%r15, %rdx
 	callq	fmul
-	leaq	480(%rsp), %rsi
+	leaq	496(%rsp), %rsi
 	movq	%r14, %rdi
 	movq	%rbp, %rdx
 	callq	fmul
-	movq	352(%rsp), %rbp
+	movq	368(%rsp), %rbp
 	movq	%rbp, %rbx
 	shrq	$51, %rbx
 	xorl	%ecx, %ecx
-	addq	360(%rsp), %rbx
+	addq	376(%rsp), %rbx
 	setb	%cl
 	shldq	$13, %rbx, %rcx
 	movabsq	$2251799813685247, %r11 # imm = 0x7FFFFFFFFFFFF
 	andq	%r11, %rbp
 	xorl	%esi, %esi
-	addq	368(%rsp), %rcx
+	addq	384(%rsp), %rcx
 	setb	%sil
 	shldq	$13, %rcx, %rsi
 	andq	%r11, %rbx
 	xorl	%edi, %edi
-	addq	376(%rsp), %rsi
+	addq	392(%rsp), %rsi
 	setb	%dil
 	shldq	$13, %rsi, %rdi
 	andq	%r11, %rcx
 	xorl	%eax, %eax
-	addq	384(%rsp), %rdi
+	addq	400(%rsp), %rdi
 	setb	%al
 	shldq	$13, %rdi, %rax
 	movl	$19, %edx
@@ -1410,7 +1649,7 @@ curve25519_donna:                       # @curve25519_donna
 	movabsq	$1970324836974592, %rsi # imm = 0x7000000000000
 	andq	%rdx, %rsi
 	movq	%rcx, %rax
-	movq	432(%rsp), %rbp         # 8-byte Reload
+	movq	448(%rsp), %rbp         # 8-byte Reload
 	movb	%dl, (%rbp)
 	movb	%dh, 1(%rbp)  # NOREX
 	andq	%r11, %rax
@@ -1513,7 +1752,7 @@ curve25519_donna:                       # @curve25519_donna
 	shrq	$56, %rcx
 	movb	%cl, 31(%rbp)
 	xorl	%eax, %eax
-	addq	$568, %rsp              # imm = 0x238
+	addq	$584, %rsp              # imm = 0x248
 	popq	%rbx
 	popq	%r12
 	popq	%r13

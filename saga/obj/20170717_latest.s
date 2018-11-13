@@ -92,41 +92,50 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	-16(%rsi), %r10d
 	movl	%r10d, %r11d
 	subl	%eax, %r11d
-	cmoval	%eax, %r10d
+	seta	%bl
+	movb	%bl, %r14b
+	movl	%eax, %r15d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%r15d, %r10d
+	#NO_APP
 	movl	%r10d, -16(%rsi)
 	movl	-112(%rbp), %r10d
-	movl	-180(%rbp), %ebx        # 4-byte Reload
-	cmoval	%ebx, %r10d
+	movl	-180(%rbp), %r15d       # 4-byte Reload
+	#APP
+	testb	%bl, %bl
+	cmovnel	%r15d, %r10d
+	#NO_APP
 	movl	%r10d, -112(%rbp)
 	movl	-108(%rbp), %r10d
-	movl	-16(%rsi), %r14d
-	addl	$21, %r14d
-	subl	%r14d, %r10d
+	movl	-16(%rsi), %r12d
+	addl	$21, %r12d
+	subl	%r12d, %r10d
 	movq	%rsp, %rsi
 	addq	$-16, %rsi
 	movq	%rsi, %rsp
 	movl	%r10d, (%rsi)
 	movl	(%rsi), %r10d
-	movw	%r10w, %r15w
-	movb	$1, -46(%rbp)
-	movw	%r15w, %r12w
-	shrw	$8, %r12w
-	movb	%r12b, %r13b
-	movq	-152(%rbp), %r8         # 8-byte Reload
-	movb	%r13b, 555(%r8)
-	movb	%r15b, %r13b
-	movb	%r13b, 556(%r8)
-	addq	$436, %r8               # imm = 0x1B4
+	movw	%r10w, %r13w
+	movb	$1, -86(%rbp)
+	movw	%r13w, %r8w
+	shrw	$8, %r8w
+	movb	%r8b, %bl
 	movq	-152(%rbp), %rcx        # 8-byte Reload
-	addq	$244, %rcx
+	movb	%bl, 555(%rcx)
+	movb	%r13b, %bl
+	movb	%bl, 556(%rcx)
+	addq	$436, %rcx              # imm = 0x1B4
+	movq	-152(%rbp), %rdx        # 8-byte Reload
+	addq	$244, %rdx
 	movq	%rdi, -192(%rbp)        # 8-byte Spill
-	movq	%r8, %rdi
+	movq	%rcx, %rdi
 	movq	%rsi, -200(%rbp)        # 8-byte Spill
-	movq	%rcx, %rsi
+	movq	%rdx, %rsi
 	movq	-176(%rbp), %rdx        # 8-byte Reload
 	movl	%r11d, -204(%rbp)       # 4-byte Spill
-	movl	%eax, -208(%rbp)        # 4-byte Spill
-	movl	%r9d, -212(%rbp)        # 4-byte Spill
+	movl	%r9d, -208(%rbp)        # 4-byte Spill
+	movl	%eax, -212(%rbp)        # 4-byte Spill
 	callq	memcpy
 	movq	-152(%rbp), %rcx        # 8-byte Reload
 	addq	$436, %rcx              # imm = 0x1B4
@@ -227,8 +236,8 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%edi, %r8d
 	movl	%edx, %r9d
 	leal	(%r9,%r8,8), %edx
-	movl	$0, -44(%rbp)
-	movb	$1, -45(%rbp)
+	movl	$0, -84(%rbp)
+	movb	$1, -85(%rbp)
 	movl	%edx, %edi
 	shll	$24, %edi
 	movl	%edx, %r10d
@@ -331,18 +340,21 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	setb	%dil
 	movb	%dil, %r8b
 	andb	$1, %r8b
-	testb	$1, %r8b
-	movl	-236(%rbp), %ecx        # 4-byte Reload
 	movq	-152(%rbp), %r9         # 8-byte Reload
-	cmovel	524(%r9), %ecx
+	movl	524(%r9), %ecx
+	movl	-236(%rbp), %r10d       # 4-byte Reload
+	#APP
+	testb	%r8b, %r8b
+	cmovnel	%r10d, %ecx
+	#NO_APP
 	movl	%ecx, 524(%r9)
 	addq	$436, %r9               # imm = 0x1B4
-	movq	-152(%rbp), %r10        # 8-byte Reload
-	addq	$436, %r10              # imm = 0x1B4
-	addq	$28, %r10
+	movq	-152(%rbp), %r11        # 8-byte Reload
+	addq	$436, %r11              # imm = 0x1B4
+	addq	$28, %r11
 	movb	%dil, -277(%rbp)        # 1-byte Spill
 	movq	%r9, %rdi
-	movq	%r10, %rsi
+	movq	%r11, %rsi
 	callq	sha1_block_data_order
 	movq	-200(%rbp), %rax        # 8-byte Reload
 	movl	(%rax), %ecx
@@ -352,11 +364,11 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	setb	%r8b
 	andb	$1, %r8b
 	movzbl	%r8b, %ecx
-	xorl	%r11d, %r11d
+	xorl	%r10d, %r10d
 	movb	-277(%rbp), %r8b        # 1-byte Reload
 	#APP
 	testb	%r8b, %r8b
-	movl	%r11d, %ebx
+	movl	%r10d, %ebx
 	cmovnel	%ecx, %ebx
 	#NO_APP
 	movb	%bl, %r8b
@@ -364,33 +376,48 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	436(%rsi), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
 	movq	-248(%rbp), %rdi        # 8-byte Reload
-	cmovel	(%rdi), %ecx
-	movl	%ecx, (%rdi)
+	movl	(%rdi), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, (%rdi)
 	movl	440(%rsi), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	cmovel	4(%rdi), %ecx
-	movl	%ecx, 4(%rdi)
+	movl	4(%rdi), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 4(%rdi)
 	movl	444(%rsi), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	cmovel	8(%rdi), %ecx
-	movl	%ecx, 8(%rdi)
+	movl	8(%rdi), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 8(%rdi)
 	movl	448(%rsi), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	cmovel	12(%rdi), %ecx
-	movl	%ecx, 12(%rdi)
+	movl	12(%rdi), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 12(%rdi)
 	movl	452(%rsi), %ecx
 	andb	$1, %r8b
-	testb	$1, %r8b
-	cmovel	16(%rdi), %ecx
-	movl	%ecx, 16(%rdi)
+	movl	16(%rdi), %r10d
+	#APP
+	testb	%r8b, %r8b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 16(%rdi)
 	movq	-256(%rbp), %r9         # 8-byte Reload
 	movl	$0, (%r9)
 	jmp	.LBB0_19
@@ -432,18 +459,21 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	setb	%dil
 	movb	%dil, %r8b
 	andb	$1, %r8b
-	testb	$1, %r8b
-	movl	-236(%rbp), %ecx        # 4-byte Reload
 	movq	-152(%rbp), %r9         # 8-byte Reload
-	cmovel	524(%r9), %ecx
+	movl	524(%r9), %ecx
+	movl	-236(%rbp), %r10d       # 4-byte Reload
+	#APP
+	testb	%r8b, %r8b
+	cmovnel	%r10d, %ecx
+	#NO_APP
 	movl	%ecx, 524(%r9)
 	addq	$436, %r9               # imm = 0x1B4
-	movq	-152(%rbp), %r10        # 8-byte Reload
-	addq	$436, %r10              # imm = 0x1B4
-	addq	$28, %r10
+	movq	-152(%rbp), %r11        # 8-byte Reload
+	addq	$436, %r11              # imm = 0x1B4
+	addq	$28, %r11
 	movb	%dil, -285(%rbp)        # 1-byte Spill
 	movq	%r9, %rdi
-	movq	%r10, %rsi
+	movq	%r11, %rsi
 	callq	sha1_block_data_order
 	xorl	%esi, %esi
 	movl	$64, %ecx
@@ -451,17 +481,17 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	-272(%rbp), %rax        # 8-byte Reload
 	movl	(%rax), %ecx
 	movq	-200(%rbp), %rdi        # 8-byte Reload
-	movl	(%rdi), %r11d
-	addl	$73, %r11d
-	cmpl	%r11d, %ecx
+	movl	(%rdi), %r10d
+	addl	$73, %r10d
+	cmpl	%r10d, %ecx
 	setb	%r8b
 	andb	$1, %r8b
 	movzbl	%r8b, %ecx
-	xorl	%r11d, %r11d
+	xorl	%r10d, %r10d
 	movb	-285(%rbp), %r8b        # 1-byte Reload
 	#APP
 	testb	%r8b, %r8b
-	movl	%r11d, %ebx
+	movl	%r10d, %ebx
 	cmovnel	%ecx, %ebx
 	#NO_APP
 	movb	%bl, %r8b
@@ -469,33 +499,48 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	436(%r9), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	movq	-248(%rbp), %r10        # 8-byte Reload
-	cmovel	(%r10), %ecx
-	movl	%ecx, (%r10)
+	movq	-248(%rbp), %r11        # 8-byte Reload
+	movl	(%r11), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, (%r11)
 	movl	440(%r9), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	cmovel	4(%r10), %ecx
-	movl	%ecx, 4(%r10)
+	movl	4(%r11), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 4(%r11)
 	movl	444(%r9), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	cmovel	8(%r10), %ecx
-	movl	%ecx, 8(%r10)
+	movl	8(%r11), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 8(%r11)
 	movl	448(%r9), %ecx
 	movb	%r8b, %r14b
 	andb	$1, %r14b
-	testb	$1, %r14b
-	cmovel	12(%r10), %ecx
-	movl	%ecx, 12(%r10)
+	movl	12(%r11), %r10d
+	#APP
+	testb	%r14b, %r14b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 12(%r11)
 	movl	452(%r9), %ecx
 	andb	$1, %r8b
-	testb	$1, %r8b
-	cmovel	16(%r10), %ecx
-	movl	%ecx, 16(%r10)
+	movl	16(%r11), %r10d
+	#APP
+	testb	%r8b, %r8b
+	cmovnel	%ecx, %r10d
+	#NO_APP
+	movl	%r10d, 16(%r11)
 	addq	$436, %r9               # imm = 0x1B4
 	addq	$28, %r9
 	movq	%r9, %rdi
@@ -528,141 +573,148 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movq	-200(%rbp), %rsi        # 8-byte Reload
 	movl	(%rsi), %edx
 	addl	$73, %edx
-	movq	-248(%rbp), %rdi        # 8-byte Reload
-	addq	$4, %rdi
-	movq	-152(%rbp), %r9         # 8-byte Reload
-	addq	$440, %r9               # imm = 0x1B8
-	movq	-248(%rbp), %r10        # 8-byte Reload
-	addq	$8, %r10
-	movq	-152(%rbp), %r11        # 8-byte Reload
-	addq	$444, %r11              # imm = 0x1BC
-	movq	-248(%rbp), %rbx        # 8-byte Reload
-	addq	$12, %rbx
-	movq	-152(%rbp), %r14        # 8-byte Reload
-	addq	$448, %r14              # imm = 0x1C0
-	movq	-248(%rbp), %r15        # 8-byte Reload
-	addq	$16, %r15
-	movq	-152(%rbp), %r12        # 8-byte Reload
-	addq	$452, %r12              # imm = 0x1C4
 	subl	%edx, %eax
-	movq	-248(%rbp), %r13        # 8-byte Reload
-	movq	-304(%rbp), %rcx        # 8-byte Reload
-	cmovbq	%rcx, %r13
-	movl	(%r13), %edx
-	movq	-248(%rbp), %r13        # 8-byte Reload
-	movl	%edx, (%r13)
-	cmovbq	%r9, %rdi
-	movl	(%rdi), %edx
-	movl	%edx, 4(%r13)
-	cmovbq	%r11, %r10
+	setb	%r9b
+	movq	-152(%rbp), %rdi        # 8-byte Reload
+	movl	436(%rdi), %edx
+	movq	-248(%rbp), %r10        # 8-byte Reload
+	movl	(%r10), %r8d
+	movb	%r9b, %r11b
+	#APP
+	testb	%r11b, %r11b
+	cmovnel	%edx, %r8d
+	#NO_APP
+	movl	%r8d, (%r10)
+	movl	440(%rdi), %edx
+	movl	4(%r10), %r8d
+	movb	%r9b, %r11b
+	#APP
+	testb	%r11b, %r11b
+	cmovnel	%edx, %r8d
+	#NO_APP
+	movl	%r8d, 4(%r10)
+	movl	444(%rdi), %edx
+	movl	8(%r10), %r8d
+	movb	%r9b, %r11b
+	#APP
+	testb	%r11b, %r11b
+	cmovnel	%edx, %r8d
+	#NO_APP
+	movl	%r8d, 8(%r10)
+	movl	448(%rdi), %edx
+	movl	12(%r10), %r8d
+	movb	%r9b, %r11b
+	#APP
+	testb	%r11b, %r11b
+	cmovnel	%edx, %r8d
+	#NO_APP
+	movl	%r8d, 12(%r10)
+	movl	452(%rdi), %edx
+	movl	16(%r10), %r8d
+	#APP
+	testb	%r9b, %r9b
+	cmovnel	%edx, %r8d
+	#NO_APP
+	movl	%r8d, 16(%r10)
 	movl	(%r10), %edx
-	movl	%edx, 8(%r13)
-	cmovbq	%r14, %rbx
-	movl	(%rbx), %edx
-	movl	%edx, 12(%r13)
-	cmovbq	%r12, %r15
-	movl	(%r15), %edx
-	movl	%edx, 16(%r13)
-	movl	(%r13), %edx
+	movl	$0, -44(%rbp)
+	movb	$1, -45(%rbp)
+	movl	%edx, %r8d
+	shll	$24, %r8d
+	movl	%edx, %ebx
+	shrl	$8, %ebx
+	movl	%edx, %r14d
+	shll	$8, %r14d
+	andl	$16711680, %r14d        # imm = 0xFF0000
+	andl	$65280, %ebx            # imm = 0xFF00
+	shrl	$24, %edx
+	orl	%ebx, %edx
+	orl	%r14d, %edx
+	orl	%r8d, %edx
+	movl	%edx, (%r10)
+	movl	4(%r10), %edx
 	movl	$0, -52(%rbp)
 	movb	$1, -53(%rbp)
 	movl	%edx, %r8d
 	shll	$24, %r8d
-	movl	%edx, %esi
-	shrl	$8, %esi
-	movl	%edx, %edi
-	shll	$8, %edi
-	andl	$16711680, %edi         # imm = 0xFF0000
-	andl	$65280, %esi            # imm = 0xFF00
+	movl	%edx, %ebx
+	shrl	$8, %ebx
+	movl	%edx, %r14d
+	shll	$8, %r14d
+	andl	$16711680, %r14d        # imm = 0xFF0000
+	andl	$65280, %ebx            # imm = 0xFF00
 	shrl	$24, %edx
-	orl	%esi, %edx
-	orl	%edi, %edx
+	orl	%ebx, %edx
+	orl	%r14d, %edx
 	orl	%r8d, %edx
-	movl	%edx, (%r13)
-	movl	4(%r13), %edx
+	movl	%edx, 4(%r10)
+	movl	8(%r10), %edx
 	movl	$0, -60(%rbp)
 	movb	$1, -61(%rbp)
-	movl	%edx, %esi
-	shll	$24, %esi
-	movl	%edx, %edi
-	shrl	$8, %edi
 	movl	%edx, %r8d
-	shll	$8, %r8d
-	andl	$16711680, %r8d         # imm = 0xFF0000
-	andl	$65280, %edi            # imm = 0xFF00
+	shll	$24, %r8d
+	movl	%edx, %ebx
+	shrl	$8, %ebx
+	movl	%edx, %r14d
+	shll	$8, %r14d
+	andl	$16711680, %r14d        # imm = 0xFF0000
+	andl	$65280, %ebx            # imm = 0xFF00
 	shrl	$24, %edx
-	orl	%edi, %edx
+	orl	%ebx, %edx
+	orl	%r14d, %edx
 	orl	%r8d, %edx
-	orl	%esi, %edx
-	movl	%edx, 4(%r13)
-	movl	8(%r13), %edx
+	movl	%edx, 8(%r10)
+	movl	12(%r10), %edx
 	movl	$0, -68(%rbp)
 	movb	$1, -69(%rbp)
-	movl	%edx, %esi
-	shll	$24, %esi
-	movl	%edx, %edi
-	shrl	$8, %edi
 	movl	%edx, %r8d
-	shll	$8, %r8d
-	andl	$16711680, %r8d         # imm = 0xFF0000
-	andl	$65280, %edi            # imm = 0xFF00
+	shll	$24, %r8d
+	movl	%edx, %ebx
+	shrl	$8, %ebx
+	movl	%edx, %r14d
+	shll	$8, %r14d
+	andl	$16711680, %r14d        # imm = 0xFF0000
+	andl	$65280, %ebx            # imm = 0xFF00
 	shrl	$24, %edx
-	orl	%edi, %edx
+	orl	%ebx, %edx
+	orl	%r14d, %edx
 	orl	%r8d, %edx
-	orl	%esi, %edx
-	movl	%edx, 8(%r13)
-	movl	12(%r13), %edx
+	movl	%edx, 12(%r10)
+	movl	16(%r10), %edx
 	movl	$0, -76(%rbp)
 	movb	$1, -77(%rbp)
-	movl	%edx, %esi
-	shll	$24, %esi
-	movl	%edx, %edi
-	shrl	$8, %edi
 	movl	%edx, %r8d
-	shll	$8, %r8d
-	andl	$16711680, %r8d         # imm = 0xFF0000
-	andl	$65280, %edi            # imm = 0xFF00
+	shll	$24, %r8d
+	movl	%edx, %ebx
+	shrl	$8, %ebx
+	movl	%edx, %r14d
+	shll	$8, %r14d
+	andl	$16711680, %r14d        # imm = 0xFF0000
+	andl	$65280, %ebx            # imm = 0xFF00
 	shrl	$24, %edx
-	orl	%edi, %edx
+	orl	%ebx, %edx
+	orl	%r14d, %edx
 	orl	%r8d, %edx
-	orl	%esi, %edx
-	movl	%edx, 12(%r13)
-	movl	16(%r13), %edx
-	movl	$0, -84(%rbp)
-	movb	$1, -85(%rbp)
-	movl	%edx, %esi
-	shll	$24, %esi
-	movl	%edx, %edi
-	shrl	$8, %edi
-	movl	%edx, %r8d
-	shll	$8, %r8d
-	andl	$16711680, %r8d         # imm = 0xFF0000
-	andl	$65280, %edi            # imm = 0xFF00
-	shrl	$24, %edx
-	orl	%edi, %edx
-	orl	%r8d, %edx
-	orl	%esi, %edx
-	movl	%edx, 16(%r13)
+	movl	%edx, 16(%r10)
 	movl	-108(%rbp), %edx
 	addl	$20, %edx
 	movl	%edx, -108(%rbp)
-	movq	-152(%rbp), %r9         # 8-byte Reload
-	movups	420(%r9), %xmm0
-	movups	%xmm0, 516(%r9)
-	movups	404(%r9), %xmm0
-	movups	%xmm0, 500(%r9)
-	movups	340(%r9), %xmm0
-	movups	356(%r9), %xmm1
-	movups	372(%r9), %xmm2
-	movups	388(%r9), %xmm3
-	movups	%xmm3, 484(%r9)
-	movups	%xmm2, 468(%r9)
-	movups	%xmm1, 452(%r9)
-	movups	%xmm0, 436(%r9)
+	movups	420(%rdi), %xmm0
+	movups	%xmm0, 516(%rdi)
+	movups	404(%rdi), %xmm0
+	movups	%xmm0, 500(%rdi)
+	movups	340(%rdi), %xmm0
+	movups	356(%rdi), %xmm1
+	movups	372(%rdi), %xmm2
+	movups	388(%rdi), %xmm3
+	movups	%xmm3, 484(%rdi)
+	movups	%xmm2, 468(%rdi)
+	movups	%xmm1, 452(%rdi)
+	movups	%xmm0, 436(%rdi)
 	movl	$20, %edx
                                         # kill: def %rdx killed %edx
-	movq	%rcx, %rdi
-	movq	%r13, %rsi
+	movq	-304(%rbp), %rdi        # 8-byte Reload
+	movq	%r10, %rsi
 	movl	%eax, -308(%rbp)        # 4-byte Spill
 	callq	_sha1_update
 	movq	-248(%rbp), %rdi        # 8-byte Reload
@@ -675,7 +727,7 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, %edx
 	movq	-136(%rbp), %rsi        # 8-byte Reload
 	addq	$-1, %rsi
-	movl	-208(%rbp), %eax        # 4-byte Reload
+	movl	-212(%rbp), %eax        # 4-byte Reload
 	movl	%eax, %r8d
 	movl	%r8d, %edi
 	subq	%rdi, %rsi
@@ -698,59 +750,68 @@ _aesni_cbc_hmac_sha1_cipher:            # @_aesni_cbc_hmac_sha1_cipher
 	movl	%eax, -352(%rbp)        # 4-byte Spill
 	jae	.LBB0_30
 # %bb.28:                               #   in Loop: Header=BB0_27 Depth=1
-	xorl	%eax, %eax
-	movl	-352(%rbp), %ecx        # 4-byte Reload
+	movl	-352(%rbp), %eax        # 4-byte Reload
+	movl	%eax, %ecx
 	movl	%ecx, %edx
-	movl	%edx, %esi
-	movq	-336(%rbp), %rdi        # 8-byte Reload
-	addq	%rsi, %rdi
-	movq	-144(%rbp), %rsi        # 8-byte Reload
-	movzbl	(%rsi,%rdi), %edx
-	movl	%ecx, %r8d
-	movl	%r8d, %edi
-	movq	-336(%rbp), %r9         # 8-byte Reload
-	addq	%rdi, %r9
-	movq	-320(%rbp), %rdi        # 8-byte Reload
-	addq	$20, %rdi
-	cmpq	%rdi, %r9
-	setae	%r10b
-	movq	-192(%rbp), %rdi        # 8-byte Reload
-	cmpl	(%rdi), %edx
-	setne	%r11b
-	andb	$1, %r11b
-	andb	%r10b, %r11b
-	testb	$1, %r11b
-	movl	%eax, %r8d
-	cmovel	-112(%rbp), %r8d
-	movl	%r8d, -112(%rbp)
-	xorb	$-1, %r10b
-	movl	%ecx, %r8d
-	movl	%r8d, %r9d
+	movq	-336(%rbp), %rsi        # 8-byte Reload
+	addq	%rdx, %rsi
+	movq	-144(%rbp), %rdx        # 8-byte Reload
+	movzbl	(%rdx,%rsi), %ecx
+	movl	%eax, %edi
+	movl	%edi, %esi
+	movq	-336(%rbp), %r8         # 8-byte Reload
+	addq	%rsi, %r8
+	movq	-320(%rbp), %rsi        # 8-byte Reload
+	addq	$20, %rsi
+	cmpq	%rsi, %r8
+	setae	%r9b
+	movq	-192(%rbp), %rsi        # 8-byte Reload
+	cmpl	(%rsi), %ecx
+	setne	%r10b
+	andb	$1, %r10b
+	andb	%r9b, %r10b
+	movl	-112(%rbp), %edi
+	xorl	%r11d, %r11d
+	#APP
+	testb	%r10b, %r10b
+	cmovnel	%r11d, %edi
+	#NO_APP
+	movl	%edi, -112(%rbp)
+	xorb	$-1, %r9b
+	movl	%eax, %edi
+	movl	%edi, %r8d
 	movq	-336(%rbp), %rbx        # 8-byte Reload
-	addq	%r9, %rbx
-	movq	-320(%rbp), %r9         # 8-byte Reload
-	cmpq	%r9, %rbx
-	setae	%r11b
+	addq	%r8, %rbx
+	movq	-320(%rbp), %r8         # 8-byte Reload
+	cmpq	%r8, %rbx
+	setae	%r10b
 	movq	-344(%rbp), %rbx        # 8-byte Reload
-	movl	(%rbx), %r8d
-	movl	%r8d, %r14d
+	movl	(%rbx), %edi
+	movl	%edi, %r14d
 	movq	-248(%rbp), %r15        # 8-byte Reload
-	movzbl	(%r15,%r14), %r8d
-	cmpl	%r8d, %edx
+	movzbl	(%r15,%r14), %edi
+	cmpl	%edi, %ecx
 	setne	%r12b
 	andb	$1, %r12b
-	andb	%r11b, %r12b
 	andb	%r10b, %r12b
-	testb	$1, %r12b
-	cmovel	-112(%rbp), %eax
-	movl	%eax, -112(%rbp)
-	movl	(%rbx), %eax
-	addl	$1, %eax
-	andb	$1, %r11b
-	andb	%r10b, %r11b
-	testb	$1, %r11b
-	cmovel	(%rbx), %eax
-	movl	%eax, (%rbx)
+	andb	%r9b, %r12b
+	movl	-112(%rbp), %ecx
+	xorl	%edi, %edi
+	#APP
+	testb	%r12b, %r12b
+	cmovnel	%edi, %ecx
+	#NO_APP
+	movl	%ecx, -112(%rbp)
+	movl	(%rbx), %ecx
+	addl	$1, %ecx
+	andb	$1, %r10b
+	andb	%r9b, %r10b
+	movl	(%rbx), %edi
+	#APP
+	testb	%r10b, %r10b
+	cmovnel	%ecx, %edi
+	#NO_APP
+	movl	%edi, (%rbx)
 # %bb.29:                               #   in Loop: Header=BB0_27 Depth=1
 	movl	-352(%rbp), %eax        # 4-byte Reload
 	addl	$1, %eax

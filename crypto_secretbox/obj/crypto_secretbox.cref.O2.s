@@ -254,21 +254,23 @@ _poly1305_blocks:                       # @_poly1305_blocks
 	pushq	%rbx
 	movq	%rdx, %rbx
 	cmpb	$0, 88(%rdi)
-	sete	%r8b
+	setne	%al
+	xorl	%ecx, %ecx
+	movabsq	$1099511627776, %rdx    # imm = 0x10000000000
+	#APP
+	testb	%al, %al
+	movq	%rdx, %r9
+	cmovneq	%rcx, %r9
+	#NO_APP
 	movq	24(%rdi), %rdx
 	movq	32(%rdi), %rcx
 	movq	40(%rdi), %rax
 	shrq	$4, %rbx
-	movq	%rdi, -104(%rsp)        # 8-byte Spill
+	movq	%rdi, -96(%rsp)         # 8-byte Spill
 	je	.LBB2_3
 # %bb.1:                                # %.lr.ph
-	xorl	%ebp, %ebp
-	movb	%r8b, %bpl
-	shlq	$40, %rbp
-	movq	%rbp, -48(%rsp)         # 8-byte Spill
 	movq	8(%rdi), %r8
 	movq	16(%rdi), %rbp
-	movabsq	$17592186044415, %r9    # imm = 0xFFFFFFFFFFF
 	movq	%rbp, -64(%rsp)         # 8-byte Spill
 	leaq	(,%rbp,4), %rbp
 	leaq	(%rbp,%rbp,4), %rbp
@@ -280,25 +282,25 @@ _poly1305_blocks:                       # @_poly1305_blocks
 	movq	(%rdi), %rdi
 	movq	%rdi, -88(%rsp)         # 8-byte Spill
 	addq	$8, %rsi
-	leaq	-1048575(%r9), %rdi
-	movq	%rdi, -96(%rsp)         # 8-byte Spill
+	movq	%r9, -48(%rsp)          # 8-byte Spill
 	.p2align	4, 0x90
 .LBB2_2:                                # =>This Inner Loop Header: Depth=1
 	movq	%rbx, -8(%rsp)          # 8-byte Spill
 	movq	-8(%rsi), %rdi
 	movq	(%rsi), %r10
 	movq	%rdi, %r11
-	movabsq	$17592186044415, %rbp   # imm = 0xFFFFFFFFFFF
-	andq	%rbp, %r11
+	movabsq	$17592186044415, %rbx   # imm = 0xFFFFFFFFFFF
+	andq	%rbx, %r11
 	addq	%rdx, %r11
 	shrq	$44, %rdi
-	movq	%r10, %rbx
-	shlq	$20, %rbx
-	andq	-96(%rsp), %rbx         # 8-byte Folded Reload
+	movq	%r10, %rdx
+	shlq	$20, %rdx
+	leaq	-1048575(%rbx), %rbx
+	andq	%rdx, %rbx
 	orq	%rdi, %rbx
 	addq	%rcx, %rbx
 	shrq	$24, %r10
-	orq	-48(%rsp), %r10         # 8-byte Folded Reload
+	orq	%r9, %r10
 	addq	%rax, %r10
 	movq	%r11, %rax
 	movq	-88(%rsp), %rdi         # 8-byte Reload
@@ -363,6 +365,7 @@ _poly1305_blocks:                       # @_poly1305_blocks
 	shldq	$22, %rax, %rdx
 	leaq	(%rdx,%rdx,4), %rdx
 	addq	%r9, %rdx
+	movq	-48(%rsp), %r9          # 8-byte Reload
 	movq	%rdx, %rcx
 	shrq	$44, %rcx
 	addq	%r15, %rcx
@@ -373,7 +376,7 @@ _poly1305_blocks:                       # @_poly1305_blocks
 	addq	$-1, %rbx
 	jne	.LBB2_2
 .LBB2_3:                                # %._crit_edge
-	movq	-104(%rsp), %rsi        # 8-byte Reload
+	movq	-96(%rsp), %rsi         # 8-byte Reload
 	movq	%rdx, 24(%rsi)
 	movq	%rcx, 32(%rsi)
 	movq	%rax, 40(%rsi)

@@ -899,7 +899,7 @@ entry:
   %0 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 5
   %1 = load i8, i8* %0
   %2 = icmp ne i8 %1, 0
-  %3 = select i1 %2, i64 0, i64 1099511627776
+  %3 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %2, i64 0, i64 1099511627776)
   %4 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i32 0, i32 0
   %5 = bitcast [3 x i64]* %4 to i64*
   %6 = getelementptr i64, i64* %5, i64 0

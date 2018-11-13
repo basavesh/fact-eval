@@ -26,13 +26,13 @@ entry:
   %6 = load i64, i64* %5
   %7 = and i1 true, %__m1
   %8 = load i64, i64* %4
-  %9 = select i1 %7, i64 %6, i64 %8
+  %9 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %7, i64 %6, i64 %8)
   store i64 %9, i64* %4
   %__v122_lexpr = zext i32 %__v103_i to i64
   %10 = getelementptr i64, i64* %__v101_b, i64 %__v122_lexpr
   %11 = and i1 true, %__m1
   %12 = load i64, i64* %10
-  %13 = select i1 %11, i64 %__v104_x, i64 %12
+  %13 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %11, i64 %__v104_x, i64 %12)
   store i64 %13, i64* %10
   br label %14
 

@@ -29,10 +29,13 @@ _mpi_copy:                              # @_mpi_copy
 	movq	(%rax,%rcx,8), %rdx
 	movb	-17(%rsp), %sil         # 1-byte Reload
 	andb	$1, %sil
-	testb	$1, %sil
 	movq	-48(%rsp), %rdi         # 8-byte Reload
-	cmoveq	(%rdi,%rcx,8), %rdx
-	movq	%rdx, (%rdi,%rcx,8)
+	movq	(%rdi,%rcx,8), %r8
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rdx, %r8
+	#NO_APP
+	movq	%r8, (%rdi,%rcx,8)
 # %bb.3:                                #   in Loop: Header=BB0_1 Depth=1
 	movq	-64(%rsp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -49,15 +52,18 @@ _mpi_copy:                              # @_mpi_copy
 	movq	%rax, -80(%rsp)         # 8-byte Spill
 	jae	.LBB0_8
 # %bb.6:                                #   in Loop: Header=BB0_5 Depth=1
-	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movb	-17(%rsp), %dl          # 1-byte Reload
-	andb	$1, %dl
-	testb	$1, %dl
-	movq	-48(%rsp), %rsi         # 8-byte Reload
-	movq	-80(%rsp), %rdi         # 8-byte Reload
-	cmoveq	(%rsi,%rdi,8), %rcx
-	movq	%rcx, (%rsi,%rdi,8)
+	movb	-17(%rsp), %al          # 1-byte Reload
+	andb	$1, %al
+	movq	-48(%rsp), %rcx         # 8-byte Reload
+	movq	-80(%rsp), %rdx         # 8-byte Reload
+	movq	(%rcx,%rdx,8), %rsi
+	xorl	%edi, %edi
+	movl	%edi, %r8d
+	#APP
+	testb	%al, %al
+	cmovneq	%r8, %rsi
+	#NO_APP
+	movq	%rsi, (%rcx,%rdx,8)
 # %bb.7:                                #   in Loop: Header=BB0_5 Depth=1
 	movq	-80(%rsp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -106,45 +112,70 @@ _mpi_sub_hlp:                           # @_mpi_sub_hlp
 	movq	%rax, -80(%rsp)         # 8-byte Spill
 	jae	.LBB1_4
 # %bb.2:                                #   in Loop: Header=BB1_1 Depth=1
-	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movl	$1, %eax
-	movl	%eax, %edx
-	movq	-56(%rsp), %rsi         # 8-byte Reload
-	movq	-80(%rsp), %rdi         # 8-byte Reload
-	movq	(%rsi,%rdi,8), %r8
-	cmpq	-16(%rsp), %r8
-	movq	%rcx, %r8
-	cmovbq	%rdx, %r8
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	-24(%rsp), %r8
-	movq	%r8, -24(%rsp)
-	movq	(%rsi,%rdi,8), %r8
-	subq	-16(%rsp), %r8
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	(%rsi,%rdi,8), %r8
-	movq	%r8, (%rsi,%rdi,8)
-	movq	(%rsi,%rdi,8), %r8
-	movq	-32(%rsp), %r10         # 8-byte Reload
-	cmpq	(%r10,%rdi,8), %r8
-	cmovbq	%rdx, %rcx
-	addq	-24(%rsp), %rcx
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	-16(%rsp), %rcx
-	movq	%rcx, -16(%rsp)
-	movq	(%rsi,%rdi,8), %rcx
-	subq	(%r10,%rdi,8), %rcx
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	(%rsi,%rdi,8), %rcx
-	movq	%rcx, (%rsi,%rdi,8)
+	movq	-56(%rsp), %rax         # 8-byte Reload
+	movq	-80(%rsp), %rcx         # 8-byte Reload
+	movq	(%rax,%rcx,8), %rdx
+	cmpq	-16(%rsp), %rdx
+	setb	%sil
+	movl	$1, %edi
+	movl	%edi, %edx
+	xorl	%edi, %edi
+	movl	%edi, %r8d
+	#APP
+	testb	%sil, %sil
+	movq	%r8, %r9
+	cmovneq	%rdx, %r9
+	#NO_APP
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	-24(%rsp), %rdx
+	#APP
+	testb	%sil, %sil
+	cmovneq	%r9, %rdx
+	#NO_APP
+	movq	%rdx, -24(%rsp)
+	movq	(%rax,%rcx,8), %rdx
+	subq	-16(%rsp), %rdx
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	(%rax,%rcx,8), %r8
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rdx, %r8
+	#NO_APP
+	movq	%r8, (%rax,%rcx,8)
+	movq	(%rax,%rcx,8), %rdx
+	movq	-32(%rsp), %r8          # 8-byte Reload
+	cmpq	(%r8,%rcx,8), %rdx
+	setb	%sil
+	movl	$1, %edi
+	movl	%edi, %edx
+	xorl	%edi, %edi
+	movl	%edi, %r9d
+	#APP
+	testb	%sil, %sil
+	movq	%r9, %r10
+	cmovneq	%rdx, %r10
+	#NO_APP
+	addq	-24(%rsp), %r10
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	-16(%rsp), %rdx
+	#APP
+	testb	%sil, %sil
+	cmovneq	%r10, %rdx
+	#NO_APP
+	movq	%rdx, -16(%rsp)
+	movq	(%rax,%rcx,8), %rdx
+	subq	(%r8,%rcx,8), %rdx
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	(%rax,%rcx,8), %r9
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rdx, %r9
+	#NO_APP
+	movq	%r9, (%rax,%rcx,8)
 # %bb.3:                                #   in Loop: Header=BB1_1 Depth=1
 	movq	-80(%rsp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -161,33 +192,47 @@ _mpi_sub_hlp:                           # @_mpi_sub_hlp
 	movq	%rax, -96(%rsp)         # 8-byte Spill
 	jae	.LBB1_8
 # %bb.6:                                #   in Loop: Header=BB1_5 Depth=1
-	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movl	$1, %eax
-	movl	%eax, %edx
-	movq	-56(%rsp), %rsi         # 8-byte Reload
-	movq	-96(%rsp), %rdi         # 8-byte Reload
-	movq	(%rsi,%rdi,8), %r8
-	cmpq	-16(%rsp), %r8
-	cmovbq	%rdx, %rcx
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	-24(%rsp), %rcx
-	movq	%rcx, -24(%rsp)
-	movq	(%rsi,%rdi,8), %rcx
-	subq	-16(%rsp), %rcx
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	(%rsi,%rdi,8), %rcx
-	movq	%rcx, (%rsi,%rdi,8)
-	movq	-24(%rsp), %rcx
-	movb	-33(%rsp), %r9b         # 1-byte Reload
-	andb	$1, %r9b
-	testb	$1, %r9b
-	cmoveq	-16(%rsp), %rcx
-	movq	%rcx, -16(%rsp)
+	movq	-56(%rsp), %rax         # 8-byte Reload
+	movq	-96(%rsp), %rcx         # 8-byte Reload
+	movq	(%rax,%rcx,8), %rdx
+	cmpq	-16(%rsp), %rdx
+	setb	%sil
+	movl	$1, %edi
+	movl	%edi, %edx
+	xorl	%edi, %edi
+	movl	%edi, %r8d
+	#APP
+	testb	%sil, %sil
+	movq	%r8, %r9
+	cmovneq	%rdx, %r9
+	#NO_APP
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	-24(%rsp), %rdx
+	#APP
+	testb	%sil, %sil
+	cmovneq	%r9, %rdx
+	#NO_APP
+	movq	%rdx, -24(%rsp)
+	movq	(%rax,%rcx,8), %rdx
+	subq	-16(%rsp), %rdx
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	(%rax,%rcx,8), %r8
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rdx, %r8
+	#NO_APP
+	movq	%r8, (%rax,%rcx,8)
+	movq	-24(%rsp), %rdx
+	movb	-33(%rsp), %sil         # 1-byte Reload
+	andb	$1, %sil
+	movq	-16(%rsp), %r8
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rdx, %r8
+	#NO_APP
+	movq	%r8, -16(%rsp)
 # %bb.7:                                #   in Loop: Header=BB1_5 Depth=1
 	movq	-96(%rsp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -273,9 +318,12 @@ _mbedtls_mpi_cmp_abs:                   # @_mbedtls_mpi_cmp_abs
 	#NO_APP
 	movb	%r11b, %sil
 	andb	$1, %sil
-	testb	$1, %sil
-	cmoveq	-16(%rsp), %rax
-	movq	%rax, -16(%rsp)
+	movq	-16(%rsp), %rdx
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rax, %rdx
+	#NO_APP
+	movq	%rdx, -16(%rsp)
 # %bb.3:                                #   in Loop: Header=BB2_1 Depth=1
 	movq	-72(%rsp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -313,9 +361,12 @@ _mbedtls_mpi_cmp_abs:                   # @_mbedtls_mpi_cmp_abs
 	#NO_APP
 	movb	%r11b, %sil
 	andb	$1, %sil
-	testb	$1, %sil
-	cmoveq	-24(%rsp), %rax
-	movq	%rax, -24(%rsp)
+	movq	-24(%rsp), %rdx
+	#APP
+	testb	%sil, %sil
+	cmovneq	%rax, %rdx
+	#NO_APP
+	movq	%rdx, -24(%rsp)
 # %bb.7:                                #   in Loop: Header=BB2_5 Depth=1
 	movq	-88(%rsp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -324,96 +375,105 @@ _mbedtls_mpi_cmp_abs:                   # @_mbedtls_mpi_cmp_abs
 .LBB2_8:
 	xorl	%eax, %eax
 	movl	%eax, %ecx
-	movl	$4294967295, %eax       # imm = 0xFFFFFFFF
-	movl	$1, %edx
-	xorl	%esi, %esi
 	cmpq	$0, -16(%rsp)
-	sete	%dil
+	sete	%dl
 	cmpq	$0, -24(%rsp)
-	sete	%r8b
-	andb	$1, %r8b
-	movzbl	%r8b, %r9d
-	xorl	%r10d, %r10d
+	sete	%sil
+	andb	$1, %sil
+	movzbl	%sil, %eax
+	xorl	%edi, %edi
 	#APP
-	testb	%dil, %dil
-	movl	%r10d, %r11d
-	cmovnel	%r9d, %r11d
+	testb	%dl, %dl
+	movl	%edi, %r8d
+	cmovnel	%eax, %r8d
 	#NO_APP
-	movb	%r11b, %dil
-	movb	%dil, %r8b
-	andb	$1, %r8b
-	testb	$1, %r8b
-	cmovel	-4(%rsp), %esi
-	movl	%esi, -4(%rsp)
-	andb	$1, %dil
-	movb	-5(%rsp), %r8b
-	andb	$1, %r8b
-	movzbl	%r8b, %esi
-	xorl	%r9d, %r9d
+	movb	%r8b, %dl
+	movb	%dl, %sil
+	andb	$1, %sil
+	movl	-4(%rsp), %eax
+	xorl	%edi, %edi
 	#APP
-	testb	%dil, %dil
-	cmovnel	%r9d, %esi
+	testb	%sil, %sil
+	cmovnel	%edi, %eax
 	#NO_APP
-	movb	%sil, %dil
-	andb	$1, %dil
-	movb	%dil, -5(%rsp)
-	movb	-5(%rsp), %dil
-	movq	-16(%rsp), %rbx
-	cmpq	-24(%rsp), %rbx
-	seta	%r8b
-	movb	%r8b, %bpl
-	andb	$1, %bpl
-	andb	%dil, %bpl
-	testb	$1, %bpl
-	cmovel	-4(%rsp), %edx
-	movl	%edx, -4(%rsp)
-	andb	$1, %r8b
-	andb	%dil, %r8b
-	movb	-5(%rsp), %bpl
-	andb	$1, %bpl
-	movzbl	%bpl, %edx
-	xorl	%esi, %esi
-	#APP
-	testb	%r8b, %r8b
-	cmovnel	%esi, %edx
-	#NO_APP
-	movb	%dl, %r8b
-	andb	$1, %r8b
-	movb	%r8b, -5(%rsp)
-	movb	-5(%rsp), %r8b
-	movq	-24(%rsp), %rbx
-	cmpq	-16(%rsp), %rbx
-	seta	%bpl
-	movb	%bpl, %r14b
-	andb	$1, %r14b
-	andb	%r8b, %r14b
-	andb	%dil, %r14b
-	testb	$1, %r14b
-	cmovel	-4(%rsp), %eax
 	movl	%eax, -4(%rsp)
-	andb	$1, %bpl
-	andb	%r8b, %bpl
-	andb	%dil, %bpl
-	movb	-5(%rsp), %r14b
-	andb	$1, %r14b
-	movzbl	%r14b, %eax
-	xorl	%edx, %edx
+	andb	$1, %dl
+	movb	-5(%rsp), %sil
+	andb	$1, %sil
+	movzbl	%sil, %eax
+	xorl	%edi, %edi
 	#APP
-	testb	%bpl, %bpl
-	cmovnel	%edx, %eax
+	testb	%dl, %dl
+	cmovnel	%edi, %eax
 	#NO_APP
-	movb	%al, %bpl
-	andb	$1, %bpl
-	movb	%bpl, -5(%rsp)
-	movb	-5(%rsp), %bpl
-	movq	-40(%rsp), %rbx         # 8-byte Reload
-	movq	-56(%rsp), %r15         # 8-byte Reload
-	cmpq	%r15, %rbx
-	cmovbq	%rbx, %r15
-	movq	%r15, -96(%rsp)         # 8-byte Spill
-	movb	%r8b, -97(%rsp)         # 1-byte Spill
-	movb	%dil, -98(%rsp)         # 1-byte Spill
-	movb	%bpl, -99(%rsp)         # 1-byte Spill
+	movb	%al, %dl
+	andb	$1, %dl
+	movb	%dl, -5(%rsp)
+	movb	-5(%rsp), %dl
+	movq	-16(%rsp), %r9
+	cmpq	-24(%rsp), %r9
+	seta	%sil
+	movb	%sil, %r10b
+	andb	$1, %r10b
+	andb	%dl, %r10b
+	movl	-4(%rsp), %eax
+	movl	$1, %edi
+	#APP
+	testb	%r10b, %r10b
+	cmovnel	%edi, %eax
+	#NO_APP
+	movl	%eax, -4(%rsp)
+	andb	$1, %sil
+	andb	%dl, %sil
+	movb	-5(%rsp), %r10b
+	andb	$1, %r10b
+	movzbl	%r10b, %eax
+	xorl	%edi, %edi
+	#APP
+	testb	%sil, %sil
+	cmovnel	%edi, %eax
+	#NO_APP
+	movb	%al, %sil
+	andb	$1, %sil
+	movb	%sil, -5(%rsp)
+	movb	-5(%rsp), %sil
+	movq	-24(%rsp), %r9
+	cmpq	-16(%rsp), %r9
+	seta	%r10b
+	movb	%r10b, %r11b
+	andb	$1, %r11b
+	andb	%sil, %r11b
+	andb	%dl, %r11b
+	movl	-4(%rsp), %eax
+	movl	$-1, %edi
+	#APP
+	testb	%r11b, %r11b
+	cmovnel	%edi, %eax
+	#NO_APP
+	movl	%eax, -4(%rsp)
+	andb	$1, %r10b
+	andb	%sil, %r10b
+	andb	%dl, %r10b
+	movb	-5(%rsp), %r11b
+	andb	$1, %r11b
+	movzbl	%r11b, %eax
+	xorl	%edi, %edi
+	#APP
+	testb	%r10b, %r10b
+	cmovnel	%edi, %eax
+	#NO_APP
+	movb	%al, %r10b
+	andb	$1, %r10b
+	movb	%r10b, -5(%rsp)
+	movb	-5(%rsp), %r10b
+	movq	-40(%rsp), %r9          # 8-byte Reload
+	movq	-56(%rsp), %rbx         # 8-byte Reload
+	cmpq	%rbx, %r9
+	cmovbq	%r9, %rbx
+	movq	%rbx, -96(%rsp)         # 8-byte Spill
+	movb	%dl, -97(%rsp)          # 1-byte Spill
+	movb	%sil, -98(%rsp)         # 1-byte Spill
+	movb	%r10b, -99(%rsp)        # 1-byte Spill
 	movq	%rcx, -112(%rsp)        # 8-byte Spill
 .LBB2_9:                                # =>This Inner Loop Header: Depth=1
 	movq	-112(%rsp), %rax        # 8-byte Reload
@@ -422,123 +482,132 @@ _mbedtls_mpi_cmp_abs:                   # @_mbedtls_mpi_cmp_abs
 	movq	%rax, -120(%rsp)        # 8-byte Spill
 	jae	.LBB2_12
 # %bb.10:                               #   in Loop: Header=BB2_9 Depth=1
-	movl	$4294967295, %eax       # imm = 0xFFFFFFFF
-	movl	$1, %ecx
-	movb	-5(%rsp), %dl
-	movq	-96(%rsp), %rsi         # 8-byte Reload
-	movq	-120(%rsp), %rdi        # 8-byte Reload
-	subq	%rdi, %rsi
-	cmpq	-16(%rsp), %rsi
-	setbe	%r8b
-	movq	%rsi, %r9
-	subq	$1, %r9
-	movq	%rsi, %r10
-	subq	$1, %r10
-	movq	-48(%rsp), %r11         # 8-byte Reload
-	movq	(%r11,%r9,8), %r9
-	movq	-32(%rsp), %rbx         # 8-byte Reload
-	cmpq	(%rbx,%r10,8), %r9
-	seta	%bpl
-	movb	%bpl, %r14b
-	andb	$1, %r14b
-	andb	%r8b, %r14b
-	andb	%dl, %r14b
-	movb	-99(%rsp), %r15b        # 1-byte Reload
-	andb	%r15b, %r14b
-	movb	-97(%rsp), %r12b        # 1-byte Reload
-	andb	%r12b, %r14b
-	movb	-98(%rsp), %r13b        # 1-byte Reload
-	andb	%r13b, %r14b
-	testb	$1, %r14b
-	cmovel	-4(%rsp), %ecx
-	movl	%ecx, -4(%rsp)
-	andb	$1, %bpl
-	andb	%r8b, %bpl
-	andb	%dl, %bpl
-	andb	%r15b, %bpl
-	andb	%r12b, %bpl
-	andb	%r13b, %bpl
-	movb	-5(%rsp), %r14b
-	andb	$1, %r14b
-	movzbl	%r14b, %ecx
-	xorl	%edi, %edi
+	movb	-5(%rsp), %al
+	movq	-96(%rsp), %rcx         # 8-byte Reload
+	movq	-120(%rsp), %rdx        # 8-byte Reload
+	subq	%rdx, %rcx
+	cmpq	-16(%rsp), %rcx
+	setbe	%sil
+	movq	%rcx, %rdi
+	subq	$1, %rdi
+	movq	%rcx, %r8
+	subq	$1, %r8
+	movq	-48(%rsp), %r9          # 8-byte Reload
+	movq	(%r9,%rdi,8), %rdi
+	movq	-32(%rsp), %r10         # 8-byte Reload
+	cmpq	(%r10,%r8,8), %rdi
+	seta	%r11b
+	movb	%r11b, %bl
+	andb	$1, %bl
+	andb	%sil, %bl
+	andb	%al, %bl
+	movb	-99(%rsp), %bpl         # 1-byte Reload
+	andb	%bpl, %bl
+	movb	-98(%rsp), %r14b        # 1-byte Reload
+	andb	%r14b, %bl
+	movb	-97(%rsp), %r15b        # 1-byte Reload
+	andb	%r15b, %bl
+	movl	-4(%rsp), %r12d
+	movl	$1, %r13d
 	#APP
-	testb	%bpl, %bpl
-	cmovnel	%edi, %ecx
+	testb	%bl, %bl
+	cmovnel	%r13d, %r12d
 	#NO_APP
-	movb	%cl, %bpl
-	andb	$1, %bpl
-	movb	%bpl, -5(%rsp)
-	movb	-5(%rsp), %bpl
-	movq	%rsi, %r9
-	subq	$1, %r9
-	subq	$1, %rsi
-	movq	(%r11,%r9,8), %r9
-	cmpq	(%rbx,%rsi,8), %r9
-	setb	%r14b
-	movb	%r14b, %cl
+	movl	%r12d, -4(%rsp)
+	andb	$1, %r11b
+	andb	%sil, %r11b
+	andb	%al, %r11b
+	andb	%bpl, %r11b
+	andb	%r14b, %r11b
+	andb	%r15b, %r11b
+	movb	-5(%rsp), %bl
+	andb	$1, %bl
+	movzbl	%bl, %r12d
+	xorl	%r13d, %r13d
+	#APP
+	testb	%r11b, %r11b
+	cmovnel	%r13d, %r12d
+	#NO_APP
+	movb	%r12b, %r11b
+	andb	$1, %r11b
+	movb	%r11b, -5(%rsp)
+	movb	-5(%rsp), %r11b
+	movq	%rcx, %rdi
+	subq	$1, %rdi
+	subq	$1, %rcx
+	movq	(%r9,%rdi,8), %rdi
+	cmpq	(%r10,%rcx,8), %rdi
+	setb	%bl
+	movb	%bl, %cl
 	andb	$1, %cl
+	andb	%r11b, %cl
+	andb	%sil, %cl
+	andb	%al, %cl
 	andb	%bpl, %cl
-	andb	%r8b, %cl
-	andb	%dl, %cl
+	andb	%r14b, %cl
 	andb	%r15b, %cl
-	andb	%r12b, %cl
-	andb	%r13b, %cl
-	testb	$1, %cl
-	cmovel	-4(%rsp), %eax
-	movl	%eax, -4(%rsp)
-	andb	$1, %r14b
-	andb	%bpl, %r14b
-	andb	%r8b, %r14b
-	andb	%dl, %r14b
-	andb	%r15b, %r14b
-	andb	%r12b, %r14b
-	andb	%r13b, %r14b
-	movb	-5(%rsp), %cl
-	andb	$1, %cl
-	movzbl	%cl, %eax
-	xorl	%edi, %edi
+	movl	-4(%rsp), %r12d
+	movl	$-1, %r13d
 	#APP
-	testb	%r14b, %r14b
-	cmovnel	%edi, %eax
+	testb	%cl, %cl
+	cmovnel	%r13d, %r12d
 	#NO_APP
-	movb	%al, %cl
-	andb	$1, %cl
-	movb	%cl, -5(%rsp)
+	movl	%r12d, -4(%rsp)
+	andb	$1, %bl
+	andb	%r11b, %bl
+	andb	%sil, %bl
+	andb	%al, %bl
+	andb	%bpl, %bl
+	andb	%r14b, %bl
+	andb	%r15b, %bl
+	movb	-5(%rsp), %al
+	andb	$1, %al
+	movzbl	%al, %r12d
+	xorl	%r13d, %r13d
+	#APP
+	testb	%bl, %bl
+	cmovnel	%r13d, %r12d
+	#NO_APP
+	movb	%r12b, %al
+	andb	$1, %al
+	movb	%al, -5(%rsp)
 # %bb.11:                               #   in Loop: Header=BB2_9 Depth=1
 	movq	-120(%rsp), %rax        # 8-byte Reload
 	addq	$1, %rax
 	movq	%rax, -112(%rsp)        # 8-byte Spill
 	jmp	.LBB2_9
 .LBB2_12:
-	xorl	%eax, %eax
-	movb	-5(%rsp), %cl
-	movb	%cl, %dl
-	andb	$1, %dl
-	movb	-99(%rsp), %sil         # 1-byte Reload
-	andb	%sil, %dl
-	movb	-97(%rsp), %dil         # 1-byte Reload
-	andb	%dil, %dl
-	movb	-98(%rsp), %r8b         # 1-byte Reload
-	andb	%r8b, %dl
-	testb	$1, %dl
-	cmovel	-4(%rsp), %eax
-	movl	%eax, -4(%rsp)
+	movb	-5(%rsp), %al
+	movb	%al, %cl
 	andb	$1, %cl
+	movb	-99(%rsp), %dl          # 1-byte Reload
+	andb	%dl, %cl
+	movb	-98(%rsp), %sil         # 1-byte Reload
 	andb	%sil, %cl
+	movb	-97(%rsp), %dil         # 1-byte Reload
 	andb	%dil, %cl
-	andb	%r8b, %cl
-	movb	-5(%rsp), %dl
-	andb	$1, %dl
-	movzbl	%dl, %eax
+	movl	-4(%rsp), %r8d
 	xorl	%r9d, %r9d
 	#APP
 	testb	%cl, %cl
-	cmovnel	%r9d, %eax
+	cmovnel	%r9d, %r8d
 	#NO_APP
-	movb	%al, %cl
+	movl	%r8d, -4(%rsp)
+	andb	$1, %al
+	andb	%dl, %al
+	andb	%sil, %al
+	andb	%dil, %al
+	movb	-5(%rsp), %cl
 	andb	$1, %cl
-	movb	%cl, -5(%rsp)
+	movzbl	%cl, %r8d
+	xorl	%r9d, %r9d
+	#APP
+	testb	%al, %al
+	cmovnel	%r9d, %r8d
+	#NO_APP
+	movb	%r8b, %al
+	andb	$1, %al
+	movb	%al, -5(%rsp)
 	movl	-4(%rsp), %eax
 	popq	%rbx
 	popq	%r12
@@ -582,50 +651,61 @@ _mpi_mul_hlp:                           # @_mpi_mul_hlp
 	movq	%rax, -88(%rbp)         # 8-byte Spill
 	jae	.LBB3_4
 # %bb.2:                                #   in Loop: Header=BB3_1 Depth=1
-	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movl	$1, %eax
-	movl	%eax, %edx
-	movq	-56(%rbp), %rsi         # 8-byte Reload
-	movq	-88(%rbp), %rdi         # 8-byte Reload
-	movq	(%rsi,%rdi,8), %rax
-	movq	-72(%rbp), %r8          # 8-byte Reload
-	movq	%rdx, -96(%rbp)         # 8-byte Spill
-	mulq	%r8
-	movq	%rsp, %r9
-	movq	%r9, %r10
-	addq	$-16, %r10
-	movq	%r10, %rsp
-	movq	%rax, -16(%r9)
+	movq	-56(%rbp), %rax         # 8-byte Reload
+	movq	-88(%rbp), %rcx         # 8-byte Reload
+	movq	(%rax,%rcx,8), %rax
+	movq	-72(%rbp), %rdx         # 8-byte Reload
+	mulq	%rdx
+	movq	%rsp, %rsi
+	movq	%rsi, %rdi
+	addq	$-16, %rdi
+	movq	%rdi, %rsp
+	movq	%rax, -16(%rsi)
 	movq	%rsp, %rax
 	addq	$-16, %rax
 	movq	%rax, %rsp
 	movq	%rdx, (%rax)
-	movq	(%r10), %rdx
+	movq	(%rdi), %rdx
 	addq	-24(%rbp), %rdx
-	movq	%rdx, (%r10)
+	movq	%rdx, (%rdi)
 	movq	(%rax), %rdx
-	movq	(%r10), %r9
-	cmpq	-24(%rbp), %r9
-	movq	%rcx, %r9
-	movq	-96(%rbp), %r11         # 8-byte Reload
-	cmovbq	%r11, %r9
-	addq	%r9, %rdx
+	movq	(%rdi), %rsi
+	cmpq	-24(%rbp), %rsi
+	setb	%r8b
+	movl	$1, %r9d
+	movl	%r9d, %esi
+	xorl	%r9d, %r9d
+	movl	%r9d, %r10d
+	#APP
+	testb	%r8b, %r8b
+	movq	%r10, %r11
+	cmovneq	%rsi, %r11
+	#NO_APP
+	addq	%r11, %rdx
 	movq	%rdx, (%rax)
-	movq	(%r10), %rdx
-	movq	-40(%rbp), %r9          # 8-byte Reload
-	addq	(%r9,%rdi,8), %rdx
-	movq	%rdx, (%r10)
+	movq	(%rdi), %rdx
+	movq	-40(%rbp), %rsi         # 8-byte Reload
+	addq	(%rsi,%rcx,8), %rdx
+	movq	%rdx, (%rdi)
 	movq	(%rax), %rdx
-	movq	(%r10), %rbx
-	cmpq	(%r9,%rdi,8), %rbx
-	cmovbq	%r11, %rcx
-	addq	%rcx, %rdx
+	movq	(%rdi), %r10
+	cmpq	(%rsi,%rcx,8), %r10
+	setb	%r8b
+	movl	$1, %r9d
+	movl	%r9d, %r10d
+	xorl	%r9d, %r9d
+	movl	%r9d, %r11d
+	#APP
+	testb	%r8b, %r8b
+	movq	%r11, %rbx
+	cmovneq	%r10, %rbx
+	#NO_APP
+	addq	%rbx, %rdx
 	movq	%rdx, (%rax)
 	movq	(%rax), %rax
 	movq	%rax, -24(%rbp)
-	movq	(%r10), %rax
-	movq	%rax, (%r9,%rdi,8)
+	movq	(%rdi), %rax
+	movq	%rax, (%rsi,%rcx,8)
 # %bb.3:                                #   in Loop: Header=BB3_1 Depth=1
 	movq	-88(%rbp), %rax         # 8-byte Reload
 	addq	$1, %rax
@@ -633,32 +713,37 @@ _mpi_mul_hlp:                           # @_mpi_mul_hlp
 	jmp	.LBB3_1
 .LBB3_4:
 	movq	-64(%rbp), %rax         # 8-byte Reload
-	movq	%rax, -104(%rbp)        # 8-byte Spill
+	movq	%rax, -96(%rbp)         # 8-byte Spill
 	jmp	.LBB3_5
 .LBB3_5:                                # =>This Inner Loop Header: Depth=1
-	movq	-104(%rbp), %rax        # 8-byte Reload
+	movq	-96(%rbp), %rax         # 8-byte Reload
 	movq	-32(%rbp), %rcx         # 8-byte Reload
 	cmpq	%rcx, %rax
-	movq	%rax, -112(%rbp)        # 8-byte Spill
+	movq	%rax, -104(%rbp)        # 8-byte Spill
 	jae	.LBB3_8
 # %bb.6:                                #   in Loop: Header=BB3_5 Depth=1
-	xorl	%eax, %eax
-	movl	%eax, %ecx
-	movl	$1, %eax
-	movl	%eax, %edx
-	movq	-40(%rbp), %rsi         # 8-byte Reload
-	movq	-112(%rbp), %rdi        # 8-byte Reload
-	movq	(%rsi,%rdi,8), %r8
-	addq	-24(%rbp), %r8
-	movq	%r8, (%rsi,%rdi,8)
-	movq	(%rsi,%rdi,8), %r8
-	cmpq	-24(%rbp), %r8
-	cmovbq	%rdx, %rcx
-	movq	%rcx, -24(%rbp)
+	movq	-40(%rbp), %rax         # 8-byte Reload
+	movq	-104(%rbp), %rcx        # 8-byte Reload
+	movq	(%rax,%rcx,8), %rdx
+	addq	-24(%rbp), %rdx
+	movq	%rdx, (%rax,%rcx,8)
+	movq	(%rax,%rcx,8), %rdx
+	cmpq	-24(%rbp), %rdx
+	setb	%sil
+	movl	$1, %edi
+	movl	%edi, %edx
+	xorl	%edi, %edi
+	movl	%edi, %r8d
+	#APP
+	testb	%sil, %sil
+	movq	%r8, %r9
+	cmovneq	%rdx, %r9
+	#NO_APP
+	movq	%r9, -24(%rbp)
 # %bb.7:                                #   in Loop: Header=BB3_5 Depth=1
-	movq	-112(%rbp), %rax        # 8-byte Reload
+	movq	-104(%rbp), %rax        # 8-byte Reload
 	addq	$1, %rax
-	movq	%rax, -104(%rbp)        # 8-byte Spill
+	movq	%rax, -96(%rbp)         # 8-byte Spill
 	jmp	.LBB3_5
 .LBB3_8:
 	leaq	-8(%rbp), %rsp
@@ -1108,50 +1193,53 @@ _f_mpi_exp_mod:                         # @_f_mpi_exp_mod
 	movq	136(%rsp), %rax         # 8-byte Reload
 	movq	%rax, (%rsp)
 	callq	_mpi_montred
-	movl	$4294967295, %r10d      # imm = 0xFFFFFFFF
-	movl	172(%rsp), %r11d        # 4-byte Reload
-	cmpl	$0, %r11d
-	setl	%bl
+	movl	172(%rsp), %r10d        # 4-byte Reload
+	cmpl	$0, %r10d
+	setl	%r11b
 	movq	152(%rsp), %rax         # 8-byte Reload
 	movq	(%rax), %rcx
 	andq	$1, %rcx
 	cmpq	$0, %rcx
-	setne	%bpl
-	andb	$1, %bpl
-	movzbl	%bpl, %r14d
-	xorl	%r15d, %r15d
+	setne	%bl
+	andb	$1, %bl
+	movzbl	%bl, %ebp
+	xorl	%r14d, %r14d
+	#APP
+	testb	%r11b, %r11b
+	movl	%r14d, %r15d
+	cmovnel	%ebp, %r15d
+	#NO_APP
+	movb	%r15b, %r11b
+	movb	%r11b, %bl
+	andb	$1, %bl
+	movl	252(%rsp), %ebp
+	movl	$-1, %r14d
 	#APP
 	testb	%bl, %bl
-	movl	%r15d, %r12d
-	cmovnel	%r14d, %r12d
+	cmovnel	%r14d, %ebp
 	#NO_APP
-	movb	%r12b, %bl
-	movb	%bl, %bpl
-	andb	$1, %bpl
-	testb	$1, %bpl
-	cmovel	252(%rsp), %r10d
-	movl	%r10d, 252(%rsp)
-	movb	%bl, %bpl
-	andb	$1, %bpl
-	movzbl	%bpl, %r8d
+	movl	%ebp, 252(%rsp)
+	movb	%r11b, %bl
+	andb	$1, %bl
+	movzbl	%bl, %r8d
 	movq	128(%rsp), %rdi         # 8-byte Reload
 	movq	136(%rsp), %rsi         # 8-byte Reload
 	movq	224(%rsp), %rdx         # 8-byte Reload
 	movq	232(%rsp), %rcx         # 8-byte Reload
-	movb	%bl, 55(%rsp)           # 1-byte Spill
+	movb	%r11b, 55(%rsp)         # 1-byte Spill
 	callq	_mpi_copy
-	movb	55(%rsp), %bl           # 1-byte Reload
-	andb	$1, %bl
-	movzbl	%bl, %r9d
+	movb	55(%rsp), %r11b         # 1-byte Reload
+	andb	$1, %r11b
+	movzbl	%r11b, %r9d
 	movq	216(%rsp), %rdi         # 8-byte Reload
 	movq	208(%rsp), %rsi         # 8-byte Reload
 	movq	216(%rsp), %rdx         # 8-byte Reload
 	movq	128(%rsp), %rcx         # 8-byte Reload
 	movq	136(%rsp), %r8          # 8-byte Reload
 	callq	_mpi_sub_hlp
-	movb	55(%rsp), %bl           # 1-byte Reload
-	andb	$1, %bl
-	movzbl	%bl, %r8d
+	movb	55(%rsp), %r11b         # 1-byte Reload
+	andb	$1, %r11b
+	movzbl	%r11b, %r8d
 	movq	208(%rsp), %rdi         # 8-byte Reload
 	movq	216(%rsp), %rsi         # 8-byte Reload
 	movq	128(%rsp), %rdx         # 8-byte Reload

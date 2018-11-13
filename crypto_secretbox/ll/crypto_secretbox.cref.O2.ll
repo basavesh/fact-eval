@@ -256,13 +256,13 @@ entry:
   ret void
 }
 
-; Function Attrs: norecurse nounwind
-define internal fastcc void @_poly1305_blocks(%poly1305_state_internal_t* nocapture %__v121_state, i8* nocapture readonly %__v122_m, i64 %__v224___v122_m_len) unnamed_addr #1 {
+; Function Attrs: nounwind
+define internal fastcc void @_poly1305_blocks(%poly1305_state_internal_t* nocapture %__v121_state, i8* nocapture readonly %__v122_m, i64 %__v224___v122_m_len) unnamed_addr #2 {
 entry:
   %0 = getelementptr inbounds %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i64 0, i32 5
   %1 = load i8, i8* %0, align 1
-  %2 = icmp eq i8 %1, 0
-  %3 = select i1 %2, i64 1099511627776, i64 0
+  %2 = icmp ne i8 %1, 0
+  %3 = tail call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %2, i64 0, i64 1099511627776) #2
   %4 = getelementptr %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i64 0, i32 0, i64 1
   %__v127_r1 = load i64, i64* %4, align 8
   %5 = getelementptr %poly1305_state_internal_t, %poly1305_state_internal_t* %__v121_state, i64 0, i32 0, i64 2

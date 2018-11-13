@@ -22,7 +22,7 @@ entry:
   %6 = load i64, i64* %5
   %7 = and i1 true, %__m37
   %8 = load i64, i64* %4
-  %9 = select i1 %7, i64 %6, i64 %8
+  %9 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %7, i64 %6, i64 %8)
   store i64 %9, i64* %4
   br label %10
 
@@ -42,7 +42,7 @@ entry:
   %16 = getelementptr i64, i64* %__v65_TO, i64 %__v69_i
   %17 = and i1 true, %__m37
   %18 = load i64, i64* %16
-  %19 = select i1 %17, i64 0, i64 %18
+  %19 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %17, i64 0, i64 %18)
   store i64 %19, i64* %16
   br label %20
 
@@ -81,10 +81,10 @@ entry:
   %4 = load i64, i64* %3
   %5 = load i64, i64* %__v61_c
   %6 = icmp ult i64 %4, %5
-  %7 = select i1 %6, i64 1, i64 0
+  %7 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %6, i64 1, i64 0)
   %8 = and i1 true, %__m35
   %9 = load i64, i64* %__v62_z
-  %10 = select i1 %8, i64 %7, i64 %9
+  %10 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %8, i64 %7, i64 %9)
   store i64 %10, i64* %__v62_z
   %11 = getelementptr i64, i64* %__v60_d, i64 %__v63_i
   %12 = getelementptr i64, i64* %__v60_d, i64 %__v63_i
@@ -93,19 +93,19 @@ entry:
   %15 = sub i64 %13, %14
   %16 = and i1 true, %__m35
   %17 = load i64, i64* %11
-  %18 = select i1 %16, i64 %15, i64 %17
+  %18 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %16, i64 %15, i64 %17)
   store i64 %18, i64* %11
   %19 = getelementptr i64, i64* %__v60_d, i64 %__v63_i
   %20 = load i64, i64* %19
   %21 = getelementptr i64, i64* %__v59_s, i64 %__v63_i
   %22 = load i64, i64* %21
   %23 = icmp ult i64 %20, %22
-  %24 = select i1 %23, i64 1, i64 0
+  %24 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %23, i64 1, i64 0)
   %25 = load i64, i64* %__v62_z
   %26 = add i64 %24, %25
   %27 = and i1 true, %__m35
   %28 = load i64, i64* %__v61_c
-  %29 = select i1 %27, i64 %26, i64 %28
+  %29 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %27, i64 %26, i64 %28)
   store i64 %29, i64* %__v61_c
   %30 = getelementptr i64, i64* %__v60_d, i64 %__v63_i
   %31 = getelementptr i64, i64* %__v60_d, i64 %__v63_i
@@ -115,7 +115,7 @@ entry:
   %35 = sub i64 %32, %34
   %36 = and i1 true, %__m35
   %37 = load i64, i64* %30
-  %38 = select i1 %36, i64 %35, i64 %37
+  %38 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %36, i64 %35, i64 %37)
   store i64 %38, i64* %30
   br label %39
 
@@ -136,10 +136,10 @@ entry:
   %46 = load i64, i64* %45
   %47 = load i64, i64* %__v61_c
   %48 = icmp ult i64 %46, %47
-  %49 = select i1 %48, i64 1, i64 0
+  %49 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %48, i64 1, i64 0)
   %50 = and i1 true, %__m35
   %51 = load i64, i64* %__v62_z
-  %52 = select i1 %50, i64 %49, i64 %51
+  %52 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %50, i64 %49, i64 %51)
   store i64 %52, i64* %__v62_z
   %53 = getelementptr i64, i64* %__v60_d, i64 %__v64_i
   %54 = getelementptr i64, i64* %__v60_d, i64 %__v64_i
@@ -148,12 +148,12 @@ entry:
   %57 = sub i64 %55, %56
   %58 = and i1 true, %__m35
   %59 = load i64, i64* %53
-  %60 = select i1 %58, i64 %57, i64 %59
+  %60 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %58, i64 %57, i64 %59)
   store i64 %60, i64* %53
   %61 = load i64, i64* %__v62_z
   %62 = and i1 true, %__m35
   %63 = load i64, i64* %__v61_c
-  %64 = select i1 %62, i64 %61, i64 %63
+  %64 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %62, i64 %61, i64 %63)
   store i64 %64, i64* %__v61_c
   br label %65
 
@@ -202,7 +202,7 @@ entry:
   %10 = trunc i32 %9 to i1
   %11 = and i1 true, %10
   %12 = load i64, i64* %__v49_saved_i
-  %13 = select i1 %11, i64 %__v52_i, i64 %12
+  %13 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %11, i64 %__v52_i, i64 %12)
   store i64 %13, i64* %__v49_saved_i
   %__m34 = xor i1 %10, true
   br label %14
@@ -232,7 +232,7 @@ entry:
   %27 = trunc i32 %26 to i1
   %28 = and i1 true, %27
   %29 = load i64, i64* %__v50_saved_j
-  %30 = select i1 %28, i64 %__v54_j, i64 %29
+  %30 = call i64 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %28, i64 %__v54_j, i64 %29)
   store i64 %30, i64* %__v50_saved_j
   %__m32 = xor i1 %27, true
   br label %31
@@ -251,7 +251,7 @@ entry:
   %40 = trunc i32 %39 to i1
   %41 = and i1 true, %40
   %42 = load i32, i32* %__rval
-  %43 = select i1 %41, i32 0, i32 %42
+  %43 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %41, i32 0, i32 %42)
   store i32 %43, i32* %__rval
   %44 = and i1 true, %40
   %45 = load i1, i1* %__rctx
@@ -267,7 +267,7 @@ entry:
   %51 = and i1 true, %__m10
   %52 = and i1 %51, %__m9
   %53 = load i32, i32* %__rval
-  %54 = select i1 %52, i32 1, i32 %53
+  %54 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %52, i32 1, i32 %53)
   store i32 %54, i32* %__rval
   %55 = and i1 true, %__m10
   %56 = and i1 %55, %__m9
@@ -285,7 +285,7 @@ entry:
   %64 = and i1 %63, %__m12
   %65 = and i1 %64, %__m9
   %66 = load i32, i32* %__rval
-  %67 = select i1 %65, i32 -1, i32 %66
+  %67 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %65, i32 -1, i32 %66)
   store i32 %67, i32* %__rval
   %68 = and i1 true, %__m13
   %69 = and i1 %68, %__m12
@@ -325,7 +325,7 @@ entry:
   %88 = and i1 %87, %__m12
   %89 = and i1 %88, %__m9
   %90 = load i32, i32* %__rval
-  %91 = select i1 %89, i32 1, i32 %90
+  %91 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %89, i32 1, i32 %90)
   store i32 %91, i32* %__rval
   %92 = and i1 true, %__m20
   %93 = and i1 %92, %__m19
@@ -355,7 +355,7 @@ entry:
   %111 = and i1 %110, %__m12
   %112 = and i1 %111, %__m9
   %113 = load i32, i32* %__rval
-  %114 = select i1 %112, i32 -1, i32 %113
+  %114 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %112, i32 -1, i32 %113)
   store i32 %114, i32* %__rval
   %115 = and i1 true, %__m23
   %116 = and i1 %115, %__m22
@@ -386,7 +386,7 @@ entry:
   %131 = and i1 %130, %__m12
   %132 = and i1 %131, %__m9
   %133 = load i32, i32* %__rval
-  %134 = select i1 %132, i32 0, i32 %133
+  %134 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %132, i32 0, i32 %133)
   store i32 %134, i32* %__rval
   %135 = and i1 true, %__m16
   %136 = and i1 %135, %__m15
@@ -439,7 +439,7 @@ entry:
   %14 = load i64, i64* %__v44_r0
   %15 = load i64, i64* %__v41_c
   %16 = icmp ult i64 %14, %15
-  %17 = select i1 %16, i64 1, i64 0
+  %17 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %16, i64 1, i64 0)
   %18 = add i64 %13, %17
   store i64 %18, i64* %__v45_r1
   %19 = load i64, i64* %__v44_r0
@@ -452,7 +452,7 @@ entry:
   %25 = getelementptr i64, i64* %__v39_d, i64 %__v42_i
   %26 = load i64, i64* %25
   %27 = icmp ult i64 %24, %26
-  %28 = select i1 %27, i64 1, i64 0
+  %28 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %27, i64 1, i64 0)
   %29 = add i64 %23, %28
   store i64 %29, i64* %__v45_r1
   %30 = load i64, i64* %__v45_r1
@@ -485,7 +485,7 @@ entry:
   %45 = load i64, i64* %44
   %46 = load i64, i64* %__v41_c
   %47 = icmp ult i64 %45, %46
-  %48 = select i1 %47, i64 1, i64 0
+  %48 = call i64 asm "testb $1, $1; mov $3, $0; cmovnz $2, $0", "=&r,r,r,r,~{flags}"(i1 %47, i64 1, i64 0)
   store i64 %48, i64* %__v41_c
   br label %49
 
@@ -700,7 +700,7 @@ entry:
   %36 = trunc i32 %35 to i1
   %37 = and i1 true, %36
   %38 = load i32, i32* %__v12_ret
-  %39 = select i1 %37, i32 -1, i32 %38
+  %39 = call i32 asm "testb $1, $1; cmovnz $2, $0", "=r,r,r,0,~{flags}"(i1 %37, i32 -1, i32 %38)
   store i32 %39, i32* %__v12_ret
   %40 = and i1 true, %36
   call void @_mpi_copy(i64* %__v7_T, i64 %__v76___v7_T_len, i64* %__v5_N, i64 %__v74___v5_N_len, i1 %40)
