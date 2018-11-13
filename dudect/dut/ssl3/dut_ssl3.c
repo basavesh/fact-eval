@@ -26,6 +26,7 @@ uint8_t do_one_computation(uint8_t *data) {
     8 /* sequence number */  +
     1 /* record type */  +
     2 /* record length */ ;
+  SHA1_Init((SHA_CTX *)md_state.c);
   __ssl3_cbc_digest_record(
       // outputs
       md_state.c,
@@ -53,7 +54,8 @@ void prepare_inputs(uint8_t *input_data, uint8_t *classes) {
       memset(input_data + (size_t)i * chunk_size, 0x00, chunk_size);
       *(input_data + (size_t)i * chunk_size + 127) = 0x01;
     } else {
-      // leave random
+      // no inconstructably invalid lengths
+      input_data[i * chunk_size + 127] %= 127;
     }
   }
 }

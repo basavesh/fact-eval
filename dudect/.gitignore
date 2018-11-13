@@ -1,2 +1,3 @@
 src/*.o
 /dut_*
+/res_*
