@@ -36,9 +36,6 @@ void init_dut(void) {
   evp_cipher = EVP_get_cipherbyname("AES-256-CBC-HMAC-SHA1");
   ctx = EVP_CIPHER_CTX_new();
   EVP_DecryptInit_ex(ctx, evp_cipher, NULL, key32, iv);
-  EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_MAC_KEY, 20, mackey);
-  EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_TLS1_AAD,
-      EVP_AEAD_TLS1_AAD_LEN, aad);
 
   randombytes(key32, 32);
   randombytes(iv, 16);
@@ -48,6 +45,10 @@ void init_dut(void) {
   aad[10] = 0x00;
   aad[11] = 0x00;
   aad[12] = 0x80;
+
+  EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_SET_MAC_KEY, 20, mackey);
+  EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_AEAD_TLS1_AAD,
+      EVP_AEAD_TLS1_AAD_LEN, aad);
 }
 
 void prepare_inputs(uint8_t *input_data, uint8_t *classes) {
