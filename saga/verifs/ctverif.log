@@ -399,6 +399,8 @@ i8* %__v1_iv
 node:
   VOID
 
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
@@ -406,8 +408,28 @@ warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
     /root/verifs/saga_ctverifwrapper.c(76,5): 
     /usr/local/share/smack/lib/smack.c(1456,3): 
     /root/verifs/saga_ctverifwrapper.c(76,5): 
@@ -449,9 +471,9 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 
 SMACK found an error.
 
-real	0m13.320s
-user	0m0.271s
-sys	0m0.041s
+real	0m10.338s
+user	0m0.272s
+sys	0m0.036s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -530,14 +552,14 @@ Traceback (most recent call last):
     try_command(['llvm-link', '-o', args.bc_file] + bitcodes)
   File "/usr/local/bin/../share/smack/utils.py", line 69, in try_command
     raise Exception(output)
-Exception: llvm-link: /root/verifs/20170717_latest.O3.ll:363:37: error: unterminated attribute group
+Exception: llvm-link: /root/verifs/20170717_latest.O3.ll:400:37: error: unterminated attribute group
 attributes #1 = { nounwind readnone speculatable }
                                     ^
 llvm-link: error loading file '/root/verifs/20170717_latest.O3.ll'
 
 
-real	0m2.112s
-user	0m0.254s
-sys	0m0.045s
+real	0m2.430s
+user	0m0.276s
+sys	0m0.022s
 //////////////////////////////////////////////////////////////////////////
 

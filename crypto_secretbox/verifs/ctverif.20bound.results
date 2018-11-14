@@ -1,0 +1,1 @@
+SUCCESS with args "-v 20 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.asm.ll"

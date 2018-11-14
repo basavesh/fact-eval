@@ -1,0 +1,336 @@
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 20 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.asm.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+/root/verifs/crypto_secretbox_ctverifwrapper.c:40:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+    public_in(__SMACK_values(__v34_n,24));
+                             ^~~~~~~
+/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
+smack_value_t __SMACK_values(void* ary, unsigned count);
+                                   ^
+1 warning generated.
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305_verify
+in function:
+  _crypto_secretbox_xsalsa20poly1305_open
+at instruction:
+  %__v10_tmp1 = getelementptr i8, i8* %__v6_c, i64 16, !verifier.code !17
+at value:
+  %__v10_tmp1 = getelementptr i8, i8* %__v6_c, i64 16, !verifier.code !17
+node:
+  0: i8,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305_verify
+in function:
+  _crypto_secretbox_xsalsa20poly1305_open
+at instruction:
+  %__v9_subkey = alloca i8, i64 32, !verifier.code !17
+at value:
+  %__v9_subkey = alloca i8, i64 32, !verifier.code !17
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_verify_16
+in function:
+  _crypto_onetimeauth_poly1305_verify
+in block:
+  entry
+at instruction:
+  %__v301__crypto_verify_16 = call i1 @_crypto_verify_16(i8* %__v175_h, i8* %__v178_correct), !verifier.code !17
+at value:
+i8* %__v175_h
+node:
+  0: i8,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_verify_16
+in function:
+  _crypto_onetimeauth_poly1305_verify
+in block:
+  entry
+at instruction:
+  %__v178_correct = alloca i8, i64 16, !verifier.code !17
+at value:
+  %__v178_correct = alloca i8, i64 16, !verifier.code !17
+node:
+  0: i8,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _salsa_ivsetup_null
+in function:
+  _crypto_stream_salsa20
+at instruction:
+  %__v21_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v21_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
+in function:
+  _crypto_onetimeauth_poly1305_verify
+in block:
+  entry
+at instruction:
+  %0 = call i32 @_crypto_onetimeauth_poly1305(i8* %__v178_correct, i8* %__v176_input, i64 %__v328___v176_input_len, i8* %__v177_k), !verifier.code !17
+at value:
+i8* %__v177_k
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
+in function:
+  _crypto_secretbox_xsalsa20poly1305
+at instruction:
+  %__v32_cview = getelementptr i8, i8* %__v28_c, i64 16, !verifier.code !17
+at value:
+  %__v32_cview = getelementptr i8, i8* %__v28_c, i64 16, !verifier.code !17
+node:
+  0: i8, i64,  8: i64,   array: SMR
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _poly1305_finish
+in function:
+  _crypto_onetimeauth_poly1305
+in block:
+  entry
+at instruction:
+  call void @_poly1305_finish(%poly1305_state_internal_t* %__v185_state, i8* %__v182_out), !verifier.code !17
+at value:
+i8* %__v182_out
+node:
+  0: i64,  8: i64,  : M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _poly1305_init
+in function:
+  _crypto_onetimeauth_poly1305
+in block:
+  entry
+at instruction:
+  call void @_poly1305_init(%poly1305_state_internal_t* %__v185_state, i8* %__v184_key), !verifier.code !17
+at value:
+i8* %__v184_key
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _salsa_ivsetup
+in function:
+  _crypto_stream_salsa20_xor_ic
+at instruction:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _salsa_keysetup
+in function:
+  _crypto_stream_salsa20
+at instruction:
+  %__v21_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v21_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
+in function:
+  _crypto_secretbox_xsalsa20poly1305
+at instruction:
+  %__v32_cview = getelementptr i8, i8* %__v28_c, i64 16, !verifier.code !17
+at value:
+  %__v32_cview = getelementptr i8, i8* %__v28_c, i64 16, !verifier.code !17
+node:
+  0: i64,  8: i64,  : M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
+in function:
+  _crypto_secretbox_xsalsa20poly1305
+at instruction:
+  %__v34_kview = getelementptr i8, i8* %__v28_c, i64 0, !verifier.code !17
+at value:
+  %__v34_kview = getelementptr i8, i8* %__v28_c, i64 0, !verifier.code !17
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _poly1305_finish
+in function:
+  _crypto_onetimeauth_poly1305
+in block:
+  entry
+at instruction:
+  call void @_poly1305_finish(%poly1305_state_internal_t* %__v185_state, i8* %__v182_out), !verifier.code !17
+at value:
+i8* %__v182_out
+node:
+  0: i64,  8: i64,  : M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _poly1305_init
+in function:
+  _crypto_onetimeauth_poly1305
+in block:
+  entry
+at instruction:
+  call void @_poly1305_init(%poly1305_state_internal_t* %__v185_state, i8* %__v184_key), !verifier.code !17
+at value:
+i8* %__v184_key
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _salsa_ivsetup
+in function:
+  _crypto_stream_salsa20_xor_ic
+at instruction:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _salsa_keysetup
+in function:
+  _crypto_stream_salsa20_xor_ic
+at instruction:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
+in function:
+  _crypto_secretbox_xsalsa20poly1305
+at instruction:
+  %__v32_cview = getelementptr i8, i8* %__v28_c, i64 16, !verifier.code !17
+at value:
+  %__v32_cview = getelementptr i8, i8* %__v28_c, i64 16, !verifier.code !17
+node:
+  0: i64,  8: i64,  : M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
+in function:
+  _crypto_secretbox_xsalsa20poly1305
+at instruction:
+  %__v34_kview = getelementptr i8, i8* %__v28_c, i64 0, !verifier.code !17
+at value:
+  %__v34_kview = getelementptr i8, i8* %__v28_c, i64 0, !verifier.code !17
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _poly1305_finish
+in function:
+  _crypto_onetimeauth_poly1305
+in block:
+  entry
+at instruction:
+  call void @_poly1305_finish(%poly1305_state_internal_t* %__v185_state, i8* %__v182_out), !verifier.code !17
+at value:
+i8* %__v182_out
+node:
+  0: i64,  8: i64,  : M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _poly1305_init
+in function:
+  _crypto_onetimeauth_poly1305
+in block:
+  entry
+at instruction:
+  call void @_poly1305_init(%poly1305_state_internal_t* %__v185_state, i8* %__v184_key), !verifier.code !17
+at value:
+i8* %__v184_key
+node:
+  0: i64,  8: i64,  16: i64,  24: i64,  : R
+
+
+warning: collapsing DSA node
+Warning: could not resolve function i0#mk.vec.4xi32
+Warning: could not resolve function i1#mk.vec.4xi32
+Warning: could not resolve function i2#mk.vec.4xi32
+Warning: could not resolve function i3#mk.vec.4xi32
+Warning: could not resolve constant/variable $load.i8
+unable to merge call-site arguments with parameters to function _salsa_ivsetup
+in function:
+  _crypto_stream_salsa20_xor_ic
+at instruction:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function _salsa_keysetup
+in function:
+  _crypto_stream_salsa20_xor_ic
+at instruction:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+at value:
+  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+node:
+  0: i32,   array: M
+
+
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+SMACK found no errors with unroll bound 20.
+SMACK found no errors
+
+real	3m12.682s
+user	0m0.101s
+sys	0m0.058s
+//////////////////////////////////////////////////////////////////////////
+

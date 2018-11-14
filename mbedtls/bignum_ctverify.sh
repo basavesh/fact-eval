@@ -25,8 +25,8 @@ grep -v "llvm\.lifetime" ll/bignum.O2.fpic.ll > ll/bignum.O2.fpic.nolifetime.ll 
 rm -f $LOGFILE
 
 # Run ctverif
-CTVERIF_ARGS="-v 5 _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c"
-run_ctverif "$CTVERIF_ARGS ll/bignum.ll"
+CTVERIF_ARGS="-v 4 _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c"
+#run_ctverif "$CTVERIF_ARGS ll/bignum.ll"
 run_ctverif "$CTVERIF_ARGS ll/bignum.O2.fpic.nolifetime.ll"
 
 # Clean up nolifetime ll files

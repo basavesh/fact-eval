@@ -473,6 +473,7 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
@@ -483,9 +484,9 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 SMACK found no errors with unroll bound 40.
 SMACK found no errors
 
-real	0m23.607s
-user	0m0.195s
-sys	0m0.036s
+real	0m24.678s
+user	0m0.408s
+sys	0m0.102s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -664,15 +665,16 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 TODO: handle undefined mask values
 UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007f3bf604bfe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007f3bf604a15e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007f3bf604a2ac
-3  libpthread.so.0  0x00007f3bf518b390
-4  libc.so.6        0x00007f3bf432a428 gsignal + 56
-5  libc.so.6        0x00007f3bf432c02a abort + 362
-6  libLLVM-3.9.so.1 0x00007f3bf5ff0d0a
+0  libLLVM-3.9.so.1 0x00007fc34eb5dfe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
+1  libLLVM-3.9.so.1 0x00007fc34eb5c15e llvm::sys::RunSignalHandlers() + 62
+2  libLLVM-3.9.so.1 0x00007fc34eb5c2ac
+3  libpthread.so.0  0x00007fc34dc9d390
+4  libc.so.6        0x00007fc34ce3c428 gsignal + 56
+5  libc.so.6        0x00007fc34ce3e02a abort + 362
+6  libLLVM-3.9.so.1 0x00007fc34eb02d0a
 7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
 8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
 9  llvm2bpl         0x0000000000489668
@@ -683,13 +685,13 @@ UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
 14 llvm2bpl         0x0000000000484782
 15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
 16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007f3bf61066df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
+17 libLLVM-3.9.so.1 0x00007fc34ec186df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
 18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007f3bf4315830 __libc_start_main + 240
+19 libc.so.6        0x00007fc34ce27830 __libc_start_main + 240
 20 llvm2bpl         0x0000000000474299 _start + 41
 Stack dump:
-0.	Program arguments: llvm2bpl /b-DTP8B8.bc -bpl /a-s9ONQC.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-DTP8B8.bc'.
+0.	Program arguments: llvm2bpl /b-CSILCA.bc -bpl /a-231xSS.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_wrapper -mem-mod-impls 
+1.	Running pass 'SMACK generator pass' on module '/b-CSILCA.bc'.
 Traceback (most recent call last):
   File "/usr/local/bin/smack", line 13, in <module>
     smack.top.main()
@@ -868,15 +870,16 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 TODO: handle undefined mask values
 UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007f3bf604bfe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007f3bf604a15e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007f3bf604a2ac
-3  libpthread.so.0  0x00007f3bf518b390
-4  libc.so.6        0x00007f3bf432a428 gsignal + 56
-5  libc.so.6        0x00007f3bf432c02a abort + 362
-6  libLLVM-3.9.so.1 0x00007f3bf5ff0d0a
+0  libLLVM-3.9.so.1 0x00007fc34eb5dfe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
+1  libLLVM-3.9.so.1 0x00007fc34eb5c15e llvm::sys::RunSignalHandlers() + 62
+2  libLLVM-3.9.so.1 0x00007fc34eb5c2ac
+3  libpthread.so.0  0x00007fc34dc9d390
+4  libc.so.6        0x00007fc34ce3c428 gsignal + 56
+5  libc.so.6        0x00007fc34ce3e02a abort + 362
+6  libLLVM-3.9.so.1 0x00007fc34eb02d0a
 7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
 8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
 9  llvm2bpl         0x0000000000489668
@@ -887,431 +890,18 @@ UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
 14 llvm2bpl         0x0000000000484782
 15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
 16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007f3bf61066df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
+17 libLLVM-3.9.so.1 0x00007fc34ec186df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
 18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007f3bf4315830 __libc_start_main + 240
+19 libc.so.6        0x00007fc34ce27830 __libc_start_main + 240
 20 llvm2bpl         0x0000000000474299 _start + 41
 Stack dump:
-0.	Program arguments: llvm2bpl /b-DTP8B8.bc -bpl /a-s9ONQC.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-DTP8B8.bc'.
+0.	Program arguments: llvm2bpl /b-CSILCA.bc -bpl /a-231xSS.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_wrapper -mem-mod-impls 
+1.	Running pass 'SMACK generator pass' on module '/b-CSILCA.bc'.
 
 
-real	0m2.406s
-user	0m0.219s
-sys	0m0.020s
-//////////////////////////////////////////////////////////////////////////
-
-///////////////////////////// new ctverif run ////////////////////////////
-//// Running ctverif with args "-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.cref.O2.fpic.nolifetime.ll" ////
-ctverif version 1.0.1
-SMACK program verifier version 1.9.1
-/root/verifs/crypto_secretbox_ctverifwrapper.c:40:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-    public_in(__SMACK_values(__v34_n,24));
-                             ^~~~~~~
-/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
-smack_value_t __SMACK_values(void* ary, unsigned count);
-                                   ^
-1 warning generated.
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #3, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i32, i64,  4: <4 x i32>,  8: i64,  16: <2 x i64>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32, i64,  4: <4 x i32>,  8: i64,  16: <2 x i64>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-at value:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #2, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-at value:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #2, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-TODO: handle undefined mask values
-UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007f3dde399fe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007f3dde39815e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007f3dde3982ac
-3  libpthread.so.0  0x00007f3ddd4d9390
-4  libc.so.6        0x00007f3ddc678428 gsignal + 56
-5  libc.so.6        0x00007f3ddc67a02a abort + 362
-6  libLLVM-3.9.so.1 0x00007f3dde33ed0a
-7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
-8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
-9  llvm2bpl         0x0000000000489668
-10 llvm2bpl         0x0000000000488a7d
-11 llvm2bpl         0x0000000000488462
-12 llvm2bpl         0x00000000004883c2
-13 llvm2bpl         0x0000000000488362
-14 llvm2bpl         0x0000000000484782
-15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
-16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007f3dde4546df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
-18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007f3ddc663830 __libc_start_main + 240
-20 llvm2bpl         0x0000000000474299 _start + 41
-Stack dump:
-0.	Program arguments: llvm2bpl /b-0FrHye.bc -bpl /a-ScsWTx.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-0FrHye.bc'.
-Traceback (most recent call last):
-  File "/usr/local/bin/smack", line 13, in <module>
-    smack.top.main()
-  File "/usr/local/bin/../share/smack/top.py", line 585, in main
-    frontend(args)
-  File "/usr/local/bin/../share/smack/top.py", line 290, in frontend
-    return link_bc_files(bitcodes,libs,args)
-  File "/usr/local/bin/../share/smack/frontend.py", line 299, in link_bc_files
-    llvm_to_bpl(args)
-  File "/usr/local/bin/../share/smack/top.py", line 314, in llvm_to_bpl
-    try_command(cmd, console=True)
-  File "/usr/local/bin/../share/smack/utils.py", line 69, in try_command
-    raise Exception(output)
-Exception: warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #3, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i32, i64,  4: <4 x i32>,  8: i64,  16: <2 x i64>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32, i64,  4: <4 x i32>,  8: i64,  16: <2 x i64>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-at value:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #2, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-at value:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #2, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-TODO: handle undefined mask values
-UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007f3dde399fe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007f3dde39815e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007f3dde3982ac
-3  libpthread.so.0  0x00007f3ddd4d9390
-4  libc.so.6        0x00007f3ddc678428 gsignal + 56
-5  libc.so.6        0x00007f3ddc67a02a abort + 362
-6  libLLVM-3.9.so.1 0x00007f3dde33ed0a
-7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
-8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
-9  llvm2bpl         0x0000000000489668
-10 llvm2bpl         0x0000000000488a7d
-11 llvm2bpl         0x0000000000488462
-12 llvm2bpl         0x00000000004883c2
-13 llvm2bpl         0x0000000000488362
-14 llvm2bpl         0x0000000000484782
-15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
-16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007f3dde4546df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
-18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007f3ddc663830 __libc_start_main + 240
-20 llvm2bpl         0x0000000000474299 _start + 41
-Stack dump:
-0.	Program arguments: llvm2bpl /b-0FrHye.bc -bpl /a-ScsWTx.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-0FrHye.bc'.
-
-
-real	0m2.263s
-user	0m0.211s
-sys	0m0.019s
+real	0m2.855s
+user	0m0.356s
+sys	0m0.056s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -1633,18 +1223,20 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 SMACK timed out.
 
-real	20m8.454s
-user	0m0.239s
-sys	0m0.034s
+real	20m8.403s
+user	0m0.403s
+sys	0m0.086s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -1769,38 +1361,22 @@ warning: memory intrinsic lengthWarning: could not resolve function i0#mk.vec.4x
 Warning: could not resolve function i1#mk.vec.4xi32
 Warning: could not resolve function i2#mk.vec.4xi32
 Warning: could not resolve function i3#mk.vec.4xi32
-Warning: could not resolve function i0#mk.vec.32xi8
-Warning: could not resolve function i1#mk.vec.32xi8
-Warning: could not resolve function i2#mk.vec.32xi8
-Warning: could not resolve function i3#mk.vec.32xi8
-Warning: could not resolve function i4#mk.vec.32xi8
-Warning: could not resolve function i5#mk.vec.32xi8
-Warning: could not resolve function i6#mk.vec.32xi8
-Warning: could not resolve function i7#mk.vec.32xi8
-Warning: could not resolve function i8#mk.vec.32xi8
-Warning: could not resolve function i9#mk.vec.32xi8
-Warning: could not resolve function i10#mk.vec.32xi8
-Warning: could not resolve function i11#mk.vec.32xi8
-Warning: could not resolve function i12#mk.vec.32xi8
-Warning: could not resolve function i13#mk.vec.32xi8
-Warning: could not resolve function i14#mk.vec.32xi8
-Warning: could not resolve function i15#mk.vec.32xi8
-Warning: could not resolve function i16#mk.vec.32xi8
-Warning: could not resolve function i17#mk.vec.32xi8
-Warning: could not resolve function i18#mk.vec.32xi8
-Warning: could not resolve function i19#mk.vec.32xi8
-Warning: could not resolve function i20#mk.vec.32xi8
-Warning: could not resolve function i21#mk.vec.32xi8
-Warning: could not resolve function i22#mk.vec.32xi8
-Warning: could not resolve function i23#mk.vec.32xi8
-Warning: could not resolve function i24#mk.vec.32xi8
-Warning: could not resolve function i25#mk.vec.32xi8
-Warning: could not resolve function i26#mk.vec.32xi8
-Warning: could not resolve function i27#mk.vec.32xi8
-Warning: could not resolve function i28#mk.vec.32xi8
-Warning: could not resolve function i29#mk.vec.32xi8
-Warning: could not resolve function i30#mk.vec.32xi8
-Warning: could not resolve function i31#mk.vec.32xi8
+Warning: could not resolve function i0#mk.vec.16xi8
+Warning: could not resolve function i1#mk.vec.16xi8
+Warning: could not resolve function i2#mk.vec.16xi8
+Warning: could not resolve function i3#mk.vec.16xi8
+Warning: could not resolve function i4#mk.vec.16xi8
+Warning: could not resolve function i5#mk.vec.16xi8
+Warning: could not resolve function i6#mk.vec.16xi8
+Warning: could not resolve function i7#mk.vec.16xi8
+Warning: could not resolve function i8#mk.vec.16xi8
+Warning: could not resolve function i9#mk.vec.16xi8
+Warning: could not resolve function i10#mk.vec.16xi8
+Warning: could not resolve function i11#mk.vec.16xi8
+Warning: could not resolve function i12#mk.vec.16xi8
+Warning: could not resolve function i13#mk.vec.16xi8
+Warning: could not resolve function i14#mk.vec.16xi8
+Warning: could not resolve function i15#mk.vec.16xi8
 Warning: could not resolve constant/variable $load.i8
  exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
@@ -1809,6 +1385,8 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 /root/verifs/crypto_secretbox_ctverifwrapper.c(29,5): This assertion might not hold.
 Execution trace:
@@ -1845,212 +1423,9 @@ Execution trace:
 
 SMACK found an error.
 
-real	0m13.966s
-user	0m0.229s
-sys	0m0.021s
-//////////////////////////////////////////////////////////////////////////
-
-///////////////////////////// new ctverif run ////////////////////////////
-//// Running ctverif with args "-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.asm.O2.fpic.nolifetime.ll" ////
-ctverif version 1.0.1
-SMACK program verifier version 1.9.1
-/root/verifs/crypto_secretbox_ctverifwrapper.c:40:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-    public_in(__SMACK_values(__v34_n,24));
-                             ^~~~~~~
-/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
-smack_value_t __SMACK_values(void* ary, unsigned count);
-                                   ^
-1 warning generated.
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %__v9_subkey1.sub = getelementptr inbounds [32 x i8], [32 x i8]* %__v9_subkey1, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v9_subkey1.sub = getelementptr inbounds [32 x i8], [32 x i8]* %__v9_subkey1, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-at value:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-node:
-  0: i8, i64,  8: i64,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_stream_salsa20_xor_ic
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: i32,  8: i32,  12: i32,  16: i32,  20: i32,  24: i32,  28: i32,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_hsalsa20
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  16: i32,  20: i32,  24: i32,  28: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-at value:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v24_c, i8 0, i64 16, i32 1, i1 false) #2, !verifier.code !17
-at value:
-i8* %__v24_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-at value:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v24_c, i8 0, i64 16, i32 1, i1 false) #2, !verifier.code !17
-at value:
-i8* %__v24_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic lengthWarning: could not resolve function i0#mk.vec.4xi32
-Warning: could not resolve function i1#mk.vec.4xi32
-Warning: could not resolve function i2#mk.vec.4xi32
-Warning: could not resolve function i3#mk.vec.4xi32
-Warning: could not resolve function i0#mk.vec.32xi8
-Warning: could not resolve function i1#mk.vec.32xi8
-Warning: could not resolve function i2#mk.vec.32xi8
-Warning: could not resolve function i3#mk.vec.32xi8
-Warning: could not resolve function i4#mk.vec.32xi8
-Warning: could not resolve function i5#mk.vec.32xi8
-Warning: could not resolve function i6#mk.vec.32xi8
-Warning: could not resolve function i7#mk.vec.32xi8
-Warning: could not resolve function i8#mk.vec.32xi8
-Warning: could not resolve function i9#mk.vec.32xi8
-Warning: could not resolve function i10#mk.vec.32xi8
-Warning: could not resolve function i11#mk.vec.32xi8
-Warning: could not resolve function i12#mk.vec.32xi8
-Warning: could not resolve function i13#mk.vec.32xi8
-Warning: could not resolve function i14#mk.vec.32xi8
-Warning: could not resolve function i15#mk.vec.32xi8
-Warning: could not resolve function i16#mk.vec.32xi8
-Warning: could not resolve function i17#mk.vec.32xi8
-Warning: could not resolve function i18#mk.vec.32xi8
-Warning: could not resolve function i19#mk.vec.32xi8
-Warning: could not resolve function i20#mk.vec.32xi8
-Warning: could not resolve function i21#mk.vec.32xi8
-Warning: could not resolve function i22#mk.vec.32xi8
-Warning: could not resolve function i23#mk.vec.32xi8
-Warning: could not resolve function i24#mk.vec.32xi8
-Warning: could not resolve function i25#mk.vec.32xi8
-Warning: could not resolve function i26#mk.vec.32xi8
-Warning: could not resolve function i27#mk.vec.32xi8
-Warning: could not resolve function i28#mk.vec.32xi8
-Warning: could not resolve function i29#mk.vec.32xi8
-Warning: could not resolve function i30#mk.vec.32xi8
-Warning: could not resolve function i31#mk.vec.32xi8
-Warning: could not resolve constant/variable $load.i8
- exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-/root/verifs/crypto_secretbox_ctverifwrapper.c(29,5): This assertion might not hold.
-Execution trace:
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(21,5): 
-    /usr/local/share/smack/lib/smack.c(1456,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(21,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(21,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(24,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(24,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(24,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(25,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(25,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(25,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(26,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(26,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(26,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(27,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(27,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(27,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(28,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(28,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(28,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(29,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(29,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(29,5): 
-    /root/verifs/crypto_secretbox_ctverifwrapper.c(29,5): 
-
-SMACK found an error.
-
-real	0m14.039s
-user	0m0.217s
-sys	0m0.031s
+real	0m14.541s
+user	0m0.220s
+sys	0m0.024s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -2581,6 +1956,7 @@ warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
@@ -2621,8 +1997,8 @@ Execution trace:
 
 SMACK found an error.
 
-real	0m54.737s
-user	0m0.224s
+real	0m55.437s
+user	0m0.200s
 sys	0m0.028s
 //////////////////////////////////////////////////////////////////////////
 
@@ -2785,13 +2161,13 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 TODO: handle undefined mask values
 UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007faa629bffe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007faa629be15e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007faa629be2ac
-3  libpthread.so.0  0x00007faa61aff390
-4  libc.so.6        0x00007faa60c9e428 gsignal + 56
-5  libc.so.6        0x00007faa60ca002a abort + 362
-6  libLLVM-3.9.so.1 0x00007faa62964d0a
+0  libLLVM-3.9.so.1 0x00007f8cc6a35fe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
+1  libLLVM-3.9.so.1 0x00007f8cc6a3415e llvm::sys::RunSignalHandlers() + 62
+2  libLLVM-3.9.so.1 0x00007f8cc6a342ac
+3  libpthread.so.0  0x00007f8cc5b75390
+4  libc.so.6        0x00007f8cc4d14428 gsignal + 56
+5  libc.so.6        0x00007f8cc4d1602a abort + 362
+6  libLLVM-3.9.so.1 0x00007f8cc69dad0a
 7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
 8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
 9  llvm2bpl         0x0000000000489668
@@ -2802,13 +2178,13 @@ UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
 14 llvm2bpl         0x0000000000484782
 15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
 16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007faa62a7a6df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
+17 libLLVM-3.9.so.1 0x00007f8cc6af06df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
 18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007faa60c89830 __libc_start_main + 240
+19 libc.so.6        0x00007f8cc4cff830 __libc_start_main + 240
 20 llvm2bpl         0x0000000000474299 _start + 41
 Stack dump:
-0.	Program arguments: llvm2bpl /b-ViPHI8.bc -bpl /a-ixZNxm.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_open_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-ViPHI8.bc'.
+0.	Program arguments: llvm2bpl /b-ENsIxO.bc -bpl /a-Bu4tKk.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_open_wrapper -mem-mod-impls 
+1.	Running pass 'SMACK generator pass' on module '/b-ENsIxO.bc'.
 Traceback (most recent call last):
   File "/usr/local/bin/smack", line 13, in <module>
     smack.top.main()
@@ -2964,13 +2340,13 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 TODO: handle undefined mask values
 UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007faa629bffe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007faa629be15e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007faa629be2ac
-3  libpthread.so.0  0x00007faa61aff390
-4  libc.so.6        0x00007faa60c9e428 gsignal + 56
-5  libc.so.6        0x00007faa60ca002a abort + 362
-6  libLLVM-3.9.so.1 0x00007faa62964d0a
+0  libLLVM-3.9.so.1 0x00007f8cc6a35fe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
+1  libLLVM-3.9.so.1 0x00007f8cc6a3415e llvm::sys::RunSignalHandlers() + 62
+2  libLLVM-3.9.so.1 0x00007f8cc6a342ac
+3  libpthread.so.0  0x00007f8cc5b75390
+4  libc.so.6        0x00007f8cc4d14428 gsignal + 56
+5  libc.so.6        0x00007f8cc4d1602a abort + 362
+6  libLLVM-3.9.so.1 0x00007f8cc69dad0a
 7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
 8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
 9  llvm2bpl         0x0000000000489668
@@ -2981,387 +2357,18 @@ UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
 14 llvm2bpl         0x0000000000484782
 15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
 16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007faa62a7a6df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
+17 libLLVM-3.9.so.1 0x00007f8cc6af06df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
 18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007faa60c89830 __libc_start_main + 240
+19 libc.so.6        0x00007f8cc4cff830 __libc_start_main + 240
 20 llvm2bpl         0x0000000000474299 _start + 41
 Stack dump:
-0.	Program arguments: llvm2bpl /b-ViPHI8.bc -bpl /a-ixZNxm.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_open_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-ViPHI8.bc'.
+0.	Program arguments: llvm2bpl /b-ENsIxO.bc -bpl /a-Bu4tKk.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_open_wrapper -mem-mod-impls 
+1.	Running pass 'SMACK generator pass' on module '/b-ENsIxO.bc'.
 
 
-real	0m2.393s
-user	0m0.220s
-sys	0m0.036s
-//////////////////////////////////////////////////////////////////////////
-
-///////////////////////////// new ctverif run ////////////////////////////
-//// Running ctverif with args "-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.cref.O2.fpic.nolifetime.ll" ////
-ctverif version 1.0.1
-SMACK program verifier version 1.9.1
-/root/verifs/crypto_secretbox_open_ctverifwrapper.c:48:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-    public_in(__SMACK_values(__v2_c,CLEN)); /////
-                             ^~~~~~
-/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
-smack_value_t __SMACK_values(void* ary, unsigned count);
-                                   ^
-/root/verifs/crypto_secretbox_open_ctverifwrapper.c:49:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-    public_in(__SMACK_values(__v3_n,24));
-                             ^~~~~~
-/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
-smack_value_t __SMACK_values(void* ary, unsigned count);
-                                   ^
-2 warnings generated.
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-at value:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #3, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-TODO: handle undefined mask values
-UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007f28ce35afe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007f28ce35915e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007f28ce3592ac
-3  libpthread.so.0  0x00007f28cd49a390
-4  libc.so.6        0x00007f28cc639428 gsignal + 56
-5  libc.so.6        0x00007f28cc63b02a abort + 362
-6  libLLVM-3.9.so.1 0x00007f28ce2ffd0a
-7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
-8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
-9  llvm2bpl         0x0000000000489668
-10 llvm2bpl         0x0000000000488a7d
-11 llvm2bpl         0x0000000000488462
-12 llvm2bpl         0x00000000004883c2
-13 llvm2bpl         0x0000000000488362
-14 llvm2bpl         0x0000000000484782
-15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
-16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007f28ce4156df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
-18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007f28cc624830 __libc_start_main + 240
-20 llvm2bpl         0x0000000000474299 _start + 41
-Stack dump:
-0.	Program arguments: llvm2bpl /b-dmBnVl.bc -bpl /a-lO_xdp.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_open_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-dmBnVl.bc'.
-Traceback (most recent call last):
-  File "/usr/local/bin/smack", line 13, in <module>
-    smack.top.main()
-  File "/usr/local/bin/../share/smack/top.py", line 585, in main
-    frontend(args)
-  File "/usr/local/bin/../share/smack/top.py", line 290, in frontend
-    return link_bc_files(bitcodes,libs,args)
-  File "/usr/local/bin/../share/smack/frontend.py", line 299, in link_bc_files
-    llvm_to_bpl(args)
-  File "/usr/local/bin/../share/smack/top.py", line 314, in llvm_to_bpl
-    try_command(cmd, console=True)
-  File "/usr/local/bin/../share/smack/utils.py", line 69, in try_command
-    raise Exception(output)
-Exception: warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-at value:
-  %__v40_cview.i = getelementptr i8, i8* %__v32_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v32_c, i8 0, i64 16, i32 1, i1 false) #3, !verifier.code !17
-at value:
-i8* %__v32_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %5 = getelementptr inbounds [16 x i8], [16 x i8]* %__v22_input2.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v67_block3.sub = getelementptr inbounds [64 x i8], [64 x i8]* %__v67_block3, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: <4 x i32>,  20: i32,  24: <4 x i32>,  40: i32,  44: <4 x i32>,  60: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_salsa20
-in function:
-  _crypto_stream_salsa20_xor_ic
-at instruction:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v63_input2.sub = getelementptr inbounds [16 x i8], [16 x i8]* %__v63_input2, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  : R
-
-
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-TODO: handle undefined mask values
-UNREACHABLE executed at /root/smack/lib/smack/VectorOperations.cpp:180!
-0  libLLVM-3.9.so.1 0x00007f28ce35afe8 llvm::sys::PrintStackTrace(llvm::raw_ostream&) + 56
-1  libLLVM-3.9.so.1 0x00007f28ce35915e llvm::sys::RunSignalHandlers() + 62
-2  libLLVM-3.9.so.1 0x00007f28ce3592ac
-3  libpthread.so.0  0x00007f28cd49a390
-4  libc.so.6        0x00007f28cc639428 gsignal + 56
-5  libc.so.6        0x00007f28cc63b02a abort + 362
-6  libLLVM-3.9.so.1 0x00007f28ce2ffd0a
-7  llvm2bpl         0x00000000004ce651 smack::VectorOperations::shuffle(llvm::Type*, llvm::Type*, std::vector<int, std::allocator<int> >) + 833
-8  llvm2bpl         0x00000000005049e1 smack::SmackInstGenerator::visitShuffleVectorInst(llvm::ShuffleVectorInst&) + 369
-9  llvm2bpl         0x0000000000489668
-10 llvm2bpl         0x0000000000488a7d
-11 llvm2bpl         0x0000000000488462
-12 llvm2bpl         0x00000000004883c2
-13 llvm2bpl         0x0000000000488362
-14 llvm2bpl         0x0000000000484782
-15 llvm2bpl         0x0000000000483851 smack::SmackModuleGenerator::generateProgram(llvm::Module&) + 1953
-16 llvm2bpl         0x000000000048309d smack::SmackModuleGenerator::runOnModule(llvm::Module&) + 29
-17 libLLVM-3.9.so.1 0x00007f28ce4156df llvm::legacy::PassManagerImpl::run(llvm::Module&) + 783
-18 llvm2bpl         0x0000000000475ebd main + 3069
-19 libc.so.6        0x00007f28cc624830 __libc_start_main + 240
-20 llvm2bpl         0x0000000000474299 _start + 41
-Stack dump:
-0.	Program arguments: llvm2bpl /b-dmBnVl.bc -bpl /a-lO_xdp.bpl -warnings -source-loc-syms -entry-points _crypto_secretbox_open_wrapper -mem-mod-impls 
-1.	Running pass 'SMACK generator pass' on module '/b-dmBnVl.bc'.
-
-
-real	0m2.263s
-user	0m0.198s
-sys	0m0.031s
+real	0m2.311s
+user	0m0.176s
+sys	0m0.047s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -3656,11 +2663,11 @@ node:
 warning: collapsing DSA node
 unable to merge call-site arguments with parameters to function _salsa_keysetup
 in function:
-  _crypto_stream_salsa20_xor_ic
+  _crypto_stream_salsa20
 at instruction:
-  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+  %__v21_ctx = alloca i32, i64 16, !verifier.code !17
 at value:
-  %__v54_ctx = alloca i32, i64 16, !verifier.code !17
+  %__v21_ctx = alloca i32, i64 16, !verifier.code !17
 node:
   0: i32,   array: M
 
@@ -3782,19 +2789,20 @@ node:
 
 
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiersWarning: could not resolve function i0#mk.vec.4xi32
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warniWarning: could not resolve function i0#mk.vec.4xi32
 Warning: could not resolve function i1#mk.vec.4xi32
 Warning: could not resolve function i2#mk.vec.4xi32
 Warning: could not resolve function i3#mk.vec.4xi32
 Warning: could not resolve constant/variable $load.i8
-.
+ng: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
@@ -3810,6 +2818,7 @@ warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
 warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
@@ -3848,9 +2857,9 @@ Execution trace:
 
 SMACK found an error.
 
-real	2m41.534s
-user	0m0.214s
-sys	0m0.017s
+real	2m53.167s
+user	0m0.202s
+sys	0m0.031s
 //////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////// new ctverif run ////////////////////////////
@@ -3955,38 +2964,22 @@ at instruction:
 Warning: could not resolve function i1#mk.vec.4xi32
 Warning: could not resolve function i2#mk.vec.4xi32
 Warning: could not resolve function i3#mk.vec.4xi32
-Warning: could not resolve function i0#mk.vec.32xi8
-Warning: could not resolve function i1#mk.vec.32xi8
-Warning: could not resolve function i2#mk.vec.32xi8
-Warning: could not resolve function i3#mk.vec.32xi8
-Warning: could not resolve function i4#mk.vec.32xi8
-Warning: could not resolve function i5#mk.vec.32xi8
-Warning: could not resolve function i6#mk.vec.32xi8
-Warning: could not resolve function i7#mk.vec.32xi8
-Warning: could not resolve function i8#mk.vec.32xi8
-Warning: could not resolve function i9#mk.vec.32xi8
-Warning: could not resolve function i10#mk.vec.32xi8
-Warning: could not resolve function i11#mk.vec.32xi8
-Warning: could not resolve function i12#mk.vec.32xi8
-Warning: could not resolve function i13#mk.vec.32xi8
-Warning: could not resolve function i14#mk.vec.32xi8
-Warning: could not resolve function i15#mk.vec.32xi8
-Warning: could not resolve function i16#mk.vec.32xi8
-Warning: could not resolve function i17#mk.vec.32xi8
-Warning: could not resolve function i18#mk.vec.32xi8
-Warning: could not resolve function i19#mk.vec.32xi8
-Warning: could not resolve function i20#mk.vec.32xi8
-Warning: could not resolve function i21#mk.vec.32xi8
-Warning: could not resolve function i22#mk.vec.32xi8
-Warning: could not resolve function i23#mk.vec.32xi8
-Warning: could not resolve function i24#mk.vec.32xi8
-Warning: could not resolve function i25#mk.vec.32xi8
-Warning: could not resolve function i26#mk.vec.32xi8
-Warning: could not resolve function i27#mk.vec.32xi8
-Warning: could not resolve function i28#mk.vec.32xi8
-Warning: could not resolve function i29#mk.vec.32xi8
-Warning: could not resolve function i30#mk.vec.32xi8
-Warning: could not resolve function i31#mk.vec.32xi8
+Warning: could not resolve function i0#mk.vec.16xi8
+Warning: could not resolve function i1#mk.vec.16xi8
+Warning: could not resolve function i2#mk.vec.16xi8
+Warning: could not resolve function i3#mk.vec.16xi8
+Warning: could not resolve function i4#mk.vec.16xi8
+Warning: could not resolve function i5#mk.vec.16xi8
+Warning: could not resolve function i6#mk.vec.16xi8
+Warning: could not resolve function i7#mk.vec.16xi8
+Warning: could not resolve function i8#mk.vec.16xi8
+Warning: could not resolve function i9#mk.vec.16xi8
+Warning: could not resolve function i10#mk.vec.16xi8
+Warning: could not resolve function i11#mk.vec.16xi8
+Warning: could not resolve function i12#mk.vec.16xi8
+Warning: could not resolve function i13#mk.vec.16xi8
+Warning: could not resolve function i14#mk.vec.16xi8
+Warning: could not resolve function i15#mk.vec.16xi8
 Warning: could not resolve constant/variable $load.i8
 __v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
 at value:
@@ -4043,12 +3036,14 @@ warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
     /root/verifs/crypto_secretbox_open_ctverifwrapper.c(25,5): 
     /usr/local/share/smack/lib/smack.c(1456,3): 
     /root/verifs/crypto_secretbox_open_ctverifwrapper.c(25,5): 
@@ -4081,241 +3076,8 @@ warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
 
 SMACK found an error.
 
-real	0m20.392s
-user	0m0.221s
-sys	0m0.023s
-//////////////////////////////////////////////////////////////////////////
-
-///////////////////////////// new ctverif run ////////////////////////////
-//// Running ctverif with args "-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.asm.O2.fpic.nolifetime.ll" ////
-ctverif version 1.0.1
-SMACK program verifier version 1.9.1
-/root/verifs/crypto_secretbox_open_ctverifwrapper.c:48:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-    public_in(__SMACK_values(__v2_c,CLEN)); /////
-                             ^~~~~~
-/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
-smack_value_t __SMACK_values(void* ary, unsigned count);
-                                   ^
-/root/verifs/crypto_secretbox_open_ctverifwrapper.c:49:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
-    public_in(__SMACK_values(__v3_n,24));
-                             ^~~~~~
-/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
-smack_value_t __SMACK_values(void* ary, unsigned count);
-                                   ^
-2 warnings generated.
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_stream_salsa20_xor_ic
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32, <4 x i32>,  4: i32,  8: i32,  12: i32,  16: i32,  20: i32,  24: i32,  28: i32,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-at value:
-  %__v32_cview.i = getelementptr i8, i8* %__v24_c, i64 16, !verifier.code !17
-node:
-  0: i64,  8: i64,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox
-in block:
-  .loopexit.loopexit.i
-at instruction:
-  tail call void @llvm.memset.p0i8.i64(i8* %__v24_c, i8 0, i64 16, i32 1, i1 false) #3, !verifier.code !17
-at value:
-i8* %__v24_c
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_hsalsa20
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32, <4 x i32>,  4: i32,  8: i32,  12: i32,  16: i32,  20: i32,  24: i32,  28: i32,   array: SMR
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_stream_salsa20_xor_ic
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: i32,  8: i32,  12: i32,  16: i32,  20: i32,  24: i32,  28: i32,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %__v9_subkey1.sub = getelementptr inbounds [32 x i8], [32 x i8]* %__v9_subkey1, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v9_subkey1.sub = getelementptr inbounds [32 x i8], [32 x i8]* %__v9_subkey1, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_hsalsa20
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %Warning: could not resolve function i0#mk.vec.4xi32
-Warning: could not resolve function i1#mk.vec.4xi32
-Warning: could not resolve function i2#mk.vec.4xi32
-Warning: could not resolve function i3#mk.vec.4xi32
-Warning: could not resolve function i0#mk.vec.32xi8
-Warning: could not resolve function i1#mk.vec.32xi8
-Warning: could not resolve function i2#mk.vec.32xi8
-Warning: could not resolve function i3#mk.vec.32xi8
-Warning: could not resolve function i4#mk.vec.32xi8
-Warning: could not resolve function i5#mk.vec.32xi8
-Warning: could not resolve function i6#mk.vec.32xi8
-Warning: could not resolve function i7#mk.vec.32xi8
-Warning: could not resolve function i8#mk.vec.32xi8
-Warning: could not resolve function i9#mk.vec.32xi8
-Warning: could not resolve function i10#mk.vec.32xi8
-Warning: could not resolve function i11#mk.vec.32xi8
-Warning: could not resolve function i12#mk.vec.32xi8
-Warning: could not resolve function i13#mk.vec.32xi8
-Warning: could not resolve function i14#mk.vec.32xi8
-Warning: could not resolve function i15#mk.vec.32xi8
-Warning: could not resolve function i16#mk.vec.32xi8
-Warning: could not resolve function i17#mk.vec.32xi8
-Warning: could not resolve function i18#mk.vec.32xi8
-Warning: could not resolve function i19#mk.vec.32xi8
-Warning: could not resolve function i20#mk.vec.32xi8
-Warning: could not resolve function i21#mk.vec.32xi8
-Warning: could not resolve function i22#mk.vec.32xi8
-Warning: could not resolve function i23#mk.vec.32xi8
-Warning: could not resolve function i24#mk.vec.32xi8
-Warning: could not resolve function i25#mk.vec.32xi8
-Warning: could not resolve function i26#mk.vec.32xi8
-Warning: could not resolve function i27#mk.vec.32xi8
-Warning: could not resolve function i28#mk.vec.32xi8
-Warning: could not resolve function i29#mk.vec.32xi8
-Warning: could not resolve function i30#mk.vec.32xi8
-Warning: could not resolve function i31#mk.vec.32xi8
-Warning: could not resolve constant/variable $load.i8
-__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  16: i32,  20: i32,  24: i32,  28: i32,  : M
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_stream_salsa20_xor_ic
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: i32,  4: i32,  8: i32,  12: i32,  16: i32,  20: i32,  24: i32,  28: i32,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_onetimeauth_poly1305
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %__v9_subkey1.sub = getelementptr inbounds [32 x i8], [32 x i8]* %__v9_subkey1, i64 0, i64 0, !verifier.code !17
-at value:
-  %__v9_subkey1.sub = getelementptr inbounds [32 x i8], [32 x i8]* %__v9_subkey1, i64 0, i64 0, !verifier.code !17
-node:
-  0: i64,  8: i64,  16: <2 x i64>,  : R
-
-
-warning: collapsing DSA node
-unable to merge call-site arguments with parameters to function _crypto_core_hsalsa20
-in function:
-  _crypto_secretbox_xsalsa20poly1305_open
-at instruction:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-at value:
-  %2 = getelementptr inbounds [32 x i8], [32 x i8]* %__v45_subkey1.i.i, i64 0, i64 0, !verifier.code !17
-node:
-  0: <4 x i32>,  16: i32,  20: i32,  24: i32,  28: i32,  : M
-
-
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: ignoring inline asm passed as argument.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(25,5): 
-    /usr/local/share/smack/lib/smack.c(1456,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(25,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(25,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(29,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(29,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(29,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(30,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(30,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(30,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(31,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(31,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(31,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(33,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(33,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(33,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(35,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(35,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(35,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(36,5): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(36,5): 
-    /usr/local/share/smack/lib/smack.c(261,3): 
-    /root/verifs/crypto_secretbox_open_ctverifwrapper.c(36,5): 
-
-SMACK found an error.
-
-real	0m20.454s
-user	0m0.225s
-sys	0m0.019s
+real	0m20.774s
+user	0m0.200s
+sys	0m0.046s
 //////////////////////////////////////////////////////////////////////////
 

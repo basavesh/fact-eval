@@ -22,7 +22,6 @@
     // pointers are public
     public_in(__SMACK_value(__v1_md_state));
     public_in(__SMACK_value(__v2_mac_out));
-    public_in(__SMACK_value(__v3_hmac_pad));
     public_in(__SMACK_value(__v4_header));
     public_in(__SMACK_value(__v5_data));
 

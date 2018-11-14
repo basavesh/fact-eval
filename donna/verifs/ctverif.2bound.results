@@ -1,0 +1,1 @@
+SUCCESS with args "-v 2 curve25519_donna_wrapper curve25519_ctverifwrapper.c ll/curve25519-c64.O2.nolifetime.ll"

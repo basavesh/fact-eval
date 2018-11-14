@@ -25,8 +25,8 @@ grep -v "llvm\.lifetime" ll/curve25519-c64.O2.ll > ll/curve25519-c64.O2.nolifeti
 rm -f $LOGFILE
 
 # Run ctverif
-CTVERIF_ARGS="-v 40 curve25519_donna_wrapper curve25519_ctverifwrapper.c"
-run_ctverif "$CTVERIF_ARGS ll/curve25519-c64.ll"
+CTVERIF_ARGS="-v 2 curve25519_donna_wrapper curve25519_ctverifwrapper.c"
+#run_ctverif "$CTVERIF_ARGS ll/curve25519-c64.ll"
 run_ctverif "$CTVERIF_ARGS ll/curve25519-c64.O2.nolifetime.ll"
 
 # Clean up nolifetime ll files

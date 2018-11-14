@@ -1,0 +1,549 @@
+///////////////////////////// new ctverif run ////////////////////////////
+//// Running ctverif with args "-v 2 curve25519_donna_wrapper curve25519_ctverifwrapper.c ll/curve25519-c64.O2.nolifetime.ll" ////
+ctverif version 1.0.1
+SMACK program verifier version 1.9.1
+/root/verifs/curve25519_ctverifwrapper.c:20:30: warning: passing 'const uint8_t *' (aka 'const unsigned char *') to parameter of type 'void *' discards qualifiers [-Wincompatible-pointer-types-discards-qualifiers]
+    public_in(__SMACK_values(__v3_basepoint,32));
+                             ^~~~~~~~~~~~~~
+/usr/local/share/smack/include/smack.h:35:36: note: passing argument to parameter 'ary' here
+smack_value_t __SMACK_values(void* ary, unsigned count);
+                                   ^
+1 warning generated.
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v29_c3.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v21_b3.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v29_c3.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v21_b3.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v30_d4.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v22_c4.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v30_d4.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v22_c4.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v28_b2.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v20_t02.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v28_b2.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v20_t02.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v4_bp1.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v4_bp1, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v4_bp1.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v4_bp1, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  %__v56_zzprime7.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v56_zzprime7, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v56_zzprime7.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v56_zzprime7, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  call fastcc void @fsquare_times(i64* nonnull %__v53_xx4.sub, i64* %__v45_x, i64 1), !verifier.code !17
+at value:
+i64* %__v45_x
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  call fastcc void @fmul(i64* nonnull %__v56_zzprime7.sub, i64* %__v45_x, i64* %__v48_zprime), !verifier.code !17
+at value:
+i64* %__v48_zprime
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fsquare_times
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  %__v53_xx4.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v53_xx4, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v53_xx4.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v53_xx4, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fsquare_times
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  call fastcc void @fsquare_times(i64* nonnull %__v53_xx4.sub, i64* %__v45_x, i64 1), !verifier.code !17
+at value:
+i64* %__v45_x
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v29_c3.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v21_b3.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v29_c3.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v21_b3.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v30_d4.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v22_c4.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v30_d4.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v22_c4.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v28_b2.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v20_t02.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v28_b2.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v20_t02.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v4_bp1.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v4_bp1, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v4_bp1.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v4_bp1, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  %__v56_zzprime7.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v56_zzprime7, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v56_zzprime7.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v56_zzprime7, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  call fastcc void @fsquare_times(i64* nonnull %__v53_xx4.sub, i64* %__v45_x, i64 1), !verifier.code !17
+at value:
+i64* %__v45_x
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  call fastcc void @fmul(i64* nonnull %__v56_zzprime7.sub, i64* %__v45_x, i64* %__v48_zprime), !verifier.code !17
+at value:
+i64* %__v48_zprime
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fsquare_times
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  %__v53_xx4.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v53_xx4, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v53_xx4.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v53_xx4, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fsquare_times
+in function:
+  fmonty
+in block:
+  entry
+at instruction:
+  call fastcc void @fsquare_times(i64* nonnull %__v53_xx4.sub, i64* %__v45_x, i64 1), !verifier.code !17
+at value:
+i64* %__v45_x
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v33_g7.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v33_g7.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v33_g7.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v33_g7.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v34_h8.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v34_h8.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v34_h8.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v34_h8.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v31_e5.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v31_e5.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v31_e5.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v31_e5.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v32_f6.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v32_f6.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v32_f6.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v32_f6.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmonty
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v4_bp1.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v4_bp1, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v4_bp1.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v4_bp1, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  curve25519_donna
+in block:
+  cmult.exit
+at instruction:
+  %__v7_zmone4.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v7_zmone4, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v7_zmone4.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v7_zmone4, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64, <2 x i64>,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v28_b2.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v20_t02.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v28_b2.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v20_t02.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fmul
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fsquare_times
+in function:
+  curve25519_donna
+in block:
+  entry
+at instruction:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v27_a1.sub.i = getelementptr inbounds [5 x i64], [5 x i64]* %__v19_a1.i, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: M
+
+
+warning: collapsing DSA node
+unable to merge call-site arguments with parameters to function fsquare_times
+in function:
+  curve25519_donna
+in block:
+  cmult.exit
+at instruction:
+  %__v6_z3.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v6_z3, i64 0, i64 0, !verifier.code !17
+at value:
+  %__v6_z3.sub = getelementptr inbounds [5 x i64], [5 x i64]* %__v6_z3, i64 0, i64 0, !verifier.code !17
+node:
+  0: i64,   array: R
+
+
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: igWarning: could not resolve function i0#mk.vec.2xi64
+Warning: could not resolve function i1#mk.vec.2xi64
+Warning: could not resolve function i1#mk.vec.2xi128
+Warning: could not resolve function i0#mk.vec.2xi128
+Warning: could not resolve constant/variable $load.i8
+noring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: ignoring inline asm passed as argument.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+warning: memory intrinsic length exceeds threshold (0); adding quantifiers.
+SMACK found no errors with unroll bound 2.
+SMACK found no errors
+
+real	2m0.648s
+user	0m0.109s
+sys	0m0.048s
+//////////////////////////////////////////////////////////////////////////
+
