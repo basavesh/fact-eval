@@ -9,6 +9,9 @@ BASEDIRS=$(DIRS:/tests/=)
 generate:
 	@for x in $(BASEDIRS); do (cd $$x && make generate); done
 
+compile:
+	@for x in $(BASEDIRS); do (cd $$x/tests && make compile); done
+
 %/bench:
 	cd $$(dirname $@) && make bench
 
