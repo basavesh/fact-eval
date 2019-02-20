@@ -6,7 +6,7 @@ you would like to rebuild the files yourself, you can follow the instructions
 below to rebuild them from the FaCT source files.
 
 To rebuild the FaCT implementations, first configure your environment:
-`export FACTC='/path/to/factc'` . Then, from the `fact-eval`
+`export FACTC="/path/to/factc"` . Then, from the `fact-eval`
 directory, run `make generate` . This will recompile the FaCT source files
 for each case study.
 
