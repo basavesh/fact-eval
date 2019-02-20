@@ -1,4 +1,4 @@
-FACTC ?= $(shell readlink -f $(shell git rev-parse --show-toplevel)/../fact/fact.byte)
+FACTC ?= $(shell readlink -f $(shell git rev-parse --show-toplevel)/../fact/factc)
 _FACT_OPTS = $(OPTS)
 _FACT_OPTS += -llvm-out -generate-header
 

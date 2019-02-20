@@ -1,4 +1,4 @@
-FACTC ?= $(shell readlink -f $(shell git rev-parse --show-toplevel)/../fact/fact.byte)
+FACTC ?= $(shell readlink -f $(shell git rev-parse --show-toplevel)/../fact/factc)
 
 BASE := stdlib.fact crypto_poly1305.fact
 SALSA20 := salsa20.fact
