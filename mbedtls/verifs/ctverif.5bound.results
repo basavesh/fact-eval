@@ -1,2 +1,0 @@
-SUCCESS with args "-v 5 _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c ll/bignum.ll"
-ERROR with args "-v 5 _f_mpi_exp_mod_wrapper bignum_ctverifwrapper.c ll/bignum.O2.fpic.nolifetime.ll"
