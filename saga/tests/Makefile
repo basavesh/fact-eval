@@ -6,17 +6,17 @@ compile:
 	touch compile
 
 test: compile
-	cd openssl-c && ./apps/openssl test
-	cd openssl-fact-ugly && ./apps/openssl test
-	touch test
+	cd openssl-c && ./apps/openssl test 2>&1 | tee test
+	cd openssl-fact-ugly && ./apps/openssl test 2>&1 | tee -a test
 
 bench: test
-	cd openssl-c/apps && ./bench.sh
-	cd openssl-fact-ugly/apps && ./bench.sh
+	cd openssl-c/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
+	cd openssl-fact-ugly/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
 	@echo "openssl-c" > bench
-	@tail -n7 openssl-c/apps/benchmarks.log >> bench
+	@cat openssl-c/apps/benchmarks.log >> bench
+	@echo >> bench
 	@echo "openssl-fact-ugly" >> bench
-	@tail -n7 openssl-fact-ugly/apps/benchmarks.log >> bench
+	@cat openssl-fact-ugly/apps/benchmarks.log >> bench
 	@echo "output written to bench"
 
 recompile:
