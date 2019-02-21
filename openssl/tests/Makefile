@@ -6,8 +6,8 @@ compile:
 	touch compile
 
 test: compile
-	cd openssl-c && make test 2>&1 | tee test
-	cd openssl-fact && make test 2>&1 | tee -a test
+	( cd openssl-c && make test 2>&1 ) | tee test
+	( cd openssl-fact && make test 2>&1 ) | tee -a test
 
 bench: test
 	cd openssl-c/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
@@ -15,8 +15,8 @@ bench: test
 	@echo "openssl-c" > bench
 	@cat openssl-c/apps/benchmarks.log >> bench
 	@echo >> bench
-	@echo "openssl-fact-ugly" >> bench
-	@cat openssl-fact-ugly/apps/benchmarks.log >> bench
+	@echo "openssl-fact" >> bench
+	@cat openssl-fact/apps/benchmarks.log >> bench
 	@echo "output written to bench"
 
 recompile:

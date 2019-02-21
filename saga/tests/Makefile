@@ -6,8 +6,8 @@ compile:
 	touch compile
 
 test: compile
-	cd openssl-c && ./apps/openssl test 2>&1 | tee test
-	cd openssl-fact-ugly && ./apps/openssl test 2>&1 | tee -a test
+	( cd openssl-c && ./apps/openssl test 2>&1 ) | tee test
+	( cd openssl-fact-ugly && ./apps/openssl test 2>&1 ) | tee -a test
 
 bench: test
 	cd openssl-c/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done

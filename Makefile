@@ -13,7 +13,7 @@ compile:
 	@for x in $(BASEDIRS); do (cd $$x/tests && make compile); done
 
 %/bench:
-	[[ -f 4gb ]] || ./make_random_data.sh
+	[ -f 4gb ] || ./make_random_data.sh
 	cd $$(dirname $@) && make bench
 
 results: $(BENCHES)
