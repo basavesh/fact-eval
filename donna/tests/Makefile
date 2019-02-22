@@ -6,11 +6,8 @@ compile:
 	touch compile
 
 bench: compile
-	cd donna-c && ./bench.sh
-	cd donna-fact && ./bench.sh
-	@echo "donna-c,$$(tail -n1 donna-c/benchmarks.log)" > bench
-	@echo "donna-fact,$$(tail -n1 donna-fact/benchmarks.log)" >> bench
-	@echo "output written to bench"
+	./bench.sh
+	mv bench.tmp bench
 
 rebench:
 	rm -f bench
