@@ -16,7 +16,7 @@ compile:
 	[ -f 4gb ] || ./make_random_data.sh
 	cd $$(dirname $@) && make bench
 
-results: $(BENCHES)
-	@head -n -0 $^ | tee results
+results.txt: $(BENCHES)
+	@head -n -0 $^ | tee results.txt
 
-bench: results
+bench: results.txt
