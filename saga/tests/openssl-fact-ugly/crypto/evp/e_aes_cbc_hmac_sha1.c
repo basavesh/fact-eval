@@ -496,6 +496,7 @@ static int aesni_cbc_hmac_sha1_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
               len,
               key->aux.tls_aad[plen - 4] << 8 | key->aux.tls_aad[plen - 3]);
 #else
+//>> replacing >>
             size_t inp_len, mask, j, i;
             unsigned int res, maxpad, pad, bitlen;
             int ret = 1;
@@ -744,6 +745,7 @@ static int aesni_cbc_hmac_sha1_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
             ret &= (int)~res;
 # endif
             return ret;
+//<< replacing <<
 #endif
         } else {
 # if defined(STITCHED_DECRYPT_CALL)

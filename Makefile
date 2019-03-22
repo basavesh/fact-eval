@@ -20,4 +20,11 @@ results.txt: $(BENCHES)
 	rm -f results.txt
 	@for x in $(BASEDIRS); do (cd $$x/tests && ./parse_bench.py bench unopt) | tee -a results.txt; done
 
+clocs.txt:
+	rm -f clocs.txt
+	@echo "port\tc loc\tfact loc\tassume\tdeclassify\textern" | tee clocs.txt
+	@for x in $(BASEDIRS); do (cd $$x/tests && ./cloc.sh) | tee -a clocs.txt; done
+
 bench: results.txt
+
+loc: clocs.txt

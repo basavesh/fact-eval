@@ -7,6 +7,10 @@ assembly files for each case study, built for a 64-bit Ubuntu environment. If
 you would like to rebuild the files yourself, you can follow the instructions
 below to rebuild them from the FaCT source files.
 
+#### Comparison of FaCT and C implementations
+
+Refer to the table in (comparison.md)[/comparison.md].
+
 #### (Re)compiling FaCT ports
 
 To rebuild the FaCT implementations, first configure your environment:
@@ -22,11 +26,23 @@ To compile the case studies, you will need `autoconf`:
 
 Then, to compile all of the case studies, run `make compile` from the `fact-eval` directory.
 
-#### Running benchmarks
+#### Running benchmarks and code count
+
+To run code count, you will need `cloc`:
+
+```sudo apt-get install cloc```
+
+`make bench loc ; cat results.txt ; cat clocs.txt`
 
 To run the benchmarks, run `make bench` from the `fact-eval` directory. This
 will run each case study's respective benchmarking suites and collect the
-results into a file called `results`.
+results into a file called `results.txt`.
+
+To run code count, run `make loc` from the `fact-eval` directory. This will run
+a code count on each case study's FaCT code and corresponding C implementation,
+using `cloc --force-lang=c++`. The results are collected into `clocs.txt`.
+Note: We force `cloc`'s language parser to C++ for all files (even C
+implementations) to correctly handle C++-style comments.
 
 #### Verifying constant-time
 

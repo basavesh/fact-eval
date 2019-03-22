@@ -1,0 +1,40 @@
+                                          | libsodium-c-cref/src/libsodium/
+crypto_secretbox.fact:
+  _crypto_core_hsalsa20                   | crypto_core/hsalsa20/ref2/core_hsalsa20_ref2.c:16
+  _crypto_stream_xsalsa20                 | crypto_stream/xsalsa20/stream_xsalsa20.c:7
+  _crypto_stream_xsalsa20_xor_ic          | crypto_stream/xsalsa20/stream_xsalsa20.c:21
+  _crypto_stream_xsalsa20_xor             | crypto_stream/xsalsa20/stream_xsalsa20.c:36
+  _crypto_secretbox_xsalsa20poly1305      | crypto_secretbox/xsalsa20poly1305/secretbox_xsalsa20poly1305.c:6
+  _crypto_secretbox_xsalsa20poly1305_open | crypto_secretbox/xsalsa20poly1305/secretbox_xsalsa20poly1305.c:25
+  _crypto_secretbox                       | crypto_secretbox/crypto_secretbox.c:47
+  _crypto_secretbox_open                  | crypto_secretbox/crypto_secretbox.c:55
+
+salsa20.fact:
+  _crypto_core_salsa20                    | crypto_core/salsa/ref/core_salsa_ref.c:10
+  _crypto_stream_salsa20                  | crypto_stream/salsa20/ref/salsa20_ref.c:18
+  _crypto_stream_salsa20_xor_ic           | crypto_stream/salsa20/ref/salsa20_ref.c:63
+
+salsa20-avx2.fact:
+  _salsa_keysetup                         | crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c:39
+  _salsa_ivsetup                          | crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c:56
+  _salsa_ivsetup_null                     | crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c:56
+  _salsa20_encrypt_bytes                  | crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c:65
+  _crypto_stream_salsa20                  | crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c:81
+  _crypto_stream_salsa20_xor_ic           | crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c:100
+
+u0.fact:
+  _u1                                     | crypto_stream/salsa20/xmm6int/u1.h
+  _u0                                     | crypto_stream/salsa20/xmm6int/u0.h
+  u0                                      | <no analogue>
+
+crypto_poly1305.fact:
+  poly1305_state_internal_t               | crypto_onetimeauth/poly1305/donna/poly1305_donna64.h:25
+  _poly1305_blocks                        | crypto_onetimeauth/poly1305/donna/poly1305_donna64.h:61
+  _poly1305_init                          | crypto_onetimeauth/poly1305/donna/poly1305_donna64.h:34
+  _poly1305_update                        | crypto_onetimeauth/poly1305/donna/poly1305_donna.c:14
+  _poly1305_finish                        | crypto_onetimeauth/poly1305/donna/poly1305_donna64.h:135
+  _crypto_onetimeauth_poly1305            | crypto_onetimeauth/poly1305/donna/poly1305_donna.c:58
+  _crypto_onetimeauth_poly1305_verify     | crypto_onetimeauth/poly1305/donna/poly1305_donna.c:102
+
+stdlib.fact:
+  _crypto_verify_16                       | crypto_verify/sodium/verify.c:63

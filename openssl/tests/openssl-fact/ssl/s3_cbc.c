@@ -273,6 +273,7 @@ if (is_sslv3 && sha_type == NID_sha1) {
       return 0; // "Should never happen"
 //#else
 } else {
+//>> replacing >>
 
     /*
      * variance_blocks is the number of blocks of the hash that we have to
@@ -478,6 +479,7 @@ if (is_sslv3 && sha_type == NID_sha1) {
             mac_out[j] |= block[j] & is_block_b;
     }
 //#endif
+//<< replacing <<
 }
     //final = OPENSSL_rdtsc();
     //dprintf(3, "time taken: %u\n", final - start);
