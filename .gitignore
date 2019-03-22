@@ -3,5 +3,6 @@
 */tests/compile
 */tests/bench
 */tests/test
+*/tests/unopt
 benchmarks.log
 /results

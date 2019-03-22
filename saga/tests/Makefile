@@ -13,11 +13,19 @@ bench: test
 	cd openssl-c/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
 	cd openssl-fact-ugly/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
 	@echo "openssl-c" > bench
-	@cat openssl-c/apps/benchmarks.log >> bench
+	@tail -n132 openssl-c/apps/benchmarks.log >> bench
 	@echo >> bench
 	@echo "openssl-fact-ugly" >> bench
-	@cat openssl-fact-ugly/apps/benchmarks.log >> bench
+	@tail -n132 openssl-fact-ugly/apps/benchmarks.log >> bench
 	@echo "output written to bench"
+
+unopt:
+	rm -rf compile test
+	cd openssl-fact-ugly && ./make_openssl.sh unopt
+	cd openssl-fact-ugly/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
+	@echo "openssl-fact-ugly" > unopt
+	@tail -n132 openssl-fact-ugly/apps/benchmarks.log >> unopt
+	@echo "output written to unopt"
 
 recompile:
 	rm -f compile

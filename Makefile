@@ -14,10 +14,10 @@ compile:
 
 %/bench:
 	[ -f 4gb ] || ./make_random_data.sh
-	cd $$(dirname $@) && make bench
+	cd $$(dirname $@) && make unopt bench
 
 results.txt: $(BENCHES)
 	rm -f results.txt
-	@for x in $(BASEDIRS); do (cd $$x/tests && ./parse_bench.py ; echo) | tee -a results.txt; done
+	@for x in $(BASEDIRS); do (cd $$x/tests && ./parse_bench.py bench unopt) | tee -a results.txt; done
 
 bench: results.txt

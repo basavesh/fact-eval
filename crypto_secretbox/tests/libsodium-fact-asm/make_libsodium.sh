@@ -6,10 +6,16 @@ set -e
 
 LIBSODIUM=$PWD
 OBJ_DIR=$(readlink -f ../..)
+SECRETBOX_H=$OBJ_DIR/obj/crypto_secretbox.asm.O2.h
+SECRETBOX_O=$OBJ_DIR/obj/crypto_secretbox.asm.O2.o
+if [[ "$1" == "unopt" ]]; then
+  SECRETBOX_H=$OBJ_DIR/obj/crypto_secretbox.asm.h
+  SECRETBOX_O=$OBJ_DIR/obj/crypto_secretbox.asm.o
+fi
 
 CC=clang-6.0 ./configure --enable-asm=yes
 
-cp $OBJ_DIR/obj/crypto_secretbox.asm.O2.h src/libsodium/include/sodium/fact_secretbox.h
+cp $SECRETBOX_H src/libsodium/include/sodium/fact_secretbox.h
 
 # (re)compile with fact stubbed in
 cd $LIBSODIUM/src/libsodium
@@ -24,7 +30,7 @@ make -j4
 
 cd $LIBSODIUM/src/libsodium/crypto_secretbox
 # copy the object files
-cp $OBJ_DIR/obj/crypto_secretbox.asm.O2.o crypto_secretbox.o
+cp $SECRETBOX_O crypto_secretbox.o
 cp libsodium_la-crypto_secretbox.o secretbox.o
 ld -r secretbox.o crypto_secretbox.o -o libsodium_la-crypto_secretbox.o
 
