@@ -15,7 +15,7 @@ cat << EOF > function_map.md
 #### s3_cbc.fact
 Definition | FaCT | C
 --- | --- | ---
-(full implementation) | [s3_cbc.fact](/openssl/s3_cbc.fact) | [ssl/s3_cbc.c:${cstart}-${cend}](/openssl/tests/openssl-fact/s3_cbc.c#L${cstart}-L${cend})
+(full implementation) | [s3_cbc.fact](/openssl/s3_cbc.fact) | [ssl/s3_cbc.c:${cstart}-${cend}](/openssl/tests/ssl/openssl-fact/s3_cbc.c#L${cstart}-L${cend})
 EOF
 
 cloc=$(sed -e '1,/>> replacing >>/d' -e '/<< replacing <</,$d' $CSRC | count -)
