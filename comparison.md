@@ -1,6 +1,11 @@
 # FaCT/C Comparison
 
-## libsodium
+## libsodium/
+
+Implementation of `crypto_secretbox` and `crypto_secretbox_open` and underlying
+primitives from the libsodium library.
+Provides symmetric-key authenticated encryption and decryption, using
+primitives Poly1305 for authentication and XSalsa20 for encryption.
 
 #### crypto_secretbox.fact
 Definition | FaCT | C
@@ -54,21 +59,32 @@ Definition | FaCT | C
 --- | --- | ---
 _crypto_verify_16 | [stdlib.fact:1-8](/crypto_secretbox/stdlib.fact#L1-L8) | [crypto_verify/sodium/verify.c:63-78](/crypto_secretbox/tests/libsodium-c-cref/src/libsodium/crypto_verify/sodium/verify.c#L63-L78)
 
-## donna
+## donna/
+
+Implementation of Langley's curve25519-donna library, which provides the
+Curve25519 ECDH primitive.
 
 #### curve25519-c64.fact
 Definition | FaCT | C
 --- | --- | ---
 (full implementation) | [curve25519-c64.fact](/donna/curve25519-c64.fact) | [curve25519-donna-c64.c](/donna/tests/donna-c/curve25519-donna-c64.c)
 
-## openssl-ssl3
+## openssl-ssl3/
+
+Implementation of `ssl3_cbc_digest_record` from OpenSSL, which computes
+the MAC of a padded message from a decrypted SSL3 packet, without
+revealing the padding length.
 
 #### s3_cbc.fact
 Definition | FaCT | C
 --- | --- | ---
 (full implementation) | [s3_cbc.fact](/openssl-ssl3/s3_cbc.fact) | [ssl/s3_cbc.c:276-482](/openssl-ssl3/tests/openssl-fact/ssl/s3_cbc.c#L276-L482)
 
-## openssl-mee
+## openssl-mee/
+
+Implementation of `aesni_cbc_hmac_sha1_cipher` from OpenSSL, which
+verifies MAC and padding of an encrypted TLS message, without
+revealing the padding length.
 
 #### 20170717_latest.fact
 Definition | FaCT | C
