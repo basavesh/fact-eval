@@ -41,16 +41,16 @@ dut_secretbox_msg_asm: $(OBJS) $(OBJS_secretbox_asm) dut/secretbox/dut_secretbox
 	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
 
 dut_mee: $(OBJS) $(OBJS_mee) dut/mee/dut_mee.c
-	$(CC) $(LDFLAGS) $(INCS) -I../mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
+	$(CC) $(LDFLAGS) $(INCS) -I../openssl-mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
 
 dut_mee_mackey: $(OBJS) $(OBJS_mee) dut/mee/dut_mee_mackey.c
-	$(CC) $(LDFLAGS) $(INCS) -I../mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
+	$(CC) $(LDFLAGS) $(INCS) -I../openssl-mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
 
 dut_mee_key32: $(OBJS) $(OBJS_mee) dut/mee/dut_mee_key32.c
-	$(CC) $(LDFLAGS) $(INCS) -I../mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
+	$(CC) $(LDFLAGS) $(INCS) -I../openssl-mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
 
 dut_ssl3: $(OBJS) $(OBJS_ssl3) dut/ssl3/dut_ssl3.c
-	$(CC) $(LDFLAGS) $(INCS) -I../openssl/tests/openssl-fact/include/ -o $@ $^ $(LIBS) ./dut/ssl3/libssl.a ./dut/ssl3/libcrypto.a -static
+	$(CC) $(LDFLAGS) $(INCS) -I../openssl-ssl3/tests/openssl-fact/include/ -o $@ $^ $(LIBS) ./dut/ssl3/libssl.a ./dut/ssl3/libcrypto.a -static
 
 .c.o:
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
