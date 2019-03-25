@@ -3,9 +3,9 @@ all: dut_donna \
 	dut_secretbox_asm \
 	dut_secretbox_msg_cref \
 	dut_secretbox_msg_asm \
-	dut_saga \
-	dut_saga_mackey \
-	dut_saga_key32 \
+	dut_mee \
+	dut_mee_mackey \
+	dut_mee_key32 \
 	dut_ssl3
 
 OBJS = src/cpucycles.o src/fixture.o src/random.o \
@@ -13,7 +13,7 @@ src/ttest.o src/percentile.o
 OBJS_donna = dut/donna/curve25519-c64.O2.o
 OBJS_secretbox_cref = dut/secretbox/crypto_secretbox.cref.O2.o
 OBJS_secretbox_asm = dut/secretbox/crypto_secretbox.asm.O2.o
-OBJS_saga =
+OBJS_mee =
 CC=clang-6.0
 OPTIMIZATION=-O2
 #CFLAGS = -Weverything -O0 -fsanitize=memory -fno-omit-frame-pointer -g 
@@ -40,14 +40,14 @@ dut_secretbox_msg_cref: $(OBJS) $(OBJS_secretbox_cref) dut/secretbox/dut_secretb
 dut_secretbox_msg_asm: $(OBJS) $(OBJS_secretbox_asm) dut/secretbox/dut_secretbox_msg.c
 	$(CC) $(LDFLAGS) $(INCS) -o $@ $^ $(LIBS)
 
-dut_saga: $(OBJS) $(OBJS_saga) dut/saga/dut_saga.c
-	$(CC) $(LDFLAGS) $(INCS) -I../saga/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/saga/libcrypto.a -static
+dut_mee: $(OBJS) $(OBJS_mee) dut/mee/dut_mee.c
+	$(CC) $(LDFLAGS) $(INCS) -I../mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
 
-dut_saga_mackey: $(OBJS) $(OBJS_saga) dut/saga/dut_saga_mackey.c
-	$(CC) $(LDFLAGS) $(INCS) -I../saga/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/saga/libcrypto.a -static
+dut_mee_mackey: $(OBJS) $(OBJS_mee) dut/mee/dut_mee_mackey.c
+	$(CC) $(LDFLAGS) $(INCS) -I../mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
 
-dut_saga_key32: $(OBJS) $(OBJS_saga) dut/saga/dut_saga_key32.c
-	$(CC) $(LDFLAGS) $(INCS) -I../saga/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/saga/libcrypto.a -static
+dut_mee_key32: $(OBJS) $(OBJS_mee) dut/mee/dut_mee_key32.c
+	$(CC) $(LDFLAGS) $(INCS) -I../mee/tests/openssl-fact-ugly/include/ -o $@ $^ $(LIBS) ./dut/mee/libcrypto.a -static
 
 dut_ssl3: $(OBJS) $(OBJS_ssl3) dut/ssl3/dut_ssl3.c
 	$(CC) $(LDFLAGS) $(INCS) -I../openssl/tests/openssl-fact/include/ -o $@ $^ $(LIBS) ./dut/ssl3/libssl.a ./dut/ssl3/libcrypto.a -static

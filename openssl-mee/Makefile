@@ -14,4 +14,4 @@ generate:
 	mv *.bc *.ll ll/
 
 ctverify:
-	./saga_ctverify.sh > verifs/ctverif.results
+	./mee_ctverify.sh > verifs/ctverif.results

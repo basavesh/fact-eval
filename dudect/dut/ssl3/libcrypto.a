@@ -1,1 +1,1 @@
-../../../openssl/tests/openssl-fact/libcrypto.a
+../../../openssl-ssl3/tests/openssl-fact/libcrypto.a
