@@ -5,7 +5,7 @@ as well copies of each cryptographic library for the purposes of
 benchmarking. The directory already contains pre-built object files and
 assembly files for each case study, built for a 64-bit Ubuntu environment. If
 you would like to rebuild the files yourself, you can follow the instructions
-below to rebuild them from the FaCT source files.
+below to rebuild them from the [FaCT source files](https://github.com/PLSysSec/FaCT).
 
 #### Comparison of FaCT and C implementations
 
@@ -44,7 +44,7 @@ using `cloc --force-lang=c++`. The results are collected into `clocs.txt`.
 Note: We force `cloc`'s language parser to C++ for all files (even C
 implementations) to correctly handle C++-style comments.
 
-#### Verifying constant-time
+#### Validating constant-time
 
 To evaluate the case studies using dudect, you must first build the dudect test
 frameworks for each case study:
