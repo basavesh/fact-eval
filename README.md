@@ -9,7 +9,7 @@ below to rebuild them from the FaCT source files.
 
 #### Comparison of FaCT and C implementations
 
-Refer to the table in (comparison.md)[/comparison.md].
+Refer to the table in [comparison.md](/comparison.md).
 
 #### (Re)compiling FaCT ports
 
