@@ -11,6 +11,12 @@ below to rebuild them from the [FaCT source files](https://github.com/PLSysSec/F
 
 Refer to the table in [comparison.md](/comparison.md).
 
+#### Virtual machine image
+
+You can download a VM image pre-configured for building the FaCT compiler and case studies
+[here](https://drive.google.com/open?id=1xzw4Ohsdj4WqxJPl1RvvxSnhysMSejPi).
+The file `fact.ova` should have a SHA256 sum of `089398c85c5074d911c2f2b67ca22df453235e8733f1eb283c71717cf70f714c`.
+
 #### (Re)compiling FaCT ports
 
 To rebuild the FaCT implementations, first configure your environment:
@@ -59,3 +65,8 @@ suitably large number of sample sizes, and checking that the output continues
 to report: "For the moment, maybe constant time." The provided helper script,
 `run-all-10m.sh`, will run each test framework for 10 minutes while capturing
 output, as a convenience.
+
+#### Acknowledgements
+
+We thank the anonymous PLDI and PLDI AEC reviewers for their suggestions and
+insightful comments.
