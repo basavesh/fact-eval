@@ -14,7 +14,7 @@ OBJS_donna = dut/donna/curve25519-c64.O2.o
 OBJS_secretbox_cref = dut/secretbox/crypto_secretbox.cref.O2.o
 OBJS_secretbox_asm = dut/secretbox/crypto_secretbox.asm.O2.o
 OBJS_mee =
-CC=clang-6.0
+CC=clang-11
 OPTIMIZATION=-O2
 #CFLAGS = -Weverything -O0 -fsanitize=memory -fno-omit-frame-pointer -g 
 CFLAGS = $(OPTIMIZATION)

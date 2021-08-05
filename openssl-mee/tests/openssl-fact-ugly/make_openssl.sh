@@ -13,5 +13,5 @@ fi
 cp $SAGA_H $OPENSSL/crypto/evp/fact_aes_cbc_hmac_sha1_decrypt.h
 cp $SAGA_S $OPENSSL/crypto/evp/e_aes_cbc_hmac_sha1_decrypt.s
 
-CC=clang-6.0 CXX=clang++-6.0 ./config -static enable-ssl3 enable-ssl3-method
+CC=clang-11 CXX=clang++-11 ./config -static enable-ssl3 enable-ssl3-method
 make -j4
