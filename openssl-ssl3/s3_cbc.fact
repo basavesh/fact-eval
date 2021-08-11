@@ -27,9 +27,9 @@ export secret int32 __ssl3_cbc_digest_record(
   public uint64 max_mac_bytes = length - md_size - 1;
   public uint64 num_blocks = (max_mac_bytes + 1 + md_length_size + md_block_size - 1) / md_block_size;
   secret uint64 mac_end_offset = data_plus_mac_size + (len header) - md_size;
-  secret uint64 c = mac_end_offset % md_block_size;
-  secret uint64 index_a = mac_end_offset / md_block_size;
-  secret uint64 index_b = (mac_end_offset + md_length_size) / md_block_size;
+  secret uint64 c = mac_end_offset & (md_block_size - 1);
+  secret uint64 index_a = mac_end_offset >> 6;
+  secret uint64 index_b = (mac_end_offset + md_length_size) >> 6;
 
   public mut uint64 num_starting_blocks = 0;
   public mut uint64 k = 0; // XXX is this really public?
