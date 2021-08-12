@@ -14,9 +14,13 @@ all:
 
 generate:
 	$(FACTC) -llvm-out -generate-header $(FFLAGS) $(CREF_SRC) -o crypto_secretbox.cref.o
+	llc-11 -x86-speculative-load-hardening crypto_secretbox.cref.ll -filetype=obj
 	$(FACTC) -llvm-out -generate-header $(FFLAGS) -opt O2 $(CREF_SRC) -o crypto_secretbox.cref.O2.o
+	llc-11 -x86-speculative-load-hardening crypto_secretbox.cref.O2.ll -filetype=obj
 	$(FACTC) -llvm-out -generate-header $(FFLAGS) $(ASM_SRC) -o crypto_secretbox.asm.o
+	llc-11 -x86-speculative-load-hardening crypto_secretbox.asm.ll -filetype=obj
 	$(FACTC) -llvm-out -generate-header $(FFLAGS) -opt O2 $(ASM_SRC) -o crypto_secretbox.asm.O2.o
+	llc-11 -x86-speculative-load-hardening crypto_secretbox.asm.O2.ll -filetype=obj
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
 

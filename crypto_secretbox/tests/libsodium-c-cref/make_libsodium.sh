@@ -7,7 +7,7 @@ set -e
 LIBSODIUM=$PWD
 OBJ_DIR=$(readlink -f ../..)
 
-CC=clang-11 ./configure --enable-asm=no
+CC=clang-11 mspeculative-load-hardening ./configure --enable-asm=no
 
 # build libsodium
 make -j4

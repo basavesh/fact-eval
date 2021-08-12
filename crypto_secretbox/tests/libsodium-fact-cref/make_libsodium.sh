@@ -13,7 +13,7 @@ if [[ "$1" == "unopt" ]]; then
   SECRETBOX_O=$OBJ_DIR/obj/crypto_secretbox.asm.o
 fi
 
-CC=clang-11 ./configure --enable-asm=no
+CC=clang-11 mspeculative-load-hardening ./configure --enable-asm=no
 
 cp $SECRETBOX_H src/libsodium/include/sodium/fact_secretbox.h
 

@@ -17,7 +17,8 @@ OBJS_mee =
 CC=clang-11
 OPTIMIZATION=-O2
 #CFLAGS = -Weverything -O0 -fsanitize=memory -fno-omit-frame-pointer -g 
-CFLAGS = $(OPTIMIZATION)
+#CFLAGS = $(OPTIMIZATION)
+CFLAGS = -O2 -mspeculative-load-hardening
 LIBS = -lm
 #LDFLAGS = -fsanitize=memory -fno-omit-frame-pointer -g 
 #LDFLAGS = -Weverything $(OPTIMIZATION)

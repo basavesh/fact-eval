@@ -1,5 +1,5 @@
-CFLAGS=-Wmissing-prototypes -Wdeclaration-after-statement -O2 -Wall
-CFLAGS_32=-m32
+CFLAGS=-Wmissing-prototypes -Wdeclaration-after-statement -O2 -Wall mspeculative-load-hardening
+CFLAGS_32=-m32 mspeculative-load-hardening
 
 targets: curve25519-donna.a curve25519-donna-c64.a
 
