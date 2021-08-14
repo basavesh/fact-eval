@@ -1,0 +1,38 @@
+benchmark	% overhead of fact
+secretbox ref enc	-13.073420240699217
+secretbox ref dec	-5.106638087247561
+secretbox vec enc	-5.346278659262415
+secretbox vec dec	-2.394322089342138
+
+benchmark	% overhead of unopt fact
+secretbox ref enc	367.68237248816575
+secretbox ref dec	409.30844533884834
+secretbox vec enc	408.894350680026
+secretbox vec dec	424.17716495149034
+
+benchmark	% overhead of fact
+donna	7.186983443756234
+
+benchmark	% overhead of unopt fact
+donna	197.649177615784
+
+benchmark	% overhead of fact
+openssl-mee 256 MB	14.516129032258052
+openssl-mee 1 GB	-1.3539651837524147
+openssl-mee 4 GB	2.613746369796721
+
+benchmark	% overhead of unopt fact
+openssl-mee 256 MB	17.741935483870954
+openssl-mee 1 GB	0.0
+openssl-mee 4 GB	-1.4520813165537216
+
+benchmark	% overhead of fact
+openssl-ssl3 256 MB	4.285714285714293
+openssl-ssl3 1 GB	3.2525133057362376
+openssl-ssl3 4 GB	-0.14558159848594432
+
+benchmark	% overhead of unopt fact
+openssl-ssl3 256 MB	19.285714285714285
+openssl-ssl3 1 GB	14.192785334121826
+openssl-ssl3 4 GB	12.010481875090996
+
