@@ -17,5 +17,5 @@ cp $SSL3_S ssl/_s3_cbc.s
 touch ssl/s3_cbc.c
 
 # configure and build
-CC=clang-11 CXX=clang++-11 ./config -static enable-ssl3 enable-ssl3-method
+CC=clang-11 CXX=clang++-11 CFLAGS=-mspeculative-load-hardening CXXFLAGS=-mspeculative-load-hardening ./config -static enable-ssl3 enable-ssl3-method
 make -j4
