@@ -1629,7 +1629,7 @@ Lppcasm_add_adios:
 #	the AIX compiler. The only optimization is to use
 #	the PPC instruction to count leading zeros instead
 #	of call to num_bits_word. Since this was compiled
-#	only at level -O2 we can possibly squeeze it more?
+#	only at level -O3 we can possibly squeeze it more?
 #
 #	r3 = h
 #	r4 = l

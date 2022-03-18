@@ -41,6 +41,6 @@ print("get_public: %s" % abbreviate_time(elapsed_get_public / count))
 print("get_shared: %s" % abbreviate_time(elapsed_get_shared / count))
 
 # these take about 560us-570us each (with the default compiler settings, -Os)
-# on my laptop, same with -O2
+# on my laptop, same with -O3
 #  of which the python overhead is about 5us
 #  and the get_shared_key() hash step adds about 5us

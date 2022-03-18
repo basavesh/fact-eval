@@ -11749,7 +11749,7 @@ des-cbc           3624.96k     5258.21k     5530.91k     5624.30k     5628.26k
   *) Move openssl.cnf out of lib/.
      [Ulf Möller]
 
-  *) Fix various things to let OpenSSL even pass ``egcc -pipe -O2 -Wall
+  *) Fix various things to let OpenSSL even pass ``egcc -pipe -O3 -Wall
      -Wshadow -Wpointer-arith -Wcast-align -Wmissing-prototypes
      -Wmissing-declarations -Wnested-externs -Winline'' with EGCS 1.1.2+
      [Ralf S. Engelschall]
@@ -12916,4 +12916,3 @@ des-cbc           3624.96k     5258.21k     5530.91k     5624.30k     5628.26k
   *) A minor bug in ssl/s3_clnt.c where there would always be 4 0
      bytes sent in the client random.
      [Edward Bishop <ebishop@spyglass.com>]
-

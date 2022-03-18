@@ -8,7 +8,7 @@ FINAL := crypto_secretbox.fact
 CREF_SRC := $(BASE) $(SALSA20) $(FINAL)
 ASM_SRC := $(BASE) $(AVX) $(FINAL)
 
-FFLAGS = -addl "-fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow  -mllvm -x86-speculative-load-hardening"
+FFLAGS = -addl "-mretpoline -fvisibility=hidden -fPIC -fPIE -fno-strict-aliasing -fno-strict-overflow  -mllvm -x86-speculative-load-hardening"
 
 all:
 

@@ -6,7 +6,7 @@ export OSX_CPU_ARCH=${OSX_CPU_ARCH-"core2"}
 
 mkdir -p $PREFIX || exit 1
 
-export CFLAGS="-arch x86_64 -mmacosx-version-min=${OSX_VERSION_MIN} -march=${OSX_CPU_ARCH} -O2 -g"
+export CFLAGS="-arch x86_64 -mmacosx-version-min=${OSX_VERSION_MIN} -march=${OSX_CPU_ARCH} -O3 -g"
 export LDFLAGS="-arch x86_64 -mmacosx-version-min=${OSX_VERSION_MIN} -march=${OSX_CPU_ARCH}"
 
 make distclean > /dev/null

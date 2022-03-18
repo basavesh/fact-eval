@@ -29,7 +29,7 @@ https://github.com/llvm-mirror/llvm/tree/master/lib/Fuzzer if you prefer):
     $ cd svn-work
     $ svn co https://llvm.org/svn/llvm-project/compiler-rt/trunk/lib/fuzzer Fuzzer
     $ cd Fuzzer
-    $ clang++ -c -g -O2 -std=c++11 *.cpp
+    $ clang++ -c -g -O3 -std=c++11 *.cpp
     $ ar r libFuzzer.a *.o
     $ ranlib libFuzzer.a
 

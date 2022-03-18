@@ -2,7 +2,7 @@
 #
 #  Step 1.
 #  Configure for base system so simulator is covered
-#  
+#
 #  Step 2.
 #  Make for iOS and iOS simulator
 #
@@ -28,7 +28,7 @@ export PATH="${BASEDIR}/usr/bin:$BASEDIR/usr/sbin:$PATH"
 export SDK="${BASEDIR}/SDKs/iPhoneSimulator.sdk"
 
 ## i386 simulator
-export CFLAGS="-O2 -arch i386 -isysroot ${SDK} -mios-simulator-version-min=${IOS_SIMULATOR_VERSION_MIN}"
+export CFLAGS="-O3 -arch i386 -isysroot ${SDK} -mios-simulator-version-min=${IOS_SIMULATOR_VERSION_MIN}"
 export LDFLAGS="-arch i386 -isysroot ${SDK} -mios-simulator-version-min=${IOS_SIMULATOR_VERSION_MIN}"
 
 make distclean > /dev/null
@@ -51,7 +51,7 @@ PROCESSORS=${NPROCESSORS:-3}
 make -j${PROCESSORS} install || exit 1
 
 ## x86_64 simulator
-export CFLAGS="-O2 -arch x86_64 -isysroot ${SDK} -mios-simulator-version-min=${IOS_SIMULATOR_VERSION_MIN}"
+export CFLAGS="-O3 -arch x86_64 -isysroot ${SDK} -mios-simulator-version-min=${IOS_SIMULATOR_VERSION_MIN}"
 export LDFLAGS="-arch x86_64 -isysroot ${SDK} -mios-simulator-version-min=${IOS_SIMULATOR_VERSION_MIN}"
 
 make distclean > /dev/null
@@ -69,7 +69,7 @@ export PATH="${BASEDIR}/usr/bin:$BASEDIR/usr/sbin:$PATH"
 export SDK="${BASEDIR}/SDKs/iPhoneOS.sdk"
 
 ## 32-bit iOS
-export CFLAGS="-fembed-bitcode -O2 -mthumb -arch armv7 -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN}"
+export CFLAGS="-fembed-bitcode -O3 -mthumb -arch armv7 -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN}"
 export LDFLAGS="-fembed-bitcode -mthumb -arch armv7 -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN}"
 
 make distclean > /dev/null
@@ -82,7 +82,7 @@ make distclean > /dev/null
 make -j${PROCESSORS} install || exit 1
 
 ## 32-bit armv7s iOS
-export CFLAGS="-fembed-bitcode -O2 -mthumb -arch armv7s -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN}"
+export CFLAGS="-fembed-bitcode -O3 -mthumb -arch armv7s -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN}"
 export LDFLAGS="-fembed-bitcode -mthumb -arch armv7s -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN}"
 
 make distclean > /dev/null
@@ -95,7 +95,7 @@ make distclean > /dev/null
 make -j${PROCESSORS} install || exit 1
 
 ## 64-bit iOS
-export CFLAGS="-fembed-bitcode -O2 -arch arm64 -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN} -fembed-bitcode"
+export CFLAGS="-fembed-bitcode -O3 -arch arm64 -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN} -fembed-bitcode"
 export LDFLAGS="-fembed-bitcode -arch arm64 -isysroot ${SDK} -mios-version-min=${IOS_VERSION_MIN} -fembed-bitcode"
 
 make distclean > /dev/null
