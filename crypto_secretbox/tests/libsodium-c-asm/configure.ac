@@ -48,7 +48,7 @@ AS_IF([pwd | fgrep ' ' > /dev/null 2>&1],
 dnl Switches
 
 AC_ARG_ENABLE(ssp,
-[AS_HELP_STRING(--disable-ssp,Do not compile with -fstack-protector)],
+[AS_HELP_STRING(--disable-ssp,Do not compile with )],
 [
   AS_IF([test "x$enableval" = "xno"], [
     enable_ssp="no"
@@ -272,9 +272,9 @@ AS_IF([test "x$enable_ssp" != "xno"],[
 AS_CASE([$host_os],
   [cygwin*|mingw*|msys|pw32*|cegcc*|haiku], [ ],
   [*], [
-    AX_CHECK_COMPILE_FLAG([-fstack-protector], [
-      AX_CHECK_LINK_FLAG([-fstack-protector],
-        [CFLAGS="$CFLAGS -fstack-protector"]
+    AX_CHECK_COMPILE_FLAG([], [
+      AX_CHECK_LINK_FLAG([],
+        [CFLAGS="$CFLAGS "]
       )
     ])
   ])

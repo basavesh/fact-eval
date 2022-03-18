@@ -26,20 +26,3 @@ print('openssl-ssl3 256 MB', (median(fact_256m) / median(c_256m) - 1) * 100, sep
 print('openssl-ssl3 1 GB', (median(fact_1g) / median(c_1g) - 1) * 100, sep='\t')
 print('openssl-ssl3 4 GB', (median(fact_4g) / median(c_4g) - 1) * 100, sep='\t')
 print()
-
-if uname:
-    with open(uname) as f:
-        lines = (line.strip() for line in f.readlines() if line.startswith('user'))
-
-    times = [float(line.split()[1].replace('0m', '').replace('s', '')) for line in lines]
-    assert(len(times) == 4 * 5)
-
-    fact_256m = times[5:10]
-    fact_1g = times[10:15]
-    fact_4g = times[15:20]
-
-    print('benchmark', '% overhead of unopt fact', sep='\t')
-    print('openssl-ssl3 256 MB', (median(fact_256m) / median(c_256m) - 1) * 100, sep='\t')
-    print('openssl-ssl3 1 GB', (median(fact_1g) / median(c_1g) - 1) * 100, sep='\t')
-    print('openssl-ssl3 4 GB', (median(fact_4g) / median(c_4g) - 1) * 100, sep='\t')
-    print()

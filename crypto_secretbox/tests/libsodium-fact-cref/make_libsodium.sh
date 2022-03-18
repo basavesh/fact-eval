@@ -6,12 +6,8 @@ set -e
 
 LIBSODIUM=$PWD
 OBJ_DIR=$(readlink -f ../..)
-SECRETBOX_H=$OBJ_DIR/obj/crypto_secretbox.cref.O2.h
-SECRETBOX_O=$OBJ_DIR/obj/crypto_secretbox.cref.O2.o
-if [[ "$1" == "unopt" ]]; then
-  SECRETBOX_H=$OBJ_DIR/obj/crypto_secretbox.cref.h
-  SECRETBOX_O=$OBJ_DIR/obj/crypto_secretbox.cref.o
-fi
+SECRETBOX_H=$OBJ_DIR/obj/crypto_secretbox.cref.O3.h
+SECRETBOX_O=$OBJ_DIR/obj/crypto_secretbox.cref.O3.o
 
 CC=clang-11 CFLAGS=-mspeculative-load-hardening ./configure --enable-asm=no
 

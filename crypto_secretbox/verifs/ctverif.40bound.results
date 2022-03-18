@@ -1,8 +1,0 @@
-SUCCESS with args "-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.cref.ll"
-ERROR with args "-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.cref.O2.nolifetime.ll"
-ERROR with args "-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.asm.ll"
-ERROR with args "-v 40 _crypto_secretbox_wrapper crypto_secretbox_ctverifwrapper.c ll/crypto_secretbox.asm.O2.nolifetime.ll"
-ERROR with args "-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.cref.ll"
-ERROR with args "-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.cref.O2.nolifetime.ll"
-ERROR with args "-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.asm.ll"
-ERROR with args "-v 40 _crypto_secretbox_open_wrapper crypto_secretbox_open_ctverifwrapper.c ll/crypto_secretbox.asm.O2.nolifetime.ll"

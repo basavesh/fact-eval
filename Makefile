@@ -14,17 +14,10 @@ compile:
 
 %/bench:
 	[ -f 4gb ] || ./make_random_data.sh
-	cd $$(dirname $@) && make unopt bench
+	cd $$(dirname $@) && make bench
 
 results.txt: $(BENCHES)
 	rm -f results.txt
-	@for x in $(BASEDIRS); do (cd $$x/tests && ./parse_bench.py bench unopt) | tee -a results.txt; done
-
-clocs.txt:
-	rm -f clocs.txt
-	@echo "port\tc loc\tfact loc\tassume\tdeclassify\textern" | tee clocs.txt
-	@for x in $(BASEDIRS); do (cd $$x/tests && ./cloc.sh) | tee -a clocs.txt; done
+	@for x in $(BASEDIRS); do (cd $$x/tests && ./parse_bench.py bench) | tee -a results.txt; done
 
 bench: results.txt
-
-loc: clocs.txt

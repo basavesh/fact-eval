@@ -1,3 +1,11 @@
+crypto_secretbox/ll/*
+crypto_secretbox/obj/*
+donna/ll/*
+donna/obj/*
+openssl-mee/ll/*
+openssl-mee/obj/*
+openssl-ssl3/ll/*
+openssl-ssl3/obj/*
 *.pseudo.fact
 */tests/setup
 */tests/compile

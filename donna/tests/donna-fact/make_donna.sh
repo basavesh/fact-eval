@@ -3,10 +3,7 @@ set -e
 
 DONNA=$PWD
 OBJ_DIR=../..
-DONNA_O=$OBJ_DIR/obj/curve25519-c64.O2.o
-if [[ "$1" == "unopt" ]]; then
-  DONNA_O=$OBJ_DIR/obj/curve25519-c64.o
-fi
+DONNA_O=$OBJ_DIR/obj/curve25519-c64.O3.o
 
 # copy FaCT port
 cp $DONNA_O $DONNA/curve25519-donna-fact64.o

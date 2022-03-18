@@ -29,22 +29,3 @@ print("secretbox ref dec", (median(fact_ref_dec) / median(c_ref_dec) - 1) * 100,
 print("secretbox vec enc", (median(fact_vec_enc) / median(c_vec_enc) - 1) * 100, sep='\t')
 print("secretbox vec dec", (median(fact_vec_dec) / median(c_vec_dec) - 1) * 100, sep='\t')
 print()
-
-if uname:
-    with open(uname) as f:
-        lines = (line.strip() for line in f.readlines() if 'picoseconds' in line)
-
-    times = [int(line.split()[2].replace(',', '')) for line in lines]
-    assert(len(times) == 2 * 2 * 5)
-
-    fact_ref_enc = times[0::4]
-    fact_ref_dec = times[1::4]
-    fact_vec_enc = times[2::4]
-    fact_vec_dec = times[3::4]
-
-    print('benchmark', '% overhead of unopt fact', sep='\t')
-    print("secretbox ref enc", (median(fact_ref_enc) / median(c_ref_enc) - 1) * 100, sep='\t')
-    print("secretbox ref dec", (median(fact_ref_dec) / median(c_ref_dec) - 1) * 100, sep='\t')
-    print("secretbox vec enc", (median(fact_vec_enc) / median(c_vec_enc) - 1) * 100, sep='\t')
-    print("secretbox vec dec", (median(fact_vec_dec) / median(c_vec_dec) - 1) * 100, sep='\t')
-    print()
