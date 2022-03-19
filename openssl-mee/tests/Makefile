@@ -9,7 +9,7 @@ test: compile
 
 bench: test
 	cd openssl-fact-ugly/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
-	@echo "openssl-fact-ugly" >> bench
+	@echo "openssl-fact-ugly" > bench
 	@tail -n132 openssl-fact-ugly/apps/benchmarks.log >> bench
 	@echo "output written to bench"
 

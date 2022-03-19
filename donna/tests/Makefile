@@ -1,7 +1,6 @@
 all:
 
 compile:
-	cd donna-c && ./make_donna.sh
 	cd donna-fact && ./make_donna.sh
 	touch compile
 
