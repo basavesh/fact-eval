@@ -12,9 +12,16 @@ generate:
 compile:
 	@for x in $(BASEDIRS); do (cd $$x/tests && make compile); done
 
+recompile:
+	@for x in $(BASEDIRS); do (cd $$x/tests && make recompile); done
+
 %/bench:
 	[ -f 4gb ] || ./make_random_data.sh
 	cd $$(dirname $@) && make bench
+
+%/rebench:
+	[ -f 4gb ] || ./make_random_data.sh
+	cd $$(dirname $@) && make rebench
 
 results.txt: $(BENCHES)
 	rm -f results.txt

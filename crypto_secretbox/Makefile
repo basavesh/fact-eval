@@ -15,5 +15,9 @@ all:
 generate:
 	$(FACTC) -llvm-out -generate-header $(FFLAGS) -opt O3 $(CREF_SRC) -o crypto_secretbox.cref.O3.o
 	$(FACTC) -llvm-out -generate-header $(FFLAGS) -opt O3 $(ASM_SRC) -o crypto_secretbox.asm.O3.o
+	mkdir -p ll obj
 	mv *.o *.s *.h obj/
 	mv *.bc *.ll ll/
+
+clean:
+	rm -r ll obj
