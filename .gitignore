@@ -14,3 +14,7 @@ openssl-ssl3/obj/*
 */tests/unopt
 benchmarks.log
 /results
+1gb
+256mb
+4gb
+64mb

@@ -9,7 +9,7 @@ fname = sys.argv[1]
 uname = sys.argv[2] if len(sys.argv) > 2 else None
 
 with open(fname) as f:
-    lines = (line.strip() for line in f.readlines() if 'picoseconds' in line)
+    lines = (line.strip() for line in f.readlines() if 'cpucycles' in line)
 
 times = [int(line.split()[2].replace(',', '')) for line in lines]
 assert(len(times) == 2 * 4 * 5)
