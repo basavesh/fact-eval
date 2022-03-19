@@ -258,7 +258,7 @@ int ssl3_cbc_digest_record(const EVP_MD_CTX *ctx,
 if (is_sslv3 && sha_type == NID_sha1) {
     memset(mac_out, 0, sizeof(mac_out));
     memset(hmac_pad, 0, md_block_size);
-
+    // BASH TODO
     ret = __ssl3_cbc_digest_record(
         // outputs
         md_state.c,

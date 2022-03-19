@@ -487,6 +487,7 @@ static int aesni_cbc_hmac_sha1_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
 
         if (plen != NO_PAYLOAD_LENGTH) { /* "TLS" mode of operation */
 #if 1
+        // BASH TODO
           return _aesni_cbc_hmac_sha1_cipher(
               EVP_CIPHER_CTX_iv_noconst(ctx),
               data(ctx),
