@@ -14,7 +14,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
-#include <inttypes.h>
 
 #include "sodium.h"
 #include "quirks.h"
@@ -44,28 +43,6 @@ int xmain(void);
 # ifndef ITERATIONS
 #  define ITERATIONS (0x1000000)
 # endif
-
-static inline uint64_t cpucycles(void) {
-   uint64_t result;
-
-   __asm__ volatile ("rdtsc; shlq $32,%%rdx; orq %%rdx,%%rax"
-     : "=a" (result) : : "%rdx");
-
-   return result;
- }
-
- static int cmp_uint64(const void *a, const void *b) {
-   if(*(uint64_t *)a < *(uint64_t *)b) return -1;
-   if(*(uint64_t *)a > *(uint64_t *)b) return 1;
-   return 0;
- }
-
- static uint64_t median(uint64_t *l, size_t llen) {
-   qsort(l,llen,sizeof(uint64_t),cmp_uint64);
-
-   if(llen%2) return l[llen/2];
-   else return (l[llen/2-1]+l[llen/2])/2;
- }
 
 struct {
     void   *pnt;
@@ -163,8 +140,9 @@ static void prcomma(unsigned long long diff) {
 
 int main(void)
 {
+    unsigned long long ts_start;
+    unsigned long long ts_end;
     unsigned int       i;
-    uint64_t t[ITERATIONS];
 
     if (sodium_init() != 0) {
         return 99;
@@ -173,20 +151,15 @@ int main(void)
 #ifndef __EMSCRIPTEN__
     randombytes_set_implementation(&randombytes_salsa20_implementation);
 #endif
-
+    ts_start = now();
     for (i = 0; i < ITERATIONS; i++) {
-        t[i] = cpucycles();
         if (xmain() != 0) {
             abort();
         }
     }
-
-    // New code
-    for (i = 0; i < ITERATIONS - 1; ++i) {
-      t[i] = t[i+1] - t[i];
-    }
-    printf("%" PRIu64 "\n",  median(t, ITERATIONS -1));
-
+    ts_end = now();
+    prcomma(1000000ULL * (ts_end - ts_start) / ITERATIONS);
+    printf("\n");
     if (mempool_free_all() != 0) {
         fprintf(stderr, "** memory leaks detected **\n");
         return 99;
