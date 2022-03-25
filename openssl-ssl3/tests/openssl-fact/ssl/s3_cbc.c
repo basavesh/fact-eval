@@ -13,18 +13,6 @@
 
 #include <openssl/md5.h>
 #include <openssl/sha.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <inttypes.h>
-
-static inline uint64_t cpucycles(void) {
-   uint64_t result;
-
-   __asm__ volatile ("rdtsc; shlq $32,%%rdx; orq %%rdx,%%rax"
-     : "=a" (result) : : "%rdx");
-
-   return result;
- }
 
 #include "fact_s3_cbc.h"
 
@@ -271,9 +259,6 @@ if (is_sslv3 && sha_type == NID_sha1) {
     memset(mac_out, 0, sizeof(mac_out));
     memset(hmac_pad, 0, md_block_size);
     // BASH TODO
-    FILE *fptr;
-    uint64_t start, end;
-    start = cpucycles();
     ret = __ssl3_cbc_digest_record(
         // outputs
         md_state.c,
@@ -284,12 +269,6 @@ if (is_sslv3 && sha_type == NID_sha1) {
         data,
         data_plus_mac_plus_padding_size,
         data_plus_mac_size);
-    end = cpucycles();
-    fptr = fopen("new_benchmark.log","a");
-    if (fptr != NULL) {
-        fprintf(fptr, "%" PRIu64 "\n", end - start);
-        fclose(fptr);
-    }
     if (ret == 0)
       return 0; // "Should never happen"
 //#else

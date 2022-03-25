@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdint.h>
-#include <inttypes.h>
 
 #include <openssl/evp.h>
 #include <openssl/objects.h>
@@ -34,15 +32,6 @@ typedef struct {
         unsigned char tls_aad[16]; /* 13 used */
     } aux;
 } EVP_AES_HMAC_SHA1;
-
-static inline uint64_t cpucycles(void) {
-   uint64_t result;
-
-   __asm__ volatile ("rdtsc; shlq $32,%%rdx; orq %%rdx,%%rax"
-     : "=a" (result) : : "%rdx");
-
-   return result;
- }
 
 #define NO_PAYLOAD_LENGTH       ((size_t)-1)
 
@@ -499,11 +488,7 @@ static int aesni_cbc_hmac_sha1_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
         if (plen != NO_PAYLOAD_LENGTH) { /* "TLS" mode of operation */
 #if 1
         // BASH TODO
-        FILE *fptr;
-        uint64_t start, end;
-          int ret;
-        start = cpucycles();
-          ret = _aesni_cbc_hmac_sha1_cipher(
+          return _aesni_cbc_hmac_sha1_cipher(
               EVP_CIPHER_CTX_iv_noconst(ctx),
               data(ctx),
               out,
@@ -511,13 +496,6 @@ static int aesni_cbc_hmac_sha1_cipher(EVP_CIPHER_CTX *ctx, unsigned char *out,
               in,
               len,
               key->aux.tls_aad[plen - 4] << 8 | key->aux.tls_aad[plen - 3]);
-        end = cpucycles();
-        fptr = fopen("new_benchmark.log","a");
-        if (fptr != NULL) {
-            fprintf(fptr, "%" PRIu64 "\n", end - start);
-            fclose(fptr);
-        }
-          return ret;
 #else
 //>> replacing >>
             size_t inp_len, mask, j, i;
