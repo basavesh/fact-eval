@@ -15,6 +15,6 @@ for x in $(seq 5); do
   ./openssl s_server -ign_eof -quiet -cipher AES256-SHA -cert server.pem < ../../../../$1 &
   serv=$!
   sleep 0.5
-  { time ./openssl s_client -ign_eof >/dev/null 2>/dev/null ; } 2>> benchmarks.log
+  { time ./openssl s_client -ign_eof -no_tls1_3 >/dev/null 2>/dev/null ; } 2>> benchmarks.log
   kill $serv
 done
