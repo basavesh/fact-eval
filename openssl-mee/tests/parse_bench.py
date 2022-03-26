@@ -19,7 +19,7 @@ fact_1g = times[10:15]
 fact_4g = times[15:20]
 
 print('benchmark', 'cpucycles', sep='\t')
-print('openssl-ssl3 256 MB', median(fact_256m), sep='\t')
-print('openssl-ssl3 1 GB', median(fact_1g), sep='\t')
-print('openssl-ssl3 4 GB', median(fact_4g) , sep='\t')
+print('openssl-mee 256 MB', median(fact_256m), sep='\t')
+print('openssl-mee 1 GB', median(fact_1g), sep='\t')
+print('openssl-mee 4 GB', median(fact_4g) , sep='\t')
 print()
