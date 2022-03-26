@@ -36,20 +36,5 @@ static unsigned char m[163];
 int
 main(void)
 {
-    int i;
-
-    if (crypto_secretbox_open(m, c, 163, nonce, firstkey) == 0) {
-        for (i = 32; i < 163; ++i) {
-            printf(",0x%02x", (unsigned int) m[i]);
-            if (i % 8 == 7)
-                printf("\n");
-        }
-        printf("\n");
-    }
-    assert(crypto_secretbox_open(m, c, 31, nonce, firstkey) == -1);
-    assert(crypto_secretbox_open(m, c, 16, nonce, firstkey) == -1);
-    assert(crypto_secretbox_open(m, c, 1, nonce, firstkey) == -1);
-    assert(crypto_secretbox_open(m, c, 0, nonce, firstkey) == -1);
-
-    return 0;
+    return crypto_secretbox_open(m, c, 163, nonce, firstkey);
 }

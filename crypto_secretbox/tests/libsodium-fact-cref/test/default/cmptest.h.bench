@@ -184,16 +184,14 @@ int main(void)
 
     for (i = 0; i < ITERATIONS; i++) {
         t[i] = cpucycles();
-        if (xmain() != 0) {
-            abort();
-        }
+        xmain();
     }
 
     // New code
     for (i = 0; i < ITERATIONS - 1; ++i) {
         t[i] = t[i+1] - t[i];
     }
-    printf("%" PRIu64 "\n",  median(t, ITERATIONS -1));
+    printf("%" PRIu64 " cpucycles\n",  median(t, ITERATIONS -1));
 
     if (mempool_free_all() != 0) {
         fprintf(stderr, "** memory leaks detected **\n");

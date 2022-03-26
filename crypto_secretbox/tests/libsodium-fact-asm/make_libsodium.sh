@@ -39,13 +39,3 @@ ld -r secretbox.o ../crypto_secretbox.o -o libsodium_la-crypto_secretbox.o
 cd $LIBSODIUM
 touch src/libsodium/crypto_secretbox/libsodium_la-crypto_secretbox.lo
 make -j4
-
-cd test/default
-
-# run tests
-cp cmptest.h.orig cmptest.h
-for box in secretbox{,2,7,8}; do
-  touch $box.c
-  make $box.log
-  cat $box.log
-done

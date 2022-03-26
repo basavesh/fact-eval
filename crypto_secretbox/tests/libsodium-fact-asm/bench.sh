@@ -17,6 +17,7 @@ echo "FaCT implementation, vectors: yes" >> ../../benchmarks.log
 for box in secretbox{,2}; do
   touch $box.c
   echo -n "Benchmark ($box): " | tee -a ../../benchmarks.log
-  make $box.log >/dev/null
-  echo $(grep -E '^[[:digit:],]+$' $box.log) "cpucycles" | tee -a ../../benchmarks.log
+  make $box >/dev/null
+  ./$box | tee -a ../../benchmarks.log
+  # echo $(grep -E '^[[:digit:],]+$' $box.log) "cpucycles" | tee -a ../../benchmarks.log
 done
