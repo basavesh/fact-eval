@@ -7,10 +7,10 @@ compile:
 test: compile
 	( cd openssl-fact-ugly && ./apps/openssl test 2>&1 ) | tee -a test
 
-bench: test
-	cd openssl-fact-ugly/apps && for x in 64mb 256mb 1gb 4gb; do ./bench.sh $$x; done
+bench:
+	cd openssl-fact-ugly/apps && ./bench.sh
 	@echo "openssl-fact-ugly" > bench
-	@tail -n132 openssl-fact-ugly/apps/benchmarks.log >> bench
+	@head -n100 openssl-fact-ugly/apps/benchmarks.log >> bench
 	@echo "output written to bench"
 
 recompile:

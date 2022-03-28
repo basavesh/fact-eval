@@ -182,6 +182,15 @@ out:
     return ret;
 }
 
+static inline uint64_t cpucycles(void) {
+    uint64_t result;
+
+    __asm__ volatile ("rdtsc; shlq $32,%%rdx; orq %%rdx,%%rax"
+      : "=a" (result) : : "%rdx");
+
+    return result;
+}
+
 /*
  * do_server - helper routine to perform a server operation
  * @accept_sock: pointer to storage of resulting socket.
@@ -215,6 +224,8 @@ int do_server(int *accept_sock, const char *host, const char *port,
     const BIO_ADDR *sock_address;
     int sock_options = BIO_SOCK_REUSEADDR;
     int ret = 0;
+    FILE *fptr;
+    uint64_t start, end;
 
     if (BIO_sock_init() != 1)
         return 0;
@@ -337,8 +348,14 @@ int do_server(int *accept_sock, const char *host, const char *port,
                 break;
             }
             BIO_set_tcp_ndelay(sock, 1);
+            start = cpucycles();
             i = (*cb)(sock, type, protocol, context);
-
+            end = cpucycles();
+            fptr = fopen("benchmarks.log","a");
+            if (fptr != NULL) {
+                fprintf(fptr, "%" PRIu64 "\n", end - start);
+                fclose(fptr);
+            }
             /*
              * If we ended with an alert being sent, but still with data in the
              * network buffer to be read, then calling BIO_closesocket() will
