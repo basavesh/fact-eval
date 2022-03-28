@@ -10,7 +10,7 @@ rm -f benchmarks.log
 #serv=$!
 #sleep 2
 echo $1
-for x in $(seq 10); do
+for x in $(seq 50); do
     ./openssl s_client -no_tls1_3  < ../../../../$1 >/dev/null 2>/dev/null
 done
 #kill $serv
