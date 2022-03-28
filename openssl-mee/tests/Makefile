@@ -10,7 +10,7 @@ test: compile
 bench:
 	# cd openssl-fact-ugly/apps && ./bench.sh
 	@echo "openssl-fact-ugly" > bench
-	@head -n100 openssl-fact-ugly/apps/benchmarks.log >> bench
+	@head -n10 openssl-fact-ugly/apps/benchmarks.log >> bench
 	@echo "output written to bench"
 
 recompile:

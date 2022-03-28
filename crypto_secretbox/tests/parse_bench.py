@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from statistics import median
+import numpy as np
 
 assert(len(sys.argv) > 1)
 
@@ -12,16 +12,17 @@ with open(fname) as f:
     lines = (line.strip() for line in f.readlines() if 'cpucycles' in line)
 
 times = [int(line.split()[2].replace(',', '')) for line in lines]
-assert(len(times) == 1 * 4 * 5)
+assert(len(times) == 1 * 4 * 10)
 
-fact_ref_enc = times[0::8]
-fact_ref_dec = times[1::8]
-fact_vec_enc = times[2::8]
-fact_vec_dec = times[3::8]
+fact_ref_enc = times[0::4]
+fact_ref_dec = times[1::4]
+fact_vec_enc = times[2::4]
+fact_vec_dec = times[3::4]
 
-print('benchmark', 'cpucycles', sep='\t')
-print("secretbox ref enc", median(fact_ref_enc), sep='\t')
-print("secretbox ref dec", median(fact_ref_dec), sep='\t')
-print("secretbox vec enc", median(fact_vec_enc), sep='\t')
-print("secretbox vec dec", median(fact_vec_dec), sep='\t')
+
+print('benchmark', 'cpucycles(25, 50, 75 percentile)', sep='\t\t')
+print("secretbox ref enc", np.percentile(fact_ref_enc, [25, 50, 75]), sep='\t')
+print("secretbox ref dec", np.percentile(fact_ref_dec, [25, 50, 75]), sep='\t')
+print("secretbox vec enc", np.percentile(fact_vec_enc, [25, 50, 75]), sep='\t')
+print("secretbox vec dec", np.percentile(fact_vec_dec, [25, 50, 75]), sep='\t')
 print()

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
-from statistics import median
+import numpy as np
 
 assert(len(sys.argv) > 1)
 
@@ -13,10 +13,10 @@ with open(fname) as f:
     lines = (line for line in lines if 'donna-fact' in line)
 
 times = [float(line.split(',')[1].replace('us', '')) for line in lines]
-assert(len(times) == 1 * 5)
+assert(len(times) == 1 * 10)
 
-fact = times[0::2]
+fact = times[0::1]
 
-print('benchmark', 'cpucycles', sep='\t')
-print("donna", median(fact) , sep='\t')
+print('benchmark', 'cpucycles(25, 50, 75 percentile)', sep='\t')
+print("donna", np.percentile(fact, [25, 50, 75]) , sep='\t\t')
 print()

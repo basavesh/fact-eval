@@ -1,7 +1,7 @@
 #!/bin/bash
 
 rm -f bench.tmp
-for i in $(seq 5); do
+for i in $(seq 10); do
   echo | tee -a bench.tmp
   echo $i | tee -a bench.tmp
   ( cd libsodium-fact-cref && ./bench.sh )

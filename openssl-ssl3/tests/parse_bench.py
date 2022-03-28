@@ -14,7 +14,7 @@ with open(fname) as f:
 cpucycles = [line for line in lines]
 cpucycles = [int(x) for x in cpucycles]
 
-assert(len(cpucycles) == 100)
+assert(len(cpucycles) == 10)
 
 print('benchmark', 'cpucycles', sep='\t\t\t')
 print('openssl-ssl3 25 percentile', np.percentile(cpucycles, 25), sep='\t')
