@@ -8,7 +8,7 @@ test: compile
 	( cd openssl-fact-ugly && ./apps/openssl test 2>&1 ) | tee -a test
 
 bench:
-	cd openssl-fact-ugly/apps && ./bench.sh
+	# cd openssl-fact-ugly/apps && ./bench.sh
 	@echo "openssl-fact-ugly" > bench
 	@head -n100 openssl-fact-ugly/apps/benchmarks.log >> bench
 	@echo "output written to bench"
